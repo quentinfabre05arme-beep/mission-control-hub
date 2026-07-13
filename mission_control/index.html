@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@quentinvest1 | Mission Control v7.0</title>
+    <title>@quentinvest1 | Mission Control v7.5</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,7 +17,7 @@
             <div class="logo">
                 <span class="logo-icon">🐾</span>
                 <span>Mission Control</span>
-                <span class="version-tag">v7.0</span>
+                <span class="version-tag">v7.5</span>
             </div>
             <div class="status-badge">
                 <span class="status-dot"></span>
@@ -154,7 +154,7 @@
                     <span class="section-title">📊 Market Overview</span>
                     <span class="live-indicator">
                         <span class="live-dot"></span>
-                        Live
+                        Live — <span id="data-freshness">just now</span>
                     </span>
                 </div>
                 <div class="market-grid" id="market-cards">
@@ -2347,7 +2347,31 @@ Errors: 0</div>
     <!-- Toast Container -->
     <div class="toast-container" id="toastContainer"></div>
 
+    <!-- Search Modal (triggered with / key) -->
+    <div id="search-modal" class="search-modal" style="display: none;">
+        <div class="search-container">
+            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                <span style="font-size: 1.25rem;">🔍</span>
+                <input type="text" id="search-input" placeholder="Search assets, posts, analytics..." class="search-input" style="flex: 1; background: transparent; border: none; color: white; font-size: 1rem; outline: none;">
+                <span style="font-size: 0.75rem; color: var(--text-tertiary); background: var(--glass-bg-light); padding: 0.25rem 0.5rem; border-radius: 4px;">ESC to close</span>
+            </div>
+            <div id="search-results" class="search-results"></div>
+        </div>
+    </div>
+
     <script>
+        // Keyboard shortcut: / to open search
+        document.addEventListener('keydown', (e) => {
+            if (e.key === '/' && !e.ctrlKey && !e.metaKey) {
+                e.preventDefault();
+                document.getElementById('search-modal').style.display = 'flex';
+                document.getElementById('search-input').focus();
+            }
+            if (e.key === 'Escape') {
+                document.getElementById('search-modal').style.display = 'none';
+            }
+        });
+
         // Section Navigation
         function showSection(sectionId) {
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
@@ -2988,6 +3012,36 @@ Errors: 0</div>
         document.addEventListener('visibilitychange', () => {
             if (!document.hidden) fetchMarketData();
         });
+
+        // Data freshness updater
+        function updateDataFreshness() {
+            const freshnessEl = document.getElementById('data-freshness');
+            if (!freshnessEl) return;
+            
+            const cards = document.querySelectorAll('.asset-card');
+            let oldestUpdate = Date.now();
+            
+            cards.forEach(card => {
+                const lastUpdate = card.dataset.lastUpdate;
+                if (lastUpdate) {
+                    const updateTime = new Date(lastUpdate).getTime();
+                    if (updateTime < oldestUpdate) {
+                        oldestUpdate = updateTime;
+                    }
+                }
+            });
+            
+            const seconds = Math.floor((Date.now() - oldestUpdate) / 1000);
+            let text;
+            if (seconds < 60) text = 'just now';
+            else if (seconds < 3600) text = `${Math.floor(seconds/60)}m ago`;
+            else text = `${Math.floor(seconds/3600)}h ago`;
+            
+            freshnessEl.textContent = text;
+        }
+        
+        // Update freshness every 10 seconds
+        setInterval(updateDataFreshness, 10000);
 
     </script>
 </body>
