@@ -1,0 +1,191 @@
+{
+  "ETH Treasury Plays": {
+    "pillar": "ETH Treasury Plays",
+    "date": "2026-07-12",
+    "optimal_time": "11:00",
+    "angles": [
+      {
+        "type": "contrarian",
+        "headline": "[CONTRARIAN] ETH Treasury Plays - Challenge conventional wisdom",
+        "hook": "Attention-grabbing opening line ->",
+        "body": "[FACT-CHECKED] Detailed content based on 3 sources...",
+        "score": 19,
+        "breakdown": {
+          "hook": 3,
+          "value": 5,
+          "timeliness": 5,
+          "format": 6
+        },
+        "reply_hook": "What do you think? Reply with your take..."
+      },
+      {
+        "type": "data-driven",
+        "headline": "[DATA-DRIVEN] ETH Treasury Plays - Lead with surprising numbers",
+        "hook": "Attention-grabbing opening line ->",
+        "body": "[FACT-CHECKED] Detailed content based on 3 sources...",
+        "score": 19,
+        "breakdown": {
+          "hook": 3,
+          "value": 5,
+          "timeliness": 5,
+          "format": 6
+        },
+        "reply_hook": "What do you think? Reply with your take..."
+      },
+      {
+        "type": "thread-hook",
+        "headline": "[THREAD-HOOK] ETH Treasury Plays - Build narrative tension",
+        "hook": "Attention-grabbing opening line ->",
+        "body": "[FACT-CHECKED] Detailed content based on 3 sources...",
+        "score": 19,
+        "breakdown": {
+          "hook": 3,
+          "value": 5,
+          "timeliness": 5,
+          "format": 6
+        },
+        "reply_hook": "What do you think? Reply with your take..."
+      },
+      {
+        "type": "educational",
+        "headline": "[EDUCATIONAL] ETH Treasury Plays - Explain the 'why'",
+        "hook": "Attention-grabbing opening line ->",
+        "body": "[FACT-CHECKED] Detailed content based on 3 sources...",
+        "score": 19,
+        "breakdown": {
+          "hook": 3,
+          "value": 5,
+          "timeliness": 5,
+          "format": 6
+        },
+        "reply_hook": "What do you think? Reply with your take..."
+      }
+    ]
+  },
+  "HIMS Healthcare Infrastructure": {
+    "pillar": "HIMS Healthcare Infrastructure",
+    "date": "2026-07-12",
+    "optimal_time": "11:00",
+    "angles": [
+      {
+        "type": "contrarian",
+        "headline": "[CONTRARIAN] HIMS Healthcare Infrastructure - Challenge conventional wisdom",
+        "hook": "Attention-grabbing opening line ->",
+        "body": "[FACT-CHECKED] Detailed content based on 3 sources...",
+        "score": 19,
+        "breakdown": {
+          "hook": 3,
+          "value": 5,
+          "timeliness": 5,
+          "format": 6
+        },
+        "reply_hook": "What do you think? Reply with your take..."
+      },
+      {
+        "type": "data-driven",
+        "headline": "[DATA-DRIVEN] HIMS Healthcare Infrastructure - Lead with surprising numbers",
+        "hook": "Attention-grabbing opening line ->",
+        "body": "[FACT-CHECKED] Detailed content based on 3 sources...",
+        "score": 19,
+        "breakdown": {
+          "hook": 3,
+          "value": 5,
+          "timeliness": 5,
+          "format": 6
+        },
+        "reply_hook": "What do you think? Reply with your take..."
+      },
+      {
+        "type": "thread-hook",
+        "headline": "[THREAD-HOOK] HIMS Healthcare Infrastructure - Build narrative tension",
+        "hook": "Attention-grabbing opening line ->",
+        "body": "[FACT-CHECKED] Detailed content based on 3 sources...",
+        "score": 19,
+        "breakdown": {
+          "hook": 3,
+          "value": 5,
+          "timeliness": 5,
+          "format": 6
+        },
+        "reply_hook": "What do you think? Reply with your take..."
+      },
+      {
+        "type": "educational",
+        "headline": "[EDUCATIONAL] HIMS Healthcare Infrastructure - Explain the 'why'",
+        "hook": "Attention-grabbing opening line ->",
+        "body": "[FACT-CHECKED] Detailed content based on 3 sources...",
+        "score": 19,
+        "breakdown": {
+          "hook": 3,
+          "value": 5,
+          "timeliness": 5,
+          "format": 6
+        },
+        "reply_hook": "What do you think? Reply with your take..."
+      }
+    ]
+  },
+  "AI Agentic Commerce": {
+    "pillar": "AI Agentic Commerce",
+    "date": "2026-07-12",
+    "optimal_time": "11:00",
+    "angles": [
+      {
+        "type": "contrarian",
+        "headline": "[CONTRARIAN] AI Agentic Commerce - Challenge conventional wisdom",
+        "hook": "Attention-grabbing opening line ->",
+        "body": "[FACT-CHECKED] Detailed content based on 3 sources...",
+        "score": 19,
+        "breakdown": {
+          "hook": 3,
+          "value": 5,
+          "timeliness": 5,
+          "format": 6
+        },
+        "reply_hook": "What do you think? Reply with your take..."
+      },
+      {
+        "type": "data-driven",
+        "headline": "[DATA-DRIVEN] AI Agentic Commerce - Lead with surprising numbers",
+        "hook": "Attention-grabbing opening line ->",
+        "body": "[FACT-CHECKED] Detailed content based on 3 sources...",
+        "score": 19,
+        "breakdown": {
+          "hook": 3,
+          "value": 5,
+          "timeliness": 5,
+          "format": 6
+        },
+        "reply_hook": "What do you think? Reply with your take..."
+      },
+      {
+        "type": "thread-hook",
+        "headline": "[THREAD-HOOK] AI Agentic Commerce - Build narrative tension",
+        "hook": "Attention-grabbing opening line ->",
+        "body": "[FACT-CHECKED] Detailed content based on 3 sources...",
+        "score": 19,
+        "breakdown": {
+          "hook": 3,
+          "value": 5,
+          "timeliness": 5,
+          "format": 6
+        },
+        "reply_hook": "What do you think? Reply with your take..."
+      },
+      {
+        "type": "educational",
+        "headline": "[EDUCATIONAL] AI Agentic Commerce - Explain the 'why'",
+        "hook": "Attention-grabbing opening line ->",
+        "body": "[FACT-CHECKED] Detailed content based on 3 sources...",
+        "score": 19,
+        "breakdown": {
+          "hook": 3,
+          "value": 5,
+          "timeliness": 5,
+          "format": 6
+        },
+        "reply_hook": "What do you think? Reply with your take..."
+      }
+    ]
+  }
+}

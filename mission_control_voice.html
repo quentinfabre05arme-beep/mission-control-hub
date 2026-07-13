@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@quentinvest1 | Voice Interface Dashboard v5.8</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-tertiary: #1a1a1a;
+            --bg-card: #161616;
+            --bg-hover: #1e1e1e;
+            --accent-cyan: #00d4ff;
+            --accent-green: #00ff88;
+            --accent-orange: #ff8800;
+            --accent-red: #ff0044;
+            --accent-purple: #8800ff;
+            --accent-gold: #ffd700;
+            --accent-pink: #ff0066;
+            --accent-teal: #00ffcc;
+            --accent-lime: #ccff00;
+            --accent-blue: #0088ff;
+            --text-primary: #ffffff;
+            --text-secondary: #888888;
+            --text-dim: #444444;
+            --border-color: #222222;
+            --glass-bg: rgba(22, 22, 22, 0.9);
+            --glass-border: rgba(34, 34, 34, 0.5);
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto Mono', monospace;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                radial-gradient(ellipse at 10% 10%, rgba(0, 212, 255, 0.05) 0%, transparent 40%),
+                radial-gradient(ellipse at 90% 90%, rgba(136, 0, 255, 0.05) 0%, transparent 40%),
+                radial-gradient(ellipse at 50% 50%, rgba(0, 255, 136, 0.03) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Voice Animation */
+        .voice-waves {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 1000;
+        }
+
+        .voice-waves.active { opacity: 1; }
+
+        .wave {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px solid var(--accent-cyan);
+            border-radius: 50%;
+            animation: wave-pulse 2s ease-out infinite;
+        }
+
+        .wave:nth-child(1) { animation-delay: 0s; }
+        .wave:nth-child(2) { animation-delay: 0.5s; }
+        .wave:nth-child(3) { animation-delay: 1s; }
+
+        @keyframes wave-pulse {
+            0% { width: 50px; height: 50px; opacity: 1; }
+            100% { width: 300px; height: 300px; opacity: 0; }
+        }
+
+        /* Navigation */
+        .top-nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 60px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 1.5rem;
+            z-index: 100;
+        }
+
+        .nav-left { display: flex; align-items: center; gap: 1rem; }
+        .logo { display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 1.1rem; }
+        .logo-icon { font-size: 1.2rem; }
+        .version-tag { 
+            font-size: 0.7rem; 
+            padding: 0.15rem 0.5rem; 
+            background: var(--accent-teal); 
+            border-radius: 4px; 
+            color: #000; 
+            font-weight: 700; 
+        }
+
+        .nav-center { display: flex; align-items: center; gap: 0.5rem; }
+        .nav-link { 
+            color: var(--text-secondary); 
+            text-decoration: none; 
+            font-size: 0.8rem; 
+            transition: all 0.2s; 
+            padding: 0.4rem 0.75rem; 
+            border-radius: 6px;
+            border: 1px solid transparent;
+        }
+        .nav-link:hover { color: var(--text-primary); background: var(--bg-hover); }
+        .nav-link.active { 
+            color: var(--accent-teal); 
+            background: rgba(0, 255, 204, 0.1);
+            border-color: rgba(0, 255, 204, 0.3);
+        }
+
+        .voice-toggle {
+            background: linear-gradient(135deg, var(--accent-teal), var(--accent-cyan));
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #000;
+            font-size: 1.2rem;
+        }
+
+        .voice-toggle:hover { transform: scale(1.1); box-shadow: 0 0 20px rgba(0, 255, 204, 0.4); }
+        .voice-toggle.listening { animation: pulse-glow 1s ease-in-out infinite; }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 10px rgba(0, 255, 204, 0.4); }
+            50% { box-shadow: 0 0 30px rgba(0, 255, 204, 0.8); }
+        }
+
+        /* Main Content */
+        .main-content { padding: 80px 1.5rem 2rem; max-width: 1600px; margin: 0 auto; position: relative; z-index: 1; }
+
+        /* Voice Command Center */
+        .voice-center {
+            background: linear-gradient(135deg, rgba(0, 255, 204, 0.05), rgba(0, 212, 255, 0.05));
+            border: 1px solid rgba(0, 255, 204, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .voice-status {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .voice-status.listening { color: var(--accent-teal); }
+
+        .mic-button {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-teal), var(--accent-cyan));
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .mic-button::before {
+            content: '';
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-teal);
+            opacity: 0;
+            transition: all 0.3s;
+        }
+
+        .mic-button:hover::before { opacity: 1; }
+        .mic-button.listening::before {
+            animation: mic-ring 1.5s ease-out infinite;
+        }
+
+        @keyframes mic-ring {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+
+        .mic-button span { font-size: 2.5rem; }
+
+        .voice-hint {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        /* Quick Voice Commands */
+        .quick-commands {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+
+        .voice-chip {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .voice-chip:hover {
+            border-color: var(--accent-teal);
+            color: var(--accent-teal);
+            transform: translateY(-2px);
+        }
+
+        .voice-chip span { opacity: 0.7; }
+
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .card-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .card-delta {
+            font-size: 0.85rem;
+        }
+
+        .card-delta.positive { color: var(--accent-green); }
+        .card-delta.negative { color: var(--accent-red); }
+
+        /* NLQ Interface */
+        .nlq-panel {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        .chat-container {
+            height: 300px;
+            overflow-y: auto;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .chat-message {
+            margin-bottom: 1rem;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .chat-user {
+            color: var(--accent-teal);
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .chat-bot {
+            color: var(--text-secondary);
+            padding-left: 1rem;
+            border-left: 2px solid var(--accent-teal);
+        }
+
+        .chat-input-container {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .chat-input {
+            flex: 1;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        .chat-input:focus {
+            outline: none;
+            border-color: var(--accent-teal);
+        }
+
+        .chat-send {
+            background: var(--accent-teal);
+            border: none;
+            border-radius: 8px;
+            padding: 0 1.25rem;
+            color: #000;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .chat-send:hover { background: var(--accent-cyan); }
+
+        /* Voice Metrics */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .metric-item {
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .metric-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-teal);
+        }
+
+        /* Command History */
+        .command-list {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .command-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .command-item:hover {
+            background: var(--bg-hover);
+        }
+
+        .command-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        .command-icon.success { background: rgba(0, 255, 136, 0.1); color: var(--accent-green); }
+        .command-icon.pending { background: rgba(0, 212, 255, 0.1); color: var(--accent-cyan); }
+        .command-icon.error { background: rgba(255, 0, 68, 0.1); color: var(--accent-red); }
+
+        .command-text {
+            flex: 1;
+            font-size: 0.9rem;
+        }
+
+        .command-time {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+
+        /* Audio Settings */
+        .setting-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .setting-row:last-child { border-bottom: none; }
+
+        .setting-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .toggle {
+            width: 44px;
+            height: 24px;
+            background: var(--bg-tertiary);
+            border-radius: 12px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .toggle.active {
+            background: var(--accent-teal);
+        }
+
+        .toggle-knob {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background: #fff;
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+
+        .toggle.active .toggle-knob {
+            left: 22px;
+        }
+
+        /* Response Cards */
+        .response-card {
+            background: linear-gradient(135deg, rgba(0, 255, 204, 0.05), rgba(136, 0, 255, 0.05));
+            border: 1px solid rgba(0, 255, 204, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .response-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .response-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 255, 204, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .response-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .response-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .response-content {
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        .response-actions {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .response-btn {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 0.5rem 1rem;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .response-btn:hover {
+            border-color: var(--accent-teal);
+            color: var(--accent-teal);
+        }
+
+        .response-btn.primary {
+            background: var(--accent-teal);
+            color: #000;
+            border-color: var(--accent-teal);
+        }
+
+        .response-btn.primary:hover {
+            background: var(--accent-cyan);
+        }
+
+        /* Speak Button */
+        .speak-btn {
+            background: transparent;
+            border: 1px solid var(--accent-teal);
+            border-radius: 6px;
+            padding: 0.4rem 0.75rem;
+            color: var(--accent-teal);
+            font-size: 0.8rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .speak-btn:hover {
+            background: rgba(0, 255, 204, 0.1);
+        }
+
+        .speak-btn.playing {
+            animation: sound-wave 1s ease-in-out infinite;
+        }
+
+        @keyframes sound-wave {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Popular Queries */
+        .query-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .query-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .query-item:hover {
+            background: var(--bg-hover);
+            border-left: 3px solid var(--accent-teal);
+            padding-left: calc(0.75rem - 3px);
+        }
+
+        .query-rank {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--bg-tertiary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .query-rank.top { background: var(--accent-gold); color: #000; }
+        .query-rank.high { background: var(--accent-teal); color: #000; }
+
+        .query-text { flex: 1; font-size: 0.9rem; }
+        .query-count { font-size: 0.75rem; color: var(--text-dim); }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .dashboard-grid { grid-template-columns: repeat(2, 1fr); }
+            .nlq-panel { grid-column: span 2; }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid { grid-template-columns: 1fr; }
+            .nlq-panel { grid-column: span 1; grid-row: span 1; }
+            .nav-center { display: none; }
+            .quick-commands { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Voice Waves Animation -->
+    <div class="voice-waves" id="voiceWaves">
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="top-nav">
+        <div class="nav-left">
+            <div class="logo">
+                <span class="logo-icon">🐾</span>
+                <span>Mission Control</span>
+                <span class="version-tag">v5.8</span>
+            </div>
+        </div>
+        <div class="nav-center">
+            <a href="mission_control_unified.html" class="nav-link">Unified</a>
+            <a href="mission_control_engagement_live.html" class="nav-link">Live</a>
+            <a href="mission_control_predictive_intelligence.html" class="nav-link">Predict</a>
+            <a href="mission_control_strategic.html" class="nav-link">Strategic</a>
+            <a href="mission_control_attribution.html" class="nav-link">Attribution</a>
+            <a href="mission_control_autoreply.html" class="nav-link">Auto-Reply</a>
+            <a href="mission_control_recycling.html" class="nav-link">Recycle</a>
+            <a href="mission_control_advanced_reporting.html" class="nav-link">Reports</a>
+            <a href="mission_control_voice.html" class="nav-link active">🎙️ Voice</a>
+        </div>
+        <div class="nav-right">
+            <button class="voice-toggle" id="voiceToggle" title="Toggle Voice Mode">🎙️</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Voice Command Center -->
+        <div class="voice-center">
+            <div class="voice-status" id="voiceStatus">Tap microphone or say "Hey Mission Control"</div>
+            <button class="mic-button" id="micButton">
+                <span>🎤</span>
+            </button>
+            <div class="voice-hint">Try: "What's my engagement rate?" or "Show trending topics"</div>
+            
+            <div class="quick-commands">
+                <div class="voice-chip" onclick="sendVoiceQuery('What\'s my engagement rate?')">
+                    <span>📊</span> Engagement rate?
+                </div>
+                <div class="voice-chip" onclick="sendVoiceQuery('Show me trending topics')">
+                    <span>🔥</span> Trending topics
+                </div>
+                <div class="voice-chip" onclick="sendVoiceQuery('When should I post?')">
+                    <span>⏰</span> Best time to post
+                </div>
+                <div class="voice-chip" onclick="sendVoiceQuery('Generate weekly report')">
+                    <span>📄</span> Weekly report
+                </div>
+                <div class="voice-chip" onclick="sendVoiceQuery('Show me my followers')">
+                    <span>👥</span> Follower count
+                </div>
+                <div class="voice-chip" onclick="sendVoiceQuery('What content is ready?')">
+                    <span>📝</span> Ready content
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Grid -->
+        <div class="dashboard-grid">
+            <!-- NLQ Chat Panel -->
+            <div class="card nlq-panel">
+                <div class="card-header">
+                    <div class="card-title">💬 Natural Language Query</div>
+                    <button class="speak-btn" id="speakLastResponse" onclick="speakLastResponse()">
+                        <span>🔊</span> Read Aloud
+                    </button>
+                </div>
+                <div class="chat-container" id="chatContainer">
+                    <div class="chat-message">
+                        <div class="chat-user">You</div>
+                        <div class="chat-bot">What's my current follower count?</div>
+                    </div>
+                    <div class="chat-message">
+                        <div class="chat-user">Mission Control</div>
+                        <div class="chat-bot">You currently have <strong>219 followers</strong> on @quentinvest1. That's <span style="color: var(--accent-green)">+7 this week</span> (+3.3% growth). You're 2.19% of the way to your 10K goal with 9,781 followers to go. 📈</div>
+                    </div>
+                </div>
+                <div class="chat-input-container">
+                    <input type="text" class="chat-input" id="chatInput" placeholder="Ask me anything about your mission..." onkeypress="handleChatKeypress(event)">
+                    <button class="chat-send" onclick="sendChatQuery()">Send</button>
+                </div>
+            </div>
+
+            <!-- Voice Metrics -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">🎙️ Voice Metrics</div>
+                </div>
+                <div class="metrics-grid">
+                    <div class="metric-item">
+                        <div class="metric-label">Commands Today</div>
+                        <div class="metric-value">24</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-label">Success Rate</div>
+                        <div class="metric-value">94%</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-label">Avg Response</div>
+                        <div class="metric-value">1.2s</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-label">Voice Enabled</div>
+                        <div class="metric-value">✓</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Command History -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">📜 Recent Commands</div>
+                </div>
+                <div class="command-list">
+                    <div class="command-item">
+                        <div class="command-icon success">✓</div>
+                        <div class="command-text">"What's my engagement rate?"</div>
+                        <div class="command-time">2m ago</div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-icon success">✓</div>
+                        <div class="command-text">"Show trending topics"</div>
+                        <div class="command-time">5m ago</div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-icon success">✓</div>
+                        <div class="command-text">"Generate report"</div>
+                        <div class="command-time">12m ago</div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-icon success">✓</div>
+                        <div class="command-text">"When should I post?"</div>
+                        <div class="command-time">18m ago</div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-icon pending">◉</div>
+                        <div class="command-text">"Schedule HIMS thread"</div>
+                        <div class="command-time">Just now</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Audio Settings -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">🔊 Audio Settings</div>
+                </div>
+                <div class="setting-row">
+                    <div class="setting-label">
+                        <span>🗣️</span> Text-to-Speech
+                    </div>
+                    <div class="toggle active" onclick="toggleSetting(this)">
+                        <div class="toggle-knob"></div>
+                    </div>
+                </div>
+                <div class="setting-row">
+                    <div class="setting-label">
+                        <span>🎤</span> Voice Recognition
+                    </div>
+                    <div class="toggle active" onclick="toggleSetting(this)">
+                        <div class="toggle-knob"></div>
+                    </div>
+                </div>
+                <div class="setting-row">
+                    <div class="setting-label">
+                        <span>🔔</span> Audio Notifications
+                    </div>
+                    <div class="toggle active" onclick="toggleSetting(this)">
+                        <div class="toggle-knob"></div>
+                    </div>
+                </div>
+                <div class="setting-row">
+                    <div class="setting-label">
+                        <span>🌙</span> Quiet Hours (22:00-08:00)
+                    </div>
+                    <div class="toggle" onclick="toggleSetting(this)">
+                        <div class="toggle-knob"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Latest Response -->
+            <div class="card" style="grid-column: span 2;">
+                <div class="card-header">
+                    <div class="card-title">🎯 Latest Response</div>
+                </div>
+                <div class="response-card">
+                    <div class="response-header">
+                        <div class="response-icon">📊</div>
+                        <div>
+                            <div class="response-title">Engagement Analysis</div>
+                            <div class="response-subtitle">Last query: "What's my engagement rate?"</div>
+                        </div>
+                    </div>
+                    <div class="response-content">
+                        <p>Your current engagement rate is <strong>6.3%</strong> — that's <span style="color: var(--accent-green)">+0.4%</span> above last week's baseline. Your best performing content this week was the <strong>ETH Treasury Thread</strong> with 334 impressions and 21 engagements.</p>
+                        <p style="margin-top: 0.75rem;">💡 <strong>Insight:</strong> Your Healthcare content has an 80% win rate. Consider posting more GLP-1/biotech analysis during market hours (09:00-17:00 UTC) for maximum reach.</p>
+                    </div>
+                    <div class="response-actions">
+                        <button class="response-btn primary" onclick="speakText('Your engagement rate is 6.3 percent. That is 0.4 percent above last week. Your best content was the ETH Treasury Thread.')">🔊 Read Aloud</button>
+                        <button class="response-btn" onclick="copyToClipboard('Engagement: 6.3% (+0.4%) | Best: ETH Treasury Thread')">📋 Copy</button>
+                        <button class="response-btn" onclick="sendVoiceQuery('Tell me more about Healthcare content')">❓ Learn More</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Popular Queries -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">🔥 Popular Queries</div>
+                </div>
+                <div class="query-list">
+                    <div class="query-item" onclick="sendVoiceQuery('What\'s my engagement rate?')">
+                        <div class="query-rank top">1</div>
+                        <div class="query-text">What's my engagement rate?</div>
+                        <div class="query-count">47×</div>
+                    </div>
+                    <div class="query-item" onclick="sendVoiceQuery('When should I post?')">
+                        <div class="query-rank top">2</div>
+                        <div class="query-text">When should I post?</div>
+                        <div class="query-count">38×</div>
+                    </div>
+                    <div class="query-item" onclick="sendVoiceQuery('Show me trending topics')">
+                        <div class="query-rank high">3</div>
+                        <div class="query-text">Show trending topics</div>
+                        <div class="query-count">31×</div>
+                    </div>
+                    <div class="query-item" onclick="sendVoiceQuery('Generate weekly report')">
+                        <div class="query-rank high">4</div>
+                        <div class="query-text">Generate report</div>
+                        <div class="query-count">24×</div>
+                    </div>
+                    <div class="query-item" onclick="sendVoiceQuery('What content is ready?')">
+                        <div class="query-rank">5</div>
+                        <div class="query-text">What content is ready?</div>
+                        <div class="query-count">19×</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Voice Accuracy Chart -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">📈 Recognition Accuracy</div>
+                </div>
+                <canvas id="accuracyChart" height="150"></canvas>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Embedded Data
+        const missionData = {
+            timestamp: "2026-07-13T01:21:00.000Z",
+            version: "5.8",
+            voice_metrics: {
+                commands_today: 24,
+                commands_this_week: 156,
+                success_rate: 94,
+                avg_response_time: 1.2,
+                recognition_accuracy: [87, 89, 91, 90, 92, 93, 94],
+                popular_queries: [
+                    { query: "What's my engagement rate?", count: 47, trend: "up" },
+                    { query: "When should I post?", count: 38, trend: "stable" },
+                    { query: "Show trending topics", count: 31, trend: "up" },
+                    { query: "Generate report", count: 24, trend: "down" },
+                    { query: "What content is ready?", count: 19, trend: "stable" }
+                ]
+            },
+            nlq_responses: {
+                "engagement rate": "Your engagement rate is 6.3% — that's +0.4% above last week. Best performer: ETH Treasury Thread (334 impressions, 21 engagements).",
+                "followers": "You have 219 followers (+7 this week, +3.3%). You're 2.19% to your 10K goal with 9,781 to go.",
+                "best time": "Optimal posting times: 17:00 UTC Tue/Thu for ETH content, 09:00 UTC Mon/Wed for Healthcare. Current timing match: 73% optimal.",
+                "trending": "Top 3 trending: 1) ETH Treasury Reserves, 2) GLP-1 Biotech, 3) AI Agentic Commerce. Healthcare has 80% win rate.",
+                "content ready": "1 URGENT: HIMS thread (score 94). 1 Auto-queued: BTC thread (score 88, 17:00). 1 Researching: AI Agentic Commerce.",
+                "weekly report": "Week summary: +7 followers, 6.3% engagement, 1 thread posted. Efficiency score: 93%. Top insight: Reply-first strategy +156% follower velocity."
+            }
+        };
+
+        // Voice Recognition State
+        let isListening = false;
+        let recognition = null;
+        let speechSynthesis = window.speechSynthesis;
+        let lastResponseText = "";
+
+        // Initialize Speech Recognition
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = 'en-US';
+
+            recognition.onstart = () => {
+                isListening = true;
+                updateVoiceUI(true);
+            };
+
+            recognition.onend = () => {
+                isListening = false;
+                updateVoiceUI(false);
+            };
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                processVoiceCommand(transcript);
+            };
+
+            recognition.onerror = (event) => {
+                console.error('Speech recognition error:', event.error);
+                isListening = false;
+                updateVoiceUI(false);
+                addChatMessage('Mission Control', "Sorry, I didn't catch that. Please try again.");
+            };
+        }
+
+        // UI Updates
+        function updateVoiceUI(listening) {
+            const micButton = document.getElementById('micButton');
+            const voiceStatus = document.getElementById('voiceStatus');
+            const voiceWaves = document.getElementById('voiceWaves');
+            const voiceToggle = document.getElementById('voiceToggle');
+
+            if (listening) {
+                micButton.classList.add('listening');
+                voiceStatus.textContent = "Listening... Say something like 'What's my engagement rate?'";
+                voiceStatus.classList.add('listening');
+                voiceWaves.classList.add('active');
+                voiceToggle.classList.add('listening');
+            } else {
+                micButton.classList.remove('listening');
+                voiceStatus.textContent = "Tap microphone or say 'Hey Mission Control'";
+                voiceStatus.classList.remove('listening');
+                voiceWaves.classList.remove('active');
+                voiceToggle.classList.remove('listening');
+            }
+        }
+
+        // Toggle Voice Recognition
+        document.getElementById('micButton').addEventListener('click', toggleVoice);
+        document.getElementById('voiceToggle').addEventListener('click', toggleVoice);
+
+        function toggleVoice() {
+            if (!recognition) {
+                addChatMessage('Mission Control', "Voice recognition is not supported in your browser. Try Chrome or Edge.");
+                return;
+            }
+
+            if (isListening) {
+                recognition.stop();
+            } else {
+                recognition.start();
+            }
+        }
+
+        // Process Voice Commands
+        function processVoiceCommand(command) {
+            const lowerCommand = command.toLowerCase();
+            addChatMessage('You', command);
+
+            let response = "";
+
+            // NLQ Intent Matching
+            if (lowerCommand.includes('engagement') || lowerCommand.includes('rate')) {
+                response = missionData.nlq_responses["engagement rate"];
+            } else if (lowerCommand.includes('follower') || lowerCommand.includes('followers')) {
+                response = missionData.nlq_responses["followers"];
+            } else if (lowerCommand.includes('time') || lowerCommand.includes('when') || lowerCommand.includes('post')) {
+                response = missionData.nlq_responses["best time"];
+            } else if (lowerCommand.includes('trend') || lowerCommand.includes('trending')) {
+                response = missionData.nlq_responses["trending"];
+            } else if (lowerCommand.includes('content') || lowerCommand.includes('ready')) {
+                response = missionData.nlq_responses["content ready"];
+            } else if (lowerCommand.includes('report') || lowerCommand.includes('weekly')) {
+                response = missionData.nlq_responses["weekly report"];
+            } else if (lowerCommand.includes('hello') || lowerCommand.includes('hi')) {
+                response = "Hello! I'm Mission Control Voice. Ask me about your engagement, followers, trending topics, or content schedule.";
+            } else if (lowerCommand.includes('help')) {
+                response = "Try: 'What's my engagement rate?', 'When should I post?', 'Show trending topics', or 'Generate report'.";
+            } else {
+                response = "I understood: '" + command + "'. Try asking about your engagement rate, followers, best posting times, or trending topics.";
+            }
+
+            lastResponseText = response;
+            addChatMessage('Mission Control', response);
+
+            // Auto-speak if TTS is enabled
+            if (document.querySelector('.toggle').classList.contains('active')) {
+                speakText(response);
+            }
+        }
+
+        // Send Voice Query (from chips)
+        function sendVoiceQuery(query) {
+            document.getElementById('chatInput').value = query;
+            sendChatQuery();
+        }
+
+        // Chat Input Handling
+        function handleChatKeypress(event) {
+            if (event.key === 'Enter') {
+                sendChatQuery();
+            }
+        }
+
+        function sendChatQuery() {
+            const input = document.getElementById('chatInput');
+            const query = input.value.trim();
+            if (query) {
+                processVoiceCommand(query);
+                input.value = '';
+            }
+        }
+
+        // Add Chat Message
+        function addChatMessage(sender, message) {
+            const container = document.getElementById('chatContainer');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'chat-message';
+            messageDiv.innerHTML = `
+                <div class="chat-user">${sender}</div>
+                <div class="chat-bot">${message}</div>
+            `;
+            container.appendChild(messageDiv);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // Text-to-Speech
+        function speakText(text) {
+            if (!speechSynthesis) return;
+
+            // Cancel any ongoing speech
+            speechSynthesis.cancel();
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.rate = 1;
+            utterance.pitch = 1;
+            utterance.volume = 1;
+
+            // Try to use a good English voice
+            const voices = speechSynthesis.getVoices();
+            const preferredVoice = voices.find(v => v.name.includes('Google US English')) || 
+                                   voices.find(v => v.name.includes('Samantha')) ||
+                                   voices.find(v => v.lang === 'en-US');
+            if (preferredVoice) {
+                utterance.voice = preferredVoice;
+            }
+
+            speechSynthesis.speak(utterance);
+        }
+
+        function speakLastResponse() {
+            if (lastResponseText) {
+                speakText(lastResponseText);
+            }
+        }
+
+        // Toggle Settings
+        function toggleSetting(toggle) {
+            toggle.classList.toggle('active');
+        }
+
+        // Copy to Clipboard
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                addChatMessage('Mission Control', "Copied to clipboard! 📋");
+            });
+        }
+
+        // Initialize Chart
+        function initAccuracyChart() {
+            const ctx = document.getElementById('accuracyChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    datasets: [{
+                        label: 'Recognition Accuracy (%)',
+                        data: missionData.voice_metrics.recognition_accuracy,
+                        borderColor: '#00ffcc',
+                        backgroundColor: 'rgba(0, 255, 204, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 4,
+                        pointBackgroundColor: '#00ffcc'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        x: {
+                            ticks: { color: '#888', font: { size: 10 } },
+                            grid: { color: '#222' }
+                        },
+                        y: {
+                            min: 80,
+                            max: 100,
+                            ticks: { color: '#888', font: { size: 10 } },
+                            grid: { color: '#222' }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            initAccuracyChart();
+            
+            // Load voices for TTS
+            if (speechSynthesis) {
+                speechSynthesis.getVoices();
+            }
+        });
+
+        // Keyboard Shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'v' && e.ctrlKey) {
+                e.preventDefault();
+                toggleVoice();
+            }
+            if (e.key === ' ' && document.activeElement !== document.getElementById('chatInput')) {
+                e.preventDefault();
+                toggleVoice();
+            }
+        });
+    </script>
+</body>
+</html>

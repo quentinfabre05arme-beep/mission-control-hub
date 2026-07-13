@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission Control v9.4 | AI Workflow Automation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg: #050505;
+            --bg-card: #0a0a0a;
+            --bg-hover: #111111;
+            --bg-elevated: #141414;
+            --accent: #00d4ff;
+            --accent-green: #00ff88;
+            --accent-orange: #ff8800;
+            --accent-purple: #bd34fe;
+            --accent-pink: #ff2d55;
+            --accent-gold: #ffd700;
+            --accent-red: #ff4444;
+            --accent-teal: #00d4aa;
+            --accent-indigo: #6366f1;
+            --text: #ffffff;
+            --text-dim: #666666;
+            --text-secondary: #aaaaaa;
+            --border: #1a1a1a;
+            --online: #00ff88;
+            --away: #ffaa00;
+            --offline: #666666;
+            --ai-glow: rgba(0, 212, 255, 0.15);
+            --gradient-ai: linear-gradient(135deg, #00d4ff, #bd34fe);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Ambient AI Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(0, 212, 255, 0.03) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(189, 52, 254, 0.02) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(0, 255, 136, 0.02) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .neural-grid {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+                linear-gradient(rgba(0, 212, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Header */
+        .header {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-card);
+        }
+        .logo {
+            font-size: 1.1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .version-badge {
+            font-size: 0.7rem;
+            background: var(--gradient-ai);
+            padding: 0.15rem 0.5rem;
+            border-radius: 10px;
+            margin-left: 0.5rem;
+            color: #fff;
+        }
+        .ai-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.75rem;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            color: var(--accent);
+        }
+        .ai-badge i { animation: pulse 2s infinite; }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
+        }
+        .stat-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-box::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: var(--gradient-ai);
+        }
+        .stat-label {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+        .stat-change {
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .stat-change.positive { color: var(--accent-green); }
+        .stat-change.negative { color: var(--accent-red); }
+
+        /* Main Layout */
+        .main {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            height: calc(100vh - 200px);
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+        }
+
+        /* Left Panel - Workflow Canvas */
+        .canvas-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            overflow-y: auto;
+        }
+
+        /* Automation Rules Section */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+        .section-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .section-title i { color: var(--accent); }
+
+        .automation-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .automation-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.25rem;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .automation-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+        .automation-card.active {
+            border-color: var(--accent-green);
+            background: rgba(0, 255, 136, 0.03);
+        }
+        .automation-card.active::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: var(--accent-green);
+        }
+        .automation-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+        .automation-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        .automation-status {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 10px;
+            background: rgba(0, 255, 136, 0.1);
+            color: var(--accent-green);
+        }
+        .automation-status.inactive {
+            background: rgba(102, 102, 102, 0.1);
+            color: var(--text-dim);
+        }
+        .automation-desc {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+            line-height: 1.4;
+        }
+        .automation-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+        .automation-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .automation-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+        }
+        .btn-sm {
+            padding: 0.4rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .btn-sm-primary {
+            background: var(--accent);
+            color: #000;
+            font-weight: 500;
+        }
+        .btn-sm-primary:hover { background: #33ddff; }
+        .btn-sm-secondary {
+            background: var(--bg-hover);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+        .btn-sm-secondary:hover { border-color: var(--accent); }
+
+        /* AI Insights Panel */
+        .ai-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.25rem;
+            overflow-y: auto;
+        }
+        .ai-panel-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .ai-panel-header i {
+            color: var(--accent);
+            font-size: 1.1rem;
+        }
+        .ai-panel-title {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        /* Insight Cards */
+        .insight-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .insight-item {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.875rem;
+            transition: all 0.2s;
+        }
+        .insight-item:hover {
+            border-color: var(--accent-purple);
+        }
+        .insight-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        .insight-type {
+            font-size: 0.7rem;
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        .insight-type.auto-assign { background: rgba(0, 212, 255, 0.15); color: var(--accent); }
+        .insight-type.smart-date { background: rgba(0, 255, 136, 0.15); color: var(--accent-green); }
+        .insight-type.dependency { background: rgba(189, 52, 254, 0.15); color: var(--accent-purple); }
+        .insight-type.content { background: rgba(255, 136, 0, 0.15); color: var(--accent-orange); }
+        .insight-confidence {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+        }
+        .insight-text {
+            font-size: 0.85rem;
+            line-height: 1.4;
+            margin-bottom: 0.5rem;
+        }
+        .insight-action {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .insight-btn {
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            border: none;
+            font-weight: 500;
+        }
+        .insight-btn-apply {
+            background: var(--accent);
+            color: #000;
+        }
+        .insight-btn-dismiss {
+            background: transparent;
+            color: var(--text-dim);
+            border: 1px solid var(--border);
+        }
+
+        /* Workflow Builder */
+        .workflow-builder {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+        }
+        .workflow-canvas {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            padding: 1rem;
+            background: var(--bg);
+            border-radius: 8px;
+            border: 1px dashed var(--border);
+            min-height: 80px;
+        }
+        .workflow-node {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1rem;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 0.85rem;
+            cursor: grab;
+            transition: all 0.2s;
+        }
+        .workflow-node:hover {
+            border-color: var(--accent);
+        }
+        .workflow-node i { color: var(--accent); font-size: 0.8rem; }
+        .workflow-connector {
+            color: var(--text-dim);
+            font-size: 0.8rem;
+        }
+        .workflow-add {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            border: 2px dashed var(--border);
+            background: transparent;
+            color: var(--text-dim);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .workflow-add:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Prediction Panel */
+        .prediction-card {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+        }
+        .prediction-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .prediction-title i { color: var(--accent-purple); }
+        .prediction-bar {
+            height: 6px;
+            background: var(--bg);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+        .prediction-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 1s ease;
+        }
+        .prediction-fill.high { background: var(--accent-green); }
+        .prediction-fill.medium { background: var(--accent-orange); }
+        .prediction-fill.low { background: var(--accent-red); }
+        .prediction-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.7rem;
+            color: var(--text-dim);
+        }
+
+        /* Live Activity Stream */
+        .activity-stream {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .stream-item {
+            display: flex;
+            gap: 0.75rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .stream-item:last-child { border-bottom: none; }
+        .stream-icon {
+            width: 28px; height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            flex-shrink: 0;
+        }
+        .stream-icon.auto { background: rgba(0, 212, 255, 0.15); color: var(--accent); }
+        .stream-icon.ai { background: rgba(189, 52, 254, 0.15); color: var(--accent-purple); }
+        .stream-icon.complete { background: rgba(0, 255, 136, 0.15); color: var(--accent-green); }
+        .stream-content { flex: 1; }
+        .stream-text {
+            font-size: 0.8rem;
+            line-height: 1.4;
+        }
+        .stream-text strong { color: var(--text); font-weight: 500; }
+        .stream-time {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            margin-top: 0.15rem;
+        }
+
+        /* Toggle Switch */
+        .toggle {
+            width: 44px; height: 24px;
+            background: var(--bg-hover);
+            border-radius: 12px;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .toggle.active { background: var(--accent-green); }
+        .toggle-thumb {
+            position: absolute;
+            top: 2px; left: 2px;
+            width: 20px; height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.2s;
+        }
+        .toggle.active .toggle-thumb { transform: translateX(20px); }
+
+        /* Team Workload Visualization */
+        .workload-chart {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .workload-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .workload-avatar {
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        .workload-info { flex: 1; }
+        .workload-name {
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+        .workload-bar-container {
+            height: 6px;
+            background: var(--bg);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .workload-bar {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+        .workload-bar.light { background: var(--accent-green); width: 30%; }
+        .workload-bar.medium { background: var(--accent-orange); width: 60%; }
+        .workload-bar.heavy { background: var(--accent-red); width: 85%; }
+        .workload-count {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            min-width: 40px;
+            text-align: right;
+        }
+
+        /* Toast */
+        .toast-container {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            z-index: 2000;
+        }
+        .toast {
+            padding: 1rem 1.25rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            min-width: 300px;
+            animation: slideIn 0.3s ease-out;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        .toast.success { background: var(--bg-elevated); border: 1px solid var(--accent-green); color: var(--accent-green); }
+        .toast.ai { background: var(--bg-elevated); border: 1px solid var(--accent-purple); color: var(--accent-purple); }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .main { grid-template-columns: 1fr; }
+            .ai-panel { max-height: 500px; }
+        }
+        @media (max-width: 768px) {
+            .stats-bar { grid-template-columns: repeat(2, 1fr); }
+            .automation-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="neural-grid"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <i class="fas fa-robot"></i>
+            Mission Control
+            <span class="version-badge">v9.4 AI</span>
+        </div>
+        <div class="ai-badge">
+            <i class="fas fa-brain"></i>
+            <span>AI Workflow Engine Active</span>
+        </div>
+    </header>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+        <div class="stat-box">
+            <div class="stat-label">Auto-Assignments</div>
+            <div class="stat-value" style="color: var(--accent);">12</div>
+            <div class="stat-change positive">
+                <i class="fas fa-arrow-up"></i> 92% accuracy
+            </div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-label">Smart Transitions</div>
+            <div class="stat-value" style="color: var(--accent-green);">28</div>
+            <div class="stat-change positive">
+                <i class="fas fa-check"></i> 100% success
+            </div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-label">AI Predictions</div>
+            <div class="stat-value" style="color: var(--accent-purple);">94%</div>
+            <div class="stat-change positive">
+                <i class="fas fa-arrow-up"></i> +3% this week
+            </div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-label">Time Saved</div>
+            <div class="stat-value" style="color: var(--accent-orange);">4.2h</div>
+            <div class="stat-change positive">
+                <i class="fas fa-clock"></i> Today
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Layout -->
+    <div class="main">
+        <!-- Left: Workflow Canvas -->
+        <div class="canvas-panel">
+            <!-- Automation Rules -->
+            <div>
+                <div class="section-header">
+                    <div class="section-title">
+                        <i class="fas fa-cogs"></i>
+                        Active Automation Rules
+                    </div>
+                    <button class="btn-sm btn-sm-primary" onclick="showToast('New automation rule created', 'success')">
+                        <i class="fas fa-plus"></i> Create Rule
+                    </button>
+                </div>
+                <div class="automation-grid">
+                    <div class="automation-card active">
+                        <div class="automation-header">
+                            <div class="automation-name">
+                                <i class="fas fa-user-check" style="color: var(--accent);"></i>
+                                Smart Assignment
+                            </div>
+                            <div class="automation-status">
+                                <i class="fas fa-circle" style="font-size: 0.5rem;"></i> Active
+                            </div>
+                        </div>
+                        <div class="automation-desc">
+                            Auto-assign tasks based on team workload, expertise matching, and historical performance. Balances assignments across 5 team members.
+                        </div>
+                        <div class="automation-meta">
+                            <span class="automation-meta-item"><i class="fas fa-bolt"></i> 12 runs today</span>
+                            <span class="automation-meta-item"><i class="fas fa-chart-line"></i> 92% match</span>
+                        </div>
+                        <div class="automation-actions">
+                            <button class="btn-sm btn-sm-secondary"><i class="fas fa-edit"></i> Edit</button>
+                            <button class="btn-sm btn-sm-secondary"><i class="fas fa-history"></i> History</button>
+                        </div>
+                    </div>
+
+                    <div class="automation-card active">
+                        <div class="automation-header">
+                            <div class="automation-name">
+                                <i class="fas fa-calendar-alt" style="color: var(--accent-green);"></i>
+                                Smart Due Dates
+                            </div>
+                            <div class="automation-status">
+                                <i class="fas fa-circle" style="font-size: 0.5rem;"></i> Active
+                            </div>
+                        </div>
+                        <div class="automation-desc">
+                            AI suggests optimal due dates based on task complexity, assignee workload, content calendar, and historical completion times.
+                        </div>
+                        <div class="automation-meta">
+                            <span class="automation-meta-item"><i class="fas fa-bolt"></i> 8 runs today</span>
+                            <span class="automation-meta-item"><i class="fas fa-clock"></i> 2.3h avg</span>
+                        </div>
+                        <div class="automation-actions">
+                            <button class="btn-sm btn-sm-secondary"><i class="fas fa-edit"></i> Edit</button>
+                            <button class="btn-sm btn-sm-secondary"><i class="fas fa-history"></i> History</button>
+                        </div>
+                    </div>
+
+                    <div class="automation-card active">
+                        <div class="automation-header">
+                            <div class="automation-name">
+                                <i class="fas fa-project-diagram" style="color: var(--accent-purple);"></i>
+                                Dependency Detection
+                            </div>
+                            <div class="automation-status">
+                                <i class="fas fa-circle" style="font-size: 0.5rem;"></i> Active
+                            </div>
+                        </div>
+                        <div class="automation-desc">
+                            Automatically detects blocking relationships between cards based on content keywords, assignee overlap, and campaign sequencing.
+                        </div>
+                        <div class="automation-meta">
+                            <span class="automation-meta-item"><i class="fas fa-bolt"></i> 5 runs today</span>
+                            <span class="automation-meta-item"><i class="fas fa-link"></i> 2 detected</span>
+                        </div>
+                        <div class="automation-actions">
+                            <button class="btn-sm btn-sm-secondary"><i class="fas fa-edit"></i> Edit</button>
+                            <button class="btn-sm btn-sm-secondary"><i class="fas fa-history"></i> History</button>
+                        </div>
+                    </div>
+
+                    <div class="automation-card">
+                        <div class="automation-header">
+                            <div class="automation-name">
+                                <i class="fas fa-magic" style="color: var(--accent-orange);"></i>
+                                AI Content Generator
+                            </div>
+                            <div class="automation-status inactive">
+                                <i class="fas fa-circle" style="font-size: 0.5rem;"></i> Standby
+                            </div>
+                        </div>
+                        <div class="automation-desc">
+                            Generates content drafts from card descriptions using AI. Integrates with Content Intelligence for real-time scoring and optimization.
+                        </div>
+                        <div class="automation-meta">
+                            <span class="automation-meta-item"><i class="fas fa-bolt"></i> 3 runs today</span>
+                            <span class="automation-meta-item"><i class="fas fa-star"></i> 87 avg score</span>
+                        </div>
+                        <div class="automation-actions">
+                            <button class="btn-sm btn-sm-primary" onclick="showToast('AI Content Generator activated', 'success')">
+                                <i class="fas fa-play"></i> Activate
+                            </button>
+                            <button class="btn-sm btn-sm-secondary"><i class="fas fa-edit"></i> Edit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Workflow Builder -->
+            <div class="workflow-builder">
+                <div class="section-header">
+                    <div class="section-title">
+                        <i class="fas fa-project-diagram"></i>
+                        Workflow Builder
+                    </div>
+                    <button class="btn-sm btn-sm-secondary">
+                        <i class="fas fa-save"></i> Save
+                    </button>
+                </div>
+                <div class="workflow-canvas">
+                    <div class="workflow-node">
+                        <i class="fas fa-plus-circle"></i>
+                        Card Created
+                    </div>
+                    <span class="workflow-connector"><i class="fas fa-arrow-right"></i></span>
+                    <div class="workflow-node">
+                        <i class="fas fa-brain"></i>
+                        AI Analysis
+                    </div>
+                    <span class="workflow-connector"><i class="fas fa-arrow-right"></i></span>
+                    <div class="workflow-node">
+                        <i class="fas fa-user-check"></i>
+                        Auto-Assign
+                    </div>
+                    <span class="workflow-connector"><i class="fas fa-arrow-right"></i></span>
+                    <div class="workflow-node">
+                        <i class="fas fa-calendar"></i>
+                        Set Due Date
+                    </div>
+                    <span class="workflow-connector"><i class="fas fa-arrow-right"></i></span>
+                    <div class="workflow-node">
+                        <i class="fas fa-link"></i>
+                        Check Dependencies
+                    </div>
+                    <button class="workflow-add" onclick="showToast('Add workflow node', 'ai')">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Team Workload -->
+            <div>
+                <div class="section-header">
+                    <div class="section-title">
+                        <i class="fas fa-users"></i>
+                        Team Workload Distribution
+                    </div>
+                </div>
+                <div class="workload-chart">
+                    <div class="workload-row">
+                        <div class="workload-avatar" style="background: linear-gradient(135deg, #00d4ff, #bd34fe);">C</div>
+                        <div class="workload-info">
+                            <div class="workload-name">Claw (Admin)</div>
+                            <div class="workload-bar-container">
+                                <div class="workload-bar medium"></div>
+                            </div>
+                        </div>
+                        <div class="workload-count">6 tasks</div>
+                    </div>
+                    <div class="workload-row">
+                        <div class="workload-avatar" style="background: linear-gradient(135deg, #00ff88, #00d4ff);">R</div>
+                        <div class="workload-info">
+                            <div class="workload-name">Research Agent (Editor)</div>
+                            <div class="workload-bar-container">
+                                <div class="workload-bar heavy"></div>
+                            </div>
+                        </div>
+                        <div class="workload-count">9 tasks</div>
+                    </div>
+                    <div class="workload-row">
+                        <div class="workload-avatar" style="background: linear-gradient(135deg, #ff2d55, #ff8800);">Co</div>
+                        <div class="workload-info">
+                            <div class="workload-name">Content Agent (Editor)</div>
+                            <div class="workload-bar-container">
+                                <div class="workload-bar light"></div>
+                            </div>
+                        </div>
+                        <div class="workload-count">3 tasks</div>
+                    </div>
+                    <div class="workload-row">
+                        <div class="workload-avatar" style="background: linear-gradient(135deg, #bd34fe, #ff2d55);">A</div>
+                        <div class="workload-info">
+                            <div class="workload-name">Analytics Agent (Viewer)</div>
+                            <div class="workload-bar-container">
+                                <div class="workload-bar light"></div>
+                            </div>
+                        </div>
+                        <div class="workload-count">2 tasks</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: AI Insights Panel -->
+        <div class="ai-panel">
+            <div class="ai-panel-header">
+                <i class="fas fa-lightbulb"></i>
+                <div class="ai-panel-title">AI Insights & Suggestions</div>
+            </div>
+
+            <!-- Predictions -->
+            <div class="prediction-card">
+                <div class="prediction-title">
+                    <i class="fas fa-chart-line"></i>
+                    Task Completion Forecast
+                </div>
+                <div class="prediction-bar">
+                    <div class="prediction-fill high" style="width: 78%;"></div>
+                </div>
+                <div class="prediction-labels">
+                    <span>78% on track</span>
+                    <span>22% at risk</span>
+                </div>
+            </div>
+
+            <div class="prediction-card">
+                <div class="prediction-title">
+                    <i class="fas fa-brain"></i>
+                    AI Confidence Score
+                </div>
+                <div class="prediction-bar">
+                    <div class="prediction-fill high" style="width: 94%;"></div>
+                </div>
+                <div class="prediction-labels">
+                    <span>94% accuracy</span>
+                    <span>+3% vs last week</span>
+                </div>
+            </div>
+
+            <!-- Insight List -->
+            <div class="insight-list">
+                <div class="insight-item">
+                    <div class="insight-header">
+                        <span class="insight-type auto-assign">Auto-Assign</span>
+                        <span class="insight-confidence">94% confidence</span>
+                    </div>
+                    <div class="insight-text">
+                        <strong>Research Agent</strong> is optimal for "GLP-1 market analysis" based on expertise match and current workload.
+                    </div>
+                    <div class="insight-action">
+                        <button class="insight-btn insight-btn-apply">Assign</button>
+                        <button class="insight-btn insight-btn-dismiss">Dismiss</button>
+                    </div>
+                </div>
+
+                <div class="insight-item">
+                    <div class="insight-header">
+                        <span class="insight-type smart-date">Smart Date</span>
+                        <span class="insight-confidence">89% confidence</span>
+                    </div>
+                    <div class="insight-text">
+                        Suggest <strong>July 15, 2:00 PM</strong> for "ETH Treasury Strategy" post — optimal engagement window based on historical data.
+                    </div>
+                    <div class="insight-action">
+                        <button class="insight-btn insight-btn-apply">Apply</button>
+                        <button class="insight-btn insight-btn-dismiss">Dismiss</button>
+                    </div>
+                </div>
+
+                <div class="insight-item">
+                    <div class="insight-header">
+                        <span class="insight-type dependency">Dependency</span>
+                        <span class="insight-confidence">87% confidence</span>
+                    </div>
+                    <div class="insight-text">
+                        "HIMS quarterly results" should depend on "Healthcare GLP-1 analysis" — shared data source detected.
+                    </div>
+                    <div class="insight-action">
+                        <button class="insight-btn insight-btn-apply">Link</button>
+                        <button class="insight-btn insight-btn-dismiss">Dismiss</button>
+                    </div>
+                </div>
+
+                <div class="insight-item">
+                    <div class="insight-header">
+                        <span class="insight-type content">Content AI</span>
+                        <span class="insight-confidence">91% confidence</span>
+                    </div>
+                    <div class="insight-text">
+                        Generate thread draft for "Longevity economy" from card description? Estimated score: <strong>92/100</strong>.
+                    </div>
+                    <div class="insight-action">
+                        <button class="insight-btn insight-btn-apply">Generate</button>
+                        <button class="insight-btn insight-btn-dismiss">Later</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Activity Stream -->
+            <div style="margin-top: 1rem;">
+                <div class="section-header">
+                    <div class="section-title">
+                        <i class="fas fa-stream"></i>
+                        AI Activity Log
+                    </div>
+                </div>
+                <div class="activity-stream">
+                    <div class="stream-item">
+                        <div class="stream-icon auto"><i class="fas fa-robot"></i></div>
+                        <div class="stream-content">
+                            <div class="stream-text">
+                                <strong>Auto-Assign</strong> moved "Fed policy analysis" to Research Agent
+                            </div>
+                            <div class="stream-time">2 minutes ago</div>
+                        </div>
+                    </div>
+                    <div class="stream-item">
+                        <div class="stream-icon ai"><i class="fas fa-brain"></i></div>
+                        <div class="stream-content">
+                            <div class="stream-text">
+                                <strong>AI</strong> detected dependency between Healthcare cards
+                            </div>
+                            <div class="stream-time">5 minutes ago</div>
+                        </div>
+                    </div>
+                    <div class="stream-item">
+                        <div class="stream-icon complete"><i class="fas fa-check"></i></div>
+                        <div class="stream-content">
+                            <div class="stream-text">
+                                <strong>Smart Transition</strong> moved "MSTR analysis" to Review
+                            </div>
+                            <div class="stream-time">12 minutes ago</div>
+                        </div>
+                    </div>
+                    <div class="stream-item">
+                        <div class="stream-icon auto"><i class="fas fa-calendar"></i></div>
+                        <div class="stream-content">
+                            <div class="stream-text">
+                                <strong>Smart Date</strong> set due date for 3 cards based on workload
+                            </div>
+                            <div class="stream-time">18 minutes ago</div>
+                        </div>
+                    </div>
+                    <div class="stream-item">
+                        <div class="stream-icon ai"><i class="fas fa-magic"></i></div>
+                        <div class="stream-content">
+                            <div class="stream-text">
+                                <strong>Content AI</strong> generated draft for "GLP-1 thread" (Score: 94)
+                            </div>
+                            <div class="stream-time">25 minutes ago</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            const icon = type === 'ai' ? 'brain' : 'check-circle';
+            
+            toast.innerHTML = `
+                <i class="fas fa-${icon}"></i>
+                <span>${message}</span>
+            `;
+            
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(100%)';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Simulate AI activity
+        setInterval(() => {
+            const actions = [
+                { msg: 'AI detected optimal posting time for 2 cards', type: 'ai' },
+                { msg: 'Auto-assign balanced workload across team', type: 'success' },
+                { msg: 'Smart transition: 1 card moved to Review', type: 'success' }
+            ];
+            const action = actions[Math.floor(Math.random() * actions.length)];
+            if (Math.random() > 0.7) {
+                showToast(action.msg, action.type);
+            }
+        }, 15000);
+    </script>
+</body>
+</html>

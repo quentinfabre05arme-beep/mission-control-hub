@@ -1,0 +1,37 @@
+[
+  {
+    "name": "AI Agent Capabilities 2025",
+    "priority": 1,
+    "status": "queued",
+    "last_updated": "2026-07-13T07:19:53.159557",
+    "findings": []
+  },
+  {
+    "name": "Automation Best Practices",
+    "priority": 2,
+    "status": "queued",
+    "last_updated": "2026-07-13T07:19:53.159584",
+    "findings": []
+  },
+  {
+    "name": "Content Creation Strategies",
+    "priority": 3,
+    "status": "queued",
+    "last_updated": "2026-07-13T07:19:53.159587",
+    "findings": []
+  },
+  {
+    "name": "Social Media Research Methods",
+    "priority": 4,
+    "status": "queued",
+    "last_updated": "2026-07-13T07:19:53.159590",
+    "findings": []
+  },
+  {
+    "name": "A/B Testing Framework Design",
+    "priority": 5,
+    "status": "queued",
+    "last_updated": "2026-07-13T07:19:53.159591",
+    "findings": []
+  }
+]

@@ -1,0 +1,25 @@
+{
+  "folders_to_create": [
+    "Work/Active",
+    "Work/Archive",
+    "Work/Waiting",
+    "Personal/Family",
+    "Personal/Finance",
+    "Newsletters",
+    "Social",
+    "Shopping",
+    "Archive"
+  ],
+  "actions": [
+    "Archive emails older than 30 days",
+    "Sort newsletters by sender",
+    "Unsubscribe from low-value lists",
+    "Flag important ongoing threads",
+    "Create rules for auto-sorting"
+  ],
+  "target_metrics": {
+    "inbox_count": 50,
+    "unread_count": 10,
+    "archive_older_than_days": 30
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "saved_at": "2026-07-12T14:59:45.222334+00:00",
+  "tasks": {
+    "t001": {
+      "id": "t001",
+      "name": "Research Phase",
+      "description": "Gather data from multiple sources",
+      "status": "TaskStatus.COMPLETED",
+      "priority": "high",
+      "agent": "research",
+      "dependencies": [],
+      "output": {
+        "data": [
+          "finding_1",
+          "finding_2",
+          "finding_3"
+        ],
+        "sources": [
+          "web_search",
+          "memory",
+          "api"
+        ],
+        "timestamp": "2026-07-12T14:59:45.222165+00:00"
+      },
+      "error": null,
+      "started_at": "2026-07-12T14:59:45.222157+00:00",
+      "completed_at": "2026-07-12T14:59:45.222168+00:00",
+      "duration_seconds": 5e-06
+    },
+    "t002": {
+      "id": "t002",
+      "name": "Content Generation",
+      "description": "Create content from research",
+      "status": "TaskStatus.COMPLETED",
+      "priority": "high",
+      "agent": "content",
+      "dependencies": [
+        "t001"
+      ],
+      "output": {
+        "drafts": [
+          "draft_1",
+          "draft_2"
+        ],
+        "angles": [
+          "contrarian",
+          "data-driven"
+        ],
+        "scores": [
+          18,
+          21
+        ]
+      },
+      "error": null,
+      "started_at": "2026-07-12T14:59:45.222187+00:00",
+      "completed_at": "2026-07-12T14:59:45.222192+00:00",
+      "duration_seconds": 4e-06
+    },
+    "t003": {
+      "id": "t003",
+      "name": "Quality Review",
+      "description": "Review content quality",
+      "status": "TaskStatus.COMPLETED",
+      "priority": "medium",
+      "agent": "critic",
+      "dependencies": [
+        "t002"
+      ],
+      "output": {
+        "approved": false,
+        "reason": "No output to review",
+        "score": 0
+      },
+      "error": null,
+      "started_at": "2026-07-12T14:59:45.222201+00:00",
+      "completed_at": "2026-07-12T14:59:45.222207+00:00",
+      "duration_seconds": 6e-06
+    }
+  },
+  "execution_log": [
+    {
+      "task_id": "t001",
+      "status": "completed",
+      "duration": 5e-06,
+      "timestamp": "2026-07-12T14:59:45.222168+00:00"
+    },
+    {
+      "task_id": "t002",
+      "status": "completed",
+      "duration": 4e-06,
+      "timestamp": "2026-07-12T14:59:45.222192+00:00"
+    },
+    {
+      "task_id": "t003",
+      "status": "completed",
+      "duration": 6e-06,
+      "timestamp": "2026-07-12T14:59:45.222207+00:00"
+    }
+  ]
+}

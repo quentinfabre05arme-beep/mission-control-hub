@@ -1,0 +1,45 @@
+[
+  {
+    "topic": "eth_treasury",
+    "source": "Web Research",
+    "timestamp": "2026-07-12T10:06:00.000Z",
+    "headline": "ETH Institutional adoption accelerating - Bitmine holds 4.8% of supply",
+    "summary": "Ethereum Institutional nonprofit launched July 1 to accelerate adoption. Bitmine now holds 5.74M ETH (4.8% of circulating supply) worth $8.8B staked. Annual staking rewards projected at $277M. ETH up 11% in July, trading at $1,812.",
+    "sentiment": "bullish",
+    "impact": "high",
+    "price_data": {
+      "ETH": 1812,
+      "change_24h": 1.36,
+      "market_cap": "216B"
+    },
+    "key_metrics": null
+  },
+  {
+    "topic": "hims_healthcare",
+    "source": "Web Research",
+    "timestamp": "2026-07-12T10:06:00.000Z",
+    "headline": "HIMS secures $400M JPMorgan financing facility",
+    "summary": "Hims secured up to $400M liquidity from JPMorgan Chase for working capital as it scales. Stock hit 2026 high July 1, up 45% in 30 days. Now trading at $34.38. Novo Nordisk partnership active, full FDA-approved GLP-1 lineup available. Analyst price targets: BofA $37, Canaccord $40.",
+    "sentiment": "bullish",
+    "impact": "high",
+    "price_data": {
+      "HIMS": 34.38,
+      "change_30d": 45
+    },
+    "key_metrics": null
+  },
+  {
+    "topic": "ai_agentic_commerce",
+    "source": "McKinsey Research",
+    "timestamp": "2026-07-12T10:06:00.000Z",
+    "headline": "McKinsey: $3-5T agentic commerce by 2030, infrastructure protocols emerging",
+    "summary": "McKinsey introduced 6-level automation curve for agentic commerce. Linux Foundation launched Agentic AI Foundation with Anthropic, Google, Microsoft, OpenAI. New protocols: MCP (interoperability), A2A (agent communication), AP2/ACP (payments). Visa and Mastercard launched agentic AI payment tools. Shift from UI to data structures for AI parsing.",
+    "sentiment": "bullish",
+    "impact": "high",
+    "price_data": null,
+    "key_metrics": {
+      "market_projection": "$3-5T by 2030",
+      "us_market": "$1T by 2030"
+    }
+  }
+]

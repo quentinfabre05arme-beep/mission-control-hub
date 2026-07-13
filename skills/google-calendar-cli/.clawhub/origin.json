@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "registry": "https://clawhub.ai",
+  "slug": "google-calendar-cli",
+  "installedVersion": "1.0.0",
+  "installedAt": 1783908000075,
+  "artifact": {
+    "kind": "archive",
+    "sha256": "ac1bc1284d58b530ed61d7445b40760245f33c28cb84c4c590ae59a2522b6bb6",
+    "integrity": "sha256-rBvBKE1YtTDtYddEW0B2AkXzPCjLhMTFkK5ZolIra7Y="
+  },
+  "skillFile": {
+    "path": "SKILL.md",
+    "sha256": "f4efb3190e9c36d3bf189fc94c2ab9a66203bec0c4819ee03cfce4c2c43f23d2"
+  }
+}

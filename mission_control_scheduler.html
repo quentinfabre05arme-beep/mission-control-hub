@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@quentinvest1 | Content Scheduler v8.0</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg-primary: #050505;
+            --bg-secondary: #0a0a0a;
+            --bg-tertiary: #111111;
+            --bg-card: #141414;
+            --bg-hover: #1a1a1a;
+            --accent-cyan: #00d4ff;
+            --accent-green: #00ff88;
+            --accent-orange: #ff8800;
+            --accent-red: #ff3860;
+            --accent-purple: #bd34fe;
+            --accent-gold: #ffd700;
+            --accent-pink: #ff2d55;
+            --accent-teal: #00d4aa;
+            --accent-blue: #0a84ff;
+            --accent-indigo: #6366f1;
+            --accent-amber: #ffaa00;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-tertiary: #6e6e6e;
+            --text-dim: #404040;
+            --border-color: #1f1f1f;
+            --glass-bg: rgba(20, 20, 20, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --status-draft: #6e6e6e;
+            --status-scheduled: #0a84ff;
+            --status-approved: #00d4aa;
+            --status-published: #00ff88;
+            --status-failed: #ff3860;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(0, 212, 255, 0.06) 0%, transparent 40%),
+                radial-gradient(ellipse at 80% 80%, rgba(255, 170, 0, 0.04) 0%, transparent 40%),
+                radial-gradient(ellipse at 50% 50%, rgba(189, 52, 254, 0.03) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .ambient-grid {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 212, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .top-nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 64px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(24px) saturate(180%);
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 1.5rem;
+            z-index: 100;
+        }
+
+        .nav-left { display: flex; align-items: center; gap: 1rem; }
+        .logo { display: flex; align-items: center; gap: 0.5rem; font-weight: 600; font-size: 1.1rem; }
+        .version-tag { 
+            font-size: 0.7rem; 
+            padding: 0.2rem 0.5rem; 
+            background: linear-gradient(135deg, var(--accent-pink), var(--accent-purple)); 
+            border-radius: 4px; 
+            color: #fff; 
+            font-weight: 700; 
+        }
+
+        .nav-links { display: flex; gap: 0.25rem; }
+        .nav-link {
+            padding: 0.5rem 0.75rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.8rem;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+        .nav-link:hover, .nav-link.active { 
+            background: var(--bg-hover); 
+            color: var(--text-primary); 
+        }
+
+        .nav-right { display: flex; align-items: center; gap: 0.75rem; }
+        .status-indicator { 
+            display: flex; 
+            align-items: center; 
+            gap: 0.4rem; 
+            font-size: 0.75rem; 
+            color: var(--text-secondary); 
+        }
+        .status-dot { 
+            width: 8px; 
+            height: 8px; 
+            border-radius: 50%; 
+            background: var(--accent-green); 
+            animation: pulse-dot 2s ease-in-out infinite; 
+        }
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(0.9); }
+        }
+
+        .main-container { 
+            padding: 84px 1.5rem 1.5rem; 
+            max-width: 1600px; 
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-header {
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .page-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .page-title .icon { color: var(--accent-pink); }
+        .page-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+        .btn {
+            padding: 0.625rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s ease;
+            border: none;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-pink), var(--accent-purple));
+            color: #fff;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 45, 85, 0.3);
+        }
+        .btn-secondary {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+        }
+        .btn-secondary:hover {
+            border-color: var(--accent-cyan);
+        }
+
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 1.25rem;
+            height: calc(100vh - 180px);
+        }
+
+        /* Left Column - Calendar & Queue */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            overflow-y: auto;
+        }
+        .main-content::-webkit-scrollbar { width: 6px; }
+        .main-content::-webkit-scrollbar-thumb { 
+            background: var(--text-dim); 
+            border-radius: 3px; 
+        }
+
+        /* Calendar Section */
+        .calendar-section {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 1.25rem;
+        }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .section-title {
+            font-size: 1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .section-title i { color: var(--accent-cyan); }
+        .calendar-nav {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .nav-btn {
+            width: 32px;
+            height: 32px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .nav-btn:hover {
+            border-color: var(--accent-cyan);
+            color: var(--text-primary);
+        }
+        .current-month {
+            font-size: 0.9rem;
+            font-weight: 600;
+            min-width: 120px;
+            text-align: center;
+        }
+
+        /* Calendar Grid */
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+        }
+        .calendar-day-header {
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            padding: 0.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .calendar-day {
+            aspect-ratio: 1;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.5rem;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .calendar-day:hover {
+            border-color: var(--accent-cyan);
+        }
+        .calendar-day.today {
+            border-color: var(--accent-cyan);
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), transparent);
+        }
+        .calendar-day.selected {
+            border-color: var(--accent-pink);
+            box-shadow: 0 0 0 2px rgba(255, 45, 85, 0.2);
+        }
+        .calendar-day.other-month {
+            opacity: 0.4;
+        }
+        .day-number {
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        .day-dots {
+            display: flex;
+            gap: 2px;
+            margin-top: auto;
+            flex-wrap: wrap;
+        }
+        .day-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+        .day-dot.published { background: var(--accent-green); }
+        .day-dot.scheduled { background: var(--accent-blue); }
+        .day-dot.draft { background: var(--text-tertiary); }
+        .day-dot.approved { background: var(--accent-teal); }
+
+        /* Content Queue */
+        .queue-section {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 1.25rem;
+            flex: 1;
+        }
+        .queue-tabs {
+            display: flex;
+            gap: 0.25rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.75rem;
+        }
+        .queue-tab {
+            padding: 0.5rem 0.875rem;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+        .queue-tab:hover { color: var(--text-primary); }
+        .queue-tab.active {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+        .queue-tab .badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: var(--accent-pink);
+            color: #fff;
+            font-size: 0.65rem;
+            padding: 2px 5px;
+            border-radius: 10px;
+            font-weight: 700;
+        }
+
+        .queue-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .queue-item {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1rem;
+            display: flex;
+            gap: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .queue-item:hover {
+            border-color: var(--accent-cyan);
+            background: var(--bg-hover);
+        }
+        .queue-item.dragging {
+            opacity: 0.5;
+        }
+        .queue-drag-handle {
+            color: var(--text-dim);
+            cursor: grab;
+            padding: 0.25rem;
+        }
+        .queue-drag-handle:active { cursor: grabbing; }
+        .queue-content {
+            flex: 1;
+            min-width: 0;
+        }
+        .queue-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.35rem;
+        }
+        .queue-pillar {
+            font-size: 0.65rem;
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+        .queue-pillar.healthcare { background: rgba(0, 212, 255, 0.2); color: var(--accent-cyan); }
+        .queue-pillar.crypto { background: rgba(255, 136, 0, 0.2); color: var(--accent-orange); }
+        .queue-pillar.macro { background: rgba(189, 52, 254, 0.2); color: var(--accent-purple); }
+        .queue-pillar.longevity { background: rgba(0, 212, 170, 0.2); color: var(--accent-teal); }
+        .queue-pillar.growth { background: rgba(255, 215, 0, 0.2); color: var(--accent-gold); }
+        .queue-platform {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+        }
+        .queue-text {
+            font-size: 0.85rem;
+            color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .queue-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 0.5rem;
+            font-size: 0.75rem;
+        }
+        .queue-status {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+        .status-icon {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+        .status-icon.draft { background: var(--status-draft); }
+        .status-icon.scheduled { background: var(--status-scheduled); }
+        .status-icon.approved { background: var(--status-approved); }
+        .status-icon.published { background: var(--status-published); }
+        .queue-time {
+            color: var(--text-tertiary);
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+        .queue-score {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            color: var(--accent-green);
+        }
+        .queue-actions {
+            display: flex;
+            gap: 0.35rem;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+        .queue-item:hover .queue-actions { opacity: 1; }
+        .queue-action-btn {
+            width: 28px;
+            height: 28px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+        }
+        .queue-action-btn:hover {
+            border-color: var(--accent-cyan);
+            color: var(--text-primary);
+        }
+
+        /* Right Column - Stats & Preview */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            overflow-y: auto;
+        }
+        .sidebar::-webkit-scrollbar { width: 4px; }
+        .sidebar::-webkit-scrollbar-thumb { 
+            background: var(--text-dim); 
+            border-radius: 2px; 
+        }
+
+        /* Stats Cards */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.875rem;
+        }
+        .stat-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 1.75rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent-pink), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .stat-value.published { background: linear-gradient(135deg, var(--accent-green), var(--accent-teal)); -webkit-background-clip: text; }
+        .stat-value.scheduled { background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan)); -webkit-background-clip: text; }
+        .stat-value.engagement { background: linear-gradient(135deg, var(--accent-gold), var(--accent-orange)); -webkit-background-clip: text; }
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+        }
+        .stat-trend {
+            font-size: 0.7rem;
+            margin-top: 0.35rem;
+        }
+        .stat-trend.up { color: var(--accent-green); }
+        .stat-trend.down { color: var(--accent-red); }
+
+        /* Optimal Times Widget */
+        .widget {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 1.25rem;
+        }
+        .widget-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .widget-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .widget-title i { color: var(--accent-gold); }
+        .heatmap-container {
+            display: grid;
+            grid-template-columns: 40px repeat(7, 1fr);
+            gap: 2px;
+        }
+        .heatmap-label {
+            font-size: 0.65rem;
+            color: var(--text-tertiary);
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 0.5rem;
+        }
+        .heatmap-day {
+            font-size: 0.65rem;
+            color: var(--text-tertiary);
+            text-align: center;
+            padding-bottom: 0.35rem;
+        }
+        .heatmap-cell {
+            aspect-ratio: 1;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .heatmap-cell:hover {
+            transform: scale(1.2);
+            z-index: 10;
+        }
+        .heatmap-legend {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+            font-size: 0.7rem;
+            color: var(--text-tertiary);
+        }
+        .legend-gradient {
+            width: 80px;
+            height: 8px;
+            background: linear-gradient(90deg, #1a1a1a, #00d4ff);
+            border-radius: 4px;
+        }
+
+        /* Preview Panel */
+        .preview-widget {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 1.25rem;
+            flex: 1;
+        }
+        .preview-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        .preview-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-pink), var(--accent-purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #000;
+            font-size: 1.1rem;
+        }
+        .preview-user { flex: 1; }
+        .preview-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        .preview-handle {
+            font-size: 0.8rem;
+            color: var(--text-tertiary);
+        }
+        .preview-content {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1rem;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            min-height: 120px;
+        }
+        .preview-content:empty::before {
+            content: 'Select a post to preview...';
+            color: var(--text-dim);
+        }
+        .preview-meta {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.8rem;
+            color: var(--text-tertiary);
+            margin-bottom: 1rem;
+        }
+        .preview-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+        .preview-actions-row {
+            display: flex;
+            gap: 0.75rem;
+        }
+        .preview-btn {
+            flex: 1;
+            padding: 0.625rem;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s ease;
+        }
+        .preview-btn.edit {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+        }
+        .preview-btn.edit:hover { border-color: var(--accent-cyan); }
+        .preview-btn.schedule {
+            background: linear-gradient(135deg, var(--accent-pink), var(--accent-purple));
+            color: #fff;
+        }
+        .preview-btn.schedule:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 45, 85, 0.3);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1.5rem;
+            color: var(--text-tertiary);
+        }
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+        .empty-state h3 {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+        .empty-state p {
+            font-size: 0.85rem;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow: hidden;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+        .modal-overlay.active .modal { transform: scale(1); }
+        .modal-header {
+            padding: 1.25rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .modal-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        .modal-close {
+            width: 32px;
+            height: 32px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-close:hover {
+            border-color: var(--accent-red);
+            color: var(--accent-red);
+        }
+        .modal-body {
+            padding: 1.25rem;
+            overflow-y: auto;
+            max-height: 60vh;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .form-label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+        .form-input {
+            width: 100%;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.75rem;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            font-family: inherit;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent-cyan);
+        }
+        textarea.form-input {
+            resize: vertical;
+            min-height: 120px;
+        }
+        .modal-footer {
+            padding: 1rem 1.25rem;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.75rem;
+        }
+
+        /* Toast */
+        .toast-container {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            z-index: 200;
+        }
+        .toast {
+            padding: 0.875rem 1.25rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            animation: slideIn 0.3s ease;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        .toast.success { border-left: 3px solid var(--accent-green); }
+        .toast.error { border-left: 3px solid var(--accent-red); }
+        .toast.info { border-left: 3px solid var(--accent-cyan); }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            .preview-widget {
+                grid-column: span 2;
+            }
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                grid-template-columns: 1fr;
+            }
+            .preview-widget { grid-column: span 1; }
+            .stats-row { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <div class="ambient-grid"></div>
+
+    <nav class="top-nav">
+        <div class="nav-left">
+            <div class="logo">
+                <i class="fas fa-rocket" style="color: var(--accent-cyan);"></i>
+                <span>Mission Control</span>
+                <span class="version-tag">v8.0</span>
+            </div>
+            <div class="nav-links">
+                <a href="mission_control_orchestration.html" class="nav-link">Orchestration</a>
+                <a href="mission_control_content_intelligence.html" class="nav-link">Content</a>
+                <a href="mission_control_scheduler.html" class="nav-link active">Scheduler</a>
+                <a href="mission_control_campaigns.html" class="nav-link">Campaigns</a>
+                <a href="mission_control_cross_platform.html" class="nav-link">Cross-Platform</a>
+                <a href="mission_control_autonomous.html" class="nav-link">Autonomous</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <div class="status-indicator">
+                <span class="status-dot"></span>
+                <span>Queue Active</span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-container">
+        <div class="page-header">
+            <div>
+                <h1 class="page-title">
+                    <i class="fas fa-calendar-alt icon"></i>
+                    Content Scheduler
+                </h1>
+                <p class="page-subtitle">Smart scheduling, queue management, and optimal timing prediction</p>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-secondary" id="importBtn">
+                    <i class="fas fa-download"></i>
+                    Import
+                </button>
+                <button class="btn btn-primary" id="createBtn">
+                    <i class="fas fa-plus"></i>
+                    New Post
+                </button>
+            </div>
+        </div>
+
+        <div class="dashboard-grid">
+            <!-- Left Column -->
+            <div class="main-content">
+                <!-- Calendar -->
+                <div class="calendar-section">
+                    <div class="section-header">
+                        <h2 class="section-title">
+                            <i class="fas fa-calendar"></i>
+                            Content Calendar
+                        </h2>
+                        <div class="calendar-nav">
+                            <button class="nav-btn" id="prevMonth"><i class="fas fa-chevron-left"></i></button>
+                            <span class="current-month" id="currentMonth">July 2026</span>
+                            <button class="nav-btn" id="nextMonth"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+                    <div class="calendar-grid" id="calendarGrid">
+                        <!-- Generated by JS -->
+                    </div>
+                </div>
+
+                <!-- Content Queue -->
+                <div class="queue-section">
+                    <div class="section-header">
+                        <h2 class="section-title">
+                            <i class="fas fa-stream"></i>
+                            Content Queue
+                        </h2>
+                    </div>
+                    <div class="queue-tabs">
+                        <button class="queue-tab active" data-tab="scheduled">
+                            Scheduled
+                            <span class="badge" id="scheduledCount">3</span>
+                        </button>
+                        <button class="queue-tab" data-tab="drafts">
+                            Drafts
+                            <span class="badge" id="draftsCount">2</span>
+                        </button>
+                        <button class="queue-tab" data-tab="approved">
+                            Approved
+                            <span class="badge" id="approvedCount">1</span>
+                        </button>
+                        <button class="queue-tab" data-tab="published">
+                            Published
+                            <span class="badge" id="publishedCount">12</span>
+                        </button>
+                    </div>
+                    <div class="queue-list" id="queueList">
+                        <!-- Generated by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="sidebar">
+                <!-- Stats -->
+                <div class="stats-row">
+                    <div class="stat-card">
+                        <div class="stat-value scheduled" id="statScheduled">6</div>
+                        <div class="stat-label">Scheduled</div>
+                        <div class="stat-trend up">+2 this week</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value published" id="statPublished">47</div>
+                        <div class="stat-label">Published</div>
+                        <div class="stat-trend up">+12 this month</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="statDrafts">4</div>
+                        <div class="stat-label">Drafts</div>
+                        <div class="stat-trend down">-1 from last week</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value engagement" id="statEngagement">4.2%</div>
+                        <div class="stat-label">Avg Engagement</div>
+                        <div class="stat-trend up">+0.8% vs avg</div>
+                    </div>
+                </div>
+
+                <!-- Optimal Times -->
+                <div class="widget">
+                    <div class="widget-header">
+                        <h3 class="widget-title">
+                            <i class="fas fa-fire"></i>
+                            Optimal Posting Times
+                        </h3>
+                    </div>
+                    <div class="heatmap-container" id="heatmapContainer">
+                        <!-- Generated by JS -->
+                    </div>
+                    <div class="heatmap-legend">
+                        <span>Low</span>
+                        <div class="legend-gradient"></div>
+                        <span>High</span>
+                    </div>
+                </div>
+
+                <!-- Preview Panel -->
+                <div class="preview-widget">
+                    <div class="preview-header">
+                        <div class="preview-avatar">Q</div>
+                        <div class="preview-user">
+                            <div class="preview-name">Quentin</div>
+                            <div class="preview-handle">@quentinvest1</div>
+                        </div>
+                    </div>
+                    <div class="preview-content" id="previewContent">
+                        Healthcare innovation is accelerating. GLP-1 drugs are just the beginning — we're entering a new era of metabolic medicine that could reshape longevity and wellness markets. 🧬📈
+                    </div>
+                    <div class="preview-meta">
+                        <span class="preview-meta-item"><i class="far fa-clock"></i> Today, 2:30 PM</span>
+                        <span class="preview-meta-item"><i class="fas fa-chart-line"></i> 94 score</span>
+                    </div>
+                    <div class="preview-actions-row">
+                        <button class="preview-btn edit">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                        <button class="preview-btn schedule">
+                            <i class="fas fa-calendar-check"></i> Schedule
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Create Post Modal -->
+    <div class="modal-overlay" id="createModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Create New Post</h3>
+                <button class="modal-close" id="closeModal"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Content</label>
+                    <textarea class="form-input" id="newPostContent" placeholder="What's on your mind?"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Platform</label>
+                    <select class="form-input" id="newPostPlatform">
+                        <option value="x">X (Twitter)</option>
+                        <option value="linkedin">LinkedIn</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Content Pillar</label>
+                    <select class="form-input" id="newPostPillar">
+                        <option value="healthcare">Healthcare</option>
+                        <option value="crypto">Crypto</option>
+                        <option value="macro">Macro</option>
+                        <option value="longevity">Longevity</option>
+                        <option value="growth">Growth</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Schedule Date & Time</label>
+                    <input type="datetime-local" class="form-input" id="newPostTime">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="saveDraft">Save as Draft</button>
+                <button class="btn btn-primary" id="schedulePost">Schedule Post</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        // State
+        const state = {
+            currentDate: new Date(),
+            selectedDate: new Date(),
+            activeTab: 'scheduled',
+            queue: [
+                { id: 1, text: 'Healthcare innovation is accelerating. GLP-1 drugs are just the beginning...', pillar: 'healthcare', platform: 'x', status: 'scheduled', date: '2026-07-13T14:30:00', score: 94 },
+                { id: 2, text: 'ETH treasury strategies are reshaping corporate finance. When MicroStrategy paved the way...', pillar: 'crypto', platform: 'x', status: 'scheduled', date: '2026-07-14T09:00:00', score: 87 },
+                { id: 3, text: 'Fed policy divergence and its impact on emerging markets. A thread 🧵...', pillar: 'macro', platform: 'x', status: 'scheduled', date: '2026-07-14T16:45:00', score: 82 },
+                { id: 4, text: 'The longevity economy: from supplements to senolytics. Where the smart money is flowing...', pillar: 'longevity', platform: 'linkedin', status: 'draft', date: null, score: 91 },
+                { id: 5, text: 'Growth marketing lessons from the fastest scaling DTC brands...', pillar: 'growth', platform: 'x', status: 'draft', date: null, score: 78 },
+                { id: 6, text: 'AI in biotech: the convergence happening faster than expected...', pillar: 'healthcare', platform: 'linkedin', status: 'approved', date: '2026-07-15T11:00:00', score: 89 },
+            ]
+        };
+
+        // DOM Elements
+        const calendarGrid = document.getElementById('calendarGrid');
+        const currentMonth = document.getElementById('currentMonth');
+        const queueList = document.getElementById('queueList');
+        const createModal = document.getElementById('createModal');
+        const toastContainer = document.getElementById('toastContainer');
+
+        // Initialize
+        renderCalendar();
+        renderQueue();
+        renderHeatmap();
+        updateStats();
+
+        // Calendar Navigation
+        document.getElementById('prevMonth').addEventListener('click', () => {
+            state.currentDate.setMonth(state.currentDate.getMonth() - 1);
+            renderCalendar();
+        });
+
+        document.getElementById('nextMonth').addEventListener('click', () => {
+            state.currentDate.setMonth(state.currentDate.getMonth() + 1);
+            renderCalendar();
+        });
+
+        // Tab Switching
+        document.querySelectorAll('.queue-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.queue-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                state.activeTab = tab.dataset.tab;
+                renderQueue();
+            });
+        });
+
+        // Modal
+        document.getElementById('createBtn').addEventListener('click', () => {
+            createModal.classList.add('active');
+        });
+
+        document.getElementById('closeModal').addEventListener('click', () => {
+            createModal.classList.remove('active');
+        });
+
+        document.getElementById('createModal').addEventListener('click', (e) => {
+            if (e.target === createModal) {
+                createModal.classList.remove('active');
+            }
+        });
+
+        // Schedule Post
+        document.getElementById('schedulePost').addEventListener('click', () => {
+            const content = document.getElementById('newPostContent').value;
+            if (!content) {
+                showToast('Please enter content', 'error');
+                return;
+            }
+
+            const newPost = {
+                id: Date.now(),
+                text: content,
+                pillar: document.getElementById('newPostPillar').value,
+                platform: document.getElementById('newPostPlatform').value,
+                status: 'scheduled',
+                date: document.getElementById('newPostTime').value || new Date().toISOString(),
+                score: Math.floor(Math.random() * 20) + 75
+            };
+
+            state.queue.push(newPost);
+            createModal.classList.remove('active');
+            renderQueue();
+            renderCalendar();
+            updateStats();
+            showToast('Post scheduled successfully!', 'success');
+        });
+
+        document.getElementById('saveDraft').addEventListener('click', () => {
+            const content = document.getElementById('newPostContent').value;
+            if (!content) {
+                showToast('Please enter content', 'error');
+                return;
+            }
+
+            const newPost = {
+                id: Date.now(),
+                text: content,
+                pillar: document.getElementById('newPostPillar').value,
+                platform: document.getElementById('newPostPlatform').value,
+                status: 'draft',
+                date: null,
+                score: Math.floor(Math.random() * 20) + 75
+            };
+
+            state.queue.push(newPost);
+            createModal.classList.remove('active');
+            renderQueue();
+            updateStats();
+            showToast('Draft saved!', 'success');
+        });
+
+        // Render Calendar
+        function renderCalendar() {
+            const year = state.currentDate.getFullYear();
+            const month = state.currentDate.getMonth();
+            
+            currentMonth.textContent = new Date(year, month).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const daysInPrevMonth = new Date(year, month, 0).getDate();
+
+            let html = '';
+
+            // Day headers
+            const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            dayNames.forEach(day => {
+                html += `<div class="calendar-day-header">${day}</div>`;
+            });
+
+            // Previous month days
+            for (let i = firstDay - 1; i >= 0; i--) {
+                const day = daysInPrevMonth - i;
+                html += `<div class="calendar-day other-month"><span class="day-number">${day}</span></div>`;
+            }
+
+            // Current month days
+            const today = new Date();
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                const isToday = today.getDate() === day && today.getMonth() === month && today.getFullYear() === year;
+                const isSelected = state.selectedDate.getDate() === day && state.selectedDate.getMonth() === month;
+                
+                // Get posts for this day
+                const dayPosts = state.queue.filter(q => q.date && q.date.startsWith(dateStr));
+                const dots = dayPosts.map(p => `<span class="day-dot ${p.status}"></span>`).join('');
+
+                html += `
+                    <div class="calendar-day ${isToday ? 'today' : ''} ${isSelected ? 'selected' : ''}" data-day="${day}">
+                        <span class="day-number">${day}</span>
+                        <div class="day-dots">${dots}</div>
+                    </div>
+                `;
+            }
+
+            // Next month days
+            const remainingCells = (7 - ((firstDay + daysInMonth) % 7)) % 7;
+            for (let day = 1; day <= remainingCells; day++) {
+                html += `<div class="calendar-day other-month"><span class="day-number">${day}</span></div>`;
+            }
+
+            calendarGrid.innerHTML = html;
+
+            // Add click handlers
+            document.querySelectorAll('.calendar-day:not(.other-month)').forEach(day => {
+                day.addEventListener('click', () => {
+                    document.querySelectorAll('.calendar-day').forEach(d => d.classList.remove('selected'));
+                    day.classList.add('selected');
+                    state.selectedDate = new Date(year, month, parseInt(day.dataset.day));
+                    showToast(`Selected ${state.selectedDate.toLocaleDateString()}`, 'info');
+                });
+            });
+        }
+
+        // Render Queue
+        function renderQueue() {
+            const filtered = state.queue.filter(q => q.status === state.activeTab);
+            
+            if (filtered.length === 0) {
+                queueList.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-inbox"></i>
+                        <h3>No ${state.activeTab} posts</h3>
+                        <p>Create a new post to get started</p>
+                    </div>
+                `;
+                return;
+            }
+
+            queueList.innerHTML = filtered.map(item => `
+                <div class="queue-item" data-id="${item.id}">
+                    <div class="queue-drag-handle"><i class="fas fa-grip-vertical"></i></div>
+                    <div class="queue-content">
+                        <div class="queue-header">
+                            <span class="queue-pillar ${item.pillar}">${item.pillar}</span>
+                            <span class="queue-platform"><i class="fab fa-${item.platform}"></i> ${item.platform}</span>
+                        </div>
+                        <div class="queue-text">${item.text}</div>
+                        <div class="queue-meta">
+                            <span class="queue-status">
+                                <span class="status-icon ${item.status}"></span>
+                                ${item.status}
+                            </span>
+                            ${item.date ? `<span class="queue-time"><i class="far fa-clock"></i> ${formatTime(item.date)}</span>` : ''}
+                            <span class="queue-score"><i class="fas fa-chart-line"></i> ${item.score}</span>
+                        </div>
+                    </div>
+                    <div class="queue-actions">
+                        <button class="queue-action-btn" title="Edit"><i class="fas fa-edit"></i></button>
+                        <button class="queue-action-btn" title="Duplicate"><i class="fas fa-copy"></i></button>
+                        <button class="queue-action-btn" title="Delete"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            `).join('');
+
+            // Add action handlers
+            document.querySelectorAll('.queue-action-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const action = btn.getAttribute('title');
+                    showToast(`${action} clicked`, 'info');
+                });
+            });
+
+            // Preview on click
+            document.querySelectorAll('.queue-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    const id = parseInt(item.dataset.id);
+                    const post = state.queue.find(q => q.id === id);
+                    if (post) {
+                        document.getElementById('previewContent').textContent = post.text;
+                    }
+                });
+            });
+        }
+
+        // Render Heatmap
+        function renderHeatmap() {
+            const hours = ['12am', '3am', '6am', '9am', '12pm', '3pm', '6pm', '9pm'];
+            const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+            
+            let html = '<div></div>';
+            days.forEach(day => html += `<div class="heatmap-day">${day}</div>`);
+
+            hours.forEach(hour => {
+                html += `<div class="heatmap-label">${hour}</div>`;
+                days.forEach(() => {
+                    const intensity = Math.random();
+                    const opacity = 0.1 + (intensity * 0.9);
+                    html += `<div class="heatmap-cell" style="background: rgba(0, 212, 255, ${opacity});"></div>`;
+                });
+            });
+
+            document.getElementById('heatmapContainer').innerHTML = html;
+        }
+
+        // Update Stats
+        function updateStats() {
+            const counts = {
+                scheduled: state.queue.filter(q => q.status === 'scheduled').length,
+                published: state.queue.filter(q => q.status === 'published').length,
+                drafts: state.queue.filter(q => q.status === 'draft').length,
+                approved: state.queue.filter(q => q.status === 'approved').length
+            };
+
+            document.getElementById('statScheduled').textContent = counts.scheduled;
+            document.getElementById('statPublished').textContent = counts.published;
+            document.getElementById('statDrafts').textContent = counts.drafts;
+            
+            document.getElementById('scheduledCount').textContent = counts.scheduled;
+            document.getElementById('draftsCount').textContent = counts.drafts;
+            document.getElementById('approvedCount').textContent = counts.approved;
+            document.getElementById('publishedCount').textContent = counts.published;
+        }
+
+        // Helpers
+        function formatTime(dateStr) {
+            const date = new Date(dateStr);
+            return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+        }
+
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                <span>${message}</span>
+            `;
+            toastContainer.appendChild(toast);
+            
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        // Import button
+        document.getElementById('importBtn').addEventListener('click', () => {
+            showToast('Import from Content Intelligence...', 'info');
+            setTimeout(() => {
+                showToast('3 posts imported from Content Intelligence', 'success');
+                state.queue.push(
+                    { id: Date.now() + 1, text: 'New imported post about crypto markets...', pillar: 'crypto', platform: 'x', status: 'draft', date: null, score: 88 },
+                    { id: Date.now() + 2, text: 'Healthcare thread on new regulations...', pillar: 'healthcare', platform: 'x', status: 'draft', date: null, score: 92 },
+                    { id: Date.now() + 3, text: 'Macro analysis of Q3 outlook...', pillar: 'macro', platform: 'linkedin', status: 'draft', date: null, score: 85 }
+                );
+                renderQueue();
+                updateStats();
+            }, 1500);
+        });
+
+        showToast('Content Scheduler v8.0 ready', 'success');
+    </script>
+</body>
+</html>

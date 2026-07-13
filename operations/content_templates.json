@@ -1,0 +1,44 @@
+{
+  "eth_treasury": {
+    "hooks": [
+      "The BTC treasury playbook is proven. The next evolution is earning yield while holding.",
+      "19 public companies now hold ETH. The treasury revolution is just starting.",
+      "Saylor had to sell $216M BTC. ETH treasuries won't have to."
+    ],
+    "hashtags": [
+      "#ETH",
+      "#Treasury",
+      "#Crypto"
+    ],
+    "tone": "analytical",
+    "cta": "What do you think — will ETH treasuries follow the BTC playbook?"
+  },
+  "hims_healthcare": {
+    "hooks": [
+      "The drug gets the headlines. The infrastructure play is HIMS.",
+      "GLP-1s are disrupting healthcare. HIMS owns the rails.",
+      "$725M revenue, Novo Nordisk deal locked. This is infrastructure."
+    ],
+    "hashtags": [
+      "#HIMS",
+      "#Healthcare",
+      "#GLP1"
+    ],
+    "tone": "insightful",
+    "cta": "Healthcare infrastructure or just another pharma play?"
+  },
+  "ai_agentic_commerce": {
+    "hooks": [
+      "McKinsey says $3-5T in agentic commerce by 2030.",
+      "The winners won't be LLM makers — they'll be the intelligence companies.",
+      "We're entering the agentic economy. Here's what that means."
+    ],
+    "hashtags": [
+      "#AI",
+      "#Agents",
+      "#Commerce"
+    ],
+    "tone": "forward-looking",
+    "cta": "Which companies are positioning for the agentic economy?"
+  }
+}

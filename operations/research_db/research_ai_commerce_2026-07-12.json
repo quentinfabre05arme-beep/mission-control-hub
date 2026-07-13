@@ -1,0 +1,49 @@
+{
+  "topic": "ai_commerce",
+  "timestamp": "2026-07-12T15:33:57.560401",
+  "config": {
+    "keywords": [
+      "ai agents",
+      "agentic commerce",
+      "mcp protocol",
+      "a2a protocol",
+      "autonomous commerce"
+    ],
+    "sources": [
+      "techcrunch",
+      "the information",
+      "a16z",
+      "mcKinsey"
+    ],
+    "sentiment_keywords": [
+      "adoption",
+      "infrastructure",
+      "enterprise",
+      "growth"
+    ]
+  },
+  "sentiment": {
+    "average_score": 0.58,
+    "dominant": "neutral",
+    "confidence": 0.3
+  },
+  "trend": {
+    "direction": "stable",
+    "momentum": 0.0,
+    "volume_change": 0.0,
+    "narratives": [],
+    "keywords": [
+      "recent",
+      "development",
+      "agents",
+      "showing",
+      "positive"
+    ]
+  },
+  "recommendation": "Stable - focus on quality over timing",
+  "content_metrics": {
+    "total_items": 3,
+    "avg_word_count": 7.0,
+    "total_hashtags": 0
+  }
+}

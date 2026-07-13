@@ -1,0 +1,52 @@
+{
+  "jobs": [
+    {
+      "name": "autonomy-morning-briefing",
+      "schedule": "0 7 * * *",
+      "command": "python autonomy_system.py",
+      "description": "Daily morning briefing at 7:00 AM"
+    },
+    {
+      "name": "gmail-morning-check",
+      "schedule": "0 7 * * *",
+      "command": "python browser_automation/gmail_automation.py",
+      "description": "Check Gmail inbox"
+    },
+    {
+      "name": "outlook-morning-check",
+      "schedule": "5 7 * * *",
+      "command": "python browser_automation/outlook_automation.py",
+      "description": "Check Outlook inbox"
+    },
+    {
+      "name": "calendar-morning-check",
+      "schedule": "10 7 * * *",
+      "command": "python browser_automation/calendar_automation.py",
+      "description": "Check Google and Outlook calendars"
+    },
+    {
+      "name": "ai-services-research",
+      "schedule": "0 9 * * *",
+      "command": "python ai_services/research_automation.py",
+      "description": "Morning research using AI services"
+    },
+    {
+      "name": "autonomy-midday-check",
+      "schedule": "0 12 * * *",
+      "command": "python autonomy_system.py midday",
+      "description": "Midday status check"
+    },
+    {
+      "name": "autonomy-afternoon-check",
+      "schedule": "0 15 * * *",
+      "command": "python autonomy_system.py afternoon",
+      "description": "Afternoon status check"
+    },
+    {
+      "name": "autonomy-evening-summary",
+      "schedule": "0 18 * * *",
+      "command": "python autonomy_system.py evening",
+      "description": "Evening summary at 6:00 PM"
+    }
+  ]
+}

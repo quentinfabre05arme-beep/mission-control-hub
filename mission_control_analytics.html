@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@quentinvest1 | MISSION CONTROL Analytics</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-tertiary: #1a1a1a;
+            --bg-card: #161616;
+            --accent-cyan: #00d4ff;
+            --accent-green: #00ff88;
+            --accent-orange: #ff8800;
+            --accent-red: #ff0044;
+            --accent-purple: #8800ff;
+            --accent-gold: #ffd700;
+            --text-primary: #ffffff;
+            --text-secondary: #888888;
+            --text-dim: #444444;
+            --border-color: #222222;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto Mono', monospace;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(transparent 50%, rgba(0, 212, 255, 0.02) 50%);
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        /* Navigation */
+        .nav {
+            position: sticky;
+            top: 0;
+            background: rgba(17, 17, 17, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0 30px;
+            display: flex;
+            gap: 0;
+            overflow-x: auto;
+            z-index: 999;
+        }
+
+        .nav-link {
+            padding: 14px 18px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--accent-cyan);
+            border-bottom-color: var(--accent-cyan);
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+            border-bottom: 2px solid var(--accent-cyan);
+            padding: 25px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo-icon {
+            width: 55px;
+            height: 55px;
+            border: 3px solid var(--accent-cyan);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 15px var(--accent-cyan); }
+            50% { box-shadow: 0 0 35px var(--accent-cyan), 0 0 70px var(--accent-cyan); }
+        }
+
+        .header-title {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .header-title span {
+            color: var(--accent-cyan);
+        }
+
+        .header-subtitle {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        .header-right {
+            text-align: right;
+        }
+
+        .time-display {
+            font-size: 32px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: var(--accent-cyan);
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        .date-display {
+            font-size: 13px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 4px;
+        }
+
+        /* Container */
+        .container {
+            padding: 25px 40px;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+            padding-bottom: 120px;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 22px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            border-color: var(--accent-cyan);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.1);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+        }
+
+        .card-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--text-secondary);
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-title::before {
+            content: '◆';
+            color: var(--accent-cyan);
+        }
+
+        /* Chart Cards */
+        .chart-card {
+            grid-column: span 6;
+        }
+
+        .chart-card::before { background: var(--accent-cyan); }
+
+        .chart-container {
+            position: relative;
+            height: 280px;
+            margin-top: 10px;
+        }
+
+        .chart-full {
+            grid-column: span 12;
+        }
+
+        .chart-full::before { background: var(--accent-green); }
+
+        .chart-full .chart-container {
+            height: 320px;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            grid-column: span 12;
+        }
+
+        .stats-grid::before { background: var(--accent-gold); }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 15px;
+        }
+
+        .stat-item {
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s;
+        }
+
+        .stat-item:hover {
+            border-color: var(--accent-cyan);
+            transform: translateY(-3px);
+        }
+
+        .stat-value {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        .stat-value.green { color: var(--accent-green); }
+        .stat-value.orange { color: var(--accent-orange); }
+        .stat-value.red { color: var(--accent-red); }
+        .stat-value.gold { color: var(--accent-gold); }
+
+        .stat-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 8px;
+        }
+
+        .stat-change {
+            font-size: 12px;
+            margin-top: 6px;
+        }
+
+        .stat-change.positive { color: var(--accent-green); }
+        .stat-change.negative { color: var(--accent-red); }
+
+        /* Trend Card */
+        .trend-card {
+            grid-column: span 4;
+        }
+
+        .trend-card::before { background: var(--accent-purple); }
+
+        .trend-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .trend-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: var(--bg-tertiary);
+            border-radius: 6px;
+        }
+
+        .trend-indicator {
+            width: 8px;
+            height: 40px;
+            border-radius: 4px;
+        }
+
+        .trend-indicator.up { background: linear-gradient(180deg, var(--accent-green), #00aa44); }
+        .trend-indicator.down { background: linear-gradient(180deg, var(--accent-red), #aa0033); }
+        .trend-indicator.flat { background: var(--text-dim); }
+
+        .trend-info {
+            flex: 1;
+        }
+
+        .trend-name {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .trend-value {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        .trend-pct {
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .trend-pct.positive { color: var(--accent-green); }
+        .trend-pct.negative { color: var(--accent-red); }
+
+        /* Insight Card */
+        .insight-card {
+            grid-column: span 4;
+        }
+
+        .insight-card::before { background: var(--accent-orange); }
+
+        .insight-item {
+            padding: 15px;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            margin-bottom: 12px;
+            border-left: 3px solid var(--border-color);
+            transition: all 0.3s;
+        }
+
+        .insight-item:hover {
+            border-left-color: var(--accent-cyan);
+            transform: translateX(5px);
+        }
+
+        .insight-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .insight-type {
+            font-size: 10px;
+            padding: 4px 10px;
+            border-radius: 10px;
+            display: inline-block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .insight-type.positive { background: rgba(0, 255, 136, 0.2); color: var(--accent-green); }
+        .insight-type.opportunity { background: rgba(0, 212, 255, 0.2); color: var(--accent-cyan); }
+        .insight-type.warning { background: rgba(255, 136, 0, 0.2); color: var(--accent-orange); }
+
+        .insight-text {
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        /* Heatmap Card */
+        .heatmap-card {
+            grid-column: span 4;
+        }
+
+        .heatmap-card::before { background: var(--accent-green); }
+
+        .heatmap-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+        }
+
+        .heatmap-cell {
+            aspect-ratio: 1;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .heatmap-cell.low { background: rgba(0, 255, 136, 0.2); }
+        .heatmap-cell.medium { background: rgba(0, 212, 255, 0.4); }
+        .heatmap-cell.high { background: rgba(0, 212, 255, 0.7); }
+        .heatmap-cell.very-high { background: rgba(0, 212, 255, 1); color: var(--bg-primary); }
+
+        .heatmap-labels {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            margin-top: 8px;
+        }
+
+        .heatmap-label {
+            text-align: center;
+            font-size: 10px;
+            color: var(--text-secondary);
+        }
+
+        /* Footer */
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(17, 17, 17, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--border-color);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: var(--text-secondary);
+            z-index: 100;
+        }
+
+        .footer-left {
+            display: flex;
+            gap: 30px;
+        }
+
+        .footer-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-item::before {
+            content: '●';
+            color: var(--accent-green);
+        }
+
+        /* Loading */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+            color: var(--text-secondary);
+        }
+
+        .loading::after {
+            content: '';
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border-color);
+            border-top-color: var(--accent-cyan);
+            border-radius: 50%;
+            margin-left: 10px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 1400px) {
+            .container {
+                grid-template-columns: repeat(6, 1fr);
+            }
+            .chart-card, .trend-card, .insight-card, .heatmap-card {
+                grid-column: span 6;
+            }
+            .chart-full, .stats-grid {
+                grid-column: span 6;
+            }
+            .stats-row {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                padding: 15px;
+            }
+            .card {
+                grid-column: span 1 !important;
+            }
+            .stats-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .chart-container {
+                height: 220px;
+            }
+            .nav {
+                padding: 0 15px;
+            }
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <a href="mission_control_dashboard_live.html" class="nav-link">📊 Dashboard</a>
+        <a href="#" class="nav-link active">📈 Analytics</a>
+        <a href="#engagement" class="nav-link">💬 Engagement</a>
+        <a href="#content" class="nav-link">📝 Content</a>
+        <a href="#usage" class="nav-link">💰 Usage</a>
+        <a href="#insights" class="nav-link">💡 Insights</a>
+    </nav>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <div class="logo-icon">🐾</div>
+            <div>
+                <div class="header-title">Mission <span>Analytics</span></div>
+                <div class="header-subtitle">Performance & Growth Analytics</div>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="time-display" id="clock">--:--:--</div>
+            <div class="date-display" id="date">Loading...</div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Key Stats Overview -->
+        <div class="card stats-grid">
+            <div class="card-title">📊 Key Performance Metrics</div>
+            <div class="stats-row">
+                <div class="stat-item">
+                    <div class="stat-value" id="stat-followers">218</div>
+                    <div class="stat-label">Followers</div>
+                    <div class="stat-change positive">+6 today</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value gold" id="stat-engagement">5.8%</div>
+                    <div class="stat-label">Engagement Rate</div>
+                    <div class="stat-change positive">+0.9% vs last week</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="stat-impressions">312</div>
+                    <div class="stat-label">Avg Impressions</div>
+                    <div class="stat-change positive">+27% vs avg</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value green" id="stat-posts">1</div>
+                    <div class="stat-label">Posts This Week</div>
+                    <div class="stat-change">Target: 3-4</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value orange" id="stat-replies">4</div>
+                    <div class="stat-label">Replies Today</div>
+                    <div class="stat-change positive">Goal: 3-5</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="stat-progress">2.18%</div>
+                    <div class="stat-label">To 10K Goal</div>
+                    <div class="stat-change">9,782 to go</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Engagement Chart -->
+        <div class="card chart-card">
+            <div class="card-title">📈 Engagement Trends (7 Days)</div>
+            <div class="chart-container">
+                <canvas id="engagementChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Usage Chart -->
+        <div class="card chart-card">
+            <div class="card-title">💰 Ollama Usage (7 Days)</div>
+            <div class="chart-container">
+                <canvas id="usageChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Growth Trajectory -->
+        <div class="card chart-full">
+            <div class="card-title">🚀 Growth Trajectory: Current vs Target</div>
+            <div class="chart-container">
+                <canvas id="growthChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Content Performance Trends -->
+        <div class="card trend-card">
+            <div class="card-title">📊 Content Performance</div>
+            <div class="trend-list" id="content-trends">
+                <div class="loading">Loading trends...</div>
+            </div>
+        </div>
+
+        <!-- AI Insights -->
+        <div class="card insight-card">
+            <div class="card-title">💡 AI Insights</div>
+            <div id="insights-content">
+                <div class="insight-item">
+                    <div class="insight-type positive">Trending Up</div>
+                    <div class="insight-text">Engagement rate increased 0.9% this week. Your ETH Treasury thread outperformed average by 45%.</div>
+                </div>
+                <div class="insight-item">
+                    <div class="insight-type opportunity">Opportunity</div>
+                    <div class="insight-text">Best posting time: 5:00 PM. Consider scheduling high-priority content between 4-6 PM.</div>
+                </div>
+                <div class="insight-item">
+                    <div class="insight-type warning">Attention</div>
+                    <div class="insight-text">Only 1 post this week vs target of 3-4. HIMS thread ready — high engagement predicted.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Activity Heatmap -->
+        <div class="card heatmap-card">
+            <div class="card-title">🔥 Activity Heatmap</div>
+            <div class="heatmap-grid" id="heatmap">
+                <!-- Generated by JS -->
+            </div>
+            <div class="heatmap-labels">
+                <div class="heatmap-label">Mon</div>
+                <div class="heatmap-label">Tue</div>
+                <div class="heatmap-label">Wed</div>
+                <div class="heatmap-label">Thu</div>
+                <div class="heatmap-label">Fri</div>
+                <div class="heatmap-label">Sat</div>
+                <div class="heatmap-label">Sun</div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-left">
+            <div class="footer-item">Mission Control v2.2</div>
+            <div class="footer-item">Data Updated: Just now</div>
+        </div>
+        <div id="footer-status">Analytics Dashboard</div>
+    </footer>
+
+    <script>
+        // Clock
+        function updateClock() {
+            const now = new Date();
+            const time = now.toTimeString().split(' ')[0];
+            const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const date = now.toLocaleDateString('en-US', dateOptions);
+            
+            document.getElementById('clock').textContent = time;
+            document.getElementById('date').textContent = date;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Sample Data (replace with fetch from mission_control_data_live.json)
+        const engagementData = {
+            labels: ['Jul 6', 'Jul 7', 'Jul 8', 'Jul 9', 'Jul 10', 'Jul 11', 'Jul 12'],
+            impressions: [180, 220, 195, 450, 280, 245, 312],
+            engagements: [8, 12, 9, 28, 16, 12, 18],
+            rates: [4.4, 5.5, 4.6, 6.2, 5.7, 4.9, 5.8]
+        };
+
+        const usageData = {
+            labels: ['Jul 6', 'Jul 7', 'Jul 8', 'Jul 9', 'Jul 10', 'Jul 11', 'Jul 12'],
+            cost: [1.20, 1.45, 0.98, 1.32, 1.51, 1.38, 1.44]
+        };
+
+        // Chart Configuration
+        Chart.defaults.color = '#888888';
+        Chart.defaults.borderColor = '#222222';
+        Chart.defaults.font.family = "'Segoe UI', 'Roboto Mono', monospace";
+
+        // Engagement Chart
+        const ctx1 = document.getElementById('engagementChart').getContext('2d');
+        new Chart(ctx1, {
+            type: 'line',
+            data: {
+                labels: engagementData.labels,
+                datasets: [{
+                    label: 'Impressions',
+                    data: engagementData.impressions,
+                    borderColor: '#00d4ff',
+                    backgroundColor: 'rgba(0, 212, 255, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                }, {
+                    label: 'Engagements',
+                    data: engagementData.engagements,
+                    borderColor: '#00ff88',
+                    backgroundColor: 'rgba(0, 255, 136, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: { intersect: false, mode: 'index' },
+                plugins: {
+                    legend: { labels: { color: '#ffffff' } }
+                },
+                scales: {
+                    y: { beginAtZero: true, grid: { color: '#1a1a1a' } },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+
+        // Usage Chart
+        const ctx2 = document.getElementById('usageChart').getContext('2d');
+        new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: usageData.labels,
+                datasets: [{
+                    label: 'Daily Cost ($)',
+                    data: usageData.cost,
+                    backgroundColor: usageData.cost.map(c => c > 1.5 ? '#ff0044' : c > 1.3 ? '#ff8800' : '#00d4ff'),
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: (context) => `$${context.raw.toFixed(2)}`
+                        }
+                    }
+                },
+                scales: {
+                    y: { 
+                        beginAtZero: true, 
+                        grid: { color: '#1a1a1a' },
+                        ticks: { callback: (value) => `$${value}` }
+                    },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+
+        // Growth Trajectory Chart
+        const ctx3 = document.getElementById('growthChart').getContext('2d');
+        
+        // Calculate projected growth
+        const currentFollowers = 218;
+        const targetFollowers = 10000;
+        const dailyGrowth = 0.86; // avg per day
+        const days = 180; // 6 months projection
+        
+        const actualData = [212, 212, 212, 212, 213, 213, 218];
+        const projectionData = [];
+        let projected = currentFollowers;
+        for (let i = 0; i < days; i++) {
+            projectionData.push(projected);
+            projected += dailyGrowth;
+            if (projected >= targetFollowers) break;
+        }
+        
+        const growthLabels = ['Jul 6', 'Jul 7', 'Jul 8', 'Jul 9', 'Jul 10', 'Jul 11', 'Jul 12'];
+        for (let i = 1; i <= projectionData.length - 7; i++) {
+            const date = new Date();
+            date.setDate(date.getDate() + i);
+            growthLabels.push(`${date.getMonth() + 1}/${date.getDate()}`);
+        }
+
+        new Chart(ctx3, {
+            type: 'line',
+            data: {
+                labels: growthLabels,
+                datasets: [{
+                    label: 'Actual Followers',
+                    data: [...actualData, ...Array(projectionData.length - actualData.length).fill(null)],
+                    borderColor: '#00ff88',
+                    backgroundColor: 'rgba(0, 255, 136, 0.1)',
+                    fill: false,
+                    pointRadius: 4,
+                    tension: 0.4
+                }, {
+                    label: 'Projected Growth',
+                    data: [...Array(actualData.length - 1).fill(null), ...projectionData],
+                    borderColor: '#00d4ff',
+                    backgroundColor: 'rgba(0, 212, 255, 0.05)',
+                    fill: true,
+                    borderDash: [5, 5],
+                    pointRadius: 0,
+                    tension: 0.4
+                }, {
+                    label: 'Target (10K)',
+                    data: Array(growthLabels.length).fill(targetFollowers),
+                    borderColor: '#ffd700',
+                    borderDash: [2, 2],
+                    pointRadius: 0,
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: { intersect: false, mode: 'index' },
+                plugins: {
+                    legend: { labels: { color: '#ffffff' } },
+                    annotation: {
+                        annotations: {
+                            targetLine: {
+                                type: 'line',
+                                yMin: 10000,
+                                yMax: 10000,
+                                borderColor: '#ffd700',
+                                borderWidth: 1,
+                                borderDash: [5, 5]
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: { 
+                        beginAtZero: false,
+                        min: 200,
+                        grid: { color: '#1a1a1a' }
+                    },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+
+        // Content Trends
+        const trends = [
+            { name: 'ETH Treasury Thread', change: 45, status: 'up', value: 'Top performer' },
+            { name: 'Engagement Rate', change: 18, status: 'up', value: '5.8% this week' },
+            { name: 'Post Frequency', change: -60, status: 'down', value: '1 vs 3-4 target' },
+            { name: 'Reply Rate', change: 33, status: 'up', value: '4 today vs 3 avg' }
+        ];
+
+        const trendsHTML = trends.map(t => `
+            <div class="trend-item">
+                <div class="trend-indicator ${t.status}"></div>
+                <div class="trend-info">
+                    <div class="trend-name">${t.name}</div>
+                    <div class="trend-value">${t.value}</div>
+                </div>
+                <div class="trend-pct ${t.change > 0 ? 'positive' : 'negative'}">${t.change > 0 ? '+' : ''}${t.change}%</div>
+            </div>
+        `).join('');
+        
+        document.getElementById('content-trends').innerHTML = trendsHTML;
+
+        // Heatmap
+        const heatmapData = [
+            [1, 2, 3, 2, 1, 4, 5], // Week 1
+            [2, 3, 4, 3, 2, 5, 4], // Week 2
+            [3, 4, 2, 4, 3, 4, 3], // Week 3
+            [4, 3, 3, 3, 4, 3, 4]  // Week 4
+        ].flat();
+
+        const heatmapHTML = heatmapData.map(val => {
+            let className = 'low';
+            if (val === 2) className = 'medium';
+            if (val === 3) className = 'high';
+            if (val >= 4) className = 'very-high';
+            return `<div class="heatmap-cell ${className}">${val}</div>`;
+        }).join('');
+
+        document.getElementById('heatmap').innerHTML = heatmapHTML;
+
+        // Auto-refresh indicator
+        setInterval(() => {
+            document.getElementById('footer-status').textContent = 'Analytics Dashboard • Auto-refresh: ON';
+        }, 5000);
+    </script>
+</body>
+</html>

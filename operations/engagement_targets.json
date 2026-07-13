@@ -1,0 +1,101 @@
+[
+  {
+    "handle": "@TheLongInvestor",
+    "name": "The Long Investor",
+    "focus": "ETH technical analysis, treasury plays",
+    "tier": 1,
+    "follower_count": 85000,
+    "avg_engagement": 3.2,
+    "last_engaged": null,
+    "priority_score": 0.0,
+    "notes": []
+  },
+  {
+    "handle": "@DrTomsLens",
+    "name": "Dr Tom",
+    "focus": "Healthcare/biotech, Data Awareness portfolio",
+    "tier": 1,
+    "follower_count": 45000,
+    "avg_engagement": 4.1,
+    "last_engaged": null,
+    "priority_score": 0.0,
+    "notes": []
+  },
+  {
+    "handle": "@DylanLeClair_",
+    "name": "Dylan LeClair",
+    "focus": "BTC analysis, market structure",
+    "tier": 1,
+    "follower_count": 120000,
+    "avg_engagement": 5.8,
+    "last_engaged": null,
+    "priority_score": 0.0,
+    "notes": []
+  },
+  {
+    "handle": "@RaoulGMI",
+    "name": "Raoul Pal",
+    "focus": "Macro, crypto, exponential age",
+    "tier": 1,
+    "follower_count": 1420000,
+    "avg_engagement": 2.4,
+    "last_engaged": null,
+    "priority_score": 0.0,
+    "notes": []
+  },
+  {
+    "handle": "@DocumentingBTC",
+    "name": "Documenting Bitcoin",
+    "focus": "BTC news, treasury tracking",
+    "tier": 2,
+    "follower_count": 580000,
+    "avg_engagement": 1.8,
+    "last_engaged": null,
+    "priority_score": 0.0,
+    "notes": []
+  },
+  {
+    "handle": "@DeFi_Cheetah",
+    "name": "DeFi Cheetah",
+    "focus": "DeFi analysis, ETH ecosystem",
+    "tier": 2,
+    "follower_count": 32000,
+    "avg_engagement": 3.5,
+    "last_engaged": null,
+    "priority_score": 0.0,
+    "notes": []
+  },
+  {
+    "handle": "@HIMS_IR",
+    "name": "HIMS & Hers Health",
+    "focus": "Official HIMS account",
+    "tier": 2,
+    "follower_count": 89000,
+    "avg_engagement": 2.1,
+    "last_engaged": null,
+    "priority_score": 0.0,
+    "notes": []
+  },
+  {
+    "handle": "@naval",
+    "name": "Naval",
+    "focus": "Tech, wealth, philosophy",
+    "tier": 3,
+    "follower_count": 2400000,
+    "avg_engagement": 1.5,
+    "last_engaged": null,
+    "priority_score": 0.0,
+    "notes": []
+  },
+  {
+    "handle": "@pmarca",
+    "name": "Marc Andreessen",
+    "focus": "VC, tech trends",
+    "tier": 3,
+    "follower_count": 1900000,
+    "avg_engagement": 1.2,
+    "last_engaged": null,
+    "priority_score": 0.0,
+    "notes": []
+  }
+]

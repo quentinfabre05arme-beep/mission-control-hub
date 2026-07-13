@@ -1,0 +1,2023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission Control v9.3 | Advanced Team Collaboration</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg: #050505;
+            --bg-card: #0a0a0a;
+            --bg-hover: #111111;
+            --bg-elevated: #141414;
+            --accent: #00d4ff;
+            --accent-green: #00ff88;
+            --accent-orange: #ff8800;
+            --accent-purple: #bd34fe;
+            --accent-pink: #ff2d55;
+            --accent-gold: #ffd700;
+            --accent-red: #ff4444;
+            --text: #ffffff;
+            --text-dim: #666666;
+            --text-secondary: #aaaaaa;
+            --border: #1a1a1a;
+            --online: #00ff88;
+            --away: #ffaa00;
+            --offline: #666666;
+            --danger: #ff4444;
+            --warning: #ffaa00;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-card);
+        }
+        .logo {
+            font-size: 1.1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .version-badge {
+            font-size: 0.7rem;
+            color: var(--accent);
+            background: rgba(0,212,255,0.1);
+            padding: 0.15rem 0.5rem;
+            border-radius: 10px;
+            margin-left: 0.5rem;
+        }
+        .live-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.75rem;
+            color: var(--accent-green);
+            background: rgba(0,255,136,0.1);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+        }
+        .live-dot {
+            width: 8px; height: 8px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.9); }
+        }
+
+        /* Search Bar */
+        .search-container {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex: 1;
+            max-width: 400px;
+            margin: 0 1.5rem;
+        }
+        .search-box {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            background: var(--bg-hover);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.5rem 0.75rem;
+            gap: 0.5rem;
+        }
+        .search-box i { color: var(--text-dim); font-size: 0.9rem; }
+        .search-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--text);
+            font-size: 0.85rem;
+            outline: none;
+        }
+        .search-input::placeholder { color: var(--text-dim); }
+        .search-shortcut {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            background: var(--bg-elevated);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+        }
+
+        /* Header Actions */
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .header-btn {
+            width: 36px; height: 36px;
+            border-radius: 8px;
+            border: none;
+            background: var(--bg-hover);
+            color: var(--text-dim);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            position: relative;
+        }
+        .header-btn:hover {
+            background: var(--bg-elevated);
+            color: var(--text);
+        }
+        .header-btn .badge {
+            position: absolute;
+            top: -2px; right: -2px;
+            width: 16px; height: 16px;
+            background: var(--accent-pink);
+            border-radius: 50%;
+            font-size: 0.6rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        /* Navigation */
+        .nav {
+            padding: 0.75rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            gap: 0.5rem;
+            overflow-x: auto;
+            background: var(--bg-card);
+        }
+        .nav-item {
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .nav-item:hover, .nav-item.active {
+            background: var(--bg-hover);
+            color: var(--text);
+        }
+        .nav-item i { font-size: 0.9rem; }
+
+        /* Filter Bar */
+        .filter-bar {
+            padding: 0.75rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: var(--bg);
+        }
+        .filter-label {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+        .filter-chip {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.4rem 0.75rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .filter-chip:hover {
+            border-color: var(--accent);
+        }
+        .filter-chip.active {
+            background: rgba(0,212,255,0.1);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        .filter-chip i { font-size: 0.7rem; }
+
+        /* Main Layout */
+        .main {
+            display: grid;
+            grid-template-columns: 280px 1fr 320px;
+            height: calc(100vh - 170px);
+        }
+
+        /* Sidebar - Team Members */
+        .sidebar {
+            border-right: 1px solid var(--border);
+            overflow-y: auto;
+            background: var(--bg-card);
+        }
+        .sidebar-header {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .sidebar-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .member-count {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            background: var(--bg-hover);
+            padding: 0.15rem 0.5rem;
+            border-radius: 10px;
+        }
+        .sidebar-action {
+            width: 28px; height: 28px;
+            border-radius: 6px;
+            border: none;
+            background: transparent;
+            color: var(--text-dim);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .sidebar-action:hover {
+            background: var(--bg-hover);
+            color: var(--text);
+        }
+        .member-list { padding: 0.5rem; }
+        .member-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .member-item:hover, .member-item.active {
+            background: var(--bg-hover);
+        }
+        .member-avatar {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            position: relative;
+        }
+        .member-avatar.online::after {
+            content: '';
+            position: absolute;
+            bottom: 2px; right: 2px;
+            width: 10px; height: 10px;
+            background: var(--online);
+            border: 2px solid var(--bg-card);
+            border-radius: 50%;
+        }
+        .member-avatar.away::after {
+            content: '';
+            position: absolute;
+            bottom: 2px; right: 2px;
+            width: 10px; height: 10px;
+            background: var(--away);
+            border: 2px solid var(--bg-card);
+            border-radius: 50%;
+        }
+        .member-info { flex: 1; }
+        .member-name {
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 0.15rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .member-status {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+        .member-role {
+            font-size: 0.65rem;
+            padding: 0.1rem 0.4rem;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        .member-role.owner {
+            background: rgba(255,215,0,0.15);
+            color: var(--accent-gold);
+        }
+        .member-role.admin {
+            background: rgba(255,136,0,0.15);
+            color: var(--accent-orange);
+        }
+        .member-role.editor {
+            background: rgba(0,212,255,0.15);
+            color: var(--accent);
+        }
+        .member-role.viewer {
+            background: rgba(102,102,102,0.15);
+            color: var(--text-dim);
+        }
+
+        /* Permission indicator for current user */
+        .permission-indicator {
+            margin-top: 1rem;
+            padding: 0.75rem;
+            background: rgba(0,212,255,0.05);
+            border: 1px solid rgba(0,212,255,0.1);
+            border-radius: 8px;
+            margin: 1rem;
+        }
+        .permission-label {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            margin-bottom: 0.25rem;
+        }
+        .permission-value {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--accent);
+        }
+        .permission-hint {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            margin-top: 0.25rem;
+        }
+
+        /* Center - Workspace */
+        .workspace {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .workspace-header {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-card);
+        }
+        .workspace-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .workspace-title h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        .workspace-status {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .workspace-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: none;
+        }
+        .btn-secondary {
+            background: var(--bg-hover);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        .btn-primary {
+            background: var(--accent);
+            color: #000;
+            font-weight: 500;
+        }
+        .btn-primary:hover {
+            background: #33ddff;
+        }
+        .btn-danger {
+            background: rgba(255,68,68,0.1);
+            color: var(--danger);
+            border: 1px solid rgba(255,68,68,0.2);
+        }
+        .btn-danger:hover {
+            background: rgba(255,68,68,0.2);
+        }
+
+        /* Template Dropdown */
+        .template-dropdown {
+            position: relative;
+        }
+        .template-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 0.5rem;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            min-width: 220px;
+            z-index: 100;
+            display: none;
+        }
+        .template-menu.show { display: block; }
+        .template-item {
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            border-bottom: 1px solid var(--border);
+        }
+        .template-item:last-child { border-bottom: none; }
+        .template-item:hover { background: var(--bg-hover); }
+        .template-name {
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 0.15rem;
+        }
+        .template-desc {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+
+        /* Kanban Board */
+        .kanban {
+            flex: 1;
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            overflow-x: auto;
+            background: var(--bg);
+        }
+        .kanban-column {
+            min-width: 300px;
+            max-width: 300px;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+        .kanban-header {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .kanban-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        .kanban-count {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            background: var(--bg-hover);
+            padding: 0.15rem 0.5rem;
+            border-radius: 10px;
+        }
+        .kanban-add {
+            width: 24px; height: 24px;
+            border-radius: 4px;
+            border: none;
+            background: transparent;
+            color: var(--text-dim);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .kanban-add:hover {
+            background: var(--bg-hover);
+            color: var(--text);
+        }
+        .kanban-cards {
+            flex: 1;
+            padding: 0.75rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .kanban-card {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+        .kanban-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+        .kanban-card.dragging {
+            opacity: 0.5;
+        }
+        .card-urgency {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            border-radius: 8px 8px 0 0;
+        }
+        .card-urgency.overdue { background: var(--danger); }
+        .card-urgency.today { background: var(--warning); }
+        .card-urgency.upcoming { background: var(--accent-gold); }
+        .card-dependency-indicator {
+            position: absolute;
+            top: 0.5rem; right: 0.5rem;
+            width: 20px; height: 20px;
+            background: var(--accent-purple);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+            color: white;
+        }
+        .card-labels {
+            display: flex;
+            gap: 0.4rem;
+            margin-bottom: 0.5rem;
+            flex-wrap: wrap;
+        }
+        .card-label {
+            font-size: 0.7rem;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        .card-label.urgent { background: rgba(255,45,85,0.15); color: var(--accent-pink); }
+        .card-label.content { background: rgba(0,212,255,0.15); color: var(--accent); }
+        .card-label.review { background: rgba(255,136,0,0.15); color: var(--accent-orange); }
+        .card-label.research { background: rgba(189,52,254,0.15); color: var(--accent-purple); }
+        .card-title {
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+        .card-due-date {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+        .card-due-date.overdue { color: var(--danger); }
+        .card-due-date.today { color: var(--warning); }
+        .card-due-date.upcoming { color: var(--accent-gold); }
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 0.75rem;
+        }
+        .card-assignees {
+            display: flex;
+            margin-left: -6px;
+        }
+        .card-assignee {
+            width: 24px; height: 24px;
+            border-radius: 50%;
+            border: 2px solid var(--bg-elevated);
+            margin-left: -6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        .card-assignee:first-child { margin-left: 0; }
+        .card-stats {
+            display: flex;
+            gap: 0.75rem;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+        .card-stat {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .card-stat.has-content { color: var(--accent); }
+
+        /* Right Panel - Activity & Chat */
+        .right-panel {
+            border-left: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-card);
+        }
+        .panel-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border);
+        }
+        .panel-tab {
+            flex: 1;
+            padding: 0.875rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .panel-tab:hover { color: var(--text); }
+        .panel-tab.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        /* Activity Feed */
+        .panel-content {
+            flex: 1;
+            overflow-y: auto;
+        }
+        .activity-list { padding: 1rem; }
+        .activity-item {
+            display: flex;
+            gap: 0.75rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .activity-item:last-child { border-bottom: none; }
+        .activity-avatar {
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .activity-content { flex: 1; }
+        .activity-text {
+            font-size: 0.85rem;
+            line-height: 1.4;
+            margin-bottom: 0.25rem;
+        }
+        .activity-text strong { color: var(--text); font-weight: 500; }
+        .activity-time {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+        .activity-target {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            color: var(--accent);
+            cursor: pointer;
+        }
+        .activity-target:hover { text-decoration: underline; }
+
+        /* Chat Panel */
+        .chat-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+        }
+        .chat-message {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        .chat-avatar {
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .chat-content { flex: 1; }
+        .chat-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.25rem;
+        }
+        .chat-name {
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        .chat-time {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+        }
+        .chat-text {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+        .chat-mention {
+            color: var(--accent);
+            background: rgba(0,212,255,0.1);
+            padding: 0.1rem 0.3rem;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        .chat-input-area {
+            padding: 1rem;
+            border-top: 1px solid var(--border);
+        }
+        .chat-input-container {
+            display: flex;
+            gap: 0.5rem;
+            background: var(--bg-hover);
+            border-radius: 8px;
+            padding: 0.5rem;
+            border: 1px solid var(--border);
+        }
+        .chat-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--text);
+            font-size: 0.9rem;
+            outline: none;
+            padding: 0.25rem;
+        }
+        .chat-input::placeholder { color: var(--text-dim); }
+        .chat-send {
+            width: 36px; height: 36px;
+            border-radius: 6px;
+            border: none;
+            background: var(--accent);
+            color: #000;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .chat-send:hover {
+            background: #33ddff;
+            transform: scale(1.05);
+        }
+        .typing-indicator {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+        .typing-dots {
+            display: flex;
+            gap: 3px;
+        }
+        .typing-dot {
+            width: 6px; height: 6px;
+            background: var(--text-dim);
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-4px); }
+        }
+
+        /* Card Detail Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            width: 90%;
+            max-width: 700px;
+            max-height: 85vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transform: scale(0.95);
+            transition: transform 0.3s;
+        }
+        .modal-overlay.show .modal {
+            transform: scale(1);
+        }
+        .modal-header {
+            padding: 1.25rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .modal-title-section {
+            flex: 1;
+        }
+        .modal-labels {
+            display: flex;
+            gap: 0.4rem;
+            margin-bottom: 0.5rem;
+        }
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .modal-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+        .modal-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .modal-close {
+            width: 32px; height: 32px;
+            border-radius: 6px;
+            border: none;
+            background: transparent;
+            color: var(--text-dim);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-close:hover {
+            background: var(--bg-hover);
+            color: var(--text);
+        }
+        .modal-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.25rem;
+        }
+        .modal-section {
+            margin-bottom: 1.5rem;
+        }
+        .modal-section-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-dim);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .modal-section-content {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+        .modal-assignees {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .modal-assignee {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 0.75rem;
+            background: var(--bg-hover);
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+        .modal-assignee-avatar {
+            width: 24px; height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        .attachments-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .attachment-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: var(--bg-hover);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .attachment-item:hover {
+            background: var(--bg-elevated);
+        }
+        .attachment-icon {
+            width: 40px; height: 40px;
+            background: var(--accent);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+        }
+        .attachment-info { flex: 1; }
+        .attachment-name {
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 0.15rem;
+        }
+        .attachment-size {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+        .attachment-actions {
+            display: flex;
+            gap: 0.25rem;
+        }
+        .attachment-action {
+            width: 28px; height: 28px;
+            border-radius: 4px;
+            border: none;
+            background: transparent;
+            color: var(--text-dim);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .attachment-action:hover {
+            background: var(--bg-elevated);
+            color: var(--text);
+        }
+        .add-attachment {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem;
+            border: 2px dashed var(--border);
+            border-radius: 8px;
+            color: var(--text-dim);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .add-attachment:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Comments Section */
+        .comments-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .comment {
+            display: flex;
+            gap: 0.75rem;
+        }
+        .comment-avatar {
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .comment-content { flex: 1; }
+        .comment-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.25rem;
+        }
+        .comment-name {
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        .comment-time {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+        }
+        .comment-text {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        .comment-input-area {
+            margin-top: 1rem;
+            padding: 0.75rem;
+            background: var(--bg-hover);
+            border-radius: 8px;
+        }
+        .comment-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: var(--text);
+            font-size: 0.9rem;
+            outline: none;
+            resize: none;
+            min-height: 60px;
+        }
+        .comment-input::placeholder { color: var(--text-dim); }
+        .comment-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 0.75rem;
+        }
+        .comment-hint {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+
+        /* Modal Footer */
+        .modal-footer {
+            padding: 1rem 1.25rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .modal-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        /* Dependency Graph */
+        .dependency-graph {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .dependency-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: var(--bg-hover);
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-purple);
+        }
+        .dependency-item.blocked {
+            border-left-color: var(--danger);
+            opacity: 0.7;
+        }
+        .dependency-status {
+            width: 20px; height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+        }
+        .dependency-status.complete {
+            background: var(--accent-green);
+            color: #000;
+        }
+        .dependency-status.pending {
+            background: var(--warning);
+            color: #000;
+        }
+        .dependency-info { flex: 1; }
+        .dependency-title {
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        .dependency-status-text {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+
+        /* Toast Notifications */
+        .toast-container {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            z-index: 2000;
+        }
+        .toast {
+            padding: 1rem 1.25rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            min-width: 300px;
+            animation: slideIn 0.3s ease-out;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        .toast.success {
+            background: var(--bg-elevated);
+            border: 1px solid var(--accent-green);
+            color: var(--accent-green);
+        }
+        .toast.warning {
+            background: var(--bg-elevated);
+            border: 1px solid var(--warning);
+            color: var(--warning);
+        }
+        .toast.error {
+            background: var(--bg-elevated);
+            border: 1px solid var(--danger);
+            color: var(--danger);
+        }
+        .toast.info {
+            background: var(--bg-elevated);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .main { grid-template-columns: 240px 1fr; }
+            .right-panel { display: none; }
+        }
+        @media (max-width: 768px) {
+            .main { grid-template-columns: 1fr; }
+            .sidebar { display: none; }
+            .search-container { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <i class="fas fa-satellite-dish"></i>
+            Mission Control
+            <span class="version-badge">v9.3</span>
+        </div>
+        
+        <!-- Search Bar -->
+        <div class="search-container">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" class="search-input" placeholder="Search cards, comments, attachments...">
+                <span class="search-shortcut">⌘K</span>
+            </div>
+        </div>
+        
+        <div class="header-actions">
+            <div class="live-badge">
+                <div class="live-dot"></div>
+                <span>Advanced Features Active</span>
+            </div>
+            <button class="header-btn" title="Notifications">
+                <i class="fas fa-bell"></i>
+                <span class="badge">3</span>
+            </button>
+            <button class="header-btn" title="Settings">
+                <i class="fas fa-cog"></i>
+            </button>
+            <div class="avatar" style="background: linear-gradient(135deg, #00d4ff, #bd34fe);">C</div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-item active"><i class="fas fa-columns"></i> Board</div>
+        <div class="nav-item"><i class="fas fa-list"></i> List</div>
+        <div class="nav-item"><i class="fas fa-calendar"></i> Calendar</div>
+        <div class="nav-item"><i class="fas fa-project-diagram"></i> Dependencies</div>
+        <div class="nav-item"><i class="fas fa-folder"></i> Files</div>
+        <div class="nav-item"><i class="fas fa-chart-line"></i> Insights</div>
+    </nav>
+
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+        <span class="filter-label">Filter:</span>
+        <div class="filter-chip active">
+            <i class="fas fa-user"></i> Assigned to me
+        </div>
+        <div class="filter-chip">
+            <i class="fas fa-clock"></i> Due this week
+        </div>
+        <div class="filter-chip">
+            <i class="fas fa-exclamation-circle"></i> Overdue
+        </div>
+        <div class="filter-chip">
+            <i class="fas fa-tag"></i> Urgent
+        </div>
+    </div>
+
+    <!-- Main Layout -->
+    <div class="main">
+        <!-- Sidebar - Team Members -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-title">
+                    <i class="fas fa-users"></i>
+                    Team Members
+                    <span class="member-count">5</span>
+                </div>
+                <button class="sidebar-action" title="Invite member">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+            
+            <div class="member-list">
+                <div class="member-item active">
+                    <div class="member-avatar online" style="background: linear-gradient(135deg, #ffd700, #ff8800);">Q</div>
+                    <div class="member-info">
+                        <div class="member-name">
+                            Quentin
+                            <span class="member-role owner">Owner</span>
+                        </div>
+                        <div class="member-status">Reviewing drafts</div>
+                    </div>
+                </div>
+                <div class="member-item">
+                    <div class="member-avatar online" style="background: linear-gradient(135deg, #00d4ff, #bd34fe);">C</div>
+                    <div class="member-info">
+                        <div class="member-name">
+                            Claw
+                            <span class="member-role admin">Admin</span>
+                        </div>
+                        <div class="member-status">Healthcare thread</div>
+                    </div>
+                </div>
+                <div class="member-item">
+                    <div class="member-avatar online" style="background: linear-gradient(135deg, #00ff88, #00d4ff);">R</div>
+                    <div class="member-info">
+                        <div class="member-name">
+                            Research Agent
+                            <span class="member-role editor">Editor</span>
+                        </div>
+                        <div class="member-status">Market data analysis</div>
+                    </div>
+                </div>
+                <div class="member-item">
+                    <div class="member-avatar away" style="background: linear-gradient(135deg, #ff2d55, #ff8800);">Co</div>
+                    <div class="member-info">
+                        <div class="member-name">
+                            Content Agent
+                            <span class="member-role editor">Editor</span>
+                        </div>
+                        <div class="member-status">Away - 15 min</div>
+                    </div>
+                </div>
+                <div class="member-item">
+                    <div class="member-avatar online" style="background: linear-gradient(135deg, #bd34fe, #ff2d55);">A</div>
+                    <div class="member-info">
+                        <div class="member-name">
+                            Analytics Agent
+                            <span class="member-role viewer">Viewer</span>
+                        </div>
+                        <div class="member-status">Generating report</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Permission Indicator -->
+            <div class="permission-indicator">
+                <div class="permission-label">Your Role</div>
+                <div class="permission-value">
+                    <i class="fas fa-shield-alt"></i> Admin
+                </div>
+                <div class="permission-hint">
+                    Can manage members, edit all cards, and configure settings
+                </div>
+            </div>
+        </aside>
+
+        <!-- Center - Workspace -->
+        <div class="workspace">
+            <div class="workspace-header">
+                <div class="workspace-title">
+                    <h2>Content Production</h2>
+                    <div class="workspace-status">
+                        <i class="fas fa-circle" style="color: var(--accent-green); font-size: 0.5rem;"></i>
+                        4 online, 1 away
+                    </div>
+                </div>
+                <div class="workspace-actions">
+                    <div class="template-dropdown">
+                        <button class="btn btn-secondary" onclick="toggleTemplateMenu()">
+                            <i class="fas fa-copy"></i> Template
+                        </button>
+                        <div class="template-menu" id="templateMenu">
+                            <div class="template-item">
+                                <div class="template-name">Content Post</div>
+                                <div class="template-desc">Standard content creation task</div>
+                            </div>
+                            <div class="template-item">
+                                <div class="template-name">Research Task</div>
+                                <div class="template-desc">Market analysis and data gathering</div>
+                            </div>
+                            <div class="template-item">
+                                <div class="template-name">Campaign Review</div>
+                                <div class="template-desc">Multi-platform campaign review</div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" onclick="showToast('New card created', 'success')">
+                        <i class="fas fa-plus"></i> New Card
+                    </button>
+                </div>
+            </div>
+
+            <!-- Kanban Board -->
+            <div class="kanban">
+                <!-- To Do Column -->
+                <div class="kanban-column">
+                    <div class="kanban-header">
+                        <div class="kanban-title">
+                            <i class="fas fa-circle" style="color: var(--text-dim); font-size: 0.5rem;"></i>
+                            To Do
+                            <span class="kanban-count">3</span>
+                        </div>
+                        <button class="kanban-add"><i class="fas fa-plus"></i></button>
+                    </div>
+                    <div class="kanban-cards">
+                        <div class="kanban-card" onclick="openCardModal('Healthcare GLP-1 market analysis thread')">
+                            <div class="card-urgency upcoming"></div>
+                            <div class="card-labels">
+                                <span class="card-label urgent">Urgent</span>
+                                <span class="card-label content">Content</span>
+                            </div>
+                            <div class="card-title">Healthcare GLP-1 market analysis thread</div>
+                            <div class="card-due-date upcoming">
+                                <i class="far fa-clock"></i>
+                                <span>Due tomorrow</span>
+                            </div>
+                            <div class="card-meta">
+                                <div class="card-assignees">
+                                    <div class="card-assignee" style="background: linear-gradient(135deg, #00d4ff, #bd34fe);">C</div>
+                                    <div class="card-assignee" style="background: linear-gradient(135deg, #00ff88, #00d4ff);">R</div>
+                                </div>
+                                <div class="card-stats">
+                                    <span class="card-stat has-content"><i class="far fa-comment"></i> 3</span>
+                                    <span class="card-stat"><i class="fas fa-paperclip"></i> 2</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="kanban-card" onclick="openCardModal('ETH Treasury Strategy comparison post')">
+                            <div class="card-labels">
+                                <span class="card-label content">Content</span>
+                            </div>
+                            <div class="card-title">ETH Treasury Strategy comparison post</div>
+                            <div class="card-meta">
+                                <div class="card-assignees">
+                                    <div class="card-assignee" style="background: linear-gradient(135deg, #00d4ff, #bd34fe);">C</div>
+                                </div>
+                                <div class="card-stats">
+                                    <span class="card-stat"><i class="far fa-comment"></i> 0</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="kanban-card" onclick="openCardModal('LinkedIn article on AI in biotech')">
+                            <div class="card-dependency-indicator">
+                                <i class="fas fa-link"></i>
+                            </div>
+                            <div class="card-labels">
+                                <span class="card-label review">Review</span>
+                            </div>
+                            <div class="card-title">LinkedIn article on AI in biotech</div>
+                            <div class="card-due-date today">
+                                <i class="far fa-clock"></i>
+                                <span>Due today</span>
+                            </div>
+                            <div class="card-meta">
+                                <div class="card-assignees">
+                                    <div class="card-assignee" style="background: linear-gradient(135deg, #ffd700, #ff8800);">Q</div>
+                                </div>
+                                <div class="card-stats">
+                                    <span class="card-stat"><i class="far fa-comment"></i> 1</span>
+                                    <span class="card-stat has-content"><i class="fas fa-paperclip"></i> 1</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- In Progress Column -->
+                <div class="kanban-column">
+                    <div class="kanban-header">
+                        <div class="kanban-title">
+                            <i class="fas fa-circle" style="color: var(--accent); font-size: 0.5rem;"></i>
+                            In Progress
+                            <span class="kanban-count">2</span>
+                        </div>
+                        <button class="kanban-add"><i class="fas fa-plus"></i></button>
+                    </div>
+                    <div class="kanban-cards">
+                        <div class="kanban-card" onclick="openCardModal('Fed policy impact on growth stocks')">
+                            <div class="card-urgency overdue"></div>
+                            <div class="card-labels">
+                                <span class="card-label urgent">Urgent</span>
+                                <span class="card-label content">Content</span>
+                            </div>
+                            <div class="card-title">Fed policy impact on growth stocks</div>
+                            <div class="card-due-date overdue">
+                                <i class="far fa-clock"></i>
+                                <span>Overdue by 1 day</span>
+                            </div>
+                            <div class="card-meta">
+                                <div class="card-assignees">
+                                    <div class="card-assignee" style="background: linear-gradient(135deg, #00ff88, #00d4ff);">R</div>
+                                </div>
+                                <div class="card-stats">
+                                    <span class="card-stat has-content"><i class="far fa-comment"></i> 5</span>
+                                    <span class="card-stat has-content"><i class="fas fa-paperclip"></i> 3</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="kanban-card" onclick="openCardModal('Longevity economy market size thread')">
+                            <div class="card-labels">
+                                <span class="card-label content">Content</span>
+                            </div>
+                            <div class="card-title">Longevity economy market size thread</div>
+                            <div class="card-meta">
+                                <div class="card-assignees">
+                                    <div class="card-assignee" style="background: linear-gradient(135deg, #00d4ff, #bd34fe);">C</div>
+                                    <div class="card-assignee" style="background: linear-gradient(135deg, #bd34fe, #ff2d55);">A</div>
+                                </div>
+                                <div class="card-stats">
+                                    <span class="card-stat"><i class="far fa-comment"></i> 2</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review Column -->
+                <div class="kanban-column">
+                    <div class="kanban-header">
+                        <div class="kanban-title">
+                            <i class="fas fa-circle" style="color: var(--accent-orange); font-size: 0.5rem;"></i>
+                            Review
+                            <span class="kanban-count">2</span>
+                        </div>
+                        <button class="kanban-add"><i class="fas fa-plus"></i></button>
+                    </div>
+                    <div class="kanban-cards">
+                        <div class="kanban-card" onclick="openCardModal('MSTR vs BTC performance analysis')">
+                            <div class="card-labels">
+                                <span class="card-label review">Review</span>
+                                <span class="card-label content">Content</span>
+                            </div>
+                            <div class="card-title">MSTR vs BTC performance analysis</div>
+                            <div class="card-meta">
+                                <div class="card-assignees">
+                                    <div class="card-assignee" style="background: linear-gradient(135deg, #bd34fe, #ff2d55);">A</div>
+                                    <div class="card-assignee" style="background: linear-gradient(135deg, #ffd700, #ff8800);">Q</div>
+                                </div>
+                                <div class="card-stats">
+                                    <span class="card-stat has-content"><i class="far fa-comment"></i> 4</span>
+                                    <span class="card-stat"><i class="fas fa-paperclip"></i> 2</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="kanban-card" onclick="openCardModal('HIMS quarterly results breakdown')">
+                            <div class="card-dependency-indicator">
+                                <i class="fas fa-link"></i>
+                            </div>
+                            <div class="card-labels">
+                                <span class="card-label content">Content</span>
+                            </div>
+                            <div class="card-title">HIMS quarterly results breakdown</div>
+                            <div class="card-meta">
+                                <div class="card-assignees">
+                                    <div class="card-assignee" style="background: linear-gradient(135deg, #00ff88, #00d4ff);">R</div>
+                                </div>
+                                <div class="card-stats">
+                                    <span class="card-stat"><i class="far fa-comment"></i> 1</span>
+                                    <span class="card-stat has-content"><i class="fas fa-paperclip"></i> 1</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Done Column -->
+                <div class="kanban-column">
+                    <div class="kanban-header">
+                        <div class="kanban-title">
+                            <i class="fas fa-circle" style="color: var(--accent-green); font-size: 0.5rem;"></i>
+                            Done
+                            <span class="kanban-count">12</span>
+                        </div>
+                        <button class="kanban-add"><i class="fas fa-plus"></i></button>
+                    </div>
+                    <div class="kanban-cards">
+                        <div class="kanban-card" onclick="openCardModal('Healthcare innovation series: Part 1')">
+                            <div class="card-labels">
+                                <span class="card-label content">Content</span>
+                            </div>
+                            <div class="card-title" style="text-decoration: line-through; opacity: 0.7;">Healthcare innovation series: Part 1</div>
+                            <div class="card-meta">
+                                <div class="card-assignees">
+                                    <div class="card-assignee" style="background: linear-gradient(135deg, #00d4ff, #bd34fe);">C</div>
+                                </div>
+                                <div class="card-stats">
+                                    <span class="card-stat"><i class="far fa-comment"></i> 8</span>
+                                    <span class="card-stat"><i class="fas fa-paperclip"></i> 2</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="kanban-card" onclick="openCardModal('GLP-1 market trends for 2026')">
+                            <div class="card-labels">
+                                <span class="card-label research">Research</span>
+                            </div>
+                            <div class="card-title" style="text-decoration: line-through; opacity: 0.7;">GLP-1 market trends for 2026</div>
+                            <div class="card-meta">
+                                <div class="card-assignees">
+                                    <div class="card-assignee" style="background: linear-gradient(135deg, #00ff88, #00d4ff);">R</div>
+                                </div>
+                                <div class="card-stats">
+                                    <span class="card-stat"><i class="far fa-comment"></i> 6</span>
+                                    <span class="card-stat has-content"><i class="fas fa-paperclip"></i> 4</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Panel - Activity & Chat -->
+        <aside class="right-panel">
+            <div class="panel-tabs">
+                <div class="panel-tab active" onclick="switchPanel('activity')">
+                    <i class="fas fa-stream"></i> Activity
+                </div>
+                <div class="panel-tab" onclick="switchPanel('chat')">
+                    <i class="fas fa-comments"></i> Chat
+                </div>
+            </div>
+
+            <!-- Activity Feed -->
+            <div class="panel-content" id="activityPanel">
+                <div class="activity-list">
+                    <div class="activity-item">
+                        <div class="activity-avatar" style="background: linear-gradient(135deg, #00d4ff, #bd34fe);">C</div>
+                        <div class="activity-content">
+                            <div class="activity-text">
+                                <strong>Claw</strong> commented on 
+                                <span class="activity-target">Healthcare thread</span>
+                            </div>
+                            <div class="activity-time">2 minutes ago</div>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-avatar" style="background: linear-gradient(135deg, #00ff88, #00d4ff);">R</div>
+                        <div class="activity-content">
+                            <div class="activity-text">
+                                <strong>Research Agent</strong> attached 3 files to 
+                                <span class="activity-target">Fed policy analysis</span>
+                            </div>
+                            <div class="activity-time">15 minutes ago</div>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-avatar" style="background: linear-gradient(135deg, #ffd700, #ff8800);">Q</div>
+                        <div class="activity-content">
+                            <div class="activity-text">
+                                <strong>Quentin</strong> approved 
+                                <span class="activity-target">MSTR analysis</span>
+                            </div>
+                            <div class="activity-time">32 minutes ago</div>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-avatar" style="background: linear-gradient(135deg, #bd34fe, #ff2d55);">A</div>
+                        <div class="activity-content">
+                            <div class="activity-text">
+                                <strong>Analytics Agent</strong> moved 
+                                <span class="activity-target">HIMS breakdown</span> to Review
+                            </div>
+                            <div class="activity-time">1 hour ago</div>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-avatar" style="background: linear-gradient(135deg, #00d4ff, #bd34fe);">C</div>
+                        <div class="activity-content">
+                            <div class="activity-text">
+                                <strong>Claw</strong> created card 
+                                <span class="activity-target">Longevity economy thread</span>
+                            </div>
+                            <div class="activity-time">2 hours ago</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Panel -->
+            <div class="panel-content" id="chatPanel" style="display: none;">
+                <div class="chat-container">
+                    <div class="chat-messages">
+                        <div class="chat-message">
+                            <div class="chat-avatar" style="background: linear-gradient(135deg, #00d4ff, #bd34fe);">C</div>
+                            <div class="chat-content">
+                                <div class="chat-header">
+                                    <span class="chat-name">Claw</span>
+                                    <span class="chat-time">12:15 PM</span>
+                                </div>
+                                <div class="chat-text">
+                                    <span class="chat-mention">@Research Agent</span> Can you pull the latest GLP-1 efficacy data for the thread?
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-message">
+                            <div class="chat-avatar" style="background: linear-gradient(135deg, #00ff88, #00d4ff);">R</div>
+                            <div class="chat-content">
+                                <div class="chat-header">
+                                    <span class="chat-name">Research Agent</span>
+                                    <span class="chat-time">12:17 PM</span>
+                                </div>
+                                <div class="chat-text">
+                                    On it! The new study shows 40% weight loss efficacy. I'll upload the PDF to the card.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-message">
+                            <div class="chat-avatar" style="background: linear-gradient(135deg, #ffd700, #ff8800);">Q</div>
+                            <div class="chat-content">
+                                <div class="chat-header">
+                                    <span class="chat-name">Quentin</span>
+                                    <span class="chat-time">12:18 PM</span>
+                                </div>
+                                <div class="chat-text">
+                                    Great find! <span class="chat-mention">@Claw</span> let's prioritize this for tomorrow's post.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-message">
+                            <div class="chat-avatar" style="background: linear-gradient(135deg, #00d4ff, #bd34fe);">C</div>
+                            <div class="chat-content">
+                                <div class="chat-header">
+                                    <span class="chat-name">Claw</span>
+                                    <span class="chat-time">12:20 PM</span>
+                                </div>
+                                <div class="chat-text">
+                                    Agreed. I'll set the due date for tomorrow morning.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="typing-indicator" id="typingIndicator">
+                        <span>Research Agent is typing</span>
+                        <div class="typing-dots">
+                            <div class="typing-dot"></div>
+                            <div class="typing-dot"></div>
+                            <div class="typing-dot"></div>
+                        </div>
+                    </div>
+                    <div class="chat-input-area">
+                        <div class="chat-input-container">
+                            <input type="text" class="chat-input" placeholder="Type a message... Use @ to mention">
+                            <button class="chat-send">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Card Detail Modal -->
+    <div class="modal-overlay" id="cardModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title-section">
+                    <div class="modal-labels">
+                        <span class="card-label urgent">Urgent</span>
+                        <span class="card-label content">Content</span>
+                    </div>
+                    <h2 class="modal-title" id="modalCardTitle">Healthcare GLP-1 market analysis thread</h2>
+                    <div class="modal-meta">
+                        <div class="modal-meta-item">
+                            <i class="far fa-clock"></i>
+                            <span>Due tomorrow</span>
+                        </div>
+                        <div class="modal-meta-item">
+                            <i class="fas fa-column"></i>
+                            <span>In Progress</span>
+                        </div>
+                        <div class="modal-meta-item">
+                            <i class="fas fa-link"></i>
+                            <span>Depends on: GLP-1 Research</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="modal-close" onclick="closeCardModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <!-- Description -->
+                <div class="modal-section">
+                    <div class="modal-section-title">
+                        <i class="fas fa-align-left"></i> Description
+                    </div>
+                    <div class="modal-section-content">
+                        Comprehensive analysis of the GLP-1 market trends for 2026. Focus on efficacy data, market size projections, and key players (NVO, LLY). Include comparison charts and investment implications.
+                    </div>
+                </div>
+
+                <!-- Assignees -->
+                <div class="modal-section">
+                    <div class="modal-section-title">
+                        <i class="fas fa-users"></i> Assignees
+                    </div>
+                    <div class="modal-assignees">
+                        <div class="modal-assignee">
+                            <div class="modal-assignee-avatar" style="background: linear-gradient(135deg, #00d4ff, #bd34fe);">C</div>
+                            <span>Claw</span>
+                        </div>
+                        <div class="modal-assignee">
+                            <div class="modal-assignee-avatar" style="background: linear-gradient(135deg, #00ff88, #00d4ff);">R</div>
+                            <span>Research Agent</span>
+                        </div>
+                        <button class="btn btn-secondary" style="padding: 0.4rem 0.75rem;">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Attachments -->
+                <div class="modal-section">
+                    <div class="modal-section-title">
+                        <i class="fas fa-paperclip"></i> Attachments (2)
+                    </div>
+                    <div class="attachments-list">
+                        <div class="attachment-item">
+                            <div class="attachment-icon"><i class="fas fa-file-pdf"></i></div>
+                            <div class="attachment-info">
+                                <div class="attachment-name">GLP-1_Efficacy_Study_2026.pdf</div>
+                                <div class="attachment-size">2.4 MB • Uploaded by Research Agent</div>
+                            </div>
+                            <div class="attachment-actions">
+                                <button class="attachment-action"><i class="fas fa-download"></i></button>
+                                <button class="attachment-action"><i class="fas fa-ellipsis-v"></i></button>
+                            </div>
+                        </div>
+                        <div class="attachment-item">
+                            <div class="attachment-icon" style="background: var(--accent-green);"><i class="fas fa-file-image"></i></div>
+                            <div class="attachment-info">
+                                <div class="attachment-name">Market_Comparison_Chart.png</div>
+                                <div class="attachment-size">856 KB • Uploaded by Claw</div>
+                            </div>
+                            <div class="attachment-actions">
+                                <button class="attachment-action"><i class="fas fa-download"></i></button>
+                                <button class="attachment-action"><i class="fas fa-ellipsis-v"></i></button>
+                            </div>
+                        </div>
+                        <div class="add-attachment">
+                            <i class="fas fa-plus"></i> Add attachment
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dependencies -->
+                <div class="modal-section">
+                    <div class="modal-section-title">
+                        <i class="fas fa-project-diagram"></i> Dependencies
+                    </div>
+                    <div class="dependency-graph">
+                        <div class="dependency-item">
+                            <div class="dependency-status complete"><i class="fas fa-check"></i></div>
+                            <div class="dependency-info">
+                                <div class="dependency-title">GLP-1 Research Data Collection</div>
+                                <div class="dependency-status-text">Complete • Research Agent</div>
+                            </div>
+                        </div>
+                        <div class="dependency-item blocked">
+                            <div class="dependency-status pending"><i class="fas fa-clock"></i></div>
+                            <div class="dependency-info">
+                                <div class="dependency-title">NVO Q2 Earnings Analysis</div>
+                                <div class="dependency-status-text">In Progress • Blocking this card</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Comments -->
+                <div class="modal-section">
+                    <div class="modal-section-title">
+                        <i class="fas fa-comments"></i> Comments (3)
+                    </div>
+                    <div class="comments-list">
+                        <div class="comment">
+                            <div class="comment-avatar" style="background: linear-gradient(135deg, #00ff88, #00d4ff);">R</div>
+                            <div class="comment-content">
+                                <div class="comment-header">
+                                    <span class="comment-name">Research Agent</span>
+                                    <span class="comment-time">2 hours ago</span>
+                                </div>
+                                <div class="comment-text">
+                                    I've uploaded the latest efficacy study. The 40% weight loss figure is from a Phase 3 trial with 1,200 participants.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comment">
+                            <div class="comment-avatar" style="background: linear-gradient(135deg, #00d4ff, #bd34fe);">C</div>
+                            <div class="comment-content">
+                                <div class="comment-header">
+                                    <span class="comment-name">Claw</span>
+                                    <span class="comment-time">1 hour ago</span>
+                                </div>
+                                <div class="comment-text">
+                                    <span class="chat-mention">@Quentin</span> Should we include the comparison with HIMS's approach to telehealth prescriptions?
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comment">
+                            <div class="comment-avatar" style="background: linear-gradient(135deg, #ffd700, #ff8800);">Q</div>
+                            <div class="comment-content">
+                                <div class="comment-header">
+                                    <span class="comment-name">Quentin</span>
+                                    <span class="comment-time">45 minutes ago</span>
+                                </div>
+                                <div class="comment-text">
+                                    Yes, that's a great angle. The telehealth comparison adds value.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="comment-input-area">
+                        <textarea class="comment-input" placeholder="Add a comment... Use @ to mention team members"></textarea>
+                        <div class="comment-actions">
+                            <span class="comment-hint"><i class="fas fa-markdown"></i> Markdown supported</span>
+                            <button class="btn btn-primary" style="padding: 0.4rem 1rem;">
+                                <i class="fas fa-paper-plane"></i> Comment
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <div class="modal-actions">
+                    <button class="btn btn-secondary">
+                        <i class="fas fa-archive"></i> Archive
+                    </button>
+                    <button class="btn btn-danger">
+                        <i class="fas fa-trash"></i> Delete
+                    </button>
+                </div>
+                <div class="modal-actions">
+                    <button class="btn btn-secondary" onclick="closeCardModal()">Cancel</button>
+                    <button class="btn btn-primary">
+                        <i class="fas fa-save"></i> Save Changes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        // Template dropdown toggle
+        function toggleTemplateMenu() {
+            document.getElementById('templateMenu').classList.toggle('show');
+        }
+
+        // Panel switching
+        function switchPanel(panel) {
+            document.querySelectorAll('.panel-tab').forEach(t => t.classList.remove('active'));
+            event.target.closest('.panel-tab').classList.add('active');
+            
+            document.getElementById('activityPanel').style.display = panel === 'activity' ? 'block' : 'none';
+            document.getElementById('chatPanel').style.display = panel === 'chat' ? 'flex' : 'none';
+        }
+
+        // Card modal
+        function openCardModal(title) {
+            document.getElementById('modalCardTitle').textContent = title;
+            document.getElementById('cardModal').classList.add('show');
+        }
+
+        function closeCardModal() {
+            document.getElementById('cardModal').classList.remove('show');
+        }
+
+        // Toast notifications
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            const icon = type === 'success' ? 'check-circle' : 
+                        type === 'warning' ? 'exclamation-triangle' :
+                        type === 'error' ? 'times-circle' : 'info-circle';
+            
+            toast.innerHTML = `
+                <i class="fas fa-${icon}"></i>
+                <span>${message}</span>
+            `;
+            
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(100%)';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Close modal on overlay click
+        document.getElementById('cardModal').addEventListener('click', function(e) {
+            if (e.target === this) closeCardModal();
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            try {
+            if (e.key === 'Escape') closeCardModal();
+            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                e.preventDefault();
+                document.querySelector('.search-input').focus();
+            }
+        });
+
+        // Show initial toast
+        setTimeout(() => {
+            showToast('Welcome to Mission Control v9.3 - Advanced Team Features', 'info');
+        }, 500);
+
+        // Simulate typing indicator
+        setInterval(() => {
+            const indicator = document.getElementById('typingIndicator');
+            indicator.style.display = Math.random() > 0.7 ? 'flex' : 'none';
+        }, 5000);
+    </script>
+</body>
+</html>

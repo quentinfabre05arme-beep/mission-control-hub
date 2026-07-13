@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission Control v9.6 | Natural Language Command Interface</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg: #050505;
+            --bg-card: #0a0a0a;
+            --bg-hover: #111111;
+            --bg-elevated: #141414;
+            --accent: #00d4ff;
+            --accent-green: #00ff88;
+            --accent-orange: #ff8800;
+            --accent-purple: #bd34fe;
+            --accent-pink: #ff2d55;
+            --accent-gold: #ffd700;
+            --accent-red: #ff4444;
+            --accent-teal: #00d4aa;
+            --accent-indigo: #6366f1;
+            --text: #ffffff;
+            --text-dim: #666666;
+            --text-secondary: #aaaaaa;
+            --border: #1a1a1a;
+            --gradient-ai: linear-gradient(135deg, #00d4ff, #bd34fe);
+            --gradient-warn: linear-gradient(135deg, #ff8800, #ff4444);
+            --gradient-success: linear-gradient(135deg, #00ff88, #00d4aa);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Ambient Neural Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(0, 212, 255, 0.03) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(189, 52, 254, 0.02) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(0, 255, 136, 0.02) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Header */
+        .header {
+            padding: 1.25rem 2rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .logo-icon {
+            width: 36px; height: 36px;
+            background: var(--gradient-ai);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        .version-badge {
+            font-size: 0.7rem;
+            padding: 0.25rem 0.6rem;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 20px;
+            color: var(--accent);
+        }
+
+        .status-bar {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .status-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: var(--accent-green);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(0.9); }
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Command Interface - Hero Section */
+        .command-hero {
+            text-align: center;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .command-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: var(--gradient-ai);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .command-subtitle {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Natural Language Input */
+        .nl-input-container {
+            max-width: 800px;
+            margin: 0 auto 1.5rem;
+            position: relative;
+        }
+
+        .nl-input-wrapper {
+            display: flex;
+            align-items: center;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .nl-input-wrapper:focus-within {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.1);
+        }
+
+        .nl-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 1rem 1.25rem;
+            color: var(--text);
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .nl-input::placeholder {
+            color: var(--text-dim);
+        }
+
+        .nl-actions {
+            display: flex;
+            gap: 0.5rem;
+            padding-right: 0.5rem;
+        }
+
+        .nl-btn {
+            width: 40px; height: 40px;
+            border: none;
+            background: var(--bg-hover);
+            border-radius: 10px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nl-btn:hover {
+            background: var(--accent);
+            color: var(--bg);
+        }
+
+        .nl-btn.primary {
+            background: var(--gradient-ai);
+            color: var(--bg);
+        }
+
+        .nl-btn.recording {
+            animation: recording-pulse 1s infinite;
+            background: var(--accent-red);
+            color: white;
+        }
+
+        @keyframes recording-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Suggestion Chips */
+        .suggestions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.75rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .suggestion-chip {
+            padding: 0.6rem 1rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .suggestion-chip:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .suggestion-chip i {
+            font-size: 0.75rem;
+        }
+
+        /* Command Response Panel */
+        .response-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            min-height: 200px;
+            display: none;
+        }
+
+        .response-panel.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .response-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .response-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 600;
+        }
+
+        .response-title i {
+            color: var(--accent-green);
+        }
+
+        .response-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .response-action-btn {
+            padding: 0.4rem 0.8rem;
+            background: var(--bg-hover);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .response-action-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .response-content {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.25rem;
+        }
+
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .card-title i {
+            width: 32px; height: 32px;
+            background: var(--bg-hover);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+        }
+
+        .card-badge {
+            font-size: 0.7rem;
+            padding: 0.25rem 0.6rem;
+            border-radius: 20px;
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--accent);
+        }
+
+        /* Intent Recognition */
+        .intent-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .intent-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.875rem;
+            background: var(--bg-hover);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .intent-item:hover {
+            background: var(--bg-elevated);
+            transform: translateX(4px);
+        }
+
+        .intent-icon {
+            width: 40px; height: 40px;
+            background: var(--gradient-ai);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--bg);
+            font-size: 0.9rem;
+        }
+
+        .intent-info {
+            flex: 1;
+        }
+
+        .intent-name {
+            font-weight: 500;
+            font-size: 0.9rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .intent-desc {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+
+        .intent-confidence {
+            font-size: 0.75rem;
+            color: var(--accent-green);
+            font-weight: 600;
+        }
+
+        /* Conversation History */
+        .conversation-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .conversation-item {
+            display: flex;
+            gap: 0.875rem;
+        }
+
+        .conversation-avatar {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .conversation-avatar.user {
+            background: var(--gradient-ai);
+            color: var(--bg);
+        }
+
+        .conversation-avatar.ai {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+        }
+
+        .conversation-content {
+            flex: 1;
+            background: var(--bg-hover);
+            padding: 0.875rem 1rem;
+            border-radius: 12px;
+            border-top-left-radius: 4px;
+        }
+
+        .conversation-content.ai-response {
+            border-top-left-radius: 12px;
+            border-top-right-radius: 4px;
+        }
+
+        .conversation-text {
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .conversation-meta {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            margin-top: 0.4rem;
+        }
+
+        /* Quick Actions Grid */
+        .quick-actions-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+
+        .quick-action-btn {
+            padding: 1rem;
+            background: var(--bg-hover);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text);
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .quick-action-btn:hover {
+            border-color: var(--accent);
+            background: var(--bg-elevated);
+        }
+
+        .quick-action-btn i {
+            font-size: 1.2rem;
+            color: var(--accent);
+        }
+
+        /* Command Examples */
+        .examples-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .example-item {
+            padding: 0.75rem 1rem;
+            background: var(--bg-hover);
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+        }
+
+        .example-item:hover {
+            border-left-color: var(--accent);
+            color: var(--text);
+            padding-left: 1.25rem;
+        }
+
+        .example-category {
+            font-size: 0.7rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 0.25rem;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.25rem;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+        }
+
+        /* Voice Visualization */
+        .voice-visualizer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            height: 60px;
+            margin: 1rem 0;
+        }
+
+        .voice-bar {
+            width: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+            transition: height 0.1s ease;
+        }
+
+        .voice-bar:nth-child(1) { animation: voice-wave 0.8s ease-in-out infinite; }
+        .voice-bar:nth-child(2) { animation: voice-wave 0.8s ease-in-out 0.1s infinite; }
+        .voice-bar:nth-child(3) { animation: voice-wave 0.8s ease-in-out 0.2s infinite; }
+        .voice-bar:nth-child(4) { animation: voice-wave 0.8s ease-in-out 0.3s infinite; }
+        .voice-bar:nth-child(5) { animation: voice-wave 0.8s ease-in-out 0.4s infinite; }
+        .voice-bar:nth-child(6) { animation: voice-wave 0.8s ease-in-out 0.5s infinite; }
+        .voice-bar:nth-child(7) { animation: voice-wave 0.8s ease-in-out 0.6s infinite; }
+        .voice-bar:nth-child(8) { animation: voice-wave 0.8s ease-in-out 0.7s infinite; }
+
+        @keyframes voice-wave {
+            0%, 100% { height: 20%; }
+            50% { height: 100%; }
+        }
+
+        /* Processing Indicator */
+        .processing-indicator {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .processing-indicator.active {
+            display: flex;
+        }
+
+        .processing-dots {
+            display: flex;
+            gap: 4px;
+        }
+
+        .processing-dot {
+            width: 8px; height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: dot-bounce 1.4s infinite ease-in-out;
+        }
+
+        .processing-dot:nth-child(1) { animation-delay: 0s; }
+        .processing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .processing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes dot-bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+
+        /* Toast Notifications */
+        .toast-container {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            z-index: 1000;
+        }
+
+        .toast {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--accent);
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            min-width: 300px;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            animation: slideIn 0.3s ease;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .toast-icon {
+            color: var(--accent);
+        }
+
+        .toast-content {
+            flex: 1;
+        }
+
+        .toast-title {
+            font-weight: 500;
+            font-size: 0.9rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .toast-message {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .command-title { font-size: 1.75rem; }
+            .dashboard-grid { grid-template-columns: 1fr; }
+            .quick-actions-grid { grid-template-columns: 1fr; }
+            .stats-bar { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <div class="logo-icon">💬</div>
+            <div>
+                <div>Mission Control</div>
+                <div style="font-size: 0.7rem; color: var(--text-dim);">Natural Language Interface</div>
+            </div>
+        </div>
+        <span class="version-badge">v9.6</span>
+        <div class="status-bar">
+            <div class="status-item">
+                <div class="status-dot"></div>
+                <span>NL Engine Active</span>
+            </div>
+            <div class="status-item">
+                <i class="fas fa-microphone" style="color: var(--accent-green);"></i>
+                <span>Voice Ready</span>
+            </div>
+            <div class="status-item">
+                <i class="fas fa-brain" style="color: var(--accent-purple);"></i>
+                <span>96% Intent Accuracy</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Command Hero -->
+        <div class="command-hero">
+            <h1 class="command-title">Talk to Your Dashboard</h1>
+            <p class="command-subtitle">Type or speak naturally. AI understands context and multi-turn conversations.</p>
+            
+            <!-- NL Input -->
+            <div class="nl-input-container">
+                <div class="nl-input-wrapper">
+                    <input type="text" class="nl-input" id="nlInput" 
+                           placeholder="Try: 'Show me at-risk tasks' or 'Create a campaign for GLP-1'..."
+                           onkeypress="handleKeyPress(event)">
+                    <div class="nl-actions">
+                        <button class="nl-btn" id="voiceBtn" onclick="toggleVoice()" title="Voice Input">
+                            <i class="fas fa-microphone"></i>
+                        </button>
+                        <button class="nl-btn primary" onclick="processCommand()" title="Send">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Voice Visualizer (hidden by default) -->
+            <div class="voice-visualizer" id="voiceVisualizer" style="display: none;">
+                <div class="voice-bar"></div>
+                <div class="voice-bar"></div>
+                <div class="voice-bar"></div>
+                <div class="voice-bar"></div>
+                <div class="voice-bar"></div>
+                <div class="voice-bar"></div>
+                <div class="voice-bar"></div>
+                <div class="voice-bar"></div>
+            </div>
+
+            <!-- Processing Indicator -->
+            <div class="processing-indicator" id="processingIndicator">
+                <span>Understanding intent</span>
+                <div class="processing-dots">
+                    <div class="processing-dot"></div>
+                    <div class="processing-dot"></div>
+                    <div class="processing-dot"></div>
+                </div>
+            </div>
+
+            <!-- Suggestions -->
+            <div class="suggestions">
+                <div class="suggestion-chip" onclick="setCommand('Show me at-risk tasks')">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Show at-risk tasks
+                </div>
+                <div class="suggestion-chip" onclick="setCommand('What happened yesterday?')">
+                    <i class="fas fa-history"></i>
+                    What happened yesterday?
+                </div>
+                <div class="suggestion-chip" onclick="setCommand('Create campaign for GLP-1')">
+                    <i class="fas fa-rocket"></i>
+                    Create GLP-1 campaign
+                </div>
+                <div class="suggestion-chip" onclick="setCommand('Schedule post for 3pm tomorrow')">
+                    <i class="fas fa-calendar"></i>
+                    Schedule for 3pm
+                </div>
+                <div class="suggestion-chip" onclick="setCommand('Why did engagement drop?')">
+                    <i class="fas fa-search"></i>
+                    Root cause analysis
+                </div>
+                <div class="suggestion-chip" onclick="setCommand('Generate content about BTC')">
+                    <i class="fas fa-magic"></i>
+                    Generate BTC content
+                </div>
+            </div>
+        </div>
+
+        <!-- Response Panel -->
+        <div class="response-panel" id="responsePanel">
+            <div class="response-header">
+                <div class="response-title">
+                    <i class="fas fa-check-circle"></i>
+                    <span id="responseTitle">Command Executed</span>
+                </div>
+                <div class="response-actions">
+                    <button class="response-action-btn" onclick="copyResponse()">
+                        <i class="fas fa-copy"></i> Copy
+                    </button>
+                    <button class="response-action-btn" onclick="closeResponse()">
+                        <i class="fas fa-times"></i> Close
+                    </button>
+                </div>
+            </div>
+            <div class="response-content" id="responseContent">
+                <!-- Dynamic content -->
+            </div>
+        </div>
+
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+            <div class="stat-card">
+                <div class="stat-value" id="statCommands">147</div>
+                <div class="stat-label">Commands Today</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" style="color: var(--accent-green);">96%</div>
+                <div class="stat-label">Intent Accuracy</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" style="color: var(--accent-purple);">1.2s</div>
+                <div class="stat-label">Avg Response</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" style="color: var(--accent-orange);">23</div>
+                <div class="stat-label">Contexts Active</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" style="color: var(--accent-gold);">8</div>
+                <div class="stat-label">Multi-turn Convos</div>
+            </div>
+        </div>
+
+        <!-- Dashboard Grid -->
+        <div class="dashboard-grid">
+            <!-- Intent Recognition -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fas fa-brain"></i>
+                        Intent Recognition
+                    </div>
+                    <span class="card-badge">Live</span>
+                </div>
+                <div class="intent-list" id="intentList">
+                    <div class="intent-item" onclick="setCommand('Show me at-risk tasks')">
+                        <div class="intent-icon" style="background: var(--gradient-warn);">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="intent-info">
+                            <div class="intent-name">Risk Query</div>
+                            <div class="intent-desc">"Show at-risk tasks", "What needs attention?"</div>
+                        </div>
+                        <div class="intent-confidence">98%</div>
+                    </div>
+                    <div class="intent-item" onclick="setCommand('Create campaign for healthcare')">
+                        <div class="intent-icon" style="background: var(--gradient-ai);">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <div class="intent-info">
+                            <div class="intent-name">Campaign Creation</div>
+                            <div class="intent-desc">"Create campaign for...", "Start new project"</div>
+                        </div>
+                        <div class="intent-confidence">97%</div>
+                    </div>
+                    <div class="intent-item" onclick="setCommand('What happened yesterday?')">
+                        <div class="intent-icon" style="background: var(--gradient-success);">
+                            <i class="fas fa-history"></i>
+                        </div>
+                        <div class="intent-info">
+                            <div class="intent-name">Report Request</div>
+                            <div class="intent-desc">"What happened...", "Show me yesterday", "Summary"</div>
+                        </div>
+                        <div class="intent-confidence">95%</div>
+                    </div>
+                    <div class="intent-item" onclick="setCommand('Why did engagement drop 45%?')">
+                        <div class="intent-icon" style="background: linear-gradient(135deg, #bd34fe, #ff2d55);">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div class="intent-info">
+                            <div class="intent-name">Root Cause Analysis</div>
+                            <div class="intent-desc">"Why did...", "Explain the...", "What caused"</div>
+                        </div>
+                        <div class="intent-confidence">94%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Conversation History -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fas fa-comments"></i>
+                        Recent Conversations
+                    </div>
+                    <span class="card-badge">8 Active</span>
+                </div>
+                <div class="conversation-list" id="conversationList">
+                    <div class="conversation-item">
+                        <div class="conversation-avatar user">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="conversation-content">
+                            <div class="conversation-text">Show me at-risk tasks</div>
+                            <div class="conversation-meta">2 min ago</div>
+                        </div>
+                    </div>
+                    <div class="conversation-item">
+                        <div class="conversation-avatar ai">
+                            <i class="fas fa-robot" style="color: var(--accent);"></i>
+                        </div>
+                        <div class="conversation-content ai-response">
+                            <div class="conversation-text">Found 3 at-risk tasks:<br>• Research Agent overload (85% capacity)<br>• Healthcare content decay (-34% in 48h)<br>• Engagement drop detected (-45%)</div>
+                            <div class="conversation-meta">AI Response • 96% confidence</div>
+                        </div>
+                    </div>
+                    <div class="conversation-item">
+                        <div class="conversation-avatar user">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="conversation-content">
+                            <div class="conversation-text">Why is the Research Agent overloaded?</div>
+                            <div class="conversation-meta">Just now</div>
+                        </div>
+                    </div>
+                    <div class="conversation-item">
+                        <div class="conversation-avatar ai">
+                            <i class="fas fa-robot" style="color: var(--accent);"></i>
+                        </div>
+                        <div class="conversation-content ai-response">
+                            <div class="conversation-text">Research Agent has 9 active tasks vs. avg of 4. Primary bottlenecks: Fed policy analysis (complex), Healthcare sentiment tracking (ongoing). Recommend redistributing 3 tasks to Content Agent.</div>
+                            <div class="conversation-meta">AI Response • Follow-up context active</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fas fa-bolt"></i>
+                        Quick Actions
+                    </div>
+                </div>
+                <div class="quick-actions-grid">
+                    <button class="quick-action-btn" onclick="setCommand('Generate content about Bitcoin reaching 95k')">
+                        <i class="fas fa-pen-fancy"></i>
+                        <span>Generate Content</span>
+                    </button>
+                    <button class="quick-action-btn" onclick="setCommand('Schedule GLP-1 thread for tomorrow 2pm')">
+                        <i class="fas fa-calendar-plus"></i>
+                        <span>Schedule Post</span>
+                    </button>
+                    <button class="quick-action-btn" onclick="setCommand('Redistribute Research Agent tasks')">
+                        <i class="fas fa-random"></i>
+                        <span>Redistribute Work</span>
+                    </button>
+                    <button class="quick-action-btn" onclick="setCommand('Export yesterday analytics')">
+                        <i class="fas fa-file-export"></i>
+                        <span>Export Report</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Command Examples -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fas fa-lightbulb"></i>
+                        Command Examples
+                    </div>
+                </div>
+                <div class="examples-list">
+                    <div class="example-item" onclick="setCommand('Show me at-risk tasks')">
+                        <div class="example-category">Query</div>
+                        "Show me at-risk tasks"
+                    </div>
+                    <div class="example-item" onclick="setCommand('Create a campaign for GLP-1 with 8 posts')">
+                        <div class="example-category">Creation</div>
+                        "Create a campaign for GLP-1 with 8 posts"
+                    </div>
+                    <div class="example-item" onclick="setCommand('What happened yesterday?')">
+                        <div class="example-category">Reporting</div>
+                        "What happened yesterday?"
+                    </div>
+                    <div class="example-item" onclick="setCommand('Why did engagement drop 45%?')">
+                        <div class="example-category">Analysis</div>
+                        "Why did engagement drop 45%?"
+                    </div>
+                    <div class="example-item" onclick="setCommand('Schedule post about ETH treasury for Thursday 3pm')">
+                        <div class="example-category">Scheduling</div>
+                        "Schedule post about ETH treasury for Thursday 3pm"
+                    </div>
+                    <div class="example-item" onclick="setCommand('Compare Healthcare vs Crypto performance this week')">
+                        <div class="example-category">Comparison</div>
+                        "Compare Healthcare vs Crypto performance this week"
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        // Command Processing System
+        const commands = {
+            'risk': {
+                patterns: ['at-risk', 'needs attention', 'problems', 'issues', 'urgent', 'critical'],
+                response: {
+                    title: 'At-Risk Tasks Identified',
+                    content: `
+                        <div style="margin-bottom: 1rem;">
+                            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; color: var(--accent-red);">
+                                <i class="fas fa-exclamation-circle"></i>
+                                <strong>3 items require attention</strong>
+                            </div>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                            <div style="padding: 1rem; background: rgba(255, 68, 68, 0.1); border-left: 3px solid var(--accent-red); border-radius: 8px;">
+                                <div style="font-weight: 600; margin-bottom: 0.25rem;">🔴 Research Agent Overload</div>
+                                <div style="font-size: 0.85rem; color: var(--text-secondary);">85% capacity (9 tasks) • Redistribution recommended</div>
+                            </div>
+                            <div style="padding: 1rem; background: rgba(255, 136, 0, 0.1); border-left: 3px solid var(--accent-orange); border-radius: 8px;">
+                                <div style="font-weight: 600; margin-bottom: 0.25rem;">🟡 Healthcare Content Decay</div>
+                                <div style="font-size: 0.85rem; color: var(--text-secondary);">-34% engagement predicted in 48h • Follow-up needed</div>
+                            </div>
+                            <div style="padding: 1rem; background: rgba(255, 136, 0, 0.1); border-left: 3px solid var(--accent-orange); border-radius: 8px;">
+                                <div style="font-weight: 600; margin-bottom: 0.25rem;">🟡 Engagement Drop Detected</div>
+                                <div style="font-size: 0.85rem; color: var(--text-secondary);">-45% vs baseline • Investigating shadowban</div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border);">
+                            <strong>Suggested Actions:</strong>
+                            <ul style="margin-top: 0.5rem; padding-left: 1.25rem; color: var(--text-secondary);">
+                                <li>Redistribute 3 tasks from Research Agent to Content Agent</li>
+                                <li>Schedule Healthcare follow-up post for tomorrow 2pm</li>
+                                <li>Review posting patterns for algorithm changes</li>
+                            </ul>
+                        </div>
+                    `
+                }
+            },
+            'create campaign': {
+                patterns: ['create campaign', 'start campaign', 'new campaign', 'campaign for'],
+                response: {
+                    title: 'Campaign Created',
+                    content: `
+                        <div style="text-align: center; padding: 2rem;">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">🚀</div>
+                            <div style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">GLP-1 Campaign Created</div>
+                            <div style="color: var(--text-secondary);">8 posts scheduled over 2 weeks</div>
+                        </div>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1rem;">
+                            <div style="text-align: center; padding: 1rem; background: var(--bg-hover); border-radius: 8px;">
+                                <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent);">8</div>
+                                <div style="font-size: 0.75rem; color: var(--text-dim);">POSTS</div>
+                            </div>
+                            <div style="text-align: center; padding: 1rem; background: var(--bg-hover); border-radius: 8px;">
+                                <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent-green);">92</div>
+                                <div style="font-size: 0.75rem; color: var(--text-dim);">AVG SCORE</div>
+                            </div>
+                            <div style="text-align: center; padding: 1rem; background: var(--bg-hover); border-radius: 8px;">
+                                <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent-gold);">247%</div>
+                                <div style="font-size: 0.75rem; color: var(--text-dim);">PREDICTED ROI</div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 1.5rem;">
+                            <strong>First Post Preview:</strong>
+                            <div style="margin-top: 0.5rem; padding: 1rem; background: var(--bg-hover); border-radius: 8px; font-style: italic; color: var(--text-secondary);">
+                                "The GLP-1 revolution is just beginning. Here's why HIMS and telehealth platforms are positioned to capture the next wave of demand..."
+                            </div>
+                        </div>
+                    `
+                }
+            },
+            'yesterday': {
+                patterns: ['yesterday', 'what happened', 'summary', 'report', 'recap'],
+                response: {
+                    title: 'Yesterday Summary',
+                    content: `
+                        <div style="margin-bottom: 1.5rem;">
+                            <div style="font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem;">📊 Performance</div>
+                            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;">
+                                <div style="text-align: center;">
+                                    <div style="font-size: 1.5rem; font-weight: 700;">3</div>
+                                    <div style="font-size: 0.75rem; color: var(--text-dim);">Tasks Completed</div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div style="font-size: 1.5rem; font-weight: 700;">4</div>
+                                    <div style="font-size: 0.75rem; color: var(--text-dim);">Auto-Replies</div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div style="font-size: 1.5rem; font-weight: 700;">2</div>
+                                    <div style="font-size: 0.75rem; color: var(--text-dim);">Drafts Created</div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div style="font-size: 1.5rem; font-weight: 700;">6.8h</div>
+                                    <div style="font-size: 0.75rem; color: var(--text-dim);">Time Saved</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1.5rem;">
+                            <div style="font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem;">🎯 Highlights</div>
+                            <ul style="padding-left: 1.25rem; color: var(--text-secondary); line-height: 1.8;">
+                                <li>Launched Predictive Analytics Dashboard (v9.5)</li>
+                                <li>Detected 7 anomalies including -45% engagement drop</li>
+                                <li>Auto-escalated 5 issues, resolved 4 automatically</li>
+                                <li>Best performing content: ETH Treasury Thread (87 score)</li>
+                                <li>Research Agent completed Fed policy analysis</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div style="font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem;">🔮 Today's Predictions</div>
+                            <div style="padding: 1rem; background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(189, 52, 254, 0.1)); border-radius: 8px;">
+                                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                    <i class="fas fa-brain" style="color: var(--accent);"></i>
+                                    <strong>GLP-1 Viral Window Today 14:00-15:30 CEST</strong>
+                                </div>
+                                <div style="font-size: 0.85rem; color: var(--text-secondary);">
+                                    92% confidence • 3.2x predicted reach • Auto-scheduling recommended
+                                </div>
+                            </div>
+                        </div>
+                    `
+                }
+            },
+            'why': {
+                patterns: ['why', 'explain', 'what caused', 'root cause', 'reason'],
+                response: {
+                    title: 'Root Cause Analysis',
+                    content: `
+                        <div style="margin-bottom: 1.5rem;">
+                            <div style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem;">
+                                <i class="fas fa-search" style="color: var(--accent-purple);"></i>
+                                Engagement Drop Analysis (-45%)
+                            </div>
+                            <div style="color: var(--text-secondary);">Investigation completed • 94% confidence</div>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.5rem;">
+                            <div style="padding: 1rem; background: var(--bg-hover); border-radius: 8px;">
+                                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                    <span style="color: var(--accent-red);">🔴</span>
+                                    <strong>Primary Factor: Posting Frequency Spike</strong>
+                                </div>
+                                <div style="font-size: 0.9rem; color: var(--text-secondary); padding-left: 1.5rem;">
+                                    5 posts in 2 hours yesterday (normally 1-2/day). Algorithm penalized as potential spam.
+                                </div>
+                            </div>
+                            <div style="padding: 1rem; background: var(--bg-hover); border-radius: 8px;">
+                                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                    <span style="color: var(--accent-orange);">🟡</span>
+                                    <strong>Contributing: Content Similarity</strong>
+                                </div>
+                                <div style="font-size: 0.9rem; color: var(--text-secondary); padding-left: 1.5rem;">
+                                    3 posts on similar healthcare topics created perceived redundancy.
+                                </div>
+                            </div>
+                            <div style="padding: 1rem; background: var(--bg-hover); border-radius: 8px;">
+                                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                    <span style="color: var(--accent-orange);">🟡</span>
+                                    <strong>Contributing: Off-Peak Timing</strong>
+                                </div>
+                                <div style="font-size: 0.9rem; color: var(--text-secondary); padding-left: 1.5rem;">
+                                    2 posts at 2-4 AM CEST (low audience activity period).
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div style="font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem;">✅ Recommended Actions</div>
+                            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                                <div style="padding: 0.75rem 1rem; background: rgba(0, 255, 136, 0.1); border-radius: 6px; border-left: 3px solid var(--accent-green);">
+                                    Return to 1-2 posts/day schedule (optimal: 5:30 PM CEST)
+                                </div>
+                                <div style="padding: 0.75rem 1rem; background: rgba(0, 212, 255, 0.1); border-radius: 6px; border-left: 3px solid var(--accent);">
+                                    Diversify topics: rotate Healthcare, Crypto, AI, General investing
+                                </div>
+                                <div style="padding: 0.75rem 1rem; background: rgba(255, 215, 0, 0.1); border-radius: 6px; border-left: 3px solid var(--accent-gold);">
+                                    Monitor for 48h; engagement should recover to baseline
+                                </div>
+                            </div>
+                        </div>
+                    `
+                }
+            },
+            'schedule': {
+                patterns: ['schedule', 'post at', 'publish at', 'set for'],
+                response: {
+                    title: 'Post Scheduled',
+                    content: `
+                        <div style="text-align: center; padding: 2rem;">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">📅</div>
+                            <div style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">Post Scheduled Successfully</div>
+                            <div style="color: var(--text-secondary);">Tomorrow, 3:00 PM CEST</div>
+                        </div>
+                        <div style="background: var(--bg-hover); padding: 1.25rem; border-radius: 8px; margin-bottom: 1rem;">
+                            <div style="font-weight: 600; margin-bottom: 0.5rem;">ETH Treasury Deep Dive - Part 2</div>
+                            <div style="font-size: 0.9rem; color: var(--text-secondary); font-style: italic;">
+                                "The ETH treasury strategy reveals a fundamental shift in how institutions view digital assets as reserve instruments..."
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 1rem;">
+                            <div style="flex: 1; text-align: center; padding: 1rem; background: var(--bg-hover); border-radius: 8px;">
+                                <div style="font-size: 1.25rem; font-weight: 700; color: var(--accent);">87</div>
+                                <div style="font-size: 0.7rem; color: var(--text-dim);">PREDICTED SCORE</div>
+                            </div>
+                            <div style="flex: 1; text-align: center; padding: 1rem; background: var(--bg-hover); border-radius: 8px;">
+                                <div style="font-size: 1.25rem; font-weight: 700; color: var(--accent-green);">5:30 PM</div>
+                                <div style="font-size: 0.7rem; color: var(--text-dim);">OPTIMAL TIME</div>
+                            </div>
+                            <div style="flex: 1; text-align: center; padding: 1rem; background: var(--bg-hover); border-radius: 8px;">
+                                <div style="font-size: 1.25rem; font-weight: 700; color: var(--accent-gold);">High</div>
+                                <div style="font-size: 0.7rem; color: var(--text-dim);">ENGAGEMENT</div>
+                            </div>
+                        </div>
+                    `
+                }
+            },
+            'compare': {
+                patterns: ['compare', 'versus', 'vs', 'difference between', 'better'],
+                response: {
+                    title: 'Performance Comparison',
+                    content: `
+                        <div style="margin-bottom: 1rem;">
+                            <div style="font-size: 1.1rem; font-weight: 600;">Healthcare vs Crypto (This Week)</div>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 1.5rem; align-items: center; margin-bottom: 1.5rem;">
+                            <div style="text-align: center; padding: 1.5rem; background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(0, 212, 255, 0.05)); border-radius: 12px;">
+                                <div style="font-size: 2rem; margin-bottom: 0.5rem;">🏥</div>
+                                <div style="font-weight: 600; margin-bottom: 0.25rem;">Healthcare</div>
+                                <div style="font-size: 1.75rem; font-weight: 700; color: var(--accent);">8.2%</div>
+                                <div style="font-size: 0.75rem; color: var(--text-dim);">Engagement</div>
+                            </div>
+                            <div style="text-align: center; font-size: 1.5rem; color: var(--text-dim);">VS</div>
+                            <div style="text-align: center; padding: 1.5rem; background: linear-gradient(135deg, rgba(255, 136, 0, 0.1), rgba(255, 136, 0, 0.05)); border-radius: 12px;">
+                                <div style="font-size: 2rem; margin-bottom: 0.5rem;">₿</div>
+                                <div style="font-weight: 600; margin-bottom: 0.25rem;">Crypto</div>
+                                <div style="font-size: 1.75rem; font-weight: 700; color: var(--accent-orange);">6.1%</div>
+                                <div style="font-size: 0.75rem; color: var(--text-dim);">Engagement</div>
+                            </div>
+                        </div>
+                        <div style="background: var(--bg-hover); padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                            <div style="font-weight: 600; margin-bottom: 0.75rem;">📊 Key Metrics</div>
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; text-align: center;">
+                                <div>
+                                    <div style="font-size: 0.75rem; color: var(--text-dim); margin-bottom: 0.25rem;">Posts</div>
+                                    <div style="font-weight: 600;">4 vs 3</div>
+                                </div>
+                                <div>
+                                    <div style="font-size: 0.75rem; color: var(--text-dim); margin-bottom: 0.25rem;">Avg Score</div>
+                                    <div style="font-weight: 600;">87 vs 78</div>
+                                </div>
+                                <div>
+                                    <div style="font-size: 0.75rem; color: var(--text-dim); margin-bottom: 0.25rem;">Reach</div>
+                                    <div style="font-weight: 600;">2.1K vs 1.8K</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="padding: 1rem; background: rgba(0, 255, 136, 0.1); border-radius: 8px; border-left: 3px solid var(--accent-green);">
+                            <strong>Winner: Healthcare</strong> (+34% better engagement, +17% higher avg score)
+                        </div>
+                    `
+                }
+            }
+        };
+
+        let isRecording = false;
+        let recognition = null;
+
+        // Initialize speech recognition if available
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = true;
+            recognition.lang = 'en-US';
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                document.getElementById('nlInput').value = transcript;
+            };
+
+            recognition.onend = () => {
+                stopRecording();
+            };
+        }
+
+        function handleKeyPress(e) {
+            if (e.key === 'Enter') {
+                processCommand();
+            }
+        }
+
+        function setCommand(text) {
+            document.getElementById('nlInput').value = text;
+            document.getElementById('nlInput').focus();
+        }
+
+        function toggleVoice() {
+            if (!recognition) {
+                showToast('Voice recognition not supported', 'Please use text input', 'warning');
+                return;
+            }
+
+            if (isRecording) {
+                recognition.stop();
+            } else {
+                startRecording();
+            }
+        }
+
+        function startRecording() {
+            isRecording = true;
+            document.getElementById('voiceBtn').classList.add('recording');
+            document.getElementById('voiceVisualizer').style.display = 'flex';
+            recognition.start();
+        }
+
+        function stopRecording() {
+            isRecording = false;
+            document.getElementById('voiceBtn').classList.remove('recording');
+            document.getElementById('voiceVisualizer').style.display = 'none';
+        }
+
+        function processCommand() {
+            const input = document.getElementById('nlInput').value.trim();
+            if (!input) return;
+
+            // Show processing
+            document.getElementById('processingIndicator').classList.add('active');
+
+            // Simulate processing delay
+            setTimeout(() => {
+                document.getElementById('processingIndicator').classList.remove('active');
+                
+                // Find matching command
+                const matchedCommand = findMatchingCommand(input);
+                
+                if (matchedCommand) {
+                    showResponse(matchedCommand.response);
+                    addToConversation(input, matchedCommand.response);
+                    incrementCommands();
+                } else {
+                    // Fallback response
+                    showResponse({
+                        title: 'Processing...',
+                        content: `<p>I understood: "${input}"</p><p style="margin-top: 1rem; color: var(--text-dim);">I'm learning this command. In the full implementation, this would trigger the appropriate action. Try: "Show me at-risk tasks", "What happened yesterday?", or "Create a campaign for GLP-1"</p>`
+                    });
+                }
+
+                document.getElementById('nlInput').value = '';
+            }, 1200);
+        }
+
+        function findMatchingCommand(input) {
+            const lowerInput = input.toLowerCase();
+            
+            for (const [key, command] of Object.entries(commands)) {
+                if (command.patterns.some(pattern => lowerInput.includes(pattern))) {
+                    return command;
+                }
+            }
+            return null;
+        }
+
+        function showResponse(response) {
+            document.getElementById('responseTitle').textContent = response.title;
+            document.getElementById('responseContent').innerHTML = response.content;
+            document.getElementById('responsePanel').classList.add('active');
+            document.getElementById('responsePanel').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function closeResponse() {
+            document.getElementById('responsePanel').classList.remove('active');
+        }
+
+        function copyResponse() {
+            const content = document.getElementById('responseContent').innerText;
+            navigator.clipboard.writeText(content).then(() => {
+                showToast('Copied!', 'Response copied to clipboard', 'success');
+            });
+        }
+
+        function addToConversation(userText, response) {
+            const list = document.getElementById('conversationList');
+            
+            // Add user message
+            const userItem = document.createElement('div');
+            userItem.className = 'conversation-item';
+            userItem.innerHTML = `
+                <div class="conversation-avatar user"><i class="fas fa-user"></i></div>
+                <div class="conversation-content">
+                    <div class="conversation-text">${userText}</div>
+                    <div class="conversation-meta">Just now</div>
+                </div>
+            `;
+            list.appendChild(userItem);
+
+            // Add AI response
+            const aiItem = document.createElement('div');
+            aiItem.className = 'conversation-item';
+            aiItem.innerHTML = `
+                <div class="conversation-avatar ai"><i class="fas fa-robot" style="color: var(--accent);"></i></div>
+                <div class="conversation-content ai-response">
+                    <div class="conversation-text">${response.title}: ${response.content.replace(/<[^>]*>/g, ' ').substring(0, 100)}...</div>
+                    <div class="conversation-meta">AI Response • Just now</div>
+                </div>
+            `;
+            list.appendChild(aiItem);
+
+            // Scroll to bottom
+            list.scrollTop = list.scrollHeight;
+        }
+
+        function incrementCommands() {
+            const stat = document.getElementById('statCommands');
+            let count = parseInt(stat.textContent);
+            stat.textContent = count + 1;
+        }
+
+        function showToast(title, message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            
+            const icon = type === 'success' ? 'check-circle' : type === 'warning' ? 'exclamation-triangle' : 'info-circle';
+            const color = type === 'success' ? 'var(--accent-green)' : type === 'warning' ? 'var(--accent-orange)' : 'var(--accent)';
+            
+            toast.innerHTML = `
+                <div class="toast-icon" style="color: ${color};"><i class="fas fa-${icon}"></i></div>
+                <div class="toast-content">
+                    <div class="toast-title">${title}</div>
+                    <div class="toast-message">${message}</div>
+                </div>
+            `;
+            
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.animation = 'slideIn 0.3s ease reverse';
+                setTimeout(() => toast.remove(), 300);
+            }, 4000);
+        }
+
+        // Focus input on load
+        document.getElementById('nlInput').focus();
+    </script>
+</body>
+</html>

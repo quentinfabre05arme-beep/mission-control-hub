@@ -1,0 +1,50 @@
+# Generated data
+market_data.json
+mission_control/market_data.json
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+*.egg
+
+# Logs
+logs/*.log
+logs/*.txt
+*.log
+
+# Environment
+.env
+.env.local
+
+# Node
+node_modules/
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temp files
+*.tmp
+*.temp
+*.cache
+response_cache.json
+cached_templates.json
+
+# Build artifacts
+dist/
+build/
+.cache/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Large binaries
+cloudflared.exe
+nssm*.zip
+nssm-*/

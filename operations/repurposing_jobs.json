@@ -1,0 +1,71 @@
+{
+  "repurpose_eth_treasury_thread_1783794828": {
+    "id": "repurpose_eth_treasury_thread_1783794828",
+    "source_id": "eth_treasury_thread",
+    "source_content": "The BTC treasury playbook is proven. The next evolution is earning yield while holding — that's where ETH treasuries come in. 3-4% staking APR changes the math for CFOs. 19 public companies now hold ETH ($13B+). The treasury strategy is evolving from passive holding to productive assets.",
+    "source_type": "thread",
+    "adaptations": {
+      "x": {
+        "platform": "x",
+        "format": "thread",
+        "content": "The BTC treasury playbook is proven.\n\n🧵\n\n[1/2]\nThe BTC treasury playbook is proven. The next evolution is earning yield while holding — that's where ETH treasuries come in. 3-4% staking APR changes the math for CFOs. 19 public companies now hold ETH ($13B+).\n\n[2/2]\nThe treasury strategy is evolving from passive holding to productive assets.",
+        "media": [],
+        "character_count": 342,
+        "hashtags": [
+          "#ETH",
+          "#Treasury",
+          "#Crypto"
+        ],
+        "optimized_for": "engagement",
+        "ready": true
+      },
+      "instagram": {
+        "platform": "instagram",
+        "format": "carousel",
+        "content": "📊 CAROUSEL STRUCTURE:\n\nSlide 1 (Hook): The BTC treasury playbook is proven.\n\nSlides 2-5:\n\nSlide 2: The next evolution is earning yield while holding — that's where ETH treasuries come in....\nSlide 3: 3-4% staking APR changes the math for CFOs....\nSlide 4: 19 public companies now hold ETH ($13B+)....\nSlide 5: The treasury strategy is evolving from passive holding to productive assets....\n\nLast Slide (CTA): Follow for more insights →",
+        "media": [
+          "image_1.png",
+          "image_2.png",
+          "..."
+        ],
+        "character_count": 435,
+        "hashtags": [
+          "#investing",
+          "#crypto",
+          "#finance",
+          "#money",
+          "#wealth"
+        ],
+        "optimized_for": "reach",
+        "ready": true
+      },
+      "linkedin": {
+        "platform": "linkedin",
+        "format": "article",
+        "content": "The Strategic Shift to Productive Treasury Assets\n\nIn recent months, we've seen a significant evolution in how corporations approach balance sheet management...\n\nThe BTC treasury playbook is proven. The next evolution is earning yield while holding — that's where ETH treasuries come in. 3-4% staking APR changes the math for CFOs. 19 public companies now hold ETH ($13B+). The treasury strategy is evolving from passive holding to productive assets.\n\nKey implications for CFOs:\n1. Yield generation changes the holding cost equation\n2. Staking provides operational flexibility\n3. Early adoption offers narrative positioning\n\nWhat's your view on productive treasury strategies?\n\n#finance #treasury #crypto #investment",
+        "media": [],
+        "character_count": 716,
+        "hashtags": [
+          "#finance",
+          "#treasury",
+          "#crypto"
+        ],
+        "optimized_for": "authority",
+        "ready": true
+      },
+      "newsletter": {
+        "platform": "newsletter",
+        "format": "article",
+        "content": "Subject: The treasury playbook is evolving...\n\nHey [Name],\n\nQuick insight from the markets today:\n\nThe BTC treasury playbook is proven. The next evolution is earning yield while holding — that's where ETH treasuries come in. 3-4% staking APR changes the math for CFOs. 19 public companies now hold ETH ($13B+). The treasury strategy is evolving from passive holding to productive assets.\n\nThis matters because:\n• Early movers get positioning advantage\n• Yield changes the CFO math entirely\n• Infrastructure is being built now\n\nWorth watching: The 19 companies already holding ETH treasuries.\n\nTo alpha,\n[Name]\n\nP.S. — Reply with your thoughts. I read every email.",
+        "media": [],
+        "character_count": 663,
+        "hashtags": [],
+        "optimized_for": "conversion",
+        "ready": true
+      }
+    },
+    "status": "ready",
+    "created_at": "2026-07-11T20:33:48.859528",
+    "scheduled_times": {}
+  }
+}

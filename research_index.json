@@ -1,0 +1,38 @@
+{
+  "version": "1.0",
+  "last_updated": "2026-07-10",
+  "chunks": [
+    {
+      "id": "eth-treasury-basics",
+      "topic": "ETH as Treasury Reserve",
+      "file": "research_chunks/eth_treasury_basics.md",
+      "tags": ["ETH", "treasury", "staking", "corporate", "yield"],
+      "token_count": 800,
+      "last_accessed": null
+    },
+    {
+      "id": "hims-business-model",
+      "topic": "HIMS Healthcare Infrastructure",
+      "file": "research_chunks/hims_business_model.md",
+      "tags": ["HIMS", "healthcare", "GLP-1", "telehealth", "Novo Nordisk"],
+      "token_count": 900,
+      "last_accessed": null
+    },
+    {
+      "id": "ai-commerce-mckinsey",
+      "topic": "AI Agentic Commerce",
+      "file": "research_chunks/ai_commerce_mckinsey.md",
+      "tags": ["AI", "agentic", "commerce", "McKinsey", "3-5T"],
+      "token_count": 700,
+      "last_accessed": null
+    },
+    {
+      "id": "engagement-strategy",
+      "topic": "X Engagement Strategy",
+      "file": "research_chunks/engagement_strategy.md",
+      "tags": ["engagement", "replies", "targets", "TheLongInvestor", "DrTomsLens"],
+      "token_count": 600,
+      "last_accessed": null
+    }
+  ]
+}

@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@quentinvest1 | External Data Integration v7.2</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg-primary: #050505;
+            --bg-secondary: #0a0a0a;
+            --bg-tertiary: #111111;
+            --bg-card: #141414;
+            --bg-hover: #1a1a1a;
+            --accent-cyan: #00d4ff;
+            --accent-green: #00ff88;
+            --accent-orange: #ff8800;
+            --accent-red: #ff3860;
+            --accent-purple: #bd34fe;
+            --accent-gold: #ffd700;
+            --accent-pink: #ff2d55;
+            --accent-teal: #00d4aa;
+            --accent-blue: #0a84ff;
+            --accent-indigo: #6366f1;
+            --accent-amber: #ffaa00;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-tertiary: #6e6e6e;
+            --text-dim: #404040;
+            --border-color: #1f1f1f;
+            --glass-bg: rgba(20, 20, 20, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.08);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(0, 212, 255, 0.06) 0%, transparent 40%),
+                radial-gradient(ellipse at 80% 80%, rgba(255, 170, 0, 0.04) 0%, transparent 40%),
+                radial-gradient(ellipse at 50% 50%, rgba(189, 52, 254, 0.03) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .ambient-grid {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 212, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Navigation */
+        .top-nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 64px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(24px) saturate(180%);
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 1.5rem;
+            z-index: 100;
+        }
+
+        .nav-left { display: flex; align-items: center; gap: 1rem; }
+        .logo { display: flex; align-items: center; gap: 0.5rem; font-weight: 600; font-size: 1.1rem; }
+        .version-tag { 
+            font-size: 0.7rem; 
+            padding: 0.2rem 0.5rem; 
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue)); 
+            border-radius: 4px; 
+            color: #fff; 
+            font-weight: 700; 
+        }
+
+        .nav-links { display: flex; gap: 0.25rem; }
+        .nav-link {
+            padding: 0.5rem 0.75rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+        .nav-link:hover { color: var(--text-primary); background: var(--bg-hover); }
+        .nav-link.active { color: var(--accent-cyan); background: rgba(0, 212, 255, 0.1); }
+
+        .data-bridge-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 0.8rem;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+        .bridge-dot {
+            width: 8px; height: 8px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+        .main-container {
+            padding: 90px 1.5rem 2rem;
+            max-width: 1600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(255, 170, 0, 0.05));
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-amber));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .hero-stat {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+        }
+
+        .hero-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+        }
+        .hero-value.up { color: var(--accent-green); }
+        .hero-value.down { color: var(--accent-red); }
+        .hero-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 0.25rem;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.2s;
+        }
+        .card:hover { border-color: var(--accent-cyan); }
+
+        .card-header {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .card-title { font-weight: 600; display: flex; align-items: center; gap: 0.5rem; }
+        .card-body { padding: 1.25rem; }
+        .card-badge {
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        .badge-live { background: rgba(0, 255, 136, 0.2); color: var(--accent-green); }
+        .badge-sim { background: rgba(255, 170, 0, 0.2); color: var(--accent-amber); }
+
+        /* Grid Layout */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 1200px) {
+            .dashboard-grid { grid-template-columns: repeat(2, 1fr); }
+            .hero-stats { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .dashboard-grid { grid-template-columns: 1fr; }
+            .hero-stats { grid-template-columns: 1fr; }
+            .top-nav { padding: 0 1rem; }
+            .nav-links { display: none; }
+        }
+
+        /* Market Tickers */
+        .ticker-grid {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .ticker-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.875rem 1rem;
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            transition: all 0.2s;
+        }
+        .ticker-item:hover { background: var(--bg-hover); }
+
+        .ticker-icon {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+        .ticker-icon.btc { background: linear-gradient(135deg, rgba(255, 170, 0, 0.2), rgba(255, 215, 0, 0.2)); }
+        .ticker-icon.eth { background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(189, 52, 254, 0.2)); }
+        .ticker-icon.mstr { background: linear-gradient(135deg, rgba(255, 45, 85, 0.2), rgba(255, 136, 0, 0.2)); }
+        .ticker-icon.hims { background: linear-gradient(135deg, rgba(0, 212, 170, 0.2), rgba(0, 212, 255, 0.2)); }
+
+        .ticker-info { flex: 1; }
+        .ticker-name { font-weight: 600; font-size: 0.95rem; }
+        .ticker-symbol { font-size: 0.75rem; color: var(--text-tertiary); }
+        .ticker-price { text-align: right; }
+        .ticker-value { font-size: 1.1rem; font-weight: 700; }
+        .ticker-change {
+            font-size: 0.8rem;
+            font-weight: 500;
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            margin-top: 0.25rem;
+            display: inline-block;
+        }
+        .ticker-change.up { background: rgba(0, 255, 136, 0.15); color: var(--accent-green); }
+        .ticker-change.down { background: rgba(255, 56, 96, 0.15); color: var(--accent-red); }
+
+        /* News Feed */
+        .news-feed { max-height: 400px; overflow-y: auto; }
+        .news-item {
+            display: flex;
+            gap: 0.75rem;
+            padding: 0.875rem;
+            border-bottom: 1px solid var(--border-color);
+            transition: background 0.2s;
+        }
+        .news-item:hover { background: var(--bg-hover); }
+        .news-item:last-child { border-bottom: none; }
+
+        .news-source {
+            width: 32px; height: 32px;
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+        .news-source.crypto { background: rgba(255, 170, 0, 0.15); color: var(--accent-amber); }
+        .news-source.health { background: rgba(0, 212, 170, 0.15); color: var(--accent-teal); }
+        .news-source.ai { background: rgba(189, 52, 254, 0.15); color: var(--accent-purple); }
+        .news-source.market { background: rgba(0, 132, 255, 0.15); color: var(--accent-blue); }
+
+        .news-content { flex: 1; }
+        .news-title { font-size: 0.9rem; font-weight: 500; line-height: 1.4; }
+        .news-meta {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 0.35rem;
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+        }
+        .news-sentiment {
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        .sentiment-bullish { background: rgba(0, 255, 136, 0.15); color: var(--accent-green); }
+        .sentiment-bearish { background: rgba(255, 56, 96, 0.15); color: var(--accent-red); }
+        .sentiment-neutral { background: rgba(160, 160, 160, 0.15); color: var(--text-secondary); }
+
+        /* Trending */
+        .trending-list { display: grid; gap: 0.5rem; }
+        .trending-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        .trending-item:hover { background: var(--bg-hover); }
+
+        .trend-rank {
+            width: 28px; height: 28px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .rank-top { background: linear-gradient(135deg, var(--accent-gold), var(--accent-orange)); color: #000; }
+        .rank-mid { background: var(--bg-tertiary); color: var(--text-secondary); }
+
+        .trend-info { flex: 1; }
+        .trend-topic { font-weight: 500; font-size: 0.9rem; }
+        .trend-volume { font-size: 0.75rem; color: var(--text-tertiary); }
+        .trend-arrow {
+            font-size: 0.9rem;
+            padding: 0.25rem;
+            border-radius: 4px;
+        }
+        .arrow-up { color: var(--accent-green); }
+        .arrow-down { color: var(--accent-red); }
+
+        /* Events Calendar */
+        .events-list { display: grid; gap: 0.75rem; }
+        .event-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            border-left: 3px solid var(--accent-cyan);
+            transition: all 0.2s;
+        }
+        .event-item:hover { background: var(--bg-hover); }
+        .event-item.urgent { border-left-color: var(--accent-red); }
+        .event-item.upcoming { border-left-color: var(--accent-amber); }
+
+        .event-date {
+            text-align: center;
+            min-width: 50px;
+        }
+        .event-day { font-size: 1.25rem; font-weight: 700; color: var(--accent-cyan); }
+        .event-month { font-size: 0.7rem; color: var(--text-tertiary); text-transform: uppercase; }
+
+        .event-info { flex: 1; }
+        .event-title { font-weight: 600; font-size: 0.95rem; }
+        .event-desc { font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.25rem; }
+
+        .event-countdown {
+            text-align: right;
+            font-size: 0.8rem;
+        }
+        .countdown-value { font-weight: 700; color: var(--accent-amber); }
+        .countdown-label { color: var(--text-tertiary); font-size: 0.7rem; }
+
+        /* Data Bridge Panel */
+        .bridge-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+
+        .bridge-item {
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .bridge-status {
+            width: 12px; height: 12px;
+            border-radius: 50%;
+            margin: 0 auto 0.5rem;
+            animation: pulse 2s infinite;
+        }
+        .bridge-status.online { background: var(--accent-green); }
+        .bridge-status.degraded { background: var(--accent-amber); }
+        .bridge-status.offline { background: var(--accent-red); }
+
+        .bridge-name { font-size: 0.85rem; font-weight: 600; }
+        .bridge-latency { font-size: 0.75rem; color: var(--text-tertiary); margin-top: 0.25rem; }
+        .bridge-rate { font-size: 0.7rem; color: var(--text-tertiary); }
+
+        /* Quick Actions */
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+        .action-btn {
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+            width: 100%;
+        }
+        .action-btn:hover {
+            border-color: var(--accent-cyan);
+            background: var(--bg-hover);
+        }
+        .action-icon { font-size: 1.25rem; margin-bottom: 0.5rem; }
+        .action-label { font-size: 0.85rem; font-weight: 500; }
+        .action-desc { font-size: 0.75rem; color: var(--text-tertiary); margin-top: 0.25rem; }
+
+        /* Chart Container */
+        .chart-container { height: 200px; margin-top: 1rem; }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-left: 3px solid var(--accent-cyan);
+            border-radius: 8px;
+            padding: 1rem;
+            transform: translateX(120%);
+            transition: transform 0.3s;
+            z-index: 1000;
+            max-width: 350px;
+        }
+        .toast.show { transform: translateX(0); }
+        .toast-title { font-weight: 600; margin-bottom: 0.25rem; }
+        .toast-message { font-size: 0.9rem; color: var(--text-secondary); }
+
+        /* Scrolling ticker banner */
+        .ticker-banner {
+            background: linear-gradient(90deg, rgba(0, 212, 255, 0.1), rgba(255, 170, 0, 0.1));
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+        .ticker-scroll {
+            display: flex;
+            gap: 3rem;
+            animation: scroll-ticker 30s linear infinite;
+            white-space: nowrap;
+        }
+        @keyframes scroll-ticker {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .ticker-pair {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+        }
+        .ticker-pair-name { font-weight: 600; }
+        .ticker-pair-price { color: var(--text-primary); }
+        .ticker-pair-change { font-size: 0.75rem; }
+
+        /* Section title */
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="ambient-grid"></div>
+    
+    <nav class="top-nav">
+        <div class="nav-left">
+            <div class="logo">
+                <span>🌍</span>
+                <span>External Data</span>
+                <span class="version-tag">v7.2</span>
+            </div>
+            <div class="nav-links">
+                <a href="mission_control_command_center.html" class="nav-link">🎮 Command</a>
+                <a href="mission_control_engagement_live.html" class="nav-link">🔥 Live</a>
+                <a href="mission_control_predictive_intelligence.html" class="nav-link">🔮 Predict</a>
+                <a href="mission_control_strategic.html" class="nav-link">🧠 Strategic</a>
+                <a href="mission_control_attribution.html" class="nav-link">📊 Attribution</a>
+                <a href="mission_control_autoreply.html" class="nav-link">💬 Auto-Reply</a>
+                <a href="mission_control_recycling.html" class="nav-link">♻️ Recycle</a>
+                <a href="mission_control_unified.html" class="nav-link">🎯 Unified</a>
+                <a href="mission_control_advanced_reporting.html" class="nav-link">🧬 Reports</a>
+                <a href="mission_control_voice.html" class="nav-link">🎙️ Voice</a>
+                <a href="mission_control_agents.html" class="nav-link">🤖 Agents</a>
+                <a href="mission_control_autonomous.html" class="nav-link">⚡ Autonomous</a>
+                <a href="mission_control_federated.html" class="nav-link">🌐 Federated</a>
+                <a href="mission_control_external.html" class="nav-link active">🌍 External</a>
+            </div>
+        </div>
+        <div class="data-bridge-status">
+            <div class="bridge-dot"></div>
+            <span>Data Bridge Live</span>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <!-- Scrolling Ticker -->
+        <div class="ticker-banner">
+            <div class="ticker-scroll" id="tickerScroll">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+
+        <!-- Hero -->
+        <div class="hero">
+            <div class="hero-header">
+                <div>
+                    <div class="hero-title">🌍 External Data Integration v7.2</div>
+                    <div style="color: var(--text-secondary); margin-top: 0.5rem; font-size: 0.9rem;">
+                        Real-time market data, news feeds, and trend monitoring • Bridge status: <span style="color: var(--accent-green);">ONLINE</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-value up" id="marketSentiment">Bullish</div>
+                    <div class="hero-label">Market Sentiment</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-value" id="activeFeeds">4/4</div>
+                    <div class="hero-label">Active Feeds</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-value" id="lastUpdate">12s ago</div>
+                    <div class="hero-label">Last Update</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-value" id="apiLatency">42ms</div>
+                    <div class="hero-label">API Latency</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Grid -->
+        <div class="dashboard-grid">
+            <!-- Market Data -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>📈</span>
+                        <span>Live Market Data</span>
+                    </div>
+                    <span class="card-badge badge-live">LIVE</span>
+                </div>
+                <div class="card-body">
+                    <div class="ticker-grid" id="marketTickers">
+                        <!-- Populated by JS -->
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="priceChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- News Feed -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>📰</span>
+                        <span>News Stream</span>
+                    </div>
+                    <span class="card-badge badge-live">LIVE</span>
+                </div>
+                <div class="card-body">
+                    <div class="news-feed" id="newsFeed">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trending Topics -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>🔥</span>
+                        <span>Trending Topics</span>
+                    </div>
+                    <span class="card-badge badge-sim">SIM</span>
+                </div>
+                <div class="card-body">
+                    <div class="trending-list" id="trendingList">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Events Calendar -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>📅</span>
+                        <span>Events Calendar</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="events-list" id="eventsList">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Bridge Status -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>🔌</span>
+                        <span>Data Bridge Status</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="bridge-grid" id="bridgeGrid">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>⚡</span>
+                        <span>Quick Actions</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="actions-grid">
+                        <button class="action-btn" onclick="showToast('Refreshing data...', 'Pulling latest market data from all sources')">
+                            <div class="action-icon">🔄</div>
+                            <div class="action-label">Refresh All</div>
+                            <div class="action-desc">Pull latest from all feeds</div>
+                        </button>
+                        <button class="action-btn" onclick="showToast('Alert set', 'Price threshold alert configured')">
+                            <div class="action-icon">🔔</div>
+                            <div class="action-label">Set Alert</div>
+                            <div class="action-desc">Configure price thresholds</div>
+                        </button>
+                        <button class="action-btn" onclick="showToast('Export started', 'Data export to CSV in progress')">
+                            <div class="action-icon">📥</div>
+                            <div class="action-label">Export Data</div>
+                            <div class="action-desc">Download current snapshot</div>
+                        </button>
+                        <button class="action-btn" onclick="showToast('Bridge restarted', 'Data bridge connections reset')">
+                            <div class="action-icon">🔧</div>
+                            <div class="action-label">Reset Bridge</div>
+                            <div class="action-desc">Restart all connections</div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <div class="toast-title" id="toastTitle"></div>
+        <div class="toast-message" id="toastMessage"></div>
+    </div>
+
+    <script>
+        // Market Data (Simulated with realistic values)
+        const marketData = [
+            { symbol: 'BTC', name: 'Bitcoin', price: 67842.35, change: 2.34, icon: '₿', type: 'crypto' },
+            { symbol: 'ETH', name: 'Ethereum', price: 3521.87, change: 1.89, icon: 'Ξ', type: 'crypto' },
+            { symbol: 'MSTR', name: 'MicroStrategy', price: 1847.23, change: -0.45, icon: '📊', type: 'stock' },
+            { symbol: 'HIMS', name: 'Hims & Hers', price: 78.45, change: 5.67, icon: '🏥', type: 'stock' },
+            { symbol: 'NFLX', name: 'Netflix', price: 712.34, change: -1.23, icon: '🎬', type: 'stock' },
+            { symbol: 'NVDA', name: 'NVIDIA', price: 134.87, change: 3.21, icon: '🎮', type: 'stock' }
+        ];
+
+        // News Feed
+        const newsData = [
+            { source: 'CoinDesk', category: 'crypto', title: 'Bitcoin ETFs see $1.2B inflows as institutions accumulate', time: '2 min ago', sentiment: 'bullish' },
+            { source: 'Bloomberg', category: 'health', title: 'GLP-1 market expands: Novo Nordisk signs new distribution deal', time: '15 min ago', sentiment: 'bullish' },
+            { source: 'TechCrunch', category: 'ai', title: 'OpenAI announces new agentic capabilities for enterprise', time: '32 min ago', sentiment: 'neutral' },
+            { source: 'WSJ', category: 'market', title: 'Fed signals potential rate cuts in September meeting', time: '1h ago', sentiment: 'bullish' },
+            { source: 'CryptoSlate', category: 'crypto', title: 'Ethereum staking yields compress below 3% as demand surges', time: '1.5h ago', sentiment: 'bearish' },
+            { source: 'Reuters', category: 'health', title: 'Telehealth regulation update: HIMS positioned for expansion', time: '2h ago', sentiment: 'bullish' },
+            { source: 'TheBlock', category: 'crypto', title: 'MicroStrategy adds 12,000 BTC to treasury holdings', time: '3h ago', sentiment: 'bullish' },
+            { source: 'FT', category: 'market', title: 'AI infrastructure spending hits $200B annually', time: '4h ago', sentiment: 'bullish' }
+        ];
+
+        // Trending Topics
+        const trendingData = [
+            { topic: '#ETHtreasury', volume: '45.2K posts', change: 23, rank: 1 },
+            { topic: '#GLP1', volume: '38.7K posts', change: 15, rank: 2 },
+            { topic: '#Bitcoin', volume: '125K posts', change: 8, rank: 3 },
+            { topic: '#AIagents', volume: '28.3K posts', change: -5, rank: 4 },
+            { topic: '#HIMS', volume: '12.1K posts', change: 31, rank: 5 },
+            { topic: '#Telehealth', volume: '8.9K posts', change: 12, rank: 6 },
+            { topic: '#MSTR', volume: '6.7K posts', change: -2, rank: 7 },
+            { topic: '#Staking', volume: '15.4K posts', change: 18, rank: 8 }
+        ];
+
+        // Events
+        const eventsData = [
+            { title: 'HIMS Q2 Earnings', desc: 'Revenue guidance update', date: 'Jul 14', type: 'urgent', countdown: '18h' },
+            { title: 'Fed Meeting Minutes', desc: 'FOMC July release', date: 'Jul 17', type: 'upcoming', countdown: '4d' },
+            { title: 'NVIDIA GTC Update', desc: 'AI chip roadmap reveal', date: 'Jul 22', type: 'upcoming', countdown: '9d' },
+            { title: 'ETH Staking Upgrade', desc: 'Network efficiency improvement', date: 'Jul 28', type: 'normal', countdown: '15d' },
+            { title: 'Jackson Hole Symposium', desc: 'Fed policy outlook', date: 'Aug 22', type: 'normal', countdown: '40d' }
+        ];
+
+        // Bridge Status
+        const bridgeData = [
+            { name: 'CoinGecko', status: 'online', latency: '124ms', rate: '50/min' },
+            { name: 'Yahoo Finance', status: 'online', latency: '89ms', rate: '100/min' },
+            { name: 'NewsAPI', status: 'online', latency: '234ms', rate: '20/min' },
+            { name: 'RSS Feeds', status: 'degraded', latency: '456ms', rate: '10/min' }
+        ];
+
+        // Render Functions
+        function renderMarketTickers() {
+            const container = document.getElementById('marketTickers');
+            container.innerHTML = marketData.map(item => `
+                <div class="ticker-item">
+                    <div class="ticker-icon ${item.type === 'crypto' ? (item.symbol === 'BTC' ? 'btc' : 'eth') : (item.symbol === 'MSTR' ? 'mstr' : 'hims')}">${item.icon}</div>
+                    <div class="ticker-info">
+                        <div class="ticker-name">${item.name}</div>
+                        <div class="ticker-symbol">${item.symbol}</div>
+                    </div>
+                    <div class="ticker-price">
+                        <div class="ticker-value">$${item.price.toLocaleString()}</div>
+                        <span class="ticker-change ${item.change >= 0 ? 'up' : 'down'}">${item.change >= 0 ? '+' : ''}${item.change}%</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderNewsFeed() {
+            const container = document.getElementById('newsFeed');
+            container.innerHTML = newsData.map(item => `
+                <div class="news-item">
+                    <div class="news-source ${item.category}">${item.source.charAt(0)}</div>
+                    <div class="news-content">
+                        <div class="news-title">${item.title}</div>
+                        <div class="news-meta">
+                            <span>${item.source}</span>
+                            <span>•</span>
+                            <span>${item.time}</span>
+                            <span class="news-sentiment sentiment-${item.sentiment}">${item.sentiment.toUpperCase()}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderTrending() {
+            const container = document.getElementById('trendingList');
+            container.innerHTML = trendingData.map(item => `
+                <div class="trending-item">
+                    <div class="trend-rank ${item.rank <= 3 ? 'rank-top' : 'rank-mid'}">${item.rank}</div>
+                    <div class="trend-info">
+                        <div class="trend-topic">${item.topic}</div>
+                        <div class="trend-volume">${item.volume}</div>
+                    </div>
+                    <div class="trend-arrow ${item.change >= 0 ? 'arrow-up' : 'arrow-down'}">${item.change >= 0 ? '↗' : '↘'} ${Math.abs(item.change)}%</div>
+                </div>
+            `).join('');
+        }
+
+        function renderEvents() {
+            const container = document.getElementById('eventsList');
+            container.innerHTML = eventsData.map(item => `
+                <div class="event-item ${item.type}">
+                    <div class="event-date">
+                        <div class="event-day">${item.date.split(' ')[1]}</div>
+                        <div class="event-month">${item.date.split(' ')[0]}</div>
+                    </div>
+                    <div class="event-info">
+                        <div class="event-title">${item.title}</div>
+                        <div class="event-desc">${item.desc}</div>
+                    </div>
+                    <div class="event-countdown">
+                        <div class="countdown-value">${item.countdown}</div>
+                        <div class="countdown-label">remaining</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderBridge() {
+            const container = document.getElementById('bridgeGrid');
+            container.innerHTML = bridgeData.map(item => `
+                <div class="bridge-item">
+                    <div class="bridge-status ${item.status}"></div>
+                    <div class="bridge-name">${item.name}</div>
+                    <div class="bridge-latency">${item.latency}</div>
+                    <div class="bridge-rate">${item.rate}</div>
+                </div>
+            `).join('');
+        }
+
+        function renderScrollingTicker() {
+            const container = document.getElementById('tickerScroll');
+            const pairs = [
+                { name: 'BTC/USD', price: '$67,842', change: '+2.34%' },
+                { name: 'ETH/USD', price: '$3,521', change: '+1.89%' },
+                { name: 'MSTR', price: '$1,847', change: '-0.45%' },
+                { name: 'HIMS', price: '$78.45', change: '+5.67%' },
+                { name: 'NVDA', price: '$134.87', change: '+3.21%' },
+                { name: 'NFLX', price: '$712.34', change: '-1.23%' },
+                { name: 'GLD', price: '$2,412', change: '+0.67%' },
+                { name: 'SOL/USD', price: '$168.23', change: '+4.12%' }
+            ];
+            
+            const html = pairs.map(p => `
+                <div class="ticker-pair">
+                    <span class="ticker-pair-name">${p.name}</span>
+                    <span class="ticker-pair-price">${p.price}</span>
+                    <span class="ticker-pair-change ${p.change.includes('+') ? 'up' : 'down'}">${p.change}</span>
+                </div>
+            `).join('');
+            
+            container.innerHTML = html + html; // Duplicate for seamless loop
+        }
+
+        // Chart
+        function initChart() {
+            const ctx = document.getElementById('priceChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00', 'Now'],
+                    datasets: [{
+                        label: 'BTC',
+                        data: [66200, 66500, 67000, 66800, 67400, 67600, 67842],
+                        borderColor: '#ffaa00',
+                        backgroundColor: 'rgba(255, 170, 0, 0.1)',
+                        tension: 0.4,
+                        fill: true,
+                        pointRadius: 0
+                    }, {
+                        label: 'ETH',
+                        data: [3400, 3420, 3480, 3450, 3500, 3510, 3521],
+                        borderColor: '#6366f1',
+                        backgroundColor: 'rgba(99, 102, 241, 0.1)',
+                        tension: 0.4,
+                        fill: true,
+                        pointRadius: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: true, labels: { color: '#888', font: { size: 11 } } } },
+                    scales: {
+                        x: { ticks: { color: '#666', font: { size: 10 } }, grid: { color: '#222' } },
+                        y: { ticks: { color: '#666', font: { size: 10 } }, grid: { color: '#222' } }
+                    }
+                }
+            });
+        }
+
+        // Toast
+        function showToast(title, message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastTitle').textContent = title;
+            document.getElementById('toastMessage').textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        // Simulate live updates
+        function simulateUpdates() {
+            setInterval(() => {
+                const lastUpdate = document.getElementById('lastUpdate');
+                const seconds = Math.floor(Math.random() * 60) + 1;
+                lastUpdate.textContent = `${seconds}s ago`;
+                
+                // Occasionally flash a ticker
+                const tickers = document.querySelectorAll('.ticker-value');
+                const randomTicker = tickers[Math.floor(Math.random() * tickers.length)];
+                if (randomTicker) {
+                    randomTicker.style.color = 'var(--accent-green)';
+                    setTimeout(() => { randomTicker.style.color = ''; }, 1000);
+                }
+            }, 5000);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderMarketTickers();
+            renderNewsFeed();
+            renderTrending();
+            renderEvents();
+            renderBridge();
+            renderScrollingTicker();
+            initChart();
+            simulateUpdates();
+        });
+    </script>
+</body>
+</html>

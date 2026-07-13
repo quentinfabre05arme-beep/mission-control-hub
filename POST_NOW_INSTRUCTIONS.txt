@@ -1,0 +1,59 @@
+POST HIMS THREAD - RIGHT NOW
+============================
+
+STEP 1: Open X Compose
+----------------------
+Run this command in Command Prompt:
+
+    post_hims_now.bat
+
+This will:
+- Open Chrome (if not running)
+- Navigate to x.com/compose/tweet
+- Show you the instructions
+
+STEP 2: Open DevTools Console
+----------------------------
+1. Switch to Chrome
+2. Press F12 (opens DevTools)
+3. Click "Console" tab
+
+STEP 3: Paste JavaScript
+-----------------------
+Open hims_thread.js in Notepad:
+    notepad hims_thread.js
+
+Copy the entire code (Ctrl+A, Ctrl+C)
+
+Paste into Console (Ctrl+V)
+
+STEP 4: Execute
+-------------
+Press Enter
+
+The script will:
+- Type all 6 tweets
+- Add thread markers
+- Click the Post button
+- Show "✅ Thread posted successfully!"
+
+Done! Your HIMS thread is live.
+
+============================
+TROUBLESHOOTING
+============================
+
+If Console shows errors:
+- Make sure you're on x.com/compose/tweet
+- Wait for page to fully load
+- Try refreshing the page
+
+If Post button stays disabled:
+- Check character counts (max 280 per tweet)
+- Script auto-formats with \n for line breaks
+
+If tweets don't appear:
+- Script uses data-testid selectors
+- X may have changed these - let me know
+
+============================

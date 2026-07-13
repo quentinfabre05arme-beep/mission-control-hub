@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@quentinvest1 | Performance Analytics v7.5</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg-primary: #050505;
+            --bg-secondary: #0a0a0a;
+            --bg-tertiary: #111111;
+            --bg-card: #141414;
+            --bg-hover: #1a1a1a;
+            --accent-cyan: #00d4ff;
+            --accent-green: #00ff88;
+            --accent-orange: #ff8800;
+            --accent-red: #ff3860;
+            --accent-purple: #bd34fe;
+            --accent-gold: #ffd700;
+            --accent-pink: #ff2d55;
+            --accent-teal: #00d4aa;
+            --accent-blue: #0a84ff;
+            --accent-indigo: #6366f1;
+            --accent-amber: #ffaa00;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-tertiary: #6e6e6e;
+            --text-dim: #404040;
+            --border-color: #1f1f1f;
+            --glass-bg: rgba(20, 20, 20, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.08);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(0, 212, 255, 0.06) 0%, transparent 40%),
+                radial-gradient(ellipse at 80% 80%, rgba(255, 170, 0, 0.04) 0%, transparent 40%),
+                radial-gradient(ellipse at 50% 50%, rgba(189, 52, 254, 0.03) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .ambient-grid {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 212, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .top-nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 64px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(24px) saturate(180%);
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 1.5rem;
+            z-index: 100;
+        }
+
+        .nav-left { display: flex; align-items: center; gap: 1rem; }
+        .logo { display: flex; align-items: center; gap: 0.5rem; font-weight: 600; font-size: 1.1rem; }
+        .version-tag { 
+            font-size: 0.7rem; 
+            padding: 0.2rem 0.5rem; 
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-orange)); 
+            border-radius: 4px; 
+            color: #000; 
+            font-weight: 700; 
+        }
+
+        .nav-links { display: flex; gap: 0.25rem; }
+        .nav-link {
+            padding: 0.5rem 0.75rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.8rem;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+        .nav-link:hover, .nav-link.active { 
+            background: var(--bg-hover); 
+            color: var(--text-primary); 
+        }
+
+        .nav-right { display: flex; align-items: center; gap: 0.75rem; }
+        .status-indicator { 
+            display: flex; 
+            align-items: center; 
+            gap: 0.4rem; 
+            font-size: 0.75rem; 
+            color: var(--text-secondary); 
+        }
+        .status-dot { 
+            width: 8px; 
+            height: 8px; 
+            border-radius: 50%; 
+            background: var(--accent-green); 
+            animation: pulse-dot 2s ease-in-out infinite; 
+        }
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(0.9); }
+        }
+
+        .main-container { 
+            padding: 84px 1.5rem 1.5rem; 
+            max-width: 1800px; 
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-header {
+            margin-bottom: 1.5rem;
+        }
+        .page-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .page-title .icon { color: var(--accent-gold); }
+        .page-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Summary Cards */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .summary-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 1.25rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .summary-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 3px;
+        }
+        .summary-card.predictive::before { background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue)); }
+        .summary-card.actual::before { background: linear-gradient(90deg, var(--accent-green), var(--accent-teal)); }
+        .summary-card.accuracy::before { background: linear-gradient(90deg, var(--accent-purple), var(--accent-indigo)); }
+        .summary-card.ab::before { background: linear-gradient(90deg, var(--accent-orange), var(--accent-amber)); }
+        .summary-card.best::before { background: linear-gradient(90deg, var(--accent-gold), var(--accent-pink)); }
+        
+        .summary-label {
+            font-size: 0.7rem;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+        .summary-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+        .summary-change {
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        .positive { color: var(--accent-green); }
+        .negative { color: var(--accent-red); }
+        .neutral { color: var(--text-secondary); }
+
+        /* Main Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .dashboard-grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .panel-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .panel-title i { color: var(--accent-cyan); }
+        .panel-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .panel-btn {
+            padding: 0.4rem 0.75rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .panel-btn:hover, .panel-btn.active {
+            background: var(--bg-hover);
+            color: var(--text-primary);
+            border-color: var(--accent-cyan);
+        }
+        .panel-content {
+            padding: 1.25rem;
+        }
+
+        /* Chart Container */
+        .chart-container {
+            position: relative;
+            height: 280px;
+        }
+
+        /* Heatmap */
+        .heatmap-grid {
+            display: grid;
+            grid-template-columns: auto repeat(7, 1fr);
+            gap: 4px;
+            margin-top: 1rem;
+        }
+        .heatmap-cell {
+            aspect-ratio: 1;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .heatmap-cell:hover { transform: scale(1.1); z-index: 10; }
+        .heatmap-cell.empty { background: var(--bg-tertiary); }
+        .heatmap-cell.label {
+            background: transparent;
+            color: var(--text-tertiary);
+            font-size: 0.6rem;
+        }
+        .heatmap-legend {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            justify-content: center;
+            font-size: 0.7rem;
+            color: var(--text-tertiary);
+        }
+        .legend-gradient {
+            width: 100px;
+            height: 8px;
+            border-radius: 4px;
+            background: linear-gradient(90deg, var(--accent-red), var(--accent-amber), var(--accent-green));
+        }
+
+        /* Content List */
+        .content-list {
+            max-height: 320px;
+            overflow-y: auto;
+        }
+        .content-list::-webkit-scrollbar { width: 4px; }
+        .content-list::-webkit-scrollbar-thumb { background: var(--text-dim); border-radius: 2px; }
+        
+        .content-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.875rem;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            transition: all 0.2s ease;
+        }
+        .content-item:hover {
+            border-color: var(--accent-cyan);
+            background: var(--bg-hover);
+        }
+        .content-type-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            flex-shrink: 0;
+        }
+        .content-type-icon.thread { background: rgba(0, 212, 255, 0.15); color: var(--accent-cyan); }
+        .content-type-icon.post { background: rgba(0, 255, 136, 0.15); color: var(--accent-green); }
+        .content-type-icon.reply { background: rgba(255, 136, 0, 0.15); color: var(--accent-orange); }
+        .content-type-icon.quote { background: rgba(189, 52, 254, 0.15); color: var(--accent-purple); }
+        
+        .content-main { flex: 1; min-width: 0; }
+        .content-text {
+            font-size: 0.8rem;
+            color: var(--text-primary);
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 0.35rem;
+        }
+        .content-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.7rem;
+            color: var(--text-tertiary);
+        }
+        .content-meta span { display: flex; align-items: center; gap: 0.25rem; }
+        
+        .content-score {
+            text-align: right;
+            flex-shrink: 0;
+        }
+        .score-label {
+            font-size: 0.6rem;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+        }
+        .score-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+        .score-diff {
+            font-size: 0.65rem;
+            display: flex;
+            align-items: center;
+            gap: 0.2rem;
+            justify-content: flex-end;
+        }
+
+        /* A/B Test Cards */
+        .ab-test-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+        .ab-test-card {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.875rem;
+        }
+        .ab-test-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+        }
+        .ab-test-title {
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .ab-test-status {
+            font-size: 0.65rem;
+            padding: 0.15rem 0.5rem;
+            border-radius: 10px;
+            text-transform: uppercase;
+        }
+        .ab-test-status.running { background: rgba(0, 212, 255, 0.15); color: var(--accent-cyan); }
+        .ab-test-status.winner { background: rgba(0, 255, 136, 0.15); color: var(--accent-green); }
+        .ab-test-status.loser { background: rgba(255, 56, 96, 0.15); color: var(--accent-red); }
+        
+        .variant-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem;
+            border-radius: 6px;
+            margin-bottom: 0.35rem;
+        }
+        .variant-row.winner { background: rgba(0, 255, 136, 0.08); border: 1px solid rgba(0, 255, 136, 0.3); }
+        .variant-row.loser { background: var(--bg-secondary); opacity: 0.7; }
+        .variant-label {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .variant-label.a { background: var(--accent-cyan); color: #000; }
+        .variant-label.b { background: var(--accent-purple); color: #000; }
+        .variant-content {
+            flex: 1;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .variant-metric {
+            text-align: right;
+            font-size: 0.75rem;
+        }
+        .variant-metric .value { font-weight: 700; color: var(--text-primary); }
+        .variant-metric .delta { font-size: 0.65rem; }
+
+        /* Pillar Matrix */
+        .pillar-matrix {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        .pillar-cell {
+            aspect-ratio: 1;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.35rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .pillar-cell:hover { transform: translateY(-2px); border-color: var(--accent-cyan); }
+        .pillar-cell i { font-size: 1.1rem; }
+        .pillar-cell.healthcare i { color: var(--accent-green); }
+        .pillar-cell.crypto i { color: var(--accent-orange); }
+        .pillar-cell.ai i { color: var(--accent-purple); }
+        .pillar-cell.macro i { color: var(--accent-cyan); }
+        .pillar-cell.longevity i { color: var(--accent-pink); }
+        .pillar-name {
+            font-size: 0.6rem;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+        }
+        .pillar-score {
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+        .pillar-posts {
+            font-size: 0.55rem;
+            color: var(--text-dim);
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 6px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border-color);
+        }
+        .timeline-item {
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -1.5rem;
+            top: 2px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--bg-card);
+            border: 2px solid var(--accent-cyan);
+        }
+        .timeline-dot.success { border-color: var(--accent-green); }
+        .timeline-dot.warning { border-color: var(--accent-amber); }
+        .timeline-content {
+            font-size: 0.8rem;
+        }
+        .timeline-time {
+            font-size: 0.65rem;
+            color: var(--text-tertiary);
+            margin-bottom: 0.25rem;
+        }
+        .timeline-text {
+            color: var(--text-primary);
+        }
+        .timeline-meta {
+            font-size: 0.7rem;
+            color: var(--text-tertiary);
+            margin-top: 0.25rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .summary-grid { grid-template-columns: repeat(3, 1fr); }
+            .dashboard-grid { grid-template-columns: 1fr; }
+            .dashboard-grid-3 { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            .summary-grid { grid-template-columns: repeat(2, 1fr); }
+            .nav-links { display: none; }
+            .heatmap-grid { grid-template-columns: auto repeat(4, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <div class="ambient-grid"></div>
+    
+    <nav class="top-nav">
+        <div class="nav-left">
+            <div class="logo">
+                <i class="fas fa-chart-line" style="color: var(--accent-gold);"></i>
+                <span>Mission Control</span>
+                <span class="version-tag">v7.5</span>
+            </div>
+            <div class="nav-links">
+                <a href="mission_control_content_intelligence.html" class="nav-link">Content</a>
+                <a href="mission_control_performance_analytics.html" class="nav-link active">Analytics</a>
+                <a href="mission_control_orchestration.html" class="nav-link">Orchestrate</a>
+                <a href="mission_control_federated.html" class="nav-link">Federation</a>
+                <a href="mission_control_autonomous.html" class="nav-link">Autonomy</a>
+                <a href="mission_control_agents.html" class="nav-link">Agents</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <div class="status-indicator">
+                <div class="status-dot"></div>
+                <span>Analytics Engine Active</span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-container">
+        <div class="page-header">
+            <h1 class="page-title">
+                <i class="fas fa-trophy icon"></i>
+                Performance Analytics
+            </h1>
+            <p class="page-subtitle">Connect content generation to real-world performance • Predictive vs Actual tracking</p>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="summary-grid">
+            <div class="summary-card predictive">
+                <div class="summary-label">Avg Predicted Score</div>
+                <div class="summary-value" style="color: var(--accent-cyan);">87.4</div>
+                <div class="summary-change neutral">
+                    <i class="fas fa-minus"></i>
+                    <span>Baseline</span>
+                </div>
+            </div>
+            <div class="summary-card actual">
+                <div class="summary-label">Avg Actual Score</div>
+                <div class="summary-value" style="color: var(--accent-green);">84.2</div>
+                <div class="summary-change positive">
+                    <i class="fas fa-arrow-up"></i>
+                    <span>96.3% of predicted</span>
+                </div>
+            </div>
+            <div class="summary-card accuracy">
+                <div class="summary-label">Prediction Accuracy</div>
+                <div class="summary-value" style="color: var(--accent-purple);">91%</div>
+                <div class="summary-change positive">
+                    <i class="fas fa-arrow-up"></i>
+                    <span>+2.4% this week</span>
+                </div>
+            </div>
+            <div class="summary-card ab">
+                <div class="summary-label">A/B Tests Running</div>
+                <div class="summary-value" style="color: var(--accent-orange);">4</div>
+                <div class="summary-change positive">
+                    <i class="fas fa-check"></i>
+                    <span>2 winners found</span>
+                </div>
+            </div>
+            <div class="summary-card best">
+                <div class="summary-label">Best Performing Pillar</div>
+                <div class="summary-value" style="color: var(--accent-gold);">Healthcare</div>
+                <div class="summary-change positive">
+                    <i class="fas fa-crown"></i>
+                    <span>94 avg score</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 1: Predicted vs Actual & Temporal Heatmap -->
+        <div class="dashboard-grid">
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <i class="fas fa-balance-scale"></i>
+                        Predicted vs Actual Performance
+                    </div>
+                    <div class="panel-actions">
+                        <button class="panel-btn active">7 Days</button>
+                        <button class="panel-btn">30 Days</button>
+                        <button class="panel-btn">90 Days</button>
+                    </div>
+                </div>
+                <div class="panel-content">
+                    <div class="chart-container">
+                        <canvas id="predictionChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <i class="fas fa-calendar-alt"></i>
+                        Performance by Time of Day
+                    </div>
+                </div>
+                <div class="panel-content">
+                    <div class="heatmap-grid" id="timeHeatmap">
+                        <!-- Generated by JS -->
+                    </div>
+                    <div class="heatmap-legend">
+                        <span>Low</span>
+                        <div class="legend-gradient"></div>
+                        <span>High</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 2: Pillar Matrix, Recent Content, A/B Tests -->
+        <div class="dashboard-grid-3">
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <i class="fas fa-th-large"></i>
+                        Pillar Performance Matrix
+                    </div>
+                </div>
+                <div class="panel-content">
+                    <div class="pillar-matrix">
+                        <div class="pillar-cell healthcare">
+                            <i class="fas fa-heartbeat"></i>
+                            <span class="pillar-name">Healthcare</span>
+                            <span class="pillar-score" style="color: var(--accent-green);">94</span>
+                            <span class="pillar-posts">12 posts</span>
+                        </div>
+                        <div class="pillar-cell crypto">
+                            <i class="fas fa-coins"></i>
+                            <span class="pillar-name">Crypto</span>
+                            <span class="pillar-score" style="color: var(--accent-orange);">78</span>
+                            <span class="pillar-posts">8 posts</span>
+                        </div>
+                        <div class="pillar-cell ai">
+                            <i class="fas fa-robot"></i>
+                            <span class="pillar-name">AI</span>
+                            <span class="pillar-score" style="color: var(--accent-purple);">82</span>
+                            <span class="pillar-posts">6 posts</span>
+                        </div>
+                        <div class="pillar-cell macro">
+                            <i class="fas fa-globe"></i>
+                            <span class="pillar-name">Macro</span>
+                            <span class="pillar-score" style="color: var(--accent-cyan);">85</span>
+                            <span class="pillar-posts">5 posts</span>
+                        </div>
+                        <div class="pillar-cell longevity">
+                            <i class="fas fa-dna"></i>
+                            <span class="pillar-name">Longevity</span>
+                            <span class="pillar-score" style="color: var(--accent-pink);">88</span>
+                            <span class="pillar-posts">4 posts</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <i class="fas fa-list"></i>
+                        Recent Content Performance
+                    </div>
+                    <div class="panel-actions">
+                        <button class="panel-btn active">All</button>
+                        <button class="panel-btn">Threads</button>
+                        <button class="panel-btn">Posts</button>
+                    </div>
+                </div>
+                <div class="panel-content">
+                    <div class="content-list">
+                        <div class="content-item">
+                            <div class="content-type-icon thread"><i class="fas fa-stream"></i></div>
+                            <div class="content-main">
+                                <div class="content-text">Why HIMS is quietly becoming the most efficient healthcare stock... 5 reasons this $3B company is undervalued.</div>
+                                <div class="content-meta">
+                                    <span><i class="fas fa-heart"></i> 47</span>
+                                    <span><i class="fas fa-retweet"></i> 12</span>
+                                    <span><i class="fas fa-comment"></i> 8</span>
+                                    <span>• Healthcare</span>
+                                </div>
+                            </div>
+                            <div class="content-score">
+                                <div class="score-label">Predicted</div>
+                                <div class="score-value" style="color: var(--accent-cyan);">94</div>
+                                <div class="score-diff positive">
+                                    <i class="fas fa-arrow-up"></i>
+                                    <span>+3</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content-item">
+                            <div class="content-type-icon post"><i class="fas fa-comment-alt"></i></div>
+                            <div class="content-main">
+                                <div class="content-text">ETH treasury playbook: The new corporate standard? MSTR's Bitcoin model is being replicated with Ethereum.</div>
+                                <div class="content-meta">
+                                    <span><i class="fas fa-heart"></i> 32</span>
+                                    <span><i class="fas fa-retweet"></i> 7</span>
+                                    <span><i class="fas fa-comment"></i> 4</span>
+                                    <span>• Crypto</span>
+                                </div>
+                            </div>
+                            <div class="content-score">
+                                <div class="score-label">Predicted</div>
+                                <div class="score-value" style="color: var(--accent-cyan);">78</div>
+                                <div class="score-diff negative">
+                                    <i class="fas fa-arrow-down"></i>
+                                    <span>-5</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content-item">
+                            <div class="content-type-icon thread"><i class="fas fa-stream"></i></div>
+                            <div class="content-main">
+                                <div class="content-text">AI infrastructure spend: Who's actually winning? Breaking down the $100B+ cloud AI race.</div>
+                                <div class="content-meta">
+                                    <span><i class="fas fa-heart"></i> 41</span>
+                                    <span><i class="fas fa-retweet"></i> 9</span>
+                                    <span><i class="fas fa-comment"></i> 6</span>
+                                    <span>• AI</span>
+                                </div>
+                            </div>
+                            <div class="content-score">
+                                <div class="score-label">Predicted</div>
+                                <div class="score-value" style="color: var(--accent-cyan);">91</div>
+                                <div class="score-diff positive">
+                                    <i class="fas fa-arrow-up"></i>
+                                    <span>+1</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content-item">
+                            <div class="content-type-icon reply"><i class="fas fa-reply"></i></div>
+                            <div class="content-main">
+                                <div class="content-text">Great point on GLP-1 accessibility. The real disruption isn't the drugs—it's the distribution model.</div>
+                                <div class="content-meta">
+                                    <span><i class="fas fa-heart"></i> 18</span>
+                                    <span><i class="fas fa-retweet"></i> 2</span>
+                                    <span><i class="fas fa-comment"></i> 1</span>
+                                    <span>• Healthcare</span>
+                                </div>
+                            </div>
+                            <div class="content-score">
+                                <div class="score-label">Predicted</div>
+                                <div class="score-value" style="color: var(--accent-cyan);">85</div>
+                                <div class="score-diff neutral">
+                                    <i class="fas fa-minus"></i>
+                                    <span>0</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content-item">
+                            <div class="content-type-icon quote"><i class="fas fa-quote-right"></i></div>
+                            <div class="content-main">
+                                <div class="content-text">"The best time to buy Bitcoin was 10 years ago. The second best time is when everyone else is panicking."</div>
+                                <div class="content-meta">
+                                    <span><i class="fas fa-heart"></i> 29</span>
+                                    <span><i class="fas fa-retweet"></i> 5</span>
+                                    <span><i class="fas fa-comment"></i> 3</span>
+                                    <span>• Crypto</span>
+                                </div>
+                            </div>
+                            <div class="content-score">
+                                <div class="score-label">Predicted</div>
+                                <div class="score-value" style="color: var(--accent-cyan);">76</div>
+                                <div class="score-diff positive">
+                                    <i class="fas fa-arrow-up"></i>
+                                    <span>+4</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <i class="fas fa-flask"></i>
+                        Active A/B Tests
+                    </div>
+                </div>
+                <div class="panel-content">
+                    <div class="ab-test-grid">
+                        <div class="ab-test-card">
+                            <div class="ab-test-header">
+                                <span class="ab-test-title">Hook Variants</span>
+                                <span class="ab-test-status winner">Winner</span>
+                            </div>
+                            <div class="variant-row winner">
+                                <span class="variant-label a">A</span>
+                                <span class="variant-content">"The healthcare stock everyone ignores"</span>
+                                <div class="variant-metric">
+                                    <div class="value">94</div>
+                                    <div class="delta positive">+12%</div>
+                                </div>
+                            </div>
+                            <div class="variant-row loser">
+                                <span class="variant-label b">B</span>
+                                <span class="variant-content">"Why I'm bullish on HIMS"</span>
+                                <div class="variant-metric">
+                                    <div class="value">82</div>
+                                    <div class="delta negative">baseline</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ab-test-card">
+                            <div class="ab-test-header">
+                                <span class="ab-test-title">CTA Placement</span>
+                                <span class="ab-test-status running">Running</span>
+                            </div>
+                            <div class="variant-row">
+                                <span class="variant-label a">A</span>
+                                <span class="variant-content">CTA at end of thread</span>
+                                <div class="variant-metric">
+                                    <div class="value">88</div>
+                                    <div class="delta neutral">51%</div>
+                                </div>
+                            </div>
+                            <div class="variant-row">
+                                <span class="variant-label b">B</span>
+                                <span class="variant-content">CTA in middle + end</span>
+                                <div class="variant-metric">
+                                    <div class="value">87</div>
+                                    <div class="delta neutral">49%</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ab-test-card">
+                            <div class="ab-test-header">
+                                <span class="ab-test-title">Thread Length</span>
+                                <span class="ab-test-status winner">Winner</span>
+                            </div>
+                            <div class="variant-row winner">
+                                <span class="variant-label a">A</span>
+                                <span class="variant-content">5-7 tweets (concise)</span>
+                                <div class="variant-metric">
+                                    <div class="value">91</div>
+                                    <div class="delta positive">+8%</div>
+                                </div>
+                            </div>
+                            <div class="variant-row loser">
+                                <span class="variant-label b">B</span>
+                                <span class="variant-content">8-12 tweets (detailed)</span>
+                                <div class="variant-metric">
+                                    <div class="value">84</div>
+                                    <div class="delta negative">baseline</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ab-test-card">
+                            <div class="ab-test-header">
+                                <span class="ab-test-title">Data vs Story</span>
+                                <span class="ab-test-status running">Running</span>
+                            </div>
+                            <div class="variant-row">
+                                <span class="variant-label a">A</span>
+                                <span class="variant-content">Lead with data point</span>
+                                <div class="variant-metric">
+                                    <div class="value">86</div>
+                                    <div class="delta neutral">48%</div>
+                                </div>
+                            </div>
+                            <div class="variant-row">
+                                <span class="variant-label b">B</span>
+                                <span class="variant-content">Lead with narrative</span>
+                                <div class="variant-metric">
+                                    <div class="value">89</div>
+                                    <div class="delta neutral">52%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 3: Day of Week Performance & Activity Timeline -->
+        <div class="dashboard-grid">
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <i class="fas fa-chart-bar"></i>
+                        Performance by Day of Week
+                    </div>
+                </div>
+                <div class="panel-content">
+                    <div class="chart-container">
+                        <canvas id="dayOfWeekChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <i class="fas fa-history"></i>
+                        Learning Timeline
+                    </div>
+                </div>
+                <div class="panel-content">
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-dot success"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-time">Today, 7:51 AM</div>
+                                <div class="timeline-text">New Performance Analytics dashboard deployed (v7.5)</div>
+                                <div class="timeline-meta">Added predictive vs actual tracking, A/B test visualization</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot success"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-time">Yesterday, 8:15 PM</div>
+                                <div class="timeline-text">A/B Test completed: Hook variants</div>
+                                <div class="timeline-meta">Winner: "The healthcare stock everyone ignores" (+12% engagement)</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot success"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-time">Jul 12, 2:45 PM</div>
+                                <div class="timeline-text">Prediction accuracy reached 91%</div>
+                                <div class="timeline-meta">Meta-learning model updated with 50+ new data points</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot warning"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-time">Jul 11, 9:23 AM</div>
+                                <div class="timeline-text">Anomaly detected: Crypto content underperforming</div>
+                                <div class="timeline-meta">Investigating: Market volatility correlation identified</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot success"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-time">Jul 10, 7:00 AM</div>
+                                <div class="timeline-text">Content Intelligence v7.4 deployed</div>
+                                <div class="timeline-meta">AI-powered generation with live scoring enabled</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Prediction vs Actual Chart
+        const predictionCtx = document.getElementById('predictionChart').getContext('2d');
+        new Chart(predictionCtx, {
+            type: 'line',
+            data: {
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                datasets: [
+                    {
+                        label: 'Predicted',
+                        data: [85, 88, 92, 87, 90, 86, 84],
+                        borderColor: '#00d4ff',
+                        backgroundColor: 'rgba(0, 212, 255, 0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 4,
+                        pointBackgroundColor: '#00d4ff'
+                    },
+                    {
+                        label: 'Actual',
+                        data: [82, 87, 94, 85, 89, 84, 81],
+                        borderColor: '#00ff88',
+                        backgroundColor: 'rgba(0, 255, 136, 0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 4,
+                        pointBackgroundColor: '#00ff88'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        align: 'end',
+                        labels: { color: '#a0a0a0', usePointStyle: true, padding: 20 }
+                    }
+                },
+                scales: {
+                    y: {
+                        min: 70,
+                        max: 100,
+                        grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                        ticks: { color: '#6e6e6e', font: { size: 11 } }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#6e6e6e', font: { size: 11 } }
+                    }
+                }
+            }
+        });
+
+        // Day of Week Chart
+        const dayCtx = document.getElementById('dayOfWeekChart').getContext('2d');
+        new Chart(dayCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                datasets: [
+                    {
+                        label: 'Healthcare',
+                        data: [94, 91, 89, 93, 88, 85, 82],
+                        backgroundColor: 'rgba(0, 255, 136, 0.7)',
+                        borderRadius: 4
+                    },
+                    {
+                        label: 'Crypto',
+                        data: [76, 82, 78, 80, 74, 79, 81],
+                        backgroundColor: 'rgba(255, 136, 0, 0.7)',
+                        borderRadius: 4
+                    },
+                    {
+                        label: 'AI',
+                        data: [88, 85, 90, 86, 84, 87, 83],
+                        backgroundColor: 'rgba(189, 52, 254, 0.7)',
+                        borderRadius: 4
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        align: 'end',
+                        labels: { color: '#a0a0a0', usePointStyle: true, padding: 15, font: { size: 11 } }
+                    }
+                },
+                scales: {
+                    y: {
+                        min: 60,
+                        max: 100,
+                        grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                        ticks: { color: '#6e6e6e', font: { size: 11 } }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#6e6e6e', font: { size: 11 } }
+                    }
+                }
+            }
+        });
+
+        // Generate Time Heatmap
+        const heatmapGrid = document.getElementById('timeHeatmap');
+        const hours = ['6AM', '9AM', '12PM', '3PM', '6PM', '9PM'];
+        const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+        const heatmapData = [
+            [65, 78, 82, 75, 70, 68, 72],
+            [85, 92, 94, 88, 86, 80, 78],
+            [78, 85, 88, 90, 84, 82, 79],
+            [72, 80, 85, 82, 78, 75, 74],
+            [88, 90, 87, 85, 92, 86, 84],
+            [75, 78, 80, 76, 74, 70, 68]
+        ];
+
+        // Add empty corner cell
+        const emptyCorner = document.createElement('div');
+        emptyCorner.className = 'heatmap-cell empty';
+        heatmapGrid.appendChild(emptyCorner);
+
+        // Add day headers
+        days.forEach(day => {
+            const dayCell = document.createElement('div');
+            dayCell.className = 'heatmap-cell label';
+            dayCell.textContent = day;
+            heatmapGrid.appendChild(dayCell);
+        });
+
+        // Add rows
+        hours.forEach((hour, rowIdx) => {
+            // Hour label
+            const hourCell = document.createElement('div');
+            hourCell.className = 'heatmap-cell label';
+            hourCell.textContent = hour;
+            heatmapGrid.appendChild(hourCell);
+
+            // Data cells
+            heatmapData[rowIdx].forEach(value => {
+                const cell = document.createElement('div');
+                cell.className = 'heatmap-cell';
+                
+                // Color based on value
+                let color;
+                if (value < 70) color = `rgba(255, 56, 96, ${0.3 + (value - 60) / 30})`;
+                else if (value < 85) color = `rgba(255, 170, 0, ${0.3 + (value - 70) / 50})`;
+                else color = `rgba(0, 255, 136, ${0.3 + (value - 80) / 40})`;
+                
+                cell.style.background = color;
+                cell.style.color = value > 75 ? '#fff' : 'var(--text-secondary)';
+                cell.textContent = value;
+                cell.title = `${hour}: ${value} avg engagement`;
+                heatmapGrid.appendChild(cell);
+            });
+        });
+    </script>
+</body>
+</html>

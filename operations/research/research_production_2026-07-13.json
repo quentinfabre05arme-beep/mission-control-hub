@@ -1,0 +1,92 @@
+{
+  "eth_treasury": {
+    "name": "ETH Treasury",
+    "x_queries": [
+      "ETH treasury institutional adoption",
+      "Ethereum corporate treasury",
+      "ETH staking yield institutional"
+    ],
+    "web_queries": [
+      "ETH treasury news July 2026",
+      "Ethereum institutional adoption 2026"
+    ],
+    "x_findings": [
+      "Search error: [nitter] search page 1: /search?q=ETH+treasury+institutional+adoption&f=tweets\n[nitter] http://127.0"
+    ],
+    "angles": [
+      "ETH treasuries are scaling faster than expected. Here's the data that matters:",
+      "While Bitcoin treasuries get headlines, Ethereum treasuries earn yield. The math:",
+      "One company now holds 5% of all ETH. The treasury thesis is accelerating."
+    ],
+    "hashtags": [
+      "#ETH",
+      "#Ethereum",
+      "#Treasury",
+      "#Crypto",
+      "#BTC"
+    ],
+    "time": "11:00 AM",
+    "status": "compiled",
+    "timestamp": "2026-07-13T08:00:27.654266"
+  },
+  "hims": {
+    "name": "HIMS Healthcare",
+    "x_queries": [
+      "HIMS stock",
+      "Hims Hers Health telehealth",
+      "$HIMS"
+    ],
+    "web_queries": [
+      "HIMS stock news July 2026",
+      "Hims Hers telehealth GLP-1"
+    ],
+    "x_findings": [
+      "Search error: [nitter] search page 1: /search?q=HIMS+stock&f=tweets\n[nitter] http://127.0.0.1:8788 failed (upstrea"
+    ],
+    "angles": [
+      "HIMS secured $400M from JPMorgan. Not for M&A. For working capital. The infrastructure play:",
+      "HIMS isn't a GLP-1 stock. It's healthcare infrastructure. The thesis:",
+      "Telehealth + GLP-1s = infrastructure moment. Why HIMS owns the patient relationship:"
+    ],
+    "hashtags": [
+      "#HIMS",
+      "#Healthcare",
+      "#GLP1",
+      "#Telehealth",
+      "#Investing"
+    ],
+    "time": "3:00 PM",
+    "status": "compiled",
+    "timestamp": "2026-07-13T08:00:39.065939"
+  },
+  "ai_commerce": {
+    "name": "AI Agentic Commerce",
+    "x_queries": [
+      "AI agentic commerce",
+      "autonomous agents",
+      "AI infrastructure 2026"
+    ],
+    "web_queries": [
+      "AI agentic commerce McKinsey 2026",
+      "autonomous agents infrastructure"
+    ],
+    "x_findings": [
+      "Search error: [nitter] search page 1: /search?q=AI+agentic+commerce&f=tweets\n[nitter] http://127.0.0.1:8788 failed"
+    ],
+    "angles": [
+      "McKinsey's 6-level automation curve is here. We're at Level 1-2. The $3-5T opportunity:",
+      "Agentic commerce isn't coming. It's being built now. The infrastructure:",
+      "$3-5T agentic commerce by 2030. The winners won't be LLM makers. They'll be the intelligence layer:"
+    ],
+    "hashtags": [
+      "#AI",
+      "#AgenticCommerce",
+      "#McKinsey",
+      "#Infrastructure",
+      "#Investing"
+    ],
+    "time": "7:00 PM",
+    "status": "compiled",
+    "timestamp": "2026-07-13T08:00:50.437733"
+  }
+}

@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0a0a0a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>@quentinvest1 | Mission Control</title>
+    <link rel="manifest" href="manifest.json">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-tertiary: #1a1a1a;
+            --bg-card: #161616;
+            --bg-elevated: #1f1f1f;
+            --accent-cyan: #00d4ff;
+            --accent-green: #00ff88;
+            --accent-orange: #ff8800;
+            --accent-red: #ff0044;
+            --accent-purple: #8800ff;
+            --accent-gold: #ffd700;
+            --text-primary: #ffffff;
+            --text-secondary: #888888;
+            --text-dim: #444444;
+            --border-color: #222222;
+            --touch-target: 44px;
+            --safe-bottom: env(safe-area-inset-bottom, 0px);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding-bottom: calc(80px + var(--safe-bottom));
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Scanline effect */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(transparent 50%, rgba(0, 212, 255, 0.015) 50%);
+            background-size: 100% 3px;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+            border-bottom: 1px solid var(--border-color);
+            padding: 16px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(20px);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--accent-cyan);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+        }
+
+        .header-title {
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .header-title span {
+            color: var(--accent-cyan);
+        }
+
+        .time-display {
+            font-size: 24px;
+            font-weight: 300;
+            color: var(--accent-cyan);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .header-stats {
+            display: flex;
+            gap: 20px;
+        }
+
+        .header-stat {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header-stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--accent-green);
+        }
+
+        .header-stat-label {
+            font-size: 10px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Quick Actions Bar */
+        .quick-actions {
+            display: flex;
+            gap: 10px;
+            padding: 12px 20px;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .quick-actions::-webkit-scrollbar { display: none; }
+
+        .quick-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            color: var(--text-primary);
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
+            min-height: var(--touch-target);
+            transition: all 0.2s;
+        }
+
+        .quick-btn:active {
+            transform: scale(0.95);
+            background: var(--accent-cyan);
+            color: var(--bg-primary);
+        }
+
+        .quick-btn.urgent {
+            background: linear-gradient(135deg, rgba(255, 0, 68, 0.2) 0%, rgba(136, 0, 255, 0.2) 100%);
+            border-color: var(--accent-red);
+            animation: pulse-red 2s infinite;
+        }
+
+        @keyframes pulse-red {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 0, 68, 0.4); }
+            50% { box-shadow: 0 0 0 8px rgba(255, 0, 68, 0); }
+        }
+
+        /* Container */
+        .container {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .card:active {
+            transform: scale(0.99);
+        }
+
+        .card-header {
+            padding: 16px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-title {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-badge {
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 700;
+        }
+
+        .card-badge.ready { background: var(--accent-green); color: var(--bg-primary); }
+        .card-badge.urgent { background: var(--accent-red); color: white; }
+        .card-badge.posted { background: var(--accent-cyan); color: var(--bg-primary); }
+
+        .card-content {
+            padding: 16px;
+        }
+
+        /* Rhythm Card */
+        .rhythm-main {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .rhythm-phase {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .rhythm-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            margin-bottom: 8px;
+        }
+
+        .rhythm-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .rhythm-next {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--bg-tertiary);
+            border-radius: 20px;
+            font-size: 13px;
+            color: var(--accent-green);
+        }
+
+        .rhythm-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .rhythm-stat {
+            text-align: center;
+        }
+
+        .rhythm-stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--accent-green);
+        }
+
+        .rhythm-stat-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        /* X Mission Card */
+        .x-mission-header {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .x-handle {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .followers-count {
+            font-size: 56px;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .followers-change {
+            font-size: 14px;
+            color: var(--accent-green);
+        }
+
+        .followers-change.negative { color: var(--accent-red); }
+
+        .progress-section {
+            padding: 16px;
+            background: var(--bg-tertiary);
+            border-radius: 12px;
+            margin: 0 16px 16px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 12px;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--bg-primary);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-green));
+            border-radius: 4px;
+            transition: width 0.5s;
+        }
+
+        .x-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            padding: 0 16px 16px;
+        }
+
+        .x-stat {
+            padding: 16px;
+            background: var(--bg-tertiary);
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .x-stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent-green);
+        }
+
+        .x-stat-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        /* What to Post Card */
+        .post-urgent {
+            background: linear-gradient(135deg, rgba(255, 0, 68, 0.1) 0%, rgba(136, 0, 255, 0.1) 100%);
+            border: 1px solid var(--accent-red);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .post-priority {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 6px 12px;
+            background: var(--accent-red);
+            color: white;
+            border-radius: 20px;
+            margin-bottom: 12px;
+        }
+
+        .post-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .post-meta {
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .post-hook {
+            font-size: 14px;
+            line-height: 1.6;
+            padding: 16px;
+            background: var(--bg-primary);
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-cyan);
+            margin-bottom: 16px;
+            font-style: italic;
+        }
+
+        .post-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            border: none;
+            min-height: var(--touch-target);
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--accent-green);
+            color: var(--bg-primary);
+        }
+
+        .btn-secondary {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+            opacity: 0.9;
+        }
+
+        .post-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .post-item {
+            padding: 16px;
+            background: var(--bg-tertiary);
+            border-radius: 12px;
+            border-left: 3px solid var(--accent-orange);
+        }
+
+        .post-item-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .post-item-meta {
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Pillars */
+        .pillars-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .pillar-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            background: var(--bg-tertiary);
+            border-radius: 12px;
+        }
+
+        .pillar-icon {
+            font-size: 28px;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-primary);
+            border-radius: 12px;
+        }
+
+        .pillar-info {
+            flex: 1;
+        }
+
+        .pillar-name {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .pillar-status {
+            font-size: 12px;
+            color: var(--accent-cyan);
+        }
+
+        .pillar-stats {
+            text-align: right;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Usage Cards */
+        .usage-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .usage-item {
+            padding: 16px;
+            background: var(--bg-tertiary);
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .usage-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--accent-cyan);
+        }
+
+        .usage-value.warning { color: var(--accent-orange); }
+        .usage-value.danger { color: var(--accent-red); }
+
+        .usage-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        /* BCM Tiers */
+        .bcm-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .bcm-item {
+            padding: 16px;
+            background: var(--bg-tertiary);
+            border-radius: 12px;
+            border: 2px solid transparent;
+        }
+
+        .bcm-item.brain { border-color: var(--accent-purple); }
+        .bcm-item.coding { border-color: var(--accent-orange); }
+        .bcm-item.muscles { border-color: var(--accent-green); }
+
+        .bcm-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .bcm-name {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .bcm-status {
+            font-size: 11px;
+            padding: 4px 10px;
+            background: var(--accent-green);
+            color: var(--bg-primary);
+            border-radius: 10px;
+            font-weight: 700;
+        }
+
+        .bcm-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+
+        .bcm-stat {
+            padding: 10px;
+            background: var(--bg-primary);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .bcm-stat-value {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .bcm-stat-label {
+            font-size: 10px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+
+        /* Targets */
+        .targets-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .target-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px;
+            background: var(--bg-tertiary);
+            border-radius: 12px;
+        }
+
+        .target-avatar {
+            width: 44px;
+            height: 44px;
+            background: var(--bg-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .target-info {
+            flex: 1;
+        }
+
+        .target-handle {
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .target-focus {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .target-btn {
+            padding: 10px 16px;
+            background: var(--accent-orange);
+            color: var(--bg-primary);
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            border: none;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(17, 17, 17, 0.95);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid var(--border-color);
+            padding: 8px 0 calc(8px + var(--safe-bottom));
+            display: flex;
+            justify-content: space-around;
+            z-index: 1000;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: 8px 16px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 10px;
+            min-height: var(--touch-target);
+            transition: color 0.2s;
+        }
+
+        .nav-item.active, .nav-item:active {
+            color: var(--accent-cyan);
+        }
+
+        .nav-icon {
+            font-size: 22px;
+        }
+
+        /* Toast notifications */
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--bg-elevated);
+            color: var(--text-primary);
+            padding: 14px 24px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-color);
+            z-index: 1001;
+            opacity: 0;
+            transition: all 0.3s;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* Section visibility */
+        .section { display: none; }
+        .section.active { display: block; }
+
+        /* Desktop */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .card.full-width { grid-column: span 2; }
+            .bottom-nav { display: none; }
+            body { padding-bottom: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-top">
+            <div class="header-brand">
+                <div class="logo">🐾</div>
+                <div>
+                    <div class="header-title">Mission <span>Control</span></div>
+                </div>
+            </div>
+            <div class="time-display" id="clock">--:--</div>
+        </div>
+        <div class="header-stats">
+            <div class="header-stat">
+                <div class="header-stat-value" id="header-followers">--</div>
+                <div class="header-stat-label">Followers</div>
+            </div>
+            <div class="header-stat">
+                <div class="header-stat-value" id="header-tasks">--</div>
+                <div class="header-stat-label">Tasks</div>
+            </div>
+            <div class="header-stat">
+                <div class="header-stat-value" id="header-usage">--</div>
+                <div class="header-stat-label">Usage</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Quick Actions -->
+    <div class="quick-actions">
+        <button class="quick-btn urgent" onclick="showSection('post')">
+            🔥 Post Now
+        </button>
+        <button class="quick-btn" onclick="copyHook()">
+            📋 Copy Hook
+        </button>
+        <button class="quick-btn" onclick="showSection('targets')">
+            🎯 Engage
+        </button>
+        <button class="quick-btn" onclick="showSection('bcm')">
+            🧠 BCM
+        </button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Daily Rhythm -->
+        <div class="card full-width section active" id="section-rhythm">
+            <div class="card-header">
+                <div class="card-title">⏰ Daily Rhythm</div>
+                <div class="card-badge ready">LIVE</div>
+            </div>
+            <div class="card-content">
+                <div class="rhythm-main">
+                    <div class="rhythm-phase" id="rhythm-emoji">💬</div>
+                    <div class="rhythm-name" id="rhythm-name">Strategic Engagement</div>
+                    <div class="rhythm-desc" id="rhythm-desc">12-2pm: Reply to 2-3 strategic accounts</div>
+                    <div class="rhythm-next">
+                        ➔ Next: <span id="rhythm-next">Data viz (4pm)</span>
+                    </div>
+                </div>
+                <div class="rhythm-stats">
+                    <div class="rhythm-stat">
+                        <div class="rhythm-stat-value" id="rhythm-tasks">4/8</div>
+                        <div class="rhythm-stat-label">Tasks Done</div>
+                    </div>
+                    <div class="rhythm-stat">
+                        <div class="rhythm-stat-value" id="rhythm-streak">2</div>
+                        <div class="rhythm-stat-label">Day Streak</div>
+                    </div>
+                    <div class="rhythm-stat">
+                        <div class="rhythm-stat-value" id="rhythm-phase-icon">▶️</div>
+                        <div class="rhythm-stat-label">Status</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- X Mission -->
+        <div class="card full-width section" id="section-x">
+            <div class="card-header">
+                <div class="card-title">🐦 X Mission</div>
+                <div class="card-badge posted">@quentinvest1</div>
+            </div>
+            <div class="x-mission-header">
+                <div class="x-handle">@quentinvest1</div>
+                <div class="followers-count" id="followers-count">213</div>
+                <div class="followers-change" id="followers-change">+1 today (+1 this week)</div>
+            </div>
+            <div class="progress-section">
+                <div class="progress-header">
+                    <span>213 / 10,000</span>
+                    <span id="progress-pct">2.13%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill" style="width: 2.13%"></div>
+                </div>
+            </div>
+            
+            <div class="x-stats">
+                <div class="x-stat">
+                    <div class="x-stat-value">1</div>
+                    <div class="x-stat-label">Threads</div>
+                </div>
+                <div class="x-stat">
+                    <div class="x-stat-value">3</div>
+                    <div class="x-stat-label">Replies Today</div>
+                </div>
+                <div class="x-stat">
+                    <div class="x-stat-value">2</div>
+                    <div class="x-stat-label">Scheduled</div>
+                </div>
+                <div class="x-stat">
+                    <div class="x-stat-value">4.9%</div>
+                    <div class="x-stat-label">Eng. Rate</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- What to Post -->
+        <div class="card full-width section" id="section-post">
+            <div class="card-header">
+                <div class="card-title">✍️ What to Post</div>
+                <div class="card-badge urgent">1 URGENT</div>
+            </div>
+            <div class="card-content">
+                <div class="post-urgent">
+                    <div class="post-priority">🔴 URGENT — POST NOW</div>
+                    <div class="post-title">HIMS Healthcare Infrastructure Thread</div>
+                    <div class="post-meta">
+                        <span>🏥 HIMS + Healthcare</span>
+                        <span>💪 MUSCLES tier</span>
+                        <span>5 tweets</span>
+                    </div>
+                    <div class="post-hook" id="urgent-hook">
+                        The drug gets the headlines. The infrastructure play is HIMS — telehealth rails for GLP-1 delivery. $725M revenue, Novo Nordisk deal locked.
+                    </div>
+                    <div class="post-actions">
+                        <button class="btn btn-primary" onclick="copyHook()">📋 Copy Hook</button>
+                        <button class="btn btn-secondary" onclick="openX()">🐦 Open X</button>
+                    </div>
+                </div>
+                
+                <div class="post-list">
+                    <div class="post-item">
+                        <div class="post-item-title">Reply to @TheLongInvestor ETH thread</div>
+                        <div class="post-item-meta">
+                            <span>💎 ETH Treasury</span>
+                            <span>⏰ Scheduled</span>
+                        </div>
+                    </div>
+                    <div class="post-item">
+                        <div class="post-item-title">AI Agentic Commerce analysis</div>
+                        <div class="post-item-meta">
+                            <span>🤖 AI Commerce</span>
+                            <span>🧠 Researching</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Pillars -->
+        <div class="card full-width section" id="section-pillars">
+            <div class="card-header">
+                <div class="card-title">📊 Content Pillars</div>
+            </div>
+            <div class="card-content">
+                <div class="pillars-list">
+                    <div class="pillar-item">
+                        <div class="pillar-icon">💎</div>
+                        <div class="pillar-info">
+                            <div class="pillar-name">ETH as Treasury Reserve</div>
+                            <div class="pillar-status">Posted Jul 9 • Next: Jul 14</div>
+                        </div>
+                        <div class="pillar-stats">1 thread<br>3 ideas</div>
+                    </div>
+                    <div class="pillar-item">
+                        <div class="pillar-icon">🏥</div>
+                        <div class="pillar-info">
+                            <div class="pillar-name">HIMS + Healthcare</div>
+                            <div class="pillar-status" style="color: var(--accent-green)">Ready to post • Today!</div>
+                        </div>
+                        <div class="pillar-stats">0 threads<br>2 ideas</div>
+                    </div>
+                    <div class="pillar-item">
+                        <div class="pillar-icon">🤖</div>
+                        <div class="pillar-info">
+                            <div class="pillar-name">AI Agentic Commerce</div>
+                            <div class="pillar-status" style="color: var(--accent-orange)">Researching • Jul 12</div>
+                        </div>
+                        <div class="pillar-stats">0 threads<br>1 idea</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ollama Usage -->
+        <div class="card section" id="section-usage">
+            <div class="card-header">
+                <div class="card-title">💰 Ollama Usage</div>
+            </div>
+            <div class="card-content">
+                <div class="usage-grid">
+                    <div class="usage-item">
+                        <div class="usage-value">67%</div>
+                        <div class="usage-label">Budget Used</div>
+                    </div>
+                    <div class="usage-item">
+                        <div class="usage-value">1.2M</div>
+                        <div class="usage-label">Tokens</div>
+                    </div>
+                    <div class="usage-item">
+                        <div class="usage-value">$1.32</div>
+                        <div class="usage-label">Today</div>
+                    </div>
+                    <div class="usage-item">
+                        <div class="usage-value">$8.45</div>
+                        <div class="usage-label">This Week</div>
+                    </div>
+                </div>
+                <div class="progress-section" style="margin: 0">
+                    <div class="progress-header">
+                        <span>Monthly Budget</span>
+                        <span>12 days left</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 67%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BCM Status -->
+        <div class="card section" id="section-bcm">
+            <div class="card-header">
+                <div class="card-title">🧠 BCM System</div>
+            </div>
+            <div class="card-content">
+                <div class="bcm-list">
+                    <div class="bcm-item brain">
+                        <div class="bcm-header">
+                            <div class="bcm-name"><span>🧠</span> Brain</div>
+                            <div class="bcm-status">IDLE</div>
+                        </div>
+                        <div class="bcm-stats">
+                            <div class="bcm-stat">
+                                <div class="bcm-stat-value" style="color: var(--accent-purple)">3</div>
+                                <div class="bcm-stat-label">Tasks</div>
+                            </div>
+                            <div class="bcm-stat">
+                                <div class="bcm-stat-value" style="color: var(--accent-purple)">45K</div>
+                                <div class="bcm-stat-label">Tokens</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bcm-item coding">
+                        <div class="bcm-header">
+                            <div class="bcm-name"><span>💻</span> Coding</div>
+                            <div class="bcm-status">IDLE</div>
+                        </div>
+                        <div class="bcm-stats">
+                            <div class="bcm-stat">
+                                <div class="bcm-stat-value" style="color: var(--accent-orange)">5</div>
+                                <div class="bcm-stat-label">Tasks</div>
+                            </div>
+                            <div class="bcm-stat">
+                                <div class="bcm-stat-value" style="color: var(--accent-orange)">120K</div>
+                                <div class="bcm-stat-label">Tokens</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bcm-item muscles">
+                        <div class="bcm-header">
+                            <div class="bcm-name"><span>💪</span> Muscles</div>
+                            <div class="bcm-status">IDLE</div>
+                        </div>
+                        <div class="bcm-stats">
+                            <div class="bcm-stat">
+                                <div class="bcm-stat-value" style="color: var(--accent-green)">12</div>
+                                <div class="bcm-stat-label">Tasks</div>
+                            </div>
+                            <div class="bcm-stat">
+                                <div class="bcm-stat-value" style="color: var(--accent-green)">380K</div>
+                                <div class="bcm-stat-label">Tokens</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Engagement Targets -->
+        <div class="card full-width section" id="section-targets">
+            <div class="card-header">
+                <div class="card-title">🎯 Engagement Targets</div>
+            </div>
+            <div class="card-content">
+                <div class="targets-list">
+                    <div class="target-item">
+                        <div class="target-avatar">👤</div>
+                        <div class="target-info">
+                            <div class="target-handle">@TheLongInvestor</div>
+                            <div class="target-focus">ETH tech analysis</div>
+                        </div>
+                        <button class="target-btn" onclick="copyReply('longinvestor')">Reply</button>
+                    </div>
+                    <div class="target-item">
+                        <div class="target-avatar">👤</div>
+                        <div class="target-info">
+                            <div class="target-handle">@DrTomsLens</div>
+                            <div class="target-focus">Healthcare/biotech</div>
+                        </div>
+                        <button class="target-btn" onclick="copyReply('drtom')">Reply</button>
+                    </div>
+                    <div class="target-item">
+                        <div class="target-avatar">👤</div>
+                        <div class="target-info">
+                            <div class="target-handle">@DylanLeClair_</div>
+                            <div class="target-focus">BTC analysis</div>
+                        </div>
+                        <button class="target-btn" onclick="copyReply('dylan')">Reply</button>
+                    </div>
+                    <div class="target-item">
+                        <div class="target-avatar">👤</div>
+                        <div class="target-info">
+                            <div class="target-handle">@RaoulGMI</div>
+                            <div class="target-focus">Macro/crypto</div>
+                        </div>
+                        <button class="target-btn" onclick="copyReply('raoul')">Reply</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="#" class="nav-item active" onclick="showSection('rhythm'); return false;">
+            <span class="nav-icon">⏰</span>
+            <span>Rhythm</span>
+        </a>
+        <a href="#" class="nav-item" onclick="showSection('x'); return false;">
+            <span class="nav-icon">🐦</span>
+            <span>X Mission</span>
+        </a>
+        <a href="#" class="nav-item" onclick="showSection('post'); return false;">
+            <span class="nav-icon">✍️</span>
+            <span>Post</span>
+        </a>
+        <a href="#" class="nav-item" onclick="showSection('pillars'); return false;">
+            <span class="nav-icon">📊</span>
+            <span>Pillars</span>
+        </a>
+        <a href="#" class="nav-item" onclick="showSection('targets'); return false;">
+            <span class="nav-icon">🎯</span>
+            <span>Targets</span>
+        </a>
+    </nav>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">Copied to clipboard!</div>
+
+    <script>
+        // Clock
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            document.getElementById('clock').textContent = `${hours}:${minutes}`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Section navigation
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            
+            const target = document.getElementById('section-' + sectionId);
+            if (target) target.classList.add('active');
+            
+            // Update nav
+            const navItems = document.querySelectorAll('.nav-item');
+            const sections = ['rhythm', 'x', 'post', 'pillars', 'targets'];
+            const index = sections.indexOf(sectionId);
+            if (index >= 0 && navItems[index]) {
+                navItems[index].classList.add('active');
+            }
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Copy hook
+        function copyHook() {
+            const hook = document.getElementById('urgent-hook').textContent.trim();
+            navigator.clipboard.writeText(hook).then(() => {
+                showToast('🔥 Hook copied! Open X and paste.');
+            });
+        }
+
+        // Copy reply templates
+        const replies = {
+            longinvestor: "The BTC treasury playbook is proven. The next evolution is earning yield while holding — that's where ETH treasuries come in. 3-4% staking APR changes the math.",
+            drtom: "Exactly right on the infrastructure play. HIMS isn't just telehealth — it's the rails for GLP-1 distribution at scale. The $725M revenue run rate proves it.",
+            dylan: "Interesting take on BTC dominance. Have you considered how ETH treasuries add a yield component that BTC can't match? The CFO math changes completely.",
+            raoul: "This ties into the exponential age thesis perfectly. ETH treasuries + staking yield = capital-efficient balance sheets. Early adopters get the narrative premium."
+        };
+
+        function copyReply(target) {
+            const text = replies[target] || '';
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('💬 Reply copied!');
+            });
+        }
+
+        // Open X
+        function openX() {
+            window.open('https://twitter.com/compose/tweet', '_blank');
+            showToast('🐦 Opening X...');
+        }
+
+        // Show toast
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        // Update header stats
+        document.getElementById('header-followers').textContent = '213';
+        document.getElementById('header-tasks').textContent = '4/8';
+        document.getElementById('header-usage').textContent = '67%';
+    </script>
+</body>
+</html>

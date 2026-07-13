@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MISSION CONTROL | Real-Time</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-tertiary: #1a1a1a;
+            --accent-cyan: #00d4ff;
+            --accent-green: #00ff88;
+            --accent-orange: #ff8800;
+            --accent-red: #ff0044;
+            --accent-purple: #8800ff;
+            --text-primary: #ffffff;
+            --text-secondary: #888888;
+            --text-dim: #444444;
+            --border-color: #222222;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto Mono', monospace;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Scanline effect */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                transparent 50%,
+                rgba(0, 212, 255, 0.03) 50%
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        /* Navigation */
+        .nav {
+            position: sticky;
+            top: 0;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0 40px;
+            display: flex;
+            gap: 5px;
+            overflow-x: auto;
+            z-index: 999;
+        }
+
+        .nav-link {
+            padding: 15px 20px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-cyan);
+            border-bottom-color: var(--accent-cyan);
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+            border-bottom: 2px solid var(--accent-cyan);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--accent-cyan);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 10px var(--accent-cyan); }
+            50% { box-shadow: 0 0 30px var(--accent-cyan), 0 0 60px var(--accent-cyan); }
+        }
+
+        .logo-text {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .logo-text span {
+            color: var(--accent-cyan);
+        }
+
+        .datetime {
+            text-align: right;
+        }
+
+        .time {
+            font-size: 36px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: var(--accent-cyan);
+        }
+
+        .date {
+            font-size: 14px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .refresh-indicator {
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            height: 2px;
+            background: var(--accent-green);
+            animation: refresh 7200s linear infinite;
+        }
+
+        @keyframes refresh {
+            0% { width: 0; }
+            100% { width: 100%; }
+        }
+
+        /* Main Grid */
+        .container {
+            padding: 30px 40px;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+            padding-bottom: 100px;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+        }
+
+        .card-title {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-title::before {
+            content: '◆';
+            color: var(--accent-cyan);
+        }
+
+        /* Ollama Usage - Full Width Priority */
+        .ollama-usage {
+            grid-column: span 12;
+        }
+
+        .ollama-usage::before { background: var(--accent-cyan); }
+
+        .usage-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .usage-item {
+            background: var(--bg-tertiary);
+            border-radius: 6px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .usage-value {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        .usage-value.warning { color: var(--accent-orange); }
+        .usage-value.danger { color: var(--accent-red); }
+
+        .usage-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 8px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .usage-bar-container {
+            grid-column: span 4;
+            margin-top: 20px;
+        }
+
+        .usage-bar-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 13px;
+        }
+
+        .usage-bar {
+            width: 100%;
+            height: 12px;
+            background: var(--bg-tertiary);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .usage-bar-fill {
+            height: 100%;
+            border-radius: 6px;
+            transition: width 1s ease;
+        }
+
+        .usage-bar-fill.safe { background: linear-gradient(90deg, var(--accent-green), #00cc66); }
+        .usage-bar-fill.warning { background: linear-gradient(90deg, var(--accent-orange), #cc6600); }
+        .usage-bar-fill.danger { background: linear-gradient(90deg, var(--accent-red), #cc0033); }
+
+        /* BCM Status */
+        .bcm-status {
+            grid-column: span 8;
+        }
+
+        .bcm-status::before { background: var(--accent-purple); }
+
+        .bcm-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .bcm-tier {
+            background: var(--bg-tertiary);
+            border-radius: 6px;
+            padding: 20px;
+            position: relative;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .bcm-tier.active { border-color: var(--accent-cyan); box-shadow: 0 0 20px rgba(0, 212, 255, 0.2); }
+        .bcm-tier.brain { border-color: var(--accent-purple); }
+        .bcm-tier.coding { border-color: var(--accent-orange); }
+        .bcm-tier.muscles { border-color: var(--accent-green); }
+
+        .tier-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .tier-name {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .tier-icon {
+            font-size: 24px;
+        }
+
+        .tier-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .tier-stat {
+            text-align: center;
+        }
+
+        .tier-stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--accent-cyan);
+        }
+
+        .tier-stat-label {
+            font-size: 10px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
+
+        .tier-last-task {
+            font-size: 11px;
+            color: var(--text-secondary);
+            padding: 8px;
+            background: var(--bg-primary);
+            border-radius: 4px;
+            border-left: 3px solid var(--accent-cyan);
+        }
+
+        /* X Growth */
+        .x-growth {
+            grid-column: span 4;
+        }
+
+        .x-growth::before { background: var(--accent-cyan); }
+
+        .stat-big {
+            font-size: 56px;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            margin: 10px 0;
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 15px;
+            background: var(--bg-tertiary);
+            border-radius: 6px;
+        }
+
+        .stat-item-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent-green);
+        }
+
+        .stat-item-label {
+            font-size: 10px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            margin-top: 5px;
+        }
+
+        .progress-section {
+            margin-top: 20px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 12px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: var(--bg-tertiary);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-green));
+            border-radius: 5px;
+            transition: width 0.5s;
+        }
+
+        /* Active Tasks */
+        .active-tasks {
+            grid-column: span 6;
+        }
+
+        .active-tasks::before { background: var(--accent-orange); }
+
+        .tasks-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px;
+            background: var(--bg-tertiary);
+            border-radius: 6px;
+            margin-bottom: 10px;
+            border-left: 3px solid var(--accent-cyan);
+            transition: all 0.3s;
+        }
+
+        .task-item:hover {
+            background: var(--border-color);
+            transform: translateX(5px);
+        }
+
+        .task-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .task-status {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .task-status.running { 
+            background: var(--accent-green);
+            box-shadow: 0 0 10px var(--accent-green);
+            animation: blink 1.5s infinite;
+        }
+        .task-status.completed { background: var(--text-dim); }
+        .task-status.pending { background: var(--accent-orange); animation: blink 2s infinite; }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .task-info {
+            flex: 1;
+        }
+
+        .task-name {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .task-meta {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .task-tier-badge {
+            font-size: 9px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .task-tier-badge.brain { background: var(--accent-purple); color: var(--bg-primary); }
+        .task-tier-badge.coding { background: var(--accent-orange); color: var(--bg-primary); }
+        .task-tier-badge.muscles { background: var(--accent-green); color: var(--bg-primary); }
+
+        /* What to Post */
+        .what-to-post {
+            grid-column: span 6;
+        }
+
+        .what-to-post::before { background: var(--accent-green); }
+
+        .post-suggestion {
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--border-color);
+            transition: all 0.3s;
+        }
+
+        .post-suggestion:hover {
+            border-left-color: var(--accent-cyan);
+            transform: translateX(5px);
+        }
+
+        .post-suggestion:last-child {
+            margin-bottom: 0;
+        }
+
+        .post-priority {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            padding: 4px 10px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .post-priority.high {
+            background: var(--accent-red);
+            color: var(--bg-primary);
+        }
+
+        .post-priority.medium {
+            background: var(--accent-orange);
+            color: var(--bg-primary);
+        }
+
+        .post-priority.low {
+            background: var(--text-dim);
+            color: var(--text-primary);
+        }
+
+        .post-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .post-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+        }
+
+        .post-preview {
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-bottom: 12px;
+            padding: 10px;
+            background: var(--bg-primary);
+            border-radius: 4px;
+            border-left: 2px solid var(--accent-cyan);
+        }
+
+        .action-btn.small {
+            padding: 8px 15px;
+            font-size: 11px;
+        }
+
+        /* Content Pipeline */
+        .content-pipeline {
+            grid-column: span 6;
+        }
+
+        .content-pipeline::before { background: var(--accent-cyan); }
+
+        .pipeline-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .pipeline-item {
+            background: var(--bg-tertiary);
+            padding: 20px;
+            border-radius: 6px;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .pipeline-item:hover {
+            border-color: var(--accent-cyan);
+            transform: translateY(-3px);
+        }
+
+        .pipeline-count {
+            font-size: 36px;
+            font-weight: 700;
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        .pipeline-count.ready { color: var(--accent-green); }
+        .pipeline-count.in-progress { color: var(--accent-cyan); }
+        .pipeline-count.scheduled { color: var(--accent-orange); }
+        .pipeline-count.total { color: var(--text-primary); }
+
+        .pipeline-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* System Health */
+        .system-health {
+            grid-column: span 4;
+        }
+
+        .system-health::before { background: var(--accent-green); }
+
+        .health-grid {
+            display: grid;
+            gap: 12px;
+        }
+
+        .health-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: var(--bg-tertiary);
+            border-radius: 6px;
+        }
+
+        .health-indicator {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--accent-green);
+            box-shadow: 0 0 10px var(--accent-green);
+            animation: pulse-green 2s infinite;
+        }
+
+        .health-indicator.warning { background: var(--accent-orange); box-shadow: 0 0 10px var(--accent-orange); }
+        .health-indicator.error { background: var(--accent-red); box-shadow: 0 0 10px var(--accent-red); }
+
+        @keyframes pulse-green {
+            0%, 100% { box-shadow: 0 0 10px var(--accent-green); }
+            50% { box-shadow: 0 0 20px var(--accent-green), 0 0 40px var(--accent-green); }
+        }
+
+        .health-info {
+            flex: 1;
+        }
+
+        .health-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .health-value {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            grid-column: span 4;
+        }
+
+        .quick-actions::before { background: var(--accent-purple); }
+
+        .action-btn {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: inherit;
+        }
+
+        .action-btn:hover {
+            background: var(--border-color);
+            border-color: var(--accent-cyan);
+            transform: translateX(5px);
+        }
+
+        .action-btn:last-child {
+            margin-bottom: 0;
+        }
+
+        .action-btn .icon {
+            font-size: 18px;
+        }
+
+        /* Terminal */
+        .terminal-section {
+            grid-column: span 12;
+        }
+
+        .terminal-section::before { background: var(--accent-cyan); }
+
+        .terminal {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 15px;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 12px;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        .terminal-line {
+            padding: 4px 0;
+            color: var(--text-secondary);
+            border-left: 2px solid transparent;
+            padding-left: 10px;
+            margin-left: -10px;
+        }
+
+        .terminal-line:hover {
+            background: var(--bg-tertiary);
+            border-left-color: var(--accent-cyan);
+        }
+
+        .terminal-line .timestamp {
+            color: var(--text-dim);
+            margin-right: 10px;
+        }
+
+        .terminal-line .cmd { color: var(--accent-cyan); }
+        .terminal-line .output { color: var(--accent-green); }
+        .terminal-line .error { color: var(--accent-red); }
+        .terminal-line .info { color: var(--accent-orange); }
+
+        /* Footer */
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: var(--text-secondary);
+            z-index: 100;
+        }
+
+        .footer-left {
+            display: flex;
+            gap: 30px;
+        }
+
+        .footer-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-item::before {
+            content: '●';
+            color: var(--accent-green);
+        }
+
+        .footer-item.warning::before { color: var(--accent-orange); }
+
+        /* Loading State */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+            color: var(--text-secondary);
+        }
+
+        .loading::after {
+            content: '';
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border-color);
+            border-top-color: var(--accent-cyan);
+            border-radius: 50%;
+            margin-left: 10px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-dim);
+            font-size: 13px;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-dim);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .container {
+                grid-template-columns: repeat(6, 1fr);
+            }
+            .ollama-usage, .bcm-status, .terminal-section {
+                grid-column: span 6;
+            }
+            .x-growth, .active-tasks, .content-pipeline, .system-health, .quick-actions {
+                grid-column: span 3;
+            }
+            .usage-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+            .card {
+                grid-column: span 1 !important;
+            }
+            .bcm-grid, .usage-grid, .pipeline-grid, .stats-row {
+                grid-template-columns: 1fr;
+            }
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <a href="#ollama" class="nav-link">💰 Usage</a>
+        <a href="#bcm" class="nav-link">🧠 BCM</a>
+        <a href="#tasks" class="nav-link">📋 Tasks</a>
+        <a href="#content" class="nav-link">✍️ Post</a>
+        <a href="#pipeline" class="nav-link">📊 Pipeline</a>
+        <a href="#health" class="nav-link">❤️ Health</a>
+        <a href="#terminal" class="nav-link">📜 Log</a>
+    </nav>
+    <header class="header" id="top">
+        <div class="logo">
+            <div class="logo-icon">🐾</div>
+            <div class="logo-text">Mission <span>Control</span></div>
+        </div>
+        <div class="datetime">
+            <div class="time" id="clock">--:--:--</div>
+            <div class="date" id="date">Loading...</div>
+        </div>
+        <div class="refresh-indicator"></div>
+    </header>
+
+    <div class="container">
+        <!-- Ollama Usage - Priority Section -->
+        <div class="card ollama-usage">
+            <div class="card-title">Ollama Cloud Usage - Pro Tier ($20/month)</div>
+            <div id="ollama-content">
+                <div class="loading">Loading usage data...</div>
+            </div>
+        </div>
+
+        <!-- BCM Status -->
+        <div class="card bcm-status">
+            <div class="card-title">Brain-Coding-Muscles System</div>
+            <div id="bcm-content">
+                <div class="loading">Loading BCM data...</div>
+            </div>
+        </div>
+
+        <!-- X Growth -->
+        <div class="card x-growth">
+            <div class="card-title">X Account Growth</div>
+            <div id="x-content">
+                <div class="loading">Loading X data...</div>
+            </div>
+        </div>
+
+        <!-- Active Tasks -->
+        <div class="card active-tasks" id="tasks">
+            <div class="card-title">Active Sub-Agents & Tasks</div>
+            <div id="tasks-content" class="tasks-list">
+                <div class="loading">Loading tasks...</div>
+            </div>
+        </div>
+
+        <!-- What to Post -->
+        <div class="card what-to-post" id="content">
+            <div class="card-title">✍️ What to Post Today</div>
+            <div id="content-suggestions">
+                <div class="post-suggestion">
+                    <div class="post-priority high">HIGH PRIORITY</div>
+                    <div class="post-title">HIMS Healthcare Infrastructure Thread</div>
+                    <div class="post-meta">
+                        <span>🟢 Ready</span>
+                        <span>💪 MUSCLES tier</span>
+                        <span>~5 tweets</span>
+                    </div>
+                    <div class="post-preview">The drug gets the headlines. The infrastructure play is HIMS — telehealth rails for GLP-1 delivery...&lt;/div>
+                    <button class="action-btn small" onclick="alert('Copy and post to X!')">📋 Copy Content</button>
+                </div>
+                
+                <div class="post-suggestion">
+                    <div class="post-priority medium">MEDIUM PRIORITY</div>
+                    <div class="post-title">AI Agentic Commerce Market Analysis</div>
+                    <div class="post-meta">
+                        <span>🟡 In Progress</span>
+                        <span>🧠 BRAIN tier</span>
+                        <span>Research needed</span>
+                    </div>
+                    <div class="post-preview">McKinsey says $3-5T in agentic commerce by 2030...&lt;/div>
+                    <button class="action-btn small" onclick="alert('Generate with: python bcm_system.py brain...')">🧠 Generate</button>
+                </div>
+                
+                <div class="post-suggestion">
+                    <div class="post-priority low">LOW PRIORITY</div>
+                    <div class="post-title">Reply to @TheLongInvestor</div>
+                    <div class="post-meta">
+                        <span>⚪ Scheduled</span>
+                        <span>💪 MUSCLES tier</span>
+                        <span>Quick reply</span>
+                    </div>
+                    <div class="post-preview">Picks and shovels > gold rush. Always...&lt;/div>
+                    <button class="action-btn small" onclick="alert('Copy and reply!')">💬 Copy Reply</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Pipeline -->
+        <div class="card content-pipeline">
+            <div class="card-title">Content Pipeline</div>
+            <div id="pipeline-content">
+                <div class="loading">Loading pipeline...</div>
+            </div>
+        </div>
+
+        <!-- System Health -->
+        <div class="card system-health">
+            <div class="card-title">System Health</div>
+            <div id="health-content" class="health-grid">
+                <div class="loading">Loading health status...</div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="card quick-actions">
+            <div class="card-title">Quick Actions</div>
+            <button class="action-btn" onclick="spawnBrain()">
+                <span class="icon">🧠</span>
+                <span>Spawn Brain Agent</span>
+            </button>
+            <button class="action-btn" onclick="spawnCoding()">
+                <span class="icon">💻</span>
+                <span>Spawn Coding Agent</span>
+            </button>
+            <button class="action-btn" onclick="spawnMuscles()">
+                <span class="icon">💪</span>
+                <span>Spawn Muscles Agent</span>
+            </button>
+            <button class="action-btn" onclick="runBriefing()">
+                <span class="icon">📋</span>
+                <span>Run Daily Briefing</span>
+            </button>
+            <button class="action-btn" onclick="refreshData()">
+                <span class="icon">🔄</span>
+                <span>Refresh All Data</span>
+            </button>
+        </div>
+
+        <!-- Terminal Output -->
+        <div class="card terminal-section" id="terminal">
+            <div class="card-title">Recent Activity Log</div>
+            <div id="terminal-content" class="terminal">
+                <div class="loading">Loading activity log...</div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-left">
+            <div class="footer-item">Claw System v2.0</div>
+            <div class="footer-item">BCM Active</div>
+            <div class="footer-item">Ollama Cloud Pro</div>
+        </div>
+        <div id="footer-status">Last Updated: Never</div>
+    </footer>
+
+    <script>
+        // Clock and Date
+        function updateClock() {
+            const now = new Date();
+            const time = now.toTimeString().split(' ')[0];
+            const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const date = now.toLocaleDateString('en-US', dateOptions);
+            
+            document.getElementById('clock').textContent = time;
+            document.getElementById('date').textContent = date;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Data fetching
+        let currentData = null;
+
+        async function fetchData() {
+            try {
+                const response = await fetch('mission_control_data.json?t=' + Date.now());
+                if (!response.ok) throw new Error('Failed to fetch');
+                const data = await response.json();
+                currentData = data;
+                updateDashboard(data);
+                document.getElementById('footer-status').textContent = 
+                    'Last Updated: ' + new Date().toLocaleTimeString();
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                showError('Failed to load data. Run: python mission_control_data_feed.py');
+            }
+        }
+
+        function updateDashboard(data) {
+            updateOllamaUsage(data.ollama_usage);
+            updateBCM(data.bcm_stats);
+            updateX(data.x_stats);
+            updateTasks(data.active_tasks);
+            updatePipeline(data.content_pipeline);
+            updateHealth(data.system_health);
+            updateTerminal(data.recent_activity);
+        }
+
+        function updateOllamaUsage(usage) {
+            const container = document.getElementById('ollama-content');
+            
+            const usageClass = usage.used_percent > 80 ? 'danger' : usage.used_percent > 60 ? 'warning' : '';
+            const barClass = usage.used_percent > 80 ? 'danger' : usage.used_percent > 60 ? 'warning' : 'safe';
+            
+            container.innerHTML = `
+                <div class="usage-grid">
+                    <div class="usage-item">
+                        <div class="usage-value ${usageClass}">${usage.used_percent}%</div>
+                        <div class="usage-label">Budget Used</div>
+                    </div>
+                    <div class="usage-item">
+                        <div class="usage-value">${usage.tokens_used}</div>
+                        <div class="usage-label">Tokens Used</div>
+                    </div>
+                    <div class="usage-item">
+                        <div class="usage-value">${usage.tokens_remaining}</div>
+                        <div class="usage-label">Est. Remaining</div>
+                    </div>
+                    <div class="usage-item">
+                        <div class="usage-value">${usage.models_active}</div>
+                        <div class="usage-label">Active Models</div>
+                    </div>
+                </div>
+                <div class="usage-bar-container">
+                    <div class="usage-bar-label">
+                        <span>Daily Usage Progress</span>
+                        <span>Resets in ${usage.reset_in}</span>
+                    </div>
+                    <div class="usage-bar">
+                        <div class="usage-bar-fill ${barClass}" style="width: ${usage.used_percent}%"></div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function updateBCM(stats) {
+            const container = document.getElementById('bcm-content');
+            
+            container.innerHTML = `
+                <div class="bcm-grid">
+                    <div class="bcm-tier brain">
+                        <div class="tier-header">
+                            <div class="tier-name">Brain</div>
+                            <div class="tier-icon">🧠</div>
+                        </div>
+                        <div class="tier-stats">
+                            <div class="tier-stat">
+                                <div class="tier-stat-value">${stats.brain.tasks_today}</div>
+                                <div class="tier-stat-label">Tasks Today</div>
+                            </div>
+                            <div class="tier-stat">
+                                <div class="tier-stat-value">${stats.brain.tokens}</div>
+                                <div class="tier-stat-label">Tokens</div>
+                            </div>
+                        </div>
+                        <div class="tier-last-task">Last: ${stats.brain.last_task}</div>
+                    </div>
+                    
+                    <div class="bcm-tier coding">
+                        <div class="tier-header">
+                            <div class="tier-name">Coding</div>
+                            <div class="tier-icon">💻</div>
+                        </div>
+                        <div class="tier-stats">
+                            <div class="tier-stat">
+                                <div class="tier-stat-value">${stats.coding.tasks_today}</div>
+                                <div class="tier-stat-label">Tasks Today</div>
+                            </div>
+                            <div class="tier-stat">
+                                <div class="tier-stat-value">${stats.coding.tokens}</div>
+                                <div class="tier-stat-label">Tokens</div>
+                            </div>
+                        </div>
+                        <div class="tier-last-task">Last: ${stats.coding.last_task}</div>
+                    </div>
+                    
+                    <div class="bcm-tier muscles">
+                        <div class="tier-header">
+                            <div class="tier-name">Muscles</div>
+                            <div class="tier-icon">💪</div>
+                        </div>
+                        <div class="tier-stats">
+                            <div class="tier-stat">
+                                <div class="tier-stat-value">${stats.muscles.tasks_today}</div>
+                                <div class="tier-stat-label">Tasks Today</div>
+                            </div>
+                            <div class="tier-stat">
+                                <div class="tier-stat-value">${stats.muscles.tokens}</div>
+                                <div class="tier-stat-label">Tokens</div>
+                            </div>
+                        </div>
+                        <div class="tier-last-task">Last: ${stats.muscles.last_task}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function updateX(stats) {
+            const container = document.getElementById('x-content');
+            
+            container.innerHTML = `
+                <div class="stat-big">${stats.followers}</div>
+                <div class="stat-label">Current Followers</div>
+                
+                <div class="stats-row">
+                    <div class="stat-item">
+                        <div class="stat-item-value">${stats.posts_today}</div>
+                        <div class="stat-item-label">Posts Today</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-item-value">${stats.engagements_today}</div>
+                        <div class="stat-item-label">Engagements</div>
+                    </div>
+                </div>
+                
+                <div class="progress-section">
+                    <div class="progress-header">
+                        <span>Progress to Goal (${stats.followers.toLocaleString()} / ${stats.goal.toLocaleString()})</span>
+                        <span>${stats.progress_pct}%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${stats.progress_pct}%"></div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function updateTasks(tasks) {
+            const container = document.getElementById('tasks-content');
+            
+            if (!tasks || tasks.length === 0) {
+                container.innerHTML = '<div class="empty-state">No active tasks</div>';
+                return;
+            }
+            
+            container.innerHTML = tasks.map(task => `
+                <div class="task-item">
+                    <div class="task-status ${task.status}"></div>
+                    <div class="task-info">
+                        <div class="task-name">${task.name}</div>
+                        <div class="task-meta">
+                            <span class="task-tier-badge ${task.tier.toLowerCase()}">${task.tier}</span>
+                            <span>${task.model}</span>
+                            <span>${task.age}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updatePipeline(pipeline) {
+            const container = document.getElementById('pipeline-content');
+            
+            container.innerHTML = `
+                <div class="pipeline-grid">
+                    <div class="pipeline-item">
+                        <div class="pipeline-count ready">${pipeline.ready}</div>
+                        <div class="pipeline-label">Ready</div>
+                    </div>
+                    
+                    <div class="pipeline-item">
+                        <div class="pipeline-count in-progress">${pipeline.in_progress}</div>
+                        <div class="pipeline-label">In Progress</div>
+                    </div>
+                    
+                    <div class="pipeline-item">
+                        <div class="pipeline-count scheduled">${pipeline.scheduled}</div>
+                        <div class="pipeline-label">Scheduled</div>
+                    </div>
+                    
+                    <div class="pipeline-item">
+                        <div class="pipeline-count total">${pipeline.total}</div>
+                        <div class="pipeline-label">Total Posts</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function updateHealth(health) {
+            const container = document.getElementById('health-content');
+            
+            container.innerHTML = `
+                <div class="health-item">
+                    <div class="health-indicator ${health.status !== 'operational' ? 'warning' : ''}"></div>
+                    <div class="health-info">
+                        <div class="health-label">System Status</div>
+                        <div class="health-value">${health.status === 'operational' ? 'All Systems Operational' : health.status}</div>
+                    </div>
+                </div>
+                
+                <div class="health-item">
+                    <div class="health-indicator"></div>
+                    <div class="health-info">
+                        <div class="health-label">Ollama Cloud</div>
+                        <div class="health-value">${health.ollama_cloud} (${health.api_latency})</div>
+                    </div>
+                </div>
+                
+                <div class="health-item">
+                    <div class="health-indicator"></div>
+                    <div class="health-info">
+                        <div class="health-label">Primary Model</div>
+                        <div class="health-value">${health.primary_model}</div>
+                    </div>
+                </div>
+                
+                <div class="health-item">
+                    <div class="health-indicator"></div>
+                    <div class="health-info">
+                        <div class="health-label">Gateway Uptime</div>
+                        <div class="health-value">${health.gateway_uptime}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function updateTerminal(activities) {
+            const container = document.getElementById('terminal-content');
+            
+            if (!activities || activities.length === 0) {
+                container.innerHTML = '<div class="empty-state">No recent activity</div>';
+                return;
+            }
+            
+            container.innerHTML = activities.map(line => `
+                <div class="terminal-line">
+                    <span class="timestamp">${line.time}</span>
+                    <span class="${line.type}">${line.command}</span>
+                </div>
+            `).join('');
+            
+            // Auto-scroll to bottom
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function showError(message) {
+            document.querySelectorAll('.loading').forEach(el => {
+                el.innerHTML = `<div class="empty-state" style="color: var(--accent-red)">
+                    ${message}
+                </div>`;
+            });
+        }
+
+        // Quick Actions
+        function spawnBrain() {
+            alert('Command: python bcm_system.py brain "Your research task here"');
+        }
+        function spawnCoding() {
+            alert('Command: python bcm_system.py coding "Your coding task here"');
+        }
+        function spawnMuscles() {
+            alert('Command: python bcm_system.py muscles "Your content task here"');
+        }
+        function runBriefing() {
+            alert('Command: python automation_system_full.py briefing');
+        }
+        function refreshData() {
+            fetchData();
+            alert('Refreshing data...');
+        }
+
+        // Initial load and refresh every 2 hours (7200000 ms)
+        fetchData();
+        setInterval(fetchData, 7200000);
+    </script>
+</body>
+</html>

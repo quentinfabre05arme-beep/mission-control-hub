@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@quentinvest1 | MISSION CONTROL Command Center v4.0</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-tertiary: #1a1a1a;
+            --bg-card: #161616;
+            --bg-hover: #1e1e1e;
+            --accent-cyan: #00d4ff;
+            --accent-green: #00ff88;
+            --accent-orange: #ff8800;
+            --accent-red: #ff0044;
+            --accent-purple: #8800ff;
+            --accent-gold: #ffd700;
+            --text-primary: #ffffff;
+            --text-secondary: #888888;
+            --text-dim: #444444;
+            --border-color: #222222;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto Mono', monospace;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Scanline effect */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(transparent 50%, rgba(0, 212, 255, 0.015) 50%);
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .top-bar-left {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            border: 2px solid var(--accent-cyan);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 10px rgba(0, 212, 255, 0.3); }
+            50% { box-shadow: 0 0 25px rgba(0, 212, 255, 0.6); }
+        }
+
+        .logo-text span {
+            color: var(--accent-cyan);
+        }
+
+        .logo-version {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            font-weight: 500;
+            margin-left: 0.5rem;
+            padding: 0.15rem 0.4rem;
+            background: var(--bg-tertiary);
+            border-radius: 4px;
+        }
+
+        /* Command Bar */
+        .command-bar {
+            flex: 1;
+            max-width: 400px;
+            position: relative;
+        }
+
+        .command-input {
+            width: 100%;
+            padding: 0.6rem 1rem 0.6rem 2.5rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .command-input:hover, .command-input:focus {
+            border-color: var(--accent-cyan);
+            color: var(--text-primary);
+            outline: none;
+        }
+
+        .command-input::before {
+            content: '⌘K';
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-dim);
+            font-size: 0.8rem;
+        }
+
+        .command-hint {
+            position: absolute;
+            right: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            padding: 0.2rem 0.5rem;
+            background: var(--bg-card);
+            border-radius: 4px;
+        }
+
+        /* Top Stats */
+        .top-stats {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .top-stat {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .top-stat-icon {
+            font-size: 1rem;
+        }
+
+        .top-stat-value {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .top-stat.urgent .top-stat-value {
+            color: var(--accent-red);
+        }
+
+        /* Main Layout */
+        .main-layout {
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            height: calc(100vh - 65px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        .sidebar-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .sidebar-title {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-dim);
+            margin-bottom: 0.75rem;
+            padding-left: 0.5rem;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.6rem 0.75rem;
+            border-radius: 6px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            margin-bottom: 0.25rem;
+        }
+
+        .nav-item:hover {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        .nav-item.active {
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--accent-cyan);
+            border-left: 3px solid var(--accent-cyan);
+        }
+
+        .nav-icon {
+            font-size: 1.1rem;
+            width: 24px;
+            text-align: center;
+        }
+
+        .nav-badge {
+            margin-left: auto;
+            font-size: 0.7rem;
+            padding: 0.15rem 0.5rem;
+            background: var(--accent-red);
+            color: var(--bg-primary);
+            border-radius: 10px;
+            font-weight: 700;
+        }
+
+        /* Context Badge */
+        .context-badge {
+            padding: 0.75rem;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(0, 255, 136, 0.05) 100%);
+            border: 1px solid var(--accent-cyan);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .context-phase {
+            font-size: 0.75rem;
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.25rem;
+        }
+
+        .context-name {
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .context-time {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 1.5rem;
+            overflow-y: auto;
+            background: var(--bg-primary);
+        }
+
+        /* Notification Panel */
+        .notification-panel {
+            margin-bottom: 1.5rem;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .panel-title {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .panel-title::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--accent-cyan);
+            border-radius: 50%;
+        }
+
+        .notification-count {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.6rem;
+            background: var(--bg-tertiary);
+            border-radius: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Notification Cards */
+        .notification-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .notification-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            transition: all 0.2s;
+        }
+
+        .notification-card:hover {
+            border-color: var(--accent-cyan);
+            transform: translateX(5px);
+        }
+
+        .notification-card.urgent {
+            border-left: 4px solid var(--accent-red);
+            background: linear-gradient(90deg, rgba(255, 0, 68, 0.05) 0%, var(--bg-card) 100%);
+        }
+
+        .notification-card.scheduled {
+            border-left: 4px solid var(--accent-orange);
+            background: linear-gradient(90deg, rgba(255, 136, 0, 0.05) 0%, var(--bg-card) 100%);
+        }
+
+        .notification-card.auto {
+            border-left: 4px solid var(--accent-green);
+            background: linear-gradient(90deg, rgba(0, 255, 136, 0.05) 0%, var(--bg-card) 100%);
+        }
+
+        .notification-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .notification-card.urgent .notification-icon {
+            background: rgba(255, 0, 68, 0.1);
+        }
+
+        .notification-card.scheduled .notification-icon {
+            background: rgba(255, 136, 0, 0.1);
+        }
+
+        .notification-card.auto .notification-icon {
+            background: rgba(0, 255, 136, 0.1);
+        }
+
+        .notification-content {
+            flex: 1;
+        }
+
+        .notification-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .notification-priority {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 700;
+        }
+
+        .notification-card.urgent .notification-priority {
+            background: var(--accent-red);
+            color: var(--bg-primary);
+        }
+
+        .notification-card.scheduled .notification-priority {
+            background: var(--accent-orange);
+            color: var(--bg-primary);
+        }
+
+        .notification-card.auto .notification-priority {
+            background: var(--accent-green);
+            color: var(--bg-primary);
+        }
+
+        .notification-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .notification-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .notification-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn {
+            padding: 0.4rem 0.75rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--accent-cyan);
+            color: var(--bg-primary);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-green);
+        }
+
+        .btn-secondary {
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-hover);
+            color: var(--text-primary);
+        }
+
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .dash-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1.25rem;
+            transition: all 0.2s;
+        }
+
+        .dash-card:hover {
+            border-color: var(--accent-cyan);
+        }
+
+        .dash-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .dash-card-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-secondary);
+        }
+
+        .dash-card-icon {
+            font-size: 1.25rem;
+        }
+
+        .dash-card-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .dash-card-value.positive {
+            color: var(--accent-green);
+        }
+
+        .dash-card-value.negative {
+            color: var(--accent-red);
+        }
+
+        .dash-card-value.cyan {
+            color: var(--accent-cyan);
+        }
+
+        .dash-card-value.gold {
+            color: var(--accent-gold);
+        }
+
+        .dash-card-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .dash-card-change {
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        .dash-card-change.positive {
+            color: var(--accent-green);
+        }
+
+        /* Efficiency Panel */
+        .efficiency-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .efficiency-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .efficiency-score {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .efficiency-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+        }
+
+        .efficiency-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .efficiency-bar {
+            flex: 1;
+            height: 8px;
+            background: var(--bg-tertiary);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .efficiency-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-green), var(--accent-cyan));
+            border-radius: 4px;
+            transition: width 0.5s;
+        }
+
+        .efficiency-metrics {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .eff-metric {
+            text-align: center;
+            padding: 0.75rem;
+            background: var(--bg-tertiary);
+            border-radius: 6px;
+        }
+
+        .eff-metric-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+        }
+
+        .eff-metric-label {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 0.25rem;
+        }
+
+        .efficiency-insights {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .insight-box {
+            padding: 0.75rem;
+            border-radius: 6px;
+        }
+
+        .insight-box.bottlenecks {
+            background: rgba(255, 0, 68, 0.05);
+            border: 1px solid rgba(255, 0, 68, 0.2);
+        }
+
+        .insight-box.wins {
+            background: rgba(0, 255, 136, 0.05);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+        }
+
+        .insight-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .insight-box.bottlenecks .insight-title {
+            color: var(--accent-red);
+        }
+
+        .insight-box.wins .insight-title {
+            color: var(--accent-green);
+        }
+
+        .insight-list {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .insight-list li {
+            margin-left: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        /* Quick Actions Grid */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .quick-action {
+            padding: 1rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .quick-action:hover {
+            border-color: var(--accent-cyan);
+            transform: translateY(-3px);
+        }
+
+        .quick-action-icon {
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .quick-action-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .quick-action-hint {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+        }
+
+        /* Content Queue */
+        .queue-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1.25rem;
+        }
+
+        .queue-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .queue-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+        }
+
+        .queue-score {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .queue-score.high {
+            background: rgba(0, 255, 136, 0.15);
+            color: var(--accent-green);
+            border: 2px solid var(--accent-green);
+        }
+
+        .queue-score.medium {
+            background: rgba(255, 136, 0, 0.15);
+            color: var(--accent-orange);
+            border: 2px solid var(--accent-orange);
+        }
+
+        .queue-info {
+            flex: 1;
+        }
+
+        .queue-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .queue-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .queue-status {
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .queue-status.auto {
+            background: rgba(0, 255, 136, 0.15);
+            color: var(--accent-green);
+        }
+
+        .queue-status.ready {
+            background: rgba(0, 212, 255, 0.15);
+            color: var(--accent-cyan);
+        }
+
+        /* Footer */
+        .footer {
+            padding: 1rem 1.5rem;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .footer-left {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-green);
+            animation: blink 1.5s infinite;
+        }
+
+        .footer-shortcuts {
+            color: var(--text-dim);
+        }
+
+        .footer-shortcuts kbd {
+            padding: 0.15rem 0.4rem;
+            background: var(--bg-tertiary);
+            border-radius: 4px;
+            font-family: inherit;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .main-layout {
+                grid-template-columns: 200px 1fr;
+            }
+            .dashboard-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .efficiency-metrics {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .quick-actions {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                display: none;
+            }
+            .command-bar {
+                display: none;
+            }
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            .efficiency-metrics {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .efficiency-insights {
+                grid-template-columns: 1fr;
+            }
+            .quick-actions {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .top-stats {
+                display: none;
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-dim);
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Bar -->
+    <header class="top-bar">
+        <div class="top-bar-left">
+            <div class="logo">
+                <div class="logo-icon">🐾</div>
+                <div class="logo-text">Mission <span>Control</span><span class="logo-version">v4.0</span></div>
+            </div>
+            <div class="command-bar">
+                <input type="text" class="command-input" placeholder="Search or run command..." readonly>
+                <span class="command-hint">⌘K</span>
+            </div>
+        </div>
+        <div class="top-stats">
+            <div class="top-stat urgent">
+                <span class="top-stat-icon">🔔</span>
+                <span class="top-stat-value">3</span> alerts
+            </div>
+            <div class="top-stat">
+                <span class="top-stat-icon">⏰</span>
+                <span class="top-stat-value" id="clock">21:44</span>
+            </div>
+            <div class="top-stat">
+                <span class="top-stat-icon">💰</span>
+                <span class="top-stat-value">74%</span> used
+            </div>
+            <div class="top-stat">
+                <span class="top-stat-icon">🎯</span>
+                <span class="top-stat-value">219</span> followers
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Layout -->
+    <div class="main-layout">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <!-- Context Badge -->
+            <div class="context-badge">
+                <div class="context-phase">Current Phase</div>
+                <div class="context-name">🔬 Research</div>
+                <div class="context-time">18:00-20:00</div>
+            </div>
+
+            <!-- Navigation -->
+            <div class="sidebar-section">
+                <div class="sidebar-title">Command Center</div>
+                <a href="#overview" class="nav-item active">
+                    <span class="nav-icon">📊</span>
+                    <span>Overview</span>
+                </a>
+                <a href="#notifications" class="nav-item">
+                    <span class="nav-icon">🔔</span>
+                    <span>Notifications</span>
+                    <span class="nav-badge">3</span>
+                </a>
+                <a href="#queue" class="nav-item">
+                    <span class="nav-icon">📋</span>
+                    <span>Content Queue</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Operations</div>
+                <a href="mission_control_dashboard_live.html" class="nav-item">
+                    <span class="nav-icon">⏰</span>
+                    <span>Daily Rhythm</span>
+                </a>
+                <a href="mission_control_orchestrator.html" class="nav-item">
+                    <span class="nav-icon">⚙️</span>
+                    <span>Orchestration</span>
+                </a>
+                <a href="mission_control_analytics.html" class="nav-item">
+                    <span class="nav-icon">📈</span>
+                    <span>Analytics</span>
+                </a>
+                <a href="mission_control_predictive.html" class="nav-item">
+                    <span class="nav-icon">🤖</span>
+                    <span>Predictive</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Content</div>
+                <a href="#x-mission" class="nav-item">
+                    <span class="nav-icon">🐦</span>
+                    <span>X Mission</span>
+                </a>
+                <a href="#bcm" class="nav-item">
+                    <span class="nav-icon">🧠</span>
+                    <span>BCM System</span>
+                </a>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Notifications Panel -->
+            <section class="notification-panel" id="notifications">
+                <div class="panel-header">
+                    <h2 class="panel-title">Smart Notifications</h2>
+                    <span class="notification-count">3 active</span>
+                </div>
+                
+                <div class="notification-list">
+                    <!-- Urgent Notification -->
+                    <div class="notification-card urgent">
+                        <div class="notification-icon">🏥</div>
+                        <div class="notification-content">
+                            <div class="notification-header">
+                                <span class="notification-priority">🔴 Urgent</span>
+                                <span class="notification-title">HIMS Healthcare Thread Ready</span>
+                            </div>
+                            <p class="notification-desc">Score 94 - 5 tweets drafted, hook optimized. Ready to post or schedule for optimal time (17:00).</p>
+                            <div class="notification-actions">
+                                <button class="btn btn-primary">Post Now</button>
+                                <button class="btn btn-secondary">Schedule</button>
+                                <button class="btn btn-secondary">Edit</button>
+                                <button class="btn btn-secondary">Snooze</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Scheduled Notification -->
+                    <div class="notification-card scheduled">
+                        <div class="notification-icon">📄</div>
+                        <div class="notification-content">
+                            <div class="notification-header">
+                                <span class="notification-priority">🟡 Scheduled</span>
+                                <span class="notification-title">Daily Briefing Tomorrow</span>
+                            </div>
+                            <p class="notification-desc">Auto-scheduled for 08:00. Market digest + portfolio updates will be generated.</p>
+                            <div class="notification-actions">
+                                <button class="btn btn-secondary">Preview</button>
+                                <button class="btn btn-secondary">Modify</button>
+                                <button class="btn btn-secondary">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Auto Notification -->
+                    <div class="notification-card auto">
+                        <div class="notification-icon">₿</div>
+                        <div class="notification-content">
+                            <div class="notification-header">
+                                <span class="notification-priority">🟢 Auto-Queued</span>
+                                <span class="notification-title">BTC Treasury Thread</span>
+                            </div>
+                            <p class="notification-desc">Auto-scheduled for 17:00. Score: 88. System detected optimal engagement window.</p>
+                            <div class="notification-actions">
+                                <button class="btn btn-secondary">Review</button>
+                                <button class="btn btn-secondary">Reschedule</button>
+                                <button class="btn btn-secondary">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Dashboard Stats -->
+            <div class="dashboard-grid">
+                <div class="dash-card">
+                    <div class="dash-card-header">
+                        <span class="dash-card-title">Today's Progress</span>
+                        <span class="dash-card-icon">✅</span>
+                    </div>
+                    <div class="dash-card-value cyan">13/15</div>
+                    <div class="dash-card-subtitle">Tasks completed</div>
+                    <div class="dash-card-change positive">87% completion rate</div>
+                </div>
+
+                <div class="dash-card">
+                    <div class="dash-card-header">
+                        <span class="dash-card-title">Follower Growth</span>
+                        <span class="dash-card-icon">🐦</span>
+                    </div>
+                    <div class="dash-card-value positive">+7</div>
+                    <div class="dash-card-subtitle">This week</div>
+                    <div class="dash-card-change positive">+3.3% growth</div>
+                </div>
+
+                <div class="dash-card">
+                    <div class="dash-card-header">
+                        <span class="dash-card-title">Engagement Rate</span>
+                        <span class="dash-card-icon">📈</span>
+                    </div>
+                    <div class="dash-card-value gold">6.3%</div>
+                    <div class="dash-card-subtitle">Avg this week</div>
+                    <div class="dash-card-change positive">+0.4% vs last week</div>
+                </div>
+            </div>
+
+            <!-- Efficiency Panel -->
+            <section class="efficiency-panel">
+                <div class="efficiency-header">
+                    <div>
+                        <h2 class="panel-title">System Efficiency</h2>
+                    </div>
+                    <div class="efficiency-score">
+                        <span class="efficiency-number">87%</span>
+                        <div class="efficiency-bar" style="width: 150px;">
+                            <div class="efficiency-fill" style="width: 87%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="efficiency-metrics">
+                    <div class="eff-metric">
+                        <div class="eff-metric-value">87%</div>
+                        <div class="eff-metric-label">Tasks</div>
+                    </div>
+                    <div class="eff-metric">
+                        <div class="eff-metric-value">71%</div>
+                        <div class="eff-metric-label">Pipeline</div>
+                    </div>
+                    <div class="eff-metric">
+                        <div class="eff-metric-value">6.3%</div>
+                        <div class="eff-metric-label">Engagement</div>
+                    </div>
+                    <div class="eff-metric">
+                        <div class="eff-metric-value">100%</div>
+                        <div class="eff-metric-label">Uptime</div>
+                    </div>
+                </div>
+
+                <div class="efficiency-insights">
+                    <div class="insight-box bottlenecks">
+                        <div class="insight-title">⚠️ Bottlenecks</div>
+                        <ul class="insight-list">
+                            <li>1 high-priority post waiting (HIMS)</li>
+                            <li>3 engagement targets not contacted</li>
+                        </ul>
+                    </div>
+                    <div class="insight-box wins">
+                        <div class="insight-title">✅ Wins</div>
+                        <ul class="insight-list">
+                            <li>ETH thread posted (high engagement)</li>
+                            <li>Research cycles on schedule</li>
+                            <li>System uptime: 100%</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Actions -->
+            <section class="quick-actions">
+                <div class="quick-action" onclick="alert('Quick post opened')">
+                    <div class="quick-action-icon">✍️</div>
+                    <div class="quick-action-label">Quick Post</div>
+                    <div class="quick-action-hint">Press P</div>
+                </div>
+                <div class="quick-action" onclick="alert('Schedule opened')">
+                    <div class="quick-action-icon">📅</div>
+                    <div class="quick-action-label">Schedule</div>
+                    <div class="quick-action-hint">Press S</div>
+                </div>
+                <div class="quick-action" onclick="alert('Research cycle running...')">
+                    <div class="quick-action-icon">🔬</div>
+                    <div class="quick-action-label">Research</div>
+                    <div class="quick-action-hint">Press R</div>
+                </div>
+                <div class="quick-action" onclick="alert('Engagement check...')">
+                    <div class="quick-action-icon">💬</div>
+                    <div class="quick-action-label">Engage</div>
+                    <div class="quick-action-hint">Press E</div>
+                </div>
+            </section>
+
+            <!-- Content Queue -->
+            <section class="queue-panel" id="queue">
+                <div class="panel-header">
+                    <h2 class="panel-title">Content Queue</h2>
+                </div>
+                
+                <div class="queue-list">
+                    <div class="queue-item">
+                        <div class="queue-score high">94</div>
+                        <div class="queue-info">
+                            <div class="queue-title">HIMS Healthcare Infrastructure Thread</div>
+                            <div class="queue-meta">
+                                <span>🏥 Healthcare</span>
+                                <span>5 tweets</span>
+                                <span>Ready now</span>
+                            </div>
+                        </div>
+                        <span class="queue-status ready">READY</span>
+                    </div>
+
+                    <div class="queue-item">
+                        <div class="queue-score high">88</div>
+                        <div class="queue-info">
+                            <div class="queue-title">BTC Treasury Plays Analysis</div>
+                            <div class="queue-meta">
+                                <span>₿ Crypto</span>
+                                <span>7 tweets</span>
+                                <span>Auto-queued 17:00</span>
+                            </div>
+                        </div>
+                        <span class="queue-status auto">AUTO</span>
+                    </div>
+
+                    <div class="queue-item">
+                        <div class="queue-score medium">76</div>
+                        <div class="queue-info">
+                            <div class="queue-title">AI Agentic Commerce: $3-5T by 2030</div>
+                            <div class="queue-meta">
+                                <span>🤖 AI</span>
+                                <span>Researching</span>
+                                <span>Scheduled Jul 14</span>
+                            </div>
+                        </div>
+                        <span class="queue-status ready">DRAFT</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-left">
+            <div class="footer-item">
+                <span class="footer-dot"></span>
+                <span>All systems operational</span>
+            </div>
+            <div class="footer-item">
+                <span>4 agents active</span>
+            </div>
+            <div class="footer-item">
+                <span>Last update: 21:44</span>
+            </div>
+        </div>
+        <div class="footer-shortcuts">
+            <kbd>⌘K</kbd> Command &nbsp;|&nbsp; <kbd>P</kbd> Post &nbsp;|&nbsp; <kbd>S</kbd> Schedule &nbsp;|&nbsp; <kbd>R</kbd> Research &nbsp;|&nbsp; <kbd>?</kbd> Help
+        </div>
+    </footer>
+
+    <script>
+        // Clock update
+        function updateClock() {
+            const now = new Date();
+            const time = now.toLocaleTimeString('en-US', { 
+                hour: '2-digit', 
+                minute: '2-digit',
+                hour12: false 
+            });
+            document.getElementById('clock').textContent = time;
+        }
+        updateClock();
+        setInterval(updateClock, 1000);
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            // Cmd/Ctrl + K for command bar
+            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                e.preventDefault();
+                document.querySelector('.command-input').focus();
+            }
+            
+            // P for post
+            if (e.key === 'p' && !e.metaKey && !e.ctrlKey) {
+                alert('Quick post opened');
+            }
+            
+            // S for schedule
+            if (e.key === 's' && !e.metaKey && !e.ctrlKey) {
+                alert('Schedule opened');
+            }
+            
+            // R for research
+            if (e.key === 'r' && !e.metaKey && !e.ctrlKey) {
+                alert('Research cycle triggered');
+            }
+            
+            // ? for help
+            if (e.key === '?' && !e.metaKey && !e.ctrlKey) {
+                alert('Keyboard Shortcuts:\n\n⌘K - Command bar\nP - Quick post\nS - Schedule\nR - Research\nE - Engagement\n? - This help');
+            }
+        });
+
+        // Command bar focus
+        document.querySelector('.command-input').addEventListener('click', () => {
+            alert('Command palette opened:\n\nType to search:\n• "HIMS" - Find content\n• "today" - Today\'s posts\n• "post" - Create post\n• "schedule" - Schedule content');
+        });
+    </script>
+</body>
+</html>

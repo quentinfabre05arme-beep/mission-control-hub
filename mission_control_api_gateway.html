@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MISSION CONTROL | API Gateway v9.0</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-tertiary: #1a1a1a;
+            --bg-code: #0d1117;
+            --accent-cyan: #00d4ff;
+            --accent-green: #00ff88;
+            --accent-orange: #ff8800;
+            --accent-red: #ff0044;
+            --accent-purple: #8800ff;
+            --accent-yellow: #ffcc00;
+            --text-primary: #ffffff;
+            --text-secondary: #888888;
+            --text-dim: #444444;
+            --border-color: #222222;
+            --code-green: #7ee787;
+            --code-blue: #79c0ff;
+            --code-purple: #d2a8ff;
+            --code-orange: #ffa657;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto Mono', monospace;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Scanline effect */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(transparent 50%, rgba(0, 212, 255, 0.02) 50%);
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        /* Navigation */
+        .nav {
+            position: sticky;
+            top: 0;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0 40px;
+            display: flex;
+            gap: 5px;
+            overflow-x: auto;
+            z-index: 999;
+        }
+
+        .nav-link {
+            padding: 15px 20px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--accent-cyan);
+            border-bottom-color: var(--accent-cyan);
+        }
+        
+        /* Home Button */
+        .home-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 18px;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(136, 0, 255, 0.15));
+            border: 1px solid rgba(0, 212, 255, 0.4);
+            border-radius: 6px;
+            color: var(--accent-cyan);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-right: 15px;
+            transition: all 0.3s;
+        }
+        .home-btn:hover {
+            background: rgba(0, 212, 255, 0.25);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+            border-bottom: 2px solid var(--accent-purple);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo { display: flex; align-items: center; gap: 15px; }
+        .logo-icon {
+            width: 50px; height: 50px;
+            border: 3px solid var(--accent-purple);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 10px var(--accent-purple); }
+            50% { box-shadow: 0 0 30px var(--accent-purple), 0 0 60px var(--accent-purple); }
+        }
+        .logo-text { font-size: 28px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; }
+        .logo-text span { color: var(--accent-purple); }
+
+        .version-badge {
+            background: var(--accent-purple);
+            color: var(--bg-primary);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Main Container */
+        .container {
+            padding: 30px 40px;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+        }
+        .card-title {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Grid spans */
+        .span-3 { grid-column: span 3; }
+        .span-4 { grid-column: span 4; }
+        .span-6 { grid-column: span 6; }
+        .span-8 { grid-column: span 8; }
+        .span-12 { grid-column: span 12; }
+
+        /* Server Status Grid */
+        .server-status-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        .status-card {
+            background: var(--bg-tertiary);
+            border-radius: 6px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .status-card.cyan { border-left: 3px solid var(--accent-cyan); }
+        .status-card.green { border-left: 3px solid var(--accent-green); }
+        .status-card.orange { border-left: 3px solid var(--accent-orange); }
+        .status-card.purple { border-left: 3px solid var(--accent-purple); }
+        .status-icon {
+            width: 40px; height: 40px;
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 18px;
+        }
+        .status-icon.online { background: rgba(0, 255, 136, 0.1); color: var(--accent-green); }
+        .status-icon.busy { background: rgba(255, 136, 0, 0.1); color: var(--accent-orange); }
+        .status-icon.syncing { background: rgba(0, 212, 255, 0.1); color: var(--accent-cyan); }
+        .status-icon.idle { background: rgba(136, 0, 255, 0.1); color: var(--accent-purple); }
+        .status-info { flex: 1; }
+        .status-name { font-size: 13px; font-weight: 600; color: var(--text-primary); }
+        .status-detail { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
+        .status-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .badge-online { background: rgba(0, 255, 136, 0.2); color: var(--accent-green); }
+        .badge-busy { background: rgba(255, 136, 0, 0.2); color: var(--accent-orange); }
+        .badge-syncing { background: rgba(0, 212, 255, 0.2); color: var(--accent-cyan); }
+
+        /* Metrics Grid */
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .metric-row:last-child { border-bottom: none; }
+        .metric-label { font-size: 13px; color: var(--text-secondary); }
+        .metric-value { font-size: 16px; font-weight: 700; color: var(--text-primary); }
+        .metric-value.good { color: var(--accent-green); }
+        .metric-value.warn { color: var(--accent-orange); }
+        .metric-value.critical { color: var(--accent-red); }
+
+        /* Code Block */
+        .code-block {
+            background: var(--bg-code);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 12px;
+            overflow-x: auto;
+            position: relative;
+        }
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .code-method {
+            display: flex;
+            gap: 8px;
+        }
+        .method-get { color: var(--accent-green); font-weight: 700; }
+        .method-post { color: var(--accent-orange); font-weight: 700; }
+        .method-put { color: var(--accent-cyan); font-weight: 700; }
+        .method-delete { color: var(--accent-red); font-weight: 700; }
+        .method-ws { color: var(--accent-purple); font-weight: 700; }
+        .endpoint-path { color: var(--text-secondary); }
+        .copy-btn {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .copy-btn:hover {
+            background: var(--accent-cyan);
+            color: var(--bg-primary);
+        }
+        .code-content {
+            color: var(--code-blue);
+            line-height: 1.6;
+        }
+        .code-content .key { color: var(--code-purple); }
+        .code-content .string { color: var(--code-green); }
+        .code-content .number { color: var(--code-orange); }
+        .code-content .comment { color: var(--text-dim); }
+
+        /* Endpoint List */
+        .endpoint-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .endpoint-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: var(--bg-tertiary);
+            border-radius: 6px;
+            border: 1px solid transparent;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .endpoint-item:hover {
+            border-color: var(--accent-cyan);
+            background: rgba(0, 212, 255, 0.05);
+        }
+        .endpoint-method {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 700;
+            min-width: 50px;
+            text-align: center;
+        }
+        .endpoint-method.get { background: rgba(0, 255, 136, 0.2); color: var(--accent-green); }
+        .endpoint-method.post { background: rgba(255, 136, 0, 0.2); color: var(--accent-orange); }
+        .endpoint-method.put { background: rgba(0, 212, 255, 0.2); color: var(--accent-cyan); }
+        .endpoint-method.delete { background: rgba(255, 0, 68, 0.2); color: var(--accent-red); }
+        .endpoint-method.ws { background: rgba(136, 0, 255, 0.2); color: var(--accent-purple); }
+        .endpoint-path-text { flex: 1; font-size: 13px; font-family: monospace; color: var(--text-primary); }
+        .endpoint-desc { font-size: 11px; color: var(--text-secondary); }
+
+        /* Webhook Events */
+        .event-stream {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .event-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px;
+            border-bottom: 1px solid var(--border-color);
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(-10px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .event-item:last-child { border-bottom: none; }
+        .event-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            margin-top: 6px;
+            flex-shrink: 0;
+        }
+        .event-dot.success { background: var(--accent-green); box-shadow: 0 0 8px var(--accent-green); }
+        .event-dot.warning { background: var(--accent-orange); box-shadow: 0 0 8px var(--accent-orange); }
+        .event-dot.error { background: var(--accent-red); box-shadow: 0 0 8px var(--accent-red); }
+        .event-dot.info { background: var(--accent-cyan); box-shadow: 0 0 8px var(--accent-cyan); }
+        .event-content { flex: 1; }
+        .event-title { font-size: 13px; font-weight: 600; color: var(--text-primary); }
+        .event-meta { font-size: 11px; color: var(--text-secondary); margin-top: 4px; }
+        .event-time { font-size: 10px; color: var(--text-dim); }
+
+        /* Connection Status */
+        .connection-status {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 15px;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+        }
+        .connection-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .connection-dot {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            animation: blink 1s infinite;
+        }
+        .connection-dot.connected { background: var(--accent-green); }
+        .connection-dot.connecting { background: var(--accent-orange); }
+        .connection-dot.disconnected { background: var(--accent-red); }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .connection-label { font-size: 12px; color: var(--text-secondary); }
+        .connection-value { font-size: 14px; font-weight: 600; color: var(--text-primary); }
+
+        /* Latency Chart */
+        .latency-chart {
+            height: 150px;
+            display: flex;
+            align-items: flex-end;
+            gap: 4px;
+            padding-top: 20px;
+        }
+        .latency-bar {
+            flex: 1;
+            background: linear-gradient(to top, var(--accent-cyan), var(--accent-purple));
+            border-radius: 2px 2px 0 0;
+            min-height: 5px;
+            position: relative;
+        }
+        .latency-bar:hover::after {
+            content: attr(data-value) 'ms';
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-tertiary);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            white-space: nowrap;
+        }
+
+        /* Request Rate Chart */
+        .rate-chart {
+            height: 120px;
+            position: relative;
+            background: var(--bg-tertiary);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        .rate-line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+        }
+        .rate-fill {
+            fill: url(#rateGradient);
+            opacity: 0.6;
+        }
+        .rate-stroke {
+            fill: none;
+            stroke: var(--accent-cyan);
+            stroke-width: 2;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        .action-btn {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .action-btn:hover {
+            border-color: var(--accent-cyan);
+            background: rgba(0, 212, 255, 0.05);
+        }
+        .action-btn:active {
+            transform: scale(0.98);
+        }
+        .action-icon { font-size: 20px; margin-bottom: 8px; }
+        .action-label { font-size: 11px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; }
+
+        /* API Key Section */
+        .api-key-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: var(--bg-tertiary);
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+        .api-key-label { font-size: 12px; color: var(--text-secondary); min-width: 100px; }
+        .api-key-value {
+            flex: 1;
+            font-family: monospace;
+            font-size: 13px;
+            color: var(--accent-cyan);
+            background: var(--bg-code);
+            padding: 8px 12px;
+            border-radius: 4px;
+            letter-spacing: 1px;
+        }
+        .api-key-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .api-key-btn:hover {
+            border-color: var(--accent-cyan);
+            color: var(--accent-cyan);
+        }
+
+        /* Rate Limits */
+        .rate-limit-item {
+            margin-bottom: 15px;
+        }
+        .rate-limit-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        .rate-limit-name { font-size: 12px; color: var(--text-secondary); }
+        .rate-limit-value { font-size: 12px; color: var(--text-primary); }
+        .rate-limit-bar {
+            height: 6px;
+            background: var(--bg-tertiary);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .rate-limit-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.3s;
+        }
+        .rate-limit-fill.good { background: var(--accent-green); }
+        .rate-limit-fill.warn { background: var(--accent-orange); }
+        .rate-limit-fill.critical { background: var(--accent-red); }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-dim); }
+
+        /* Responsive */
+        @media (max-width: 1400px) {
+            .span-3 { grid-column: span 6; }
+            .span-4 { grid-column: span 6; }
+        }
+        @media (max-width: 900px) {
+            .container { padding: 20px; }
+            .span-3, .span-4, .span-6, .span-8 { grid-column: span 12; }
+            .quick-actions { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <a href="mission_control_unified.html" class="home-btn">🏠 HOME</a>
+        <a href="mission_control_projects.html" class="nav-link">📁 Projects</a>
+        <a href="mission_control_analytics.html" class="nav-link">Analytics</a>
+        <a href="mission_control_scheduler.html" class="nav-link">Scheduler</a>
+        <a href="mission_control_content_intelligence.html" class="nav-link">Content</a>
+        <a href="mission_control_engagement_live.html" class="nav-link">Live</a>
+        <a href="mission_control_campaigns.html" class="nav-link">Campaigns</a>
+        <a href="mission_control_cross_platform.html" class="nav-link">Cross-Platform</a>
+        <a href="mission_control_api_gateway.html" class="nav-link active">API</a>
+    </nav>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <div class="logo-icon">🔌</div>
+            <div class="logo-text">API <span>GATEWAY</span></div>
+        </div>
+        <div class="version-badge">v9.0 Live Data Layer</div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Server Status -->
+        <div class="card span-6" style="border-top: 3px solid var(--accent-green);">
+            <div class="card-title">🖥️ Server Status</div>
+            <div class="server-status-grid">
+                <div class="status-card green">
+                    <div class="status-icon online">✓</div>
+                    <div class="status-info">
+                        <div class="status-name">REST API Server</div>
+                        <div class="status-detail">Port 3000 • HTTP/2</div>
+                    </div>
+                    <div class="status-badge badge-online">Online</div>
+                </div>
+                <div class="status-card cyan">
+                    <div class="status-icon syncing">⚡</div>
+                    <div class="status-info">
+                        <div class="status-name">WebSocket Hub</div>
+                        <div class="status-detail">Port 3001 • WS/WSS</div>
+                    </div>
+                    <div class="status-badge badge-syncing">Active</div>
+                </div>
+                <div class="status-card purple">
+                    <div class="status-icon idle">📡</div>
+                    <div class="status-info">
+                        <div class="status-name">Webhook Receiver</div>
+                        <div class="status-detail">Port 3002 • HTTPS</div>
+                    </div>
+                    <div class="status-badge badge-online">Listening</div>
+                </div>
+                <div class="status-card orange">
+                    <div class="status-icon busy">💾</div>
+                    <div class="status-info">
+                        <div class="status-name">Data Persistence</div>
+                        <div class="status-detail">SQLite + JSON</div>
+                    </div>
+                    <div class="status-badge badge-online">Connected</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Connection Status -->
+        <div class="card span-6" style="border-top: 3px solid var(--accent-cyan);">
+            <div class="card-title">📊 Connection Metrics</div>
+            <div class="connection-status" style="margin-bottom: 20px;">
+                <div class="connection-indicator">
+                    <div class="connection-dot connected"></div>
+                    <div>
+                        <div class="connection-label">WebSocket</div>
+                        <div class="connection-value">Connected</div>
+                    </div>
+                </div>
+                <div class="connection-indicator">
+                    <div class="connection-dot connected"></div>
+                    <div>
+                        <div class="connection-label">Latency</div>
+                        <div class="connection-value">23ms</div>
+                    </div>
+                </div>
+                <div class="connection-indicator">
+                    <div class="connection-dot connected"></div>
+                    <div>
+                        <div class="connection-label">Uptime</div>
+                        <div class="connection-value">99.97%</div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-title">Latency History (24h)</div>
+            <div class="latency-chart">
+                <div class="latency-bar" style="height: 35%;" data-value="28"></div>
+                <div class="latency-bar" style="height: 40%;" data-value="32"></div>
+                <div class="latency-bar" style="height: 30%;" data-value="24"></div>
+                <div class="latency-bar" style="height: 45%;" data-value="36"></div>
+                <div class="latency-bar" style="height: 38%;" data-value="30"></div>
+                <div class="latency-bar" style="height: 55%;" data-value="44"></div>
+                <div class="latency-bar" style="height: 42%;" data-value="33"></div>
+                <div class="latency-bar" style="height: 28%;" data-value="22"></div>
+                <div class="latency-bar" style="height: 32%;" data-value="25"></div>
+                <div class="latency-bar" style="height: 48%;" data-value="38"></div>
+                <div class="latency-bar" style="height: 35%;" data-value="27"></div>
+                <div class="latency-bar" style="height: 30%;" data-value="23"></div>
+                <div class="latency-bar" style="height: 40%;" data-value="31"></div>
+                <div class="latency-bar" style="height: 52%;" data-value="41"></div>
+                <div class="latency-bar" style="height: 38%;" data-value="29"></div>
+                <div class="latency-bar" style="height: 33%;" data-value="26"></div>
+                <div class="latency-bar" style="height: 45%;" data-value="35"></div>
+                <div class="latency-bar" style="height: 28%;" data-value="21"></div>
+                <div class="latency-bar" style="height: 35%;" data-value="27"></div>
+                <div class="latency-bar" style="height: 42%;" data-value="33"></div>
+                <div class="latency-bar" style="height: 30%;" data-value="23"></div>
+                <div class="latency-bar" style="height: 48%;" data-value="37"></div>
+                <div class="latency-bar" style="height: 38%;" data-value="29"></div>
+                <div class="latency-bar" style="height: 32%;" data-value="25"></div>
+            </div>
+        </div>
+
+        <!-- API Metrics -->
+        <div class="card span-3" style="border-top: 3px solid var(--accent-orange);">
+            <div class="card-title">📈 API Metrics</div>
+            <div class="metric-row">
+                <span class="metric-label">Total Requests (24h)</span>
+                <span class="metric-value good">47,832</span>
+            </div>
+            <div class="metric-row">
+                <span class="metric-label">Requests/min</span>
+                <span class="metric-value good">33.2</span>
+            </div>
+            <div class="metric-row">
+                <span class="metric-label">Success Rate</span>
+                <span class="metric-value good">99.4%</span>
+            </div>
+            <div class="metric-row">
+                <span class="metric-label">Avg Response Time</span>
+                <span class="metric-value good">42ms</span>
+            </div>
+            <div class="metric-row">
+                <span class="metric-label">Error Rate</span>
+                <span class="metric-value good">0.06%</span>
+            </div>
+            <div class="metric-row">
+                <span class="metric-label">Cache Hit Rate</span>
+                <span class="metric-value good">78%</span>
+            </div>
+        </div>
+
+        <!-- Active Connections -->
+        <div class="card span-3" style="border-top: 3px solid var(--accent-purple);">
+            <div class="card-title">👥 Active Connections</div>
+            <div class="metric-row">
+                <span class="metric-label">WebSocket Clients</span>
+                <span class="metric-value">24</span>
+            </div>
+            <div class="metric-row">
+                <span class="metric-label">Dashboard Instances</span>
+                <span class="metric-value">9</span>
+            </div>
+            <div class="metric-row">
+                <span class="metric-label">External Webhooks</span>
+                <span class="metric-value">6</span>
+            </div>
+            <div class="metric-row">
+                <span class="metric-label">Mobile Clients</span>
+                <span class="metric-value">3</span>
+            </div>
+            <div class="metric-row">
+                <span class="metric-label">Bot Connections</span>
+                <span class="metric-value warn">12</span>
+            </div>
+            <div class="metric-row">
+                <span class="metric-label">Peak Concurrent</span>
+                <span class="metric-value">87</span>
+            </div>
+        </div>
+
+        <!-- Request Rate Chart -->
+        <div class="card span-6" style="border-top: 3px solid var(--accent-cyan);">
+            <div class="card-title">📊 Request Rate (requests/min)</div>
+            <div class="rate-chart">
+                <svg viewBox="0 0 400 120" preserveAspectRatio="none">
+                    <defs>
+                        <linearGradient id="rateGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:0.8" />
+                            <stop offset="100%" style="stop-color:#00d4ff;stop-opacity:0.1" />
+                        </linearGradient>
+                    </defs>
+                    <path class="rate-fill" d="M0,120 L0,80 L20,75 L40,85 L60,70 L80,60 L100,65 L120,55 L140,50 L160,45 L180,40 L200,35 L220,38 L240,30 L260,25 L280,28 L300,20 L320,22 L340,18 L360,15 L380,20 L400,18 L400,120 Z" />
+                    <path class="rate-stroke" d="M0,80 L20,75 L40,85 L60,70 L80,60 L100,65 L120,55 L140,50 L160,45 L180,40 L200,35 L220,38 L240,30 L260,25 L280,28 L300,20 L320,22 L340,18 L360,15 L380,20 L400,18" />
+                </svg>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-top: 10px; font-size: 11px; color: var(--text-secondary);">
+                <span>00:00</span>
+                <span>06:00</span>
+                <span>12:00</span>
+                <span>18:00</span>
+                <span>Now</span>
+            </div>
+        </div>
+
+        <!-- REST Endpoints -->
+        <div class="card span-6" style="border-top: 3px solid var(--accent-green);">
+            <div class="card-title">🌐 REST API Endpoints</div>
+            <div class="endpoint-list">
+                <div class="endpoint-item">
+                    <span class="endpoint-method get">GET</span>
+                    <span class="endpoint-path-text">/api/v1/dashboard/status</span>
+                    <span class="endpoint-desc">System health & status</span>
+                </div>
+                <div class="endpoint-item">
+                    <span class="endpoint-method get">GET</span>
+                    <span class="endpoint-path-text">/api/v1/metrics/realtime</span>
+                    <span class="endpoint-desc">Live metrics feed</span>
+                </div>
+                <div class="endpoint-item">
+                    <span class="endpoint-method get">GET</span>
+                    <span class="endpoint-path-text">/api/v1/campaigns</span>
+                    <span class="endpoint-desc">List all campaigns</span>
+                </div>
+                <div class="endpoint-item">
+                    <span class="endpoint-method post">POST</span>
+                    <span class="endpoint-path-text">/api/v1/campaigns</span>
+                    <span class="endpoint-desc">Create new campaign</span>
+                </div>
+                <div class="endpoint-item">
+                    <span class="endpoint-method get">GET</span>
+                    <span class="endpoint-path-text">/api/v1/content/queue</span>
+                    <span class="endpoint-desc">Content queue status</span>
+                </div>
+                <div class="endpoint-item">
+                    <span class="endpoint-method post">POST</span>
+                    <span class="endpoint-path-text">/api/v1/workflows/trigger</span>
+                    <span class="endpoint-desc">Execute workflow</span>
+                </div>
+                <div class="endpoint-item">
+                    <span class="endpoint-method put">PUT</span>
+                    <span class="endpoint-path-text">/api/v1/settings/update</span>
+                    <span class="endpoint-desc">Update configuration</span>
+                </div>
+                <div class="endpoint-item">
+                    <span class="endpoint-method delete">DELETE</span>
+                    <span class="endpoint-path-text">/api/v1/campaigns/:id</span>
+                    <span class="endpoint-desc">Delete campaign</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- WebSocket Events -->
+        <div class="card span-6" style="border-top: 3px solid var(--accent-purple);">
+            <div class="card-title">⚡ WebSocket Events</div>
+            <div class="endpoint-list">
+                <div class="endpoint-item">
+                    <span class="endpoint-method ws">WS</span>
+                    <span class="endpoint-path-text">ws://localhost:3001/live</span>
+                    <span class="endpoint-desc">Real-time dashboard updates</span>
+                </div>
+                <div class="endpoint-item">
+                    <span class="endpoint-method ws">WS</span>
+                    <span class="endpoint-path-text">ws://localhost:3001/metrics</span>
+                    <span class="endpoint-desc">Metrics stream</span>
+                </div>
+                <div class="endpoint-item">
+                    <span class="endpoint-method ws">WS</span>
+                    <span class="endpoint-path-text">ws://localhost:3001/alerts</span>
+                    <span class="endpoint-desc">Alert notifications</span>
+                </div>
+            </div>
+            <div class="card-title" style="margin-top: 20px;">📡 Live Event Stream</div>
+            <div class="event-stream">
+                <div class="event-item">
+                    <div class="event-dot success"></div>
+                    <div class="event-content">
+                        <div class="event-title">Campaign Published</div>
+                        <div class="event-meta">Healthcare Innovation Series • Post 8/12</div>
+                    </div>
+                    <div class="event-time">10:21:03</div>
+                </div>
+                <div class="event-item">
+                    <div class="event-dot info"></div>
+                    <div class="event-content">
+                        <div class="event-title">Metrics Updated</div>
+                        <div class="event-meta">Cross-platform engagement: +12%</div>
+                    </div>
+                    <div class="event-time">10:20:47</div>
+                </div>
+                <div class="event-item">
+                    <div class="event-dot success"></div>
+                    <div class="event-content">
+                        <div class="event-title">Workflow Completed</div>
+                        <div class="event-meta">Daily Market Summary • Duration: 5m 12s</div>
+                    </div>
+                    <div class="event-time">10:18:22</div>
+                </div>
+                <div class="event-item">
+                    <div class="event-dot warning"></div>
+                    <div class="event-content">
+                        <div class="event-title">Webhook Delay Detected</div>
+                        <div class="event-meta">NewsAPI • Latency: 456ms (threshold: 300ms)</div>
+                    </div>
+                    <div class="event-time">10:15:08</div>
+                </div>
+                <div class="event-item">
+                    <div class="event-dot success"></div>
+                    <div class="event-content">
+                        <div class="event-title">New Connection</div>
+                        <div class="event-meta">Dashboard instance joined • ID: node-gamma-7</div>
+                    </div>
+                    <div class="event-time">10:12:34</div>
+                </div>
+                <div class="event-item">
+                    <div class="event-dot info"></div>
+                    <div class="event-content">
+                        <div class="event-title">Content Generated</div>
+                        <div class="event-meta">Score: 94 • Type: Thread • Pillar: Healthcare</div>
+                    </div>
+                    <div class="event-time">10:08:15</div>
+                </div>
+                <div class="event-item">
+                    <div class="event-dot success"></div>
+                    <div class="event-content">
+                        <div class="event-title">Auto-Reply Sent</div>
+                        <div class="event-meta">@TheLongInvestor • Confidence: 94%</div>
+                    </div>
+                    <div class="event-time">10:05:42</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Code Examples -->
+        <div class="card span-6" style="border-top: 3px solid var(--accent-yellow);">
+            <div class="card-title">💻 API Usage Examples</div>
+            <div class="code-block" style="margin-bottom: 15px;">
+                <div class="code-header">
+                    <div class="code-method">
+                        <span class="method-get">GET</span>
+                        <span class="endpoint-path">/api/v1/dashboard/status</span>
+                    </div>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <div class="code-content">
+<span class="key">const</span> response = <span class="key">await</span> fetch(<span class="string">'/api/v1/dashboard/status'</span>);
+<span class="key">const</span> data = <span class="key">await</span> response.json();
+<span class="comment">// Returns: { status, version, uptime, services }</span>
+                </div>
+            </div>
+            <div class="code-block" style="margin-bottom: 15px;">
+                <div class="code-header">
+                    <div class="code-method">
+                        <span class="method-post">POST</span>
+                        <span class="endpoint-path">/api/v1/workflows/trigger</span>
+                    </div>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <div class="code-content">
+<span class="key">const</span> response = <span class="key">await</span> fetch(<span class="string">'/api/v1/workflows/trigger'</span>, {
+  method: <span class="string">'POST'</span>,
+  headers: { <span class="string">'Content-Type'</span>: <span class="string">'application/json'</span> },
+  body: <span class="string">JSON.stringify({ workflowId: </span><span class="string">'market-summary'</span>, params: {} )
+});
+                </div>
+            </div>
+            <div class="code-block">
+                <div class="code-header">
+                    <div class="code-method">
+                        <span class="method-ws">WS</span>
+                        <span class="endpoint-path">ws://localhost:3001/live</span>
+                    </div>
+                    <button class="copy-btn">Copy</button>
+                </div>
+                <div class="code-content">
+<span class="key">const</span> ws = <span class="key">new</span> WebSocket(<span class="string">'ws://localhost:3001/live'</span>);
+ws.onmessage = (event) => {
+  <span class="key">const</span> update = JSON.parse(event.data);
+  updateDashboard(update); <span class="comment">// Real-time updates</span>
+};
+                </div>
+            </div>
+        </div>
+
+        <!-- Rate Limits -->
+        <div class="card span-3" style="border-top: 3px solid var(--accent-orange);">
+            <div class="card-title">🚦 Rate Limits</div>
+            <div class="rate-limit-item">
+                <div class="rate-limit-header">
+                    <span class="rate-limit-name">REST API (authenticated)</span>
+                    <span class="rate-limit-value">847 / 1,000</span>
+                </div>
+                <div class="rate-limit-bar">
+                    <div class="rate-limit-fill good" style="width: 84.7%;"></div>
+                </div>
+            </div>
+            <div class="rate-limit-item">
+                <div class="rate-limit-header">
+                    <span class="rate-limit-name">REST API (public)</span>
+                    <span class="rate-limit-value">156 / 500</span>
+                </div>
+                <div class="rate-limit-bar">
+                    <div class="rate-limit-fill good" style="width: 31.2%;"></div>
+                </div>
+            </div>
+            <div class="rate-limit-item">
+                <div class="rate-limit-header">
+                    <span class="rate-limit-name">Webhook Ingestion</span>
+                    <span class="rate-limit-value">45 / 100</span>
+                </div>
+                <div class="rate-limit-bar">
+                    <div class="rate-limit-fill good" style="width: 45%;"></div>
+                </div>
+            </div>
+            <div class="rate-limit-item">
+                <div class="rate-limit-header">
+                    <span class="rate-limit-name">WebSocket Messages</span>
+                    <span class="rate-limit-value">1,247 / 10,000</span>
+                </div>
+                <div class="rate-limit-bar">
+                    <div class="rate-limit-fill good" style="width: 12.5%;"></div>
+                </div>
+            </div>
+            <div class="rate-limit-item">
+                <div class="rate-limit-header">
+                    <span class="rate-limit-name">Content Generation</span>
+                    <span class="rate-limit-value">9 / 50</span>
+                </div>
+                <div class="rate-limit-bar">
+                    <div class="rate-limit-fill good" style="width: 18%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- API Keys -->
+        <div class="card span-3" style="border-top: 3px solid var(--accent-red);">
+            <div class="card-title">🔑 API Keys</div>
+            <div class="api-key-row">
+                <span class="api-key-label">Production</span>
+                <span class="api-key-value">mc_live_••••••••8f3d</span>
+                <button class="api-key-btn">Show</button>
+            </div>
+            <div class="api-key-row">
+                <span class="api-key-label">Development</span>
+                <span class="api-key-value">mc_dev_••••••••2a9b</span>
+                <button class="api-key-btn">Show</button>
+            </div>
+            <div class="api-key-row">
+                <span class="api-key-label">Webhook</span>
+                <span class="api-key-value">wh_sec_••••••••7c1e</span>
+                <button class="api-key-btn">Show</button>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="card span-12" style="border-top: 3px solid var(--accent-cyan);">
+            <div class="card-title">⚡ Quick Actions</div>
+            <div class="quick-actions">
+                <div class="action-btn">
+                    <div class="action-icon">🔄</div>
+                    <div class="action-label">Restart API</div>
+                </div>
+                <div class="action-btn">
+                    <div class="action-icon">🧹</div>
+                    <div class="action-label">Clear Cache</div>
+                </div>
+                <div class="action-btn">
+                    <div class="action-icon">📋</div>
+                    <div class="action-label">View Logs</div>
+                </div>
+                <div class="action-btn">
+                    <div class="action-icon">🔧</div>
+                    <div class="action-label">Diagnostics</div>
+                </div>
+                <div class="action-btn">
+                    <div class="action-icon">📤</div>
+                    <div class="action-label">Export Data</div>
+                </div>
+                <div class="action-btn">
+                    <div class="action-icon">🔒</div>
+                    <div class="action-label">Rotate Keys</div>
+                </div>
+                <div class="action-btn">
+                    <div class="action-icon">📊</div>
+                    <div class="action-label">Metrics</div>
+                </div>
+                <div class="action-btn">
+                    <div class="action-icon">🌐</div>
+                    <div class="action-label">Test Endpoint</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simulated real-time updates
+        setInterval(() => {
+            // Update latency chart with slight variations
+            const bars = document.querySelectorAll('.latency-bar');
+            bars.forEach(bar => {
+                const baseHeight = parseInt(bar.style.height);
+                const variation = Math.floor(Math.random() * 10) - 5;
+                const newHeight = Math.max(15, Math.min(70, baseHeight + variation));
+                bar.style.height = newHeight + '%';
+                bar.setAttribute('data-value', Math.floor(newHeight * 0.8));
+            });
+
+            // Update connection metrics
+            const latencyValue = document.querySelector('.connection-indicator:nth-child(2) .connection-value');
+            if (latencyValue) {
+                const newLatency = 20 + Math.floor(Math.random() * 10);
+                latencyValue.textContent = newLatency + 'ms';
+            }
+        }, 3000);
+
+        // Copy button functionality
+        document.querySelectorAll('.copy-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const codeBlock = this.closest('.code-block').querySelector('.code-content');
+                const text = codeBlock.textContent;
+                navigator.clipboard.writeText(text).then(() => {
+                    this.textContent = 'Copied!';
+                    setTimeout(() => this.textContent = 'Copy', 1500);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

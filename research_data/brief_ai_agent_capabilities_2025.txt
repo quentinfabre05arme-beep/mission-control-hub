@@ -1,0 +1,23 @@
+
+=== Research Brief: AI Agent Capabilities 2025 ===
+Generated: 2026-07-13 07:19 Paris Time
+
+OBJECTIVE:
+- Investigate latest developments in AI Agent Capabilities 2025
+- Identify actionable insights for implementation
+- Document best practices and patterns
+
+RESEARCH QUESTIONS:
+1. What are the current state-of-the-art approaches?
+2. What tools/frameworks are most effective?
+3. What metrics should we track?
+4. How can we implement this efficiently?
+
+DELIVERABLES:
+- Summary report with key findings
+- Implementation recommendations
+- Resource links and references
+- Action items for next steps
+
+STATUS: Ready for research execution
+=== END BRIEF ===

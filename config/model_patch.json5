@@ -1,0 +1,9 @@
+{
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "ollama-cloud/kimi-k2.6"
+      }
+    }
+  }
+}

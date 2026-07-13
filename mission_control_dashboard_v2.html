@@ -1,0 +1,1860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@quentinvest1 | MISSION CONTROL</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-tertiary: #1a1a1a;
+            --bg-card: #161616;
+            --accent-cyan: #00d4ff;
+            --accent-green: #00ff88;
+            --accent-orange: #ff8800;
+            --accent-red: #ff0044;
+            --accent-purple: #8800ff;
+            --accent-gold: #ffd700;
+            --text-primary: #ffffff;
+            --text-secondary: #888888;
+            --text-dim: #444444;
+            --border-color: #222222;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto Mono', monospace;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(transparent 50%, rgba(0, 212, 255, 0.02) 50%);
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        /* Navigation */
+        .nav {
+            position: sticky;
+            top: 0;
+            background: rgba(17, 17, 17, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0 30px;
+            display: flex;
+            gap: 0;
+            overflow-x: auto;
+            z-index: 999;
+        }
+
+        .nav-link {
+            padding: 14px 18px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--accent-cyan);
+            border-bottom-color: var(--accent-cyan);
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+            border-bottom: 2px solid var(--accent-cyan);
+            padding: 25px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo-icon {
+            width: 55px;
+            height: 55px;
+            border: 3px solid var(--accent-cyan);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 15px var(--accent-cyan); }
+            50% { box-shadow: 0 0 35px var(--accent-cyan), 0 0 70px var(--accent-cyan); }
+        }
+
+        .header-title {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .header-title span {
+            color: var(--accent-cyan);
+        }
+
+        .header-subtitle {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        .header-right {
+            text-align: right;
+        }
+
+        .time-display {
+            font-size: 32px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: var(--accent-cyan);
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        .date-display {
+            font-size: 13px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 4px;
+        }
+
+        /* Container */
+        .container {
+            padding: 25px 40px;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+            padding-bottom: 120px;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 22px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            border-color: var(--accent-cyan);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.1);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+        }
+
+        .card-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--text-secondary);
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-title::before {
+            content: '◆';
+            color: var(--accent-cyan);
+        }
+
+        /* Daily Rhythm Card - Full Width */
+        .daily-rhythm {
+            grid-column: span 12;
+        }
+
+        .daily-rhythm::before { background: var(--accent-cyan); }
+
+        .rhythm-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .rhythm-current {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .rhythm-phase {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--accent-cyan);
+        }
+
+        .rhythm-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .rhythm-next {
+            font-size: 13px;
+            color: var(--accent-green);
+            margin-top: 8px;
+        }
+
+        .rhythm-stat {
+            text-align: center;
+            padding: 15px;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+        }
+
+        .rhythm-stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--accent-green);
+        }
+
+        .rhythm-stat-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 6px;
+        }
+
+        /* X Mission Card */
+        .x-mission {
+            grid-column: span 4;
+        }
+
+        .x-mission::before { background: var(--accent-cyan); }
+
+        .x-handle {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+
+        .followers-big {
+            font-size: 64px;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            font-family: 'Roboto Mono', monospace;
+            line-height: 1;
+        }
+
+        .followers-change {
+            font-size: 14px;
+            color: var(--accent-green);
+            margin-top: 8px;
+        }
+
+        .followers-change.negative { color: var(--accent-red); }
+
+        .progress-section {
+            margin-top: 20px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 12px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: var(--bg-tertiary);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-green));
+            border-radius: 5px;
+            transition: width 0.5s;
+        }
+
+        .x-stats-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .x-stat-item {
+            text-align: center;
+            padding: 15px;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+        }
+
+        .x-stat-value {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--accent-green);
+        }
+
+        .x-stat-label {
+            font-size: 10px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            margin-top: 5px;
+            letter-spacing: 1px;
+        }
+
+        /* What to Post Card */
+        .what-to-post {
+            grid-column: span 5;
+        }
+
+        .what-to-post::before { background: var(--accent-green); }
+
+        .post-urgent {
+            background: linear-gradient(135deg, rgba(255, 0, 68, 0.1) 0%, rgba(136, 0, 255, 0.1) 100%);
+            border: 1px solid var(--accent-red);
+            border-radius: 10px;
+            padding: 18px;
+            margin-bottom: 15px;
+        }
+
+        .post-priority {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+
+        .post-priority.urgent {
+            background: var(--accent-red);
+            color: var(--bg-primary);
+        }
+
+        .post-title {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .post-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .post-hook {
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-style: italic;
+            padding: 12px;
+            background: var(--bg-primary);
+            border-radius: 6px;
+            border-left: 3px solid var(--accent-cyan);
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 12px;
+            background: var(--accent-green);
+            border: none;
+            border-radius: 6px;
+            color: var(--bg-primary);
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-cyan);
+            transform: translateY(-2px);
+        }
+
+        .post-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .post-item {
+            padding: 12px;
+            background: var(--bg-tertiary);
+            border-radius: 6px;
+            border-left: 3px solid var(--accent-orange);
+        }
+
+        .post-item-title {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .post-item-meta {
+            display: flex;
+            gap: 10px;
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        /* Content Pillars Card */
+        .content-pillars {
+            grid-column: span 3;
+        }
+
+        .content-pillars::before { background: var(--accent-purple); }
+
+        .pillar-item {
+            padding: 15px;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            margin-bottom: 12px;
+            border-left: 4px solid var(--border-color);
+            transition: all 0.3s;
+        }
+
+        .pillar-item:hover {
+            border-left-color: var(--accent-cyan);
+            transform: translateX(5px);
+        }
+
+        .pillar-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .pillar-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .pillar-icon {
+            font-size: 24px;
+        }
+
+        .pillar-name {
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .pillar-status {
+            font-size: 10px;
+            padding: 3px 10px;
+            border-radius: 10px;
+            margin-left: auto;
+            font-weight: 600;
+        }
+
+        .pillar-status.posted { background: var(--accent-green); color: var(--bg-primary); }
+        .pillar-status.ready { background: var(--accent-cyan); color: var(--bg-primary); }
+        .pillar-status.researching { background: var(--accent-orange); color: var(--bg-primary); }
+
+        .pillar-stats {
+            display: flex;
+            gap: 15px;
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        /* Ollama Usage */
+        .ollama-usage {
+            grid-column: span 6;
+        }
+
+        .ollama-usage::before { background: var(--accent-cyan); }
+
+        .usage-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .usage-tier {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .usage-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .usage-item {
+            text-align: center;
+            padding: 15px;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+        }
+
+        .usage-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent-cyan);
+        }
+
+        .usage-value.warning { color: var(--accent-orange); }
+        .usage-value.danger { color: var(--accent-red); }
+
+        .usage-label {
+            font-size: 10px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            margin-top: 6px;
+            letter-spacing: 1px;
+        }
+
+        .usage-bar-container {
+            background: var(--bg-tertiary);
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .usage-bar-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 12px;
+        }
+
+        .usage-bar {
+            width: 100%;
+            height: 10px;
+            background: var(--bg-primary);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .usage-bar-fill {
+            height: 100%;
+            border-radius: 5px;
+            transition: width 1s ease;
+        }
+
+        .usage-bar-fill.safe { background: linear-gradient(90deg, var(--accent-green), #00cc66); }
+        .usage-bar-fill.warning { background: linear-gradient(90deg, var(--accent-orange), #cc6600); }
+        .usage-bar-fill.danger { background: linear-gradient(90deg, var(--accent-red), #cc0033); }
+
+        /* BCM Status */
+        .bcm-status {
+            grid-column: span 6;
+        }
+
+        .bcm-status::before { background: var(--accent-purple); }
+
+        .bcm-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .bcm-tier {
+            padding: 18px;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .bcm-tier:hover {
+            border-color: var(--accent-cyan);
+        }
+
+        .bcm-tier.brain:hover { border-color: var(--accent-purple); }
+        .bcm-tier.coding:hover { border-color: var(--accent-orange); }
+        .bcm-tier.muscles:hover { border-color: var(--accent-green); }
+
+        .tier-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .tier-icon-name {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tier-icon {
+            font-size: 22px;
+        }
+
+        .tier-name {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tier-status-badge {
+            font-size: 9px;
+            padding: 3px 8px;
+            border-radius: 10px;
+            background: var(--accent-green);
+            color: var(--bg-primary);
+            font-weight: 700;
+        }
+
+        .tier-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .tier-stat {
+            text-align: center;
+            padding: 10px;
+            background: var(--bg-primary);
+            border-radius: 6px;
+        }
+
+        .tier-stat-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent-cyan);
+        }
+
+        .tier-stat-label {
+            font-size: 9px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            margin-top: 4px;
+            letter-spacing: 1px;
+        }
+
+        .tier-last-task {
+            font-size: 10px;
+            color: var(--text-secondary);
+            padding: 8px;
+            background: var(--bg-primary);
+            border-radius: 4px;
+            border-left: 3px solid var(--accent-cyan);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Engagement Targets */
+        .engagement-targets {
+            grid-column: span 4;
+        }
+
+        .engagement-targets::before { background: var(--accent-orange); }
+
+        .target-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: var(--bg-tertiary);
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        .target-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .target-avatar {
+            width: 36px;
+            height: 36px;
+            background: var(--bg-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .target-info {
+            flex: 1;
+        }
+
+        .target-handle {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .target-focus {
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        .target-status {
+            font-size: 10px;
+            padding: 4px 10px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        .target-status.not_engaged {
+            background: var(--accent-orange);
+            color: var(--bg-primary);
+        }
+
+        /* System Health */
+        .system-health {
+            grid-column: span 4;
+        }
+
+        .system-health::before { background: var(--accent-green); }
+
+        .health-grid {
+            display: grid;
+            gap: 12px;
+        }
+
+        .health-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: var(--bg-tertiary);
+            border-radius: 6px;
+        }
+
+        .health-indicator {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--accent-green);
+            box-shadow: 0 0 10px var(--accent-green);
+            animation: pulse-green 2s infinite;
+        }
+
+        .health-indicator.warning { background: var(--accent-orange); box-shadow: 0 0 10px var(--accent-orange); }
+        .health-indicator.error { background: var(--accent-red); box-shadow: 0 0 10px var(--accent-red); }
+
+        @keyframes pulse-green {
+            0%, 100% { box-shadow: 0 0 10px var(--accent-green); }
+            50% { box-shadow: 0 0 20px var(--accent-green); }
+        }
+
+        .health-info {
+            flex: 1;
+        }
+
+        .health-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        .health-value {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        /* Weekly Summary */
+        .weekly-summary {
+            grid-column: span 4;
+        }
+
+        .weekly-summary::before { background: var(--accent-gold); }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .summary-item {
+            text-align: center;
+            padding: 15px;
+            background: var(--bg-tertiary);
+            border-radius: 6px;
+        }
+
+        .summary-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent-gold);
+        }
+
+        .summary-label {
+            font-size: 10px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            margin-top: 5px;
+            letter-spacing: 1px;
+        }
+
+        .summary-highlight {
+            grid-column: span 2;
+            padding: 12px;
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid var(--accent-gold);
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .summary-highlight-text {
+            font-size: 12px;
+            color: var(--accent-gold);
+        }
+
+        /* Active Tasks */
+        .active-tasks {
+            grid-column: span 6;
+        }
+
+        .active-tasks::before { background: var(--accent-cyan); }
+
+        .tasks-list {
+            max-height: 280px;
+            overflow-y: auto;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: var(--bg-tertiary);
+            border-radius: 6px;
+            margin-bottom: 10px;
+            border-left: 3px solid var(--accent-cyan);
+            transition: all 0.3s;
+        }
+
+        .task-item:hover {
+            transform: translateX(5px);
+        }
+
+        .task-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .task-status {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .task-status.running { 
+            background: var(--accent-green);
+            box-shadow: 0 0 10px var(--accent-green);
+            animation: blink 1.5s infinite;
+        }
+
+        .task-status.completed { background: var(--text-dim); }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .task-info {
+            flex: 1;
+        }
+
+        .task-name {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .task-meta {
+            display: flex;
+            gap: 12px;
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        .task-tier-badge {
+            font-size: 9px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .task-tier-badge.BRAIN { background: var(--accent-purple); color: var(--bg-primary); }
+        .task-tier-badge.CODING { background: var(--accent-orange); color: var(--bg-primary); }
+        .task-tier-badge.MUSCLES { background: var(--accent-green); color: var(--bg-primary); }
+        .task-tier-badge.BCM { background: var(--accent-cyan); color: var(--bg-primary); }
+
+        /* Terminal */
+        .terminal-section {
+            grid-column: span 6;
+        }
+
+        .terminal-section::before { background: var(--text-dim); }
+
+        .terminal {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 15px;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 12px;
+            max-height: 280px;
+            overflow-y: auto;
+        }
+
+        .terminal-line {
+            padding: 4px 0;
+            color: var(--text-secondary);
+            border-left: 2px solid transparent;
+            padding-left: 10px;
+            margin-left: -10px;
+        }
+
+        .terminal-line:hover {
+            background: var(--bg-tertiary);
+            border-left-color: var(--accent-cyan);
+        }
+
+        .terminal-line .timestamp {
+            color: var(--text-dim);
+            margin-right: 10px;
+        }
+
+        .terminal-line .cmd { color: var(--accent-cyan); }
+        .terminal-line .output { color: var(--accent-green); }
+        .terminal-line .error { color: var(--accent-red); }
+
+        /* Footer */
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(17, 17, 17, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--border-color);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: var(--text-secondary);
+            z-index: 100;
+        }
+
+        .footer-left {
+            display: flex;
+            gap: 30px;
+        }
+
+        .footer-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-item::before {
+            content: '●';
+            color: var(--accent-green);
+        }
+
+        .footer-item.warning::before { color: var(--accent-orange); }
+        .footer-item.error::before { color: var(--accent-red); }
+
+        /* Loading */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+            color: var(--text-secondary);
+        }
+
+        .loading::after {
+            content: '';
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border-color);
+            border-top-color: var(--accent-cyan);
+            border-radius: 50%;
+            margin-left: 10px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-dim);
+            font-size: 13px;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-dim);
+        }
+
+        /* Responsive */
+        @media (max-width: 1400px) {
+            .container {
+                grid-template-columns: repeat(6, 1fr);
+            }
+            .daily-rhythm, .ollama-usage, .bcm-status {
+                grid-column: span 6;
+            }
+            .x-mission, .what-to-post, .content-pillars, 
+            .engagement-targets, .system-health, .weekly-summary,
+            .active-tasks, .terminal-section {
+                grid-column: span 3;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                padding: 15px;
+            }
+            .card {
+                grid-column: span 1 !important;
+            }
+            .rhythm-grid, .usage-grid, .bcm-grid, .summary-grid {
+                grid-template-columns: 1fr;
+            }
+            .nav {
+                padding: 0 15px;
+            }
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <a href="#rhythm" class="nav-link">⏰ Rhythm</a>
+        <a href="#x" class="nav-link">🐦 X Mission</a>
+        <a href="#post" class="nav-link">✍️ Post Now</a>
+        <a href="#pillars" class="nav-link">📊 Pillars</a>
+        <a href="#targets" class="nav-link">🎯 Targets</a>
+        <a href="#usage" class="nav-link">💰 Usage</a>
+        <a href="#bcm" class="nav-link">🧠 BCM</a>
+        <a href="#tasks" class="nav-link">📋 Tasks</a>
+        <a href="#log" class="nav-link">📜 Log</a>
+    </nav>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <div class="logo-icon">🐾</div>
+            <div>
+                <div class="header-title">Mission <span>Control</span></div>
+                <div class="header-subtitle">@quentinvest1 Growth Dashboard</div>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="time-display" id="clock">--:--:--</div>
+            <div class="date-display" id="date">Loading...</div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Daily Rhythm - What should I be doing now? -->
+        <div class="card daily-rhythm" id="rhythm">
+            <div class="card-title">⏰ Daily Rhythm — What Should You Be Doing Now?</div>
+            <div id="rhythm-content">
+                <div class="loading">Loading rhythm...</div>
+            </div>
+        </div>
+
+        <!-- X Mission Stats -->
+        <div class="card x-mission" id="x">
+            <div class="card-title">🐦 X Mission — @quentinvest1</div>
+            <div id="x-content">
+                <div class="loading">Loading X data...</div>
+            </div>
+        </div>
+
+        <!-- What to Post NOW -->
+        <div class="card what-to-post" id="post">
+            <div class="card-title">✍️ What to Post NOW</div>
+            <div id="what-to-post-content">
+                <div class="loading">Loading content suggestions...</div>
+            </div>
+        </div>
+
+        <!-- Content Pillars -->
+        <div class="card content-pillars" id="pillars">
+            <div class="card-title">📊 Content Pillars Status</div>
+            <div id="pillars-content">
+                <div class="loading">Loading pillars...</div>
+            </div>
+        </div>
+
+        <!-- Ollama Usage -->
+        <div class="card ollama-usage" id="usage">
+            <div class="card-title">💰 Ollama Cloud Usage — Pro Tier</div>
+            <div id="ollama-content">
+                <div class="loading">Loading usage data...</div>
+            </div>
+        </div>
+
+        <!-- BCM Status -->
+        <div class="card bcm-status" id="bcm">
+            <div class="card-title">🧠 Brain-Coding-Muscles System</div>
+            <div id="bcm-content">
+                <div class="loading">Loading BCM data...</div>
+            </div>
+        </div>
+
+        <!-- Engagement Targets -->
+        <div class="card engagement-targets" id="targets">
+            <div class="card-title">🎯 Engagement Targets — Tier 1</div>
+            <div id="targets-content">
+                <div class="loading">Loading targets...</div>
+            </div>
+        </div>
+
+        <!-- System Health -->
+        <div class="card system-health" id="health">
+            <div class="card-title">❤️ System Health</div>
+            <div id="health-content" class="health-grid">
+                <div class="loading">Loading health status...</div>
+            </div>
+        </div>
+
+        <!-- Weekly Summary -->
+        <div class="card weekly-summary">
+            <div class="card-title">📈 This Week's Performance</div>
+            <div id="weekly-content">
+                <div class="loading">Loading weekly data...</div>
+            </div>
+        </div>
+
+        <!-- Active Tasks -->
+        <div class="card active-tasks" id="tasks">
+            <div class="card-title">📋 Active Sub-Agents & Tasks</div>
+            <div id="tasks-content" class="tasks-list">
+                <div class="loading">Loading tasks...</div>
+            </div>
+        </div>
+
+        <!-- Terminal Output -->
+        <div class="card terminal-section" id="log">
+            <div class="card-title">📜 Recent Activity Log</div>
+            <div id="terminal-content" class="terminal">
+                <div class="loading">Loading activity log...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-left">
+            <div class="footer-item">Claw System v2.0</div>
+            <div class="footer-item">BCM Active</div>
+            <div class="footer-item">Ollama Cloud Pro</div>
+            <div class="footer-item">@quentinvest1 Mission</div>
+        </div>
+        <div id="footer-status">Last Updated: Never | Refreshes every 2h</div>
+    </footer>
+
+    <script>
+        // Embedded data - update by running: python mission_control_data_feed.py
+        const missionData = {
+  "timestamp": "2026-07-11T13:57:21.739417",
+  "ollama_usage": {
+    "tier": "Pro ($20/month)",
+    "used_percent": 67,
+    "tokens_used": "1.2M",
+    "tokens_remaining": "3.8M estimated",
+    "daily_budget_used": "65%",
+    "reset_in": "10h",
+    "models_active": 1,
+    "cost_today": "$1.32",
+    "cost_this_week": "$8.45",
+    "days_left_in_cycle": 12
+  },
+  "bcm_stats": {
+    "brain": {
+      "tasks_today": 3,
+      "tokens": "45K",
+      "cost_share": "15%",
+      "last_task": "Market analysis - ETH treasuries",
+      "model": "deepseek-v4-pro",
+      "status": "idle"
+    },
+    "coding": {
+      "tasks_today": 5,
+      "tokens": "120K",
+      "cost_share": "35%",
+      "last_task": "Mission Control Dashboard",
+      "model": "kimi-k2.7-code",
+      "status": "idle"
+    },
+    "muscles": {
+      "tasks_today": 12,
+      "tokens": "380K",
+      "cost_share": "50%",
+      "last_task": "X thread - ETH treasury",
+      "model": "kimi-k2.5",
+      "status": "idle"
+    }
+  },
+  "x_mission": {
+    "handle": "@quentinvest1",
+    "followers": {
+      "current": 213,
+      "start": 212,
+      "target": 10000,
+      "gained_today": 1,
+      "gained_this_week": 1,
+      "progress_pct": 2.13,
+      "to_goal": 9787
+    },
+    "content": {
+      "threads_posted": 1,
+      "posts_today": 0,
+      "posts_this_week": 1,
+      "replies_today": 3,
+      "scheduled": 2
+    },
+    "engagement": {
+      "avg_impressions": 245,
+      "avg_engagements": 12,
+      "avg_rate": 4.9,
+      "best_performing": "ETH Treasury Thread"
+    },
+    "streak": {
+      "current": 2,
+      "best": 2
+    }
+  },
+  "content_pillars": {
+    "pillars": [
+      {
+        "name": "ETH as Treasury Reserve",
+        "icon": "💎",
+        "status": "posted",
+        "last_post": "Jul 9",
+        "next_post": "Jul 14",
+        "engagement": "high",
+        "threads": 1,
+        "ideas": 3
+      },
+      {
+        "name": "HIMS + Healthcare",
+        "icon": "🏥",
+        "status": "ready",
+        "last_post": null,
+        "next_post": "Today",
+        "engagement": "-",
+        "threads": 0,
+        "ideas": 2
+      },
+      {
+        "name": "AI Agentic Commerce",
+        "icon": "🤖",
+        "status": "researching",
+        "last_post": null,
+        "next_post": "Jul 12",
+        "engagement": "-",
+        "threads": 0,
+        "ideas": 1
+      }
+    ]
+  },
+  "daily_rhythm": {
+    "current_phase": "engagement",
+    "phase_name": "💬 Strategic Engagement",
+    "phase_desc": "12-2pm: 2-3 strategic replies",
+    "next_action": "Data viz post (4pm)",
+    "tasks_completed_today": 4,
+    "tasks_total_today": 8
+  },
+  "what_to_post": {
+    "urgent": [
+      {
+        "title": "HIMS Healthcare Infrastructure Thread",
+        "priority": "HIGH",
+        "pillar": "HIMS + Healthcare",
+        "status": "ready",
+        "tier": "MUSCLES",
+        "length": "5 tweets",
+        "hook": "The drug gets the headlines. The infrastructure play is HIMS — telehealth rails for GLP-1 delivery. $725M revenue, Novo Nordisk deal locked.",
+        "cta": "📋 Copy to Post"
+      }
+    ],
+    "today": [
+      {
+        "title": "Reply to @TheLongInvestor ETH thread",
+        "priority": "MEDIUM",
+        "pillar": "ETH Treasury",
+        "status": "scheduled",
+        "tier": "MUSCLES",
+        "reply_template": "The BTC treasury playbook is proven. The next evolution is earning yield while holding — that's where ETH treasuries come in. 3-4% staking APR changes the math.",
+        "cta": "💬 Copy Reply"
+      },
+      {
+        "title": "AI Agentic Commerce: 3-5T by 2030",
+        "priority": "MEDIUM",
+        "pillar": "AI Agentic Commerce",
+        "status": "researching",
+        "tier": "BRAIN",
+        "length": "7 tweets",
+        "hook": "McKinsey says $3-5T in agentic commerce by 2030. The winners won't be LLM makers — they'll be the intelligence companies that own customer relationships.",
+        "cta": "🧠 Research Now"
+      }
+    ],
+    "this_week": [
+      "ETH Treasury update thread",
+      "Portfolio positions check",
+      "Market structure analysis"
+    ]
+  },
+  "engagement_targets": {
+    "tier1": [
+      {
+        "handle": "@TheLongInvestor",
+        "focus": "ETH tech analysis",
+        "last_interaction": "2 days ago",
+        "status": "not_engaged"
+      },
+      {
+        "handle": "@DrTomsLens",
+        "focus": "Healthcare/biotech",
+        "last_interaction": "never",
+        "status": "not_engaged"
+      },
+      {
+        "handle": "@DylanLeClair_",
+        "focus": "BTC analysis",
+        "last_interaction": "1 week ago",
+        "status": "not_engaged"
+      },
+      {
+        "handle": "@RaoulGMI",
+        "focus": "Macro/crypto",
+        "last_interaction": "never",
+        "status": "not_engaged"
+      }
+    ],
+    "opportunities": [
+      {
+        "topic": "ETH treasury thesis",
+        "opportunity": "Reply to trending thread",
+        "priority": "high"
+      },
+      {
+        "topic": "GLP-1 disruption",
+        "opportunity": "Quote tweet major news",
+        "priority": "medium"
+      }
+    ]
+  },
+  "active_tasks": [
+    {
+      "name": "eth_treasury_thread",
+      "tier": "MUSCLES",
+      "status": "completed",
+      "model": "kimi-k2.5",
+      "age": "42m ago",
+      "type": "file"
+    },
+    {
+      "name": "x_thread_Why_ETH_beats_BTC_as_20260",
+      "tier": "MUSCLES",
+      "status": "completed",
+      "model": "kimi-k2.5",
+      "age": "60m ago",
+      "type": "file"
+    },
+    {
+      "name": "test_site_20260711_125638",
+      "tier": "CODING",
+      "status": "completed",
+      "model": "kimi-k2.7-code",
+      "age": "60m ago",
+      "type": "file"
+    }
+  ],
+  "content_pipeline": {
+    "ready": 1,
+    "in_progress": 1,
+    "scheduled": 2,
+    "posted": 1,
+    "total": 5
+  },
+  "system_health": {
+    "status": "operational",
+    "ollama_cloud": "connected",
+    "primary_model": "kimi-k2.5:cloud",
+    "gateway_uptime": "4h 23m",
+    "last_check": "13:57:21",
+    "api_latency": "45ms",
+    "active_sessions": 1,
+    "data_freshness": "Live"
+  },
+  "recent_activity": [
+    {
+      "time": "13:14",
+      "type": "cmd",
+      "command": "Generated CONTENT: eth_treasury_thread.txt"
+    },
+    {
+      "time": "12:56",
+      "type": "cmd",
+      "command": "Generated CONTENT: x_thread_Why_ETH_beats_BTC_as_20260711_1"
+    },
+    {
+      "time": "12:56",
+      "type": "cmd",
+      "command": "Generated CODE: test_site_20260711_125638"
+    },
+    {
+      "time": "12:56",
+      "type": "cmd",
+      "command": "Generated SALES: offer_X_Growth_Service_20260711_125651.m"
+    },
+    {
+      "time": "12:46",
+      "type": "cmd",
+      "command": "Generated ANALYTICS: performance.json"
+    }
+  ],
+  "weekly_summary": {
+    "followers_gained": 1,
+    "posts_made": 1,
+    "engagements": 15,
+    "avg_engagement_rate": 4.9,
+    "best_day": "Thursday",
+    "best_time": "9:00 AM",
+    "top_performer": "ETH Treasury Thread"
+  }
+};
+
+        // Clock
+        function updateClock() {
+            const now = new Date();
+            const time = now.toTimeString().split(' ')[0];
+            const dateOptions = { weekday: 'long', month: 'short', day: 'numeric' };
+            const date = now.toLocaleDateString('en-US', dateOptions);
+            document.getElementById('clock').textContent = time;
+            document.getElementById('date').textContent = date;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Data fetching
+        let currentData = null;
+
+        async function fetchData() {
+            try {
+                console.log('Fetching data...');
+                const response = await fetch('mission_control_data.json?t=' + Date.now());
+                console.log('Response status:', response.status);
+                if (!response.ok) throw new Error('Failed to fetch: ' + response.status);
+                const data = await response.json();
+                console.log('Data received:', data);
+                currentData = data;
+                updateDashboard(data);
+                document.getElementById('footer-status').textContent = 
+                    'Last Updated: ' + new Date().toLocaleTimeString() + ' | Refreshes every 2h';
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                showError('Failed to load data. Make sure mission_control_data.json exists and is valid JSON.');
+            }
+        }
+
+        function showError(message) {
+            document.querySelectorAll('.loading').forEach(el => {
+                el.innerHTML = '<div style="color: var(--accent-red); padding: 20px; text-align: center;">' + message + '</div>';
+            });
+        }
+
+        function updateDashboard(data) {
+            updateRhythm(data.daily_rhythm, data.x_mission);
+            updateX(data.x_mission);
+            updateWhatToPost(data.what_to_post);
+            updatePillars(data.content_pillars);
+            updateOllama(data.ollama_usage);
+            updateBCM(data.bcm_stats);
+            updateTargets(data.engagement_targets);
+            updateHealth(data.system_health);
+            updateWeekly(data.weekly_summary);
+            updateTasks(data.active_tasks);
+            updateTerminal(data.recent_activity);
+        }
+
+        function updateRhythm(rhythm, x_mission) {
+            const streak = x_mission ? x_mission.streak.current : 2;
+            document.getElementById('rhythm-content').innerHTML = `
+                <div class="rhythm-grid">
+                    <div class="rhythm-current">
+                        <div class="rhythm-phase">${rhythm.phase_name}</div>
+                        <div class="rhythm-desc">${rhythm.phase_desc}</div>
+                        <div class="rhythm-next">➔ Next: ${rhythm.next_action}</div>
+                    </div>
+                    <div class="rhythm-stat">
+                        <div class="rhythm-stat-value">${rhythm.tasks_completed_today}/${rhythm.tasks_total_today}</div>
+                        <div class="rhythm-stat-label">Tasks Done</div>
+                    </div>
+                    <div class="rhythm-stat">
+                        <div class="rhythm-stat-value">${rhythm.current_phase === 'rest' ? '⏸️' : '▶️'}</div>
+                        <div class="rhythm-stat-label">Status</div>
+                    </div>
+                    <div class="rhythm-stat">
+                        <div class="rhythm-stat-value">${streak}</div>
+                        <div class="rhythm-stat-label">Day Streak</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function updateX(x) {
+            const changeClass = x.followers.gained_today >= 0 ? '' : 'negative';
+            const changeSign = x.followers.gained_today >= 0 ? '+' : '';
+            
+            document.getElementById('x-content').innerHTML = `
+                <div class="x-handle">${x.handle}</div>
+                <div class="followers-big">${x.followers.current.toLocaleString()}</div>
+                <div class="followers-change ${changeClass}">${changeSign}${x.followers.gained_today} today (${changeSign}${x.followers.gained_this_week} this week)</div>
+                
+                <div class="progress-section">
+                    <div class="progress-header">
+                        <span>${x.followers.current.toLocaleString()} / ${x.followers.target.toLocaleString()}</span>
+                        <span>${x.followers.progress_pct}%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${x.followers.progress_pct}%"></div>
+                    </div>
+                    <div style="font-size: 11px; color: var(--text-secondary); margin-top: 8px; text-align: right;">
+                        ${x.followers.to_goal.toLocaleString()} to 10K
+                    </div>
+                </div>
+                
+                <div class="x-stats-row">
+                    <div class="x-stat-item">
+                        <div class="x-stat-value">${x.content.threads_posted}</div>
+                        <div class="x-stat-label">Threads</div>
+                    </div>
+                    <div class="x-stat-item">
+                        <div class="x-stat-value">${x.content.replies_today}</div>
+                        <div class="x-stat-label">Replies Today</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function updateWhatToPost(posts) {
+            const urgent = posts.urgent[0];
+            const today = posts.today;
+            
+            let html = `
+                <div class="post-urgent">
+                    <div class="post-priority urgent">🔴 URGENT — POST NOW</div>
+                    <div class="post-title">${urgent.title}</div>
+                    <div class="post-meta">
+                        <span>${urgent.pillar}</span>
+                        <span>💪 ${urgent.tier}</span>
+                        <span>${urgent.length}</span>
+                    </div>
+                    <div class="post-hook">"${urgent.hook}"</div>
+                    <button class="btn-primary" onclick="navigator.clipboard.writeText('${urgent.hook.replace(/'/g, "\\'")}')">📋 Copy Hook & Post</button>
+                </div>
+                <div class="post-list">
+            `;
+            
+            today.forEach(post => {
+                html += `
+                    <div class="post-item">
+                        <div class="post-item-title">${post.title}</div>
+                        <div class="post-item-meta">
+                            <span>${post.pillar}</span>
+                            <span>${post.status === 'scheduled' ? '⏰' : '🧠'} ${post.tier}</span>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            document.getElementById('what-to-post-content').innerHTML = html;
+        }
+
+        function updatePillars(data) {
+            let html = '';
+            data.pillars.forEach(pillar => {
+                const statusClass = pillar.status;
+                html += `
+                    <div class="pillar-item">
+                        <div class="pillar-header">
+                            <div class="pillar-icon">${pillar.icon}</div>
+                            <div class="pillar-name">${pillar.name}</div>
+                            <div class="pillar-status ${statusClass}">${pillar.status}</div>
+                        </div>
+                        <div class="pillar-stats">
+                            <span>📅 ${pillar.next_post || '—'}</span>
+                            <span>📝 ${pillar.threads} threads</span>
+                            <span>💡 ${pillar.ideas} ideas</span>
+                        </div>
+                    </div>
+                `;
+            });
+            document.getElementById('pillars-content').innerHTML = html;
+        }
+
+        function updateOllama(usage) {
+            const usageClass = usage.used_percent > 80 ? 'danger' : usage.used_percent > 60 ? 'warning' : '';
+            const barClass = usage.used_percent > 80 ? 'danger' : usage.used_percent > 60 ? 'warning' : 'safe';
+            
+            document.getElementById('ollama-content').innerHTML = `
+                <div class="usage-header">
+                    <div class="usage-tier">${usage.tier}</div>
+                    <div style="font-size: 12px; color: var(--text-secondary);">Resets in ${usage.reset_in}</div>
+                </div>
+                <div class="usage-grid">
+                    <div class="usage-item">
+                        <div class="usage-value ${usageClass}">${usage.used_percent}%</div>
+                        <div class="usage-label">Budget Used</div>
+                    </div>
+                    <div class="usage-item">
+                        <div class="usage-value">${usage.tokens_used}</div>
+                        <div class="usage-label">Tokens Used</div>
+                    </div>
+                    <div class="usage-item">
+                        <div class="usage-value">${usage.cost_today}</div>
+                        <div class="usage-label">Cost Today</div>
+                    </div>
+                    <div class="usage-item">
+                        <div class="usage-value">${usage.cost_this_week}</div>
+                        <div class="usage-label">This Week</div>
+                    </div>
+                </div>
+                <div class="usage-bar-container">
+                    <div class="usage-bar-header">
+                        <span>Monthly Budget Progress</span>
+                        <span>${usage.days_left_in_cycle} days left</span>
+                    </div>
+                    <div class="usage-bar">
+                        <div class="usage-bar-fill ${barClass}" style="width: ${usage.used_percent}%"></div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function updateBCM(stats) {
+            const tiers = [
+                { key: 'brain', icon: '🧠', name: 'Brain', class: 'brain' },
+                { key: 'coding', icon: '💻', name: 'Coding', class: 'coding' },
+                { key: 'muscles', icon: '💪', name: 'Muscles', class: 'muscles' }
+            ];
+            
+            let html = '<div class="bcm-grid">';
+            tiers.forEach(tier => {
+                const data = stats[tier.key];
+                html += `
+                    <div class="bcm-tier ${tier.class}">
+                        <div class="tier-header">
+                            <div class="tier-icon-name">
+                                <div class="tier-icon">${tier.icon}</div>
+                                <div class="tier-name">${tier.name}</div>
+                            </div>
+                            <div class="tier-status-badge">${data.status}</div>
+                        </div>
+                        <div class="tier-stats">
+                            <div class="tier-stat">
+                                <div class="tier-stat-value">${data.tasks_today}</div>
+                                <div class="tier-stat-label">Tasks</div>
+                            </div>
+                            <div class="tier-stat">
+                                <div class="tier-stat-value">${data.tokens}</div>
+                                <div class="tier-stat-label">Tokens</div>
+                            </div>
+                        </div>
+                        <div class="tier-last-task">${data.last_task}</div>
+                    </div>
+                `;
+            });
+            html += '</div>';
+            document.getElementById('bcm-content').innerHTML = html;
+        }
+
+        function updateTargets(data) {
+            let html = '';
+            data.tier1.forEach(target => {
+                html += `
+                    <div class="target-item">
+                        <div class="target-avatar">👤</div>
+                        <div class="target-info">
+                            <div class="target-handle">${target.handle}</div>
+                            <div class="target-focus">${target.focus}</div>
+                        </div>
+                        <div class="target-status ${target.status}">NEED TO ENGAGE</div>
+                    </div>
+                `;
+            });
+            document.getElementById('targets-content').innerHTML = html;
+        }
+
+        function updateHealth(health) {
+            document.getElementById('health-content').innerHTML = `
+                <div class="health-item">
+                    <div class="health-indicator"></div>
+                    <div class="health-info">
+                        <div class="health-label">System Status</div>
+                        <div class="health-value">✅ All Systems Operational</div>
+                    </div>
+                </div>
+                <div class="health-item">
+                    <div class="health-indicator"></div>
+                    <div class="health-info">
+                        <div class="health-label">Ollama Cloud</div>
+                        <div class="health-value">${health.ollama_cloud} (${health.api_latency})</div>
+                    </div>
+                </div>
+                <div class="health-item">
+                    <div class="health-indicator"></div>
+                    <div class="health-info">
+                        <div class="health-label">Primary Model</div>
+                        <div class="health-value">${health.primary_model}</div>
+                    </div>
+                </div>
+                <div class="health-item">
+                    <div class="health-indicator"></div>
+                    <div class="health-info">
+                        <div class="health-label">Data Freshness</div>
+                        <div class="health-value">${health.data_freshness}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function updateWeekly(summary) {
+            document.getElementById('weekly-content').innerHTML = `
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <div class="summary-value">+${summary.followers_gained}</div>
+                        <div class="summary-label">Followers</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-value">${summary.posts_made}</div>
+                        <div class="summary-label">Posts</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-value">${summary.engagements}</div>
+                        <div class="summary-label">Engagements</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-value">${summary.avg_engagement_rate}%</div>
+                        <div class="summary-label">Avg Rate</div>
+                    </div>
+                    <div class="summary-highlight">
+                        <div class="summary-highlight-text">🏆 Best: ${summary.top_performer}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function updateTasks(tasks) {
+            if (!tasks || tasks.length === 0) {
+                document.getElementById('tasks-content').innerHTML = '<div class="empty-state">No active tasks</div>';
+                return;
+            }
+            
+            document.getElementById('tasks-content').innerHTML = tasks.map(task => `
+                <div class="task-item">
+                    <div class="task-status ${task.status}"></div>
+                    <div class="task-info">
+                        <div class="task-name">${task.name}</div>
+                        <div class="task-meta">
+                            <span class="task-tier-badge ${task.tier}">${task.tier}</span>
+                            <span>${task.model}</span>
+                            <span>${task.age}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateTerminal(activities) {
+            if (!activities || activities.length === 0) {
+                document.getElementById('terminal-content').innerHTML = '<div class="empty-state">No recent activity</div>';
+                return;
+            }
+            
+            document.getElementById('terminal-content').innerHTML = activities.map(line => `
+                <div class="terminal-line">
+                    <span class="timestamp">${line.time}</span>
+                    <span class="${line.type}">${line.command}</span>
+                </div>
+            `).join('');
+            
+            document.getElementById('terminal-content').scrollTop = document.getElementById('terminal-content').scrollHeight;
+        }
+
+        // Load data immediately from embedded JSON
+        function loadData() {
+            updateDashboard(missionData);
+            document.getElementById('footer-status').textContent = 
+                'Data loaded at: ' + new Date().toLocaleTimeString() + ' | Run: python mission_control_data_feed.py to update';
+        }
+
+        // Initial load
+        loadData();
+    </script>
+</body>
+</html>

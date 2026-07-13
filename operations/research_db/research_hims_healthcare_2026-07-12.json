@@ -1,0 +1,48 @@
+{
+  "topic": "hims_healthcare",
+  "timestamp": "2026-07-12T15:33:57.552981",
+  "config": {
+    "keywords": [
+      "hims",
+      "hims & hers",
+      "glip-1",
+      "telehealth",
+      "healthcare infrastructure"
+    ],
+    "sources": [
+      "fierce healthcare",
+      "mobi health news",
+      "healthcare dive"
+    ],
+    "sentiment_keywords": [
+      "growth",
+      "expansion",
+      "regulatory",
+      "earnings"
+    ]
+  },
+  "sentiment": {
+    "average_score": 0.58,
+    "dominant": "neutral",
+    "confidence": 0.3
+  },
+  "trend": {
+    "direction": "stable",
+    "momentum": 0.0,
+    "volume_change": 0.0,
+    "narratives": [],
+    "keywords": [
+      "hims",
+      "recent",
+      "development",
+      "showing",
+      "positive"
+    ]
+  },
+  "recommendation": "Stable - focus on quality over timing",
+  "content_metrics": {
+    "total_items": 3,
+    "avg_word_count": 6.666666666666667,
+    "total_hashtags": 0
+  }
+}

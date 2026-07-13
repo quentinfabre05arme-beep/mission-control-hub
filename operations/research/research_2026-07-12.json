@@ -1,0 +1,125 @@
+{
+  "eth_treasury": {
+    "topic": "eth_treasury",
+    "date": "2026-07-12",
+    "queries": [
+      "ETH treasury institutional adoption 2026",
+      "Ethereum corporate treasury Bitmine",
+      "ETH staking yield institutional",
+      "Ethereum nonprofit adoption 2026"
+    ],
+    "search_results": [
+      {
+        "query": "ETH treasury institutional adoption 2026",
+        "status": "search_pending",
+        "timestamp": "2026-07-12T14:03:35.882527"
+      },
+      {
+        "query": "Ethereum corporate treasury Bitmine",
+        "status": "search_pending",
+        "timestamp": "2026-07-12T14:03:35.882536"
+      },
+      {
+        "query": "ETH staking yield institutional",
+        "status": "search_pending",
+        "timestamp": "2026-07-12T14:03:35.882541"
+      },
+      {
+        "query": "Ethereum nonprofit adoption 2026",
+        "status": "search_pending",
+        "timestamp": "2026-07-12T14:03:35.882544"
+      }
+    ],
+    "sources": [
+      "x.com",
+      "coindesk",
+      "cointelegraph",
+      "theblock"
+    ],
+    "focus": "institutional adoption, treasury plays, staking yields",
+    "status": "compiled",
+    "timestamp": "2026-07-12T14:03:35.882546"
+  },
+  "hims_healthcare": {
+    "topic": "hims_healthcare",
+    "date": "2026-07-12",
+    "queries": [
+      "HIMS stock JPMorgan financing 2026",
+      "Hims Hers Health telehealth GLP-1",
+      "telehealth infrastructure 2026",
+      "GLP-1 market telehealth adoption"
+    ],
+    "search_results": [
+      {
+        "query": "HIMS stock JPMorgan financing 2026",
+        "status": "search_pending",
+        "timestamp": "2026-07-12T14:03:35.882556"
+      },
+      {
+        "query": "Hims Hers Health telehealth GLP-1",
+        "status": "search_pending",
+        "timestamp": "2026-07-12T14:03:35.882559"
+      },
+      {
+        "query": "telehealth infrastructure 2026",
+        "status": "search_pending",
+        "timestamp": "2026-07-12T14:03:35.882562"
+      },
+      {
+        "query": "GLP-1 market telehealth adoption",
+        "status": "search_pending",
+        "timestamp": "2026-07-12T14:03:35.882565"
+      }
+    ],
+    "sources": [
+      "x.com",
+      "bloomberg",
+      "cnbc",
+      "fiercehealthcare"
+    ],
+    "focus": "stock movements, GLP-1 demand, infrastructure scaling",
+    "status": "compiled",
+    "timestamp": "2026-07-12T14:03:35.882567"
+  },
+  "ai_commerce": {
+    "topic": "ai_commerce",
+    "date": "2026-07-12",
+    "queries": [
+      "AI agentic commerce McKinsey 2026",
+      "autonomous agents infrastructure NBIS ZETA",
+      "MCP A2A protocol agentic AI",
+      "Linux Foundation Agentic AI Foundation"
+    ],
+    "search_results": [
+      {
+        "query": "AI agentic commerce McKinsey 2026",
+        "status": "search_pending",
+        "timestamp": "2026-07-12T14:03:35.882575"
+      },
+      {
+        "query": "autonomous agents infrastructure NBIS ZETA",
+        "status": "search_pending",
+        "timestamp": "2026-07-12T14:03:35.882578"
+      },
+      {
+        "query": "MCP A2A protocol agentic AI",
+        "status": "search_pending",
+        "timestamp": "2026-07-12T14:03:35.882581"
+      },
+      {
+        "query": "Linux Foundation Agentic AI Foundation",
+        "status": "search_pending",
+        "timestamp": "2026-07-12T14:03:35.882584"
+      }
+    ],
+    "sources": [
+      "x.com",
+      "techcrunch",
+      "venturebeat",
+      "mckinsey"
+    ],
+    "focus": "automation protocols, infrastructure plays, timeline",
+    "status": "compiled",
+    "timestamp": "2026-07-12T14:03:35.882586"
+  }
+}

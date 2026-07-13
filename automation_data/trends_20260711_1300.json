@@ -1,0 +1,86 @@
+{
+  "timestamp": "2026-07-11T13:00:09.516988",
+  "crypto": [
+    {
+      "topic": "ETH staking",
+      "volume": "high",
+      "sentiment": "bullish"
+    },
+    {
+      "topic": "Strategy BTC",
+      "volume": "medium",
+      "sentiment": "mixed"
+    },
+    {
+      "topic": "Treasury reserves",
+      "volume": "medium",
+      "sentiment": "bullish"
+    },
+    {
+      "topic": "BlackRock ETF",
+      "volume": "high",
+      "sentiment": "bullish"
+    }
+  ],
+  "healthcare": [
+    {
+      "topic": "GLP-1 access",
+      "volume": "high",
+      "sentiment": "mixed"
+    },
+    {
+      "topic": "Telehealth",
+      "volume": "medium",
+      "sentiment": "bullish"
+    },
+    {
+      "topic": "Novo Nordisk",
+      "volume": "medium",
+      "sentiment": "bullish"
+    },
+    {
+      "topic": "Weight loss drugs",
+      "volume": "high",
+      "sentiment": "mixed"
+    }
+  ],
+  "ai": [
+    {
+      "topic": "Agentic AI",
+      "volume": "high",
+      "sentiment": "bullish"
+    },
+    {
+      "topic": "AI commerce",
+      "volume": "medium",
+      "sentiment": "bullish"
+    },
+    {
+      "topic": "NBIS",
+      "volume": "low",
+      "sentiment": "bullish"
+    },
+    {
+      "topic": "McKinsey AI",
+      "volume": "medium",
+      "sentiment": "neutral"
+    }
+  ],
+  "general": [
+    {
+      "topic": "Tech earnings",
+      "volume": "high",
+      "sentiment": "mixed"
+    },
+    {
+      "topic": "Fed policy",
+      "volume": "high",
+      "sentiment": "neutral"
+    },
+    {
+      "topic": "Growth stocks",
+      "volume": "medium",
+      "sentiment": "bullish"
+    }
+  ]
+}

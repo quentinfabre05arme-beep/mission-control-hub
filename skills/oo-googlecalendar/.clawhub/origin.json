@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "registry": "https://clawhub.ai",
+  "slug": "oo-googlecalendar",
+  "installedVersion": "1.0.1",
+  "installedAt": 1783908053292,
+  "artifact": {
+    "kind": "archive",
+    "sha256": "9ff68f0125fd60d9619391967ada9bceffae7e4513c9a4026352ffe190675b0d",
+    "integrity": "sha256-n/aPASX9YNlhk5GWetqbzv+ufkUTyaQCY1L/4ZBnWw0="
+  },
+  "skillFile": {
+    "path": "SKILL.md",
+    "sha256": "681bb8b45c21b3caa59d2a753423764f65dd6a3f7c7c1ece224e6b17598a6e64"
+  }
+}

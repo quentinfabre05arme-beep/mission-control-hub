@@ -1,0 +1,97 @@
+{
+  "generated_at": "2026-07-14T00:05:43.640160",
+  "results": {
+    "BTC/USD": {
+      "rsi": {
+        "symbol": "BTC/USD",
+        "indicator": "RSI",
+        "value": "45.11381",
+        "datetime": "2026-07-13",
+        "status": "ok"
+      },
+      "macd": {
+        "symbol": "BTC/USD",
+        "indicator": "MACD",
+        "value": "-280.40256",
+        "datetime": "2026-07-13",
+        "status": "ok"
+      },
+      "sma20": {
+        "symbol": "BTC/USD",
+        "indicator": "SMA",
+        "value": null,
+        "datetime": "2026-07-13",
+        "status": "ok"
+      }
+    },
+    "ETH/USD": {
+      "rsi": {
+        "symbol": "ETH/USD",
+        "indicator": "rsi",
+        "value": null,
+        "status": "no_data",
+        "error": "You have run out of API credits for the current minute. 10 API credits were used, with the current limit being 8. Wait for the next minute or consider switching to a higher tier plan at https://twelvedata.com/pricing"
+      },
+      "macd": {
+        "symbol": "ETH/USD",
+        "indicator": "macd",
+        "value": null,
+        "status": "no_data",
+        "error": "You have run out of API credits for the current minute. 11 API credits were used, with the current limit being 8. Wait for the next minute or consider switching to a higher tier plan at https://twelvedata.com/pricing"
+      },
+      "sma20": {
+        "symbol": "ETH/USD",
+        "indicator": "sma",
+        "value": null,
+        "status": "no_data",
+        "error": "You have run out of API credits for the current minute. 12 API credits were used, with the current limit being 8. Wait for the next minute or consider switching to a higher tier plan at https://twelvedata.com/pricing"
+      }
+    },
+    "MSTR": {
+      "rsi": {
+        "symbol": "MSTR",
+        "indicator": "rsi",
+        "value": null,
+        "status": "no_data",
+        "error": "You have run out of API credits for the current minute. 14 API credits were used, with the current limit being 8. Wait for the next minute or consider switching to a higher tier plan at https://twelvedata.com/pricing"
+      },
+      "macd": {
+        "symbol": "MSTR",
+        "indicator": "macd",
+        "value": null,
+        "status": "no_data",
+        "error": "You have run out of API credits for the current minute. 15 API credits were used, with the current limit being 8. Wait for the next minute or consider switching to a higher tier plan at https://twelvedata.com/pricing"
+      },
+      "sma20": {
+        "symbol": "MSTR",
+        "indicator": "sma",
+        "value": null,
+        "status": "no_data",
+        "error": "You have run out of API credits for the current minute. 16 API credits were used, with the current limit being 8. Wait for the next minute or consider switching to a higher tier plan at https://twelvedata.com/pricing"
+      }
+    },
+    "HIMS": {
+      "rsi": {
+        "symbol": "HIMS",
+        "indicator": "rsi",
+        "value": null,
+        "status": "no_data",
+        "error": "You have run out of API credits for the current minute. 18 API credits were used, with the current limit being 8. Wait for the next minute or consider switching to a higher tier plan at https://twelvedata.com/pricing"
+      },
+      "macd": {
+        "symbol": "HIMS",
+        "indicator": "macd",
+        "value": null,
+        "status": "no_data",
+        "error": "You have run out of API credits for the current minute. 19 API credits were used, with the current limit being 8. Wait for the next minute or consider switching to a higher tier plan at https://twelvedata.com/pricing"
+      },
+      "sma20": {
+        "symbol": "HIMS",
+        "indicator": "sma",
+        "value": null,
+        "status": "no_data",
+        "error": "You have run out of API credits for the current minute. 20 API credits were used, with the current limit being 8. Wait for the next minute or consider switching to a higher tier plan at https://twelvedata.com/pricing"
+      }
+    }
+  }
+}

@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission Control | Projects Hub v6.0</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-tertiary: #1a1a1a;
+            --bg-card: #161616;
+            --bg-hover: #1e1e1e;
+            --accent-cyan: #00d4ff;
+            --accent-green: #00ff88;
+            --accent-orange: #ff8800;
+            --accent-red: #ff0044;
+            --accent-purple: #8800ff;
+            --accent-gold: #ffd700;
+            --text-primary: #ffffff;
+            --text-secondary: #888888;
+            --text-dim: #444444;
+            --border-color: #222222;
+            --glass-bg: rgba(22, 22, 22, 0.95);
+            --glass-border: rgba(34, 34, 34, 0.5);
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto Mono', monospace;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Top Navigation - Home Button */
+        .top-nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 60px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 1.5rem;
+            z-index: 100;
+        }
+
+        .nav-left { display: flex; align-items: center; gap: 1rem; }
+        
+        /* Home Button */
+        .home-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1rem;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(136, 0, 255, 0.1));
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 8px;
+            color: var(--accent-cyan);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        .home-btn:hover {
+            background: rgba(0, 212, 255, 0.2);
+            border-color: var(--accent-cyan);
+            transform: translateY(-1px);
+        }
+        .home-btn-icon { font-size: 1.1rem; }
+
+        .logo { display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 1.1rem; }
+        .logo-icon { font-size: 1.2rem; }
+        .version-tag { font-size: 0.7rem; padding: 0.15rem 0.5rem; background: var(--accent-purple); border-radius: 4px; color: #fff; font-weight: 700; }
+        
+        .nav-center { display: flex; align-items: center; gap: 0.5rem; }
+        .nav-link { 
+            color: var(--text-secondary); 
+            text-decoration: none; 
+            font-size: 0.85rem; 
+            transition: all 0.2s; 
+            padding: 0.5rem 0.75rem; 
+            border-radius: 6px;
+            border: 1px solid transparent;
+        }
+        .nav-link:hover { color: var(--text-primary); background: var(--bg-hover); }
+        .nav-link.active { 
+            color: var(--accent-cyan); 
+            background: rgba(0, 212, 255, 0.1);
+            border-color: rgba(0, 212, 255, 0.3);
+        }
+
+        /* Breadcrumb Navigation */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 1.5rem;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            margin-top: 60px;
+        }
+        .breadcrumb-item {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.2s;
+        }
+        .breadcrumb-item:hover { color: var(--text-primary); }
+        .breadcrumb-item.active { color: var(--accent-cyan); font-weight: 500; }
+        .breadcrumb-separator { color: var(--text-dim); font-size: 0.7rem; }
+
+        /* Main Container */
+        .main-container {
+            padding: 2rem;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            margin-bottom: 2rem;
+        }
+        .page-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .page-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0;
+        }
+        .tab {
+            padding: 0.75rem 1.25rem;
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .tab:hover { color: var(--text-primary); }
+        .tab.active { 
+            color: var(--accent-cyan); 
+            border-bottom-color: var(--accent-cyan);
+        }
+        .tab-count {
+            background: var(--bg-tertiary);
+            padding: 0.15rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .tab.active .tab-count { background: rgba(0, 212, 255, 0.2); }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.2s;
+        }
+        .project-card:hover {
+            border-color: var(--accent-cyan);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.1);
+        }
+
+        .project-header {
+            padding: 1.25rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .project-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        .project-subtitle {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        .project-status {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.75rem;
+            padding: 0.3rem 0.6rem;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        .status-active {
+            background: rgba(0, 255, 136, 0.1);
+            color: var(--accent-green);
+        }
+        .status-paused {
+            background: rgba(255, 136, 0, 0.1);
+            color: var(--accent-orange);
+        }
+        .status-draft {
+            background: rgba(136, 0, 255, 0.1);
+            color: var(--accent-purple);
+        }
+
+        .project-body {
+            padding: 1.25rem;
+        }
+        .project-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .project-stat {
+            text-align: center;
+        }
+        .project-stat-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+        }
+        .project-stat-label {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
+
+        .project-parts {
+            margin-top: 1rem;
+        }
+        .parts-title {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.75rem;
+        }
+        .part-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .part-item:last-child { border-bottom: none; }
+        .part-name {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+        }
+        .part-status {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.75rem;
+        }
+        .part-status-complete { color: var(--accent-green); }
+        .part-status-pending { color: var(--accent-orange); }
+        .part-status-draft { color: var(--text-secondary); }
+
+        .project-footer {
+            padding: 1rem 1.25rem;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            gap: 0.75rem;
+        }
+        .project-btn {
+            flex: 1;
+            padding: 0.6rem 1rem;
+            border-radius: 6px;
+            border: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            text-align: center;
+        }
+        .project-btn-primary {
+            background: var(--accent-cyan);
+            color: #000;
+        }
+        .project-btn-primary:hover { background: #33ddff; }
+        .project-btn-secondary {
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+        }
+        .project-btn-secondary:hover {
+            border-color: var(--accent-cyan);
+            color: var(--text-primary);
+        }
+
+        /* Content Section */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .content-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .content-header {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .content-type {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        .content-date {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+        .content-body {
+            padding: 1.25rem;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .content-preview {
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+        .content-footer {
+            padding: 1rem 1.25rem;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            gap: 0.5rem;
+        }
+        .content-btn {
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .content-btn:hover {
+            border-color: var(--accent-cyan);
+            color: var(--text-primary);
+        }
+
+        /* Links Section */
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+        .link-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            color: inherit;
+        }
+        .link-card:hover {
+            border-color: var(--accent-cyan);
+            background: var(--bg-hover);
+        }
+        .link-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            background: var(--bg-tertiary);
+        }
+        .link-info { flex: 1; }
+        .link-title { font-size: 0.9rem; font-weight: 500; margin-bottom: 0.15rem; }
+        .link-desc { font-size: 0.75rem; color: var(--text-secondary); }
+        .link-arrow { color: var(--text-dim); font-size: 1.2rem; }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-secondary);
+        }
+        .empty-icon { font-size: 3rem; margin-bottom: 1rem; }
+        .empty-title { font-size: 1.1rem; margin-bottom: 0.5rem; }
+        .empty-desc { font-size: 0.85rem; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .projects-grid, .content-grid { grid-template-columns: 1fr; }
+            .nav-center { display: none; }
+            .main-container { padding: 1rem; }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-secondary); }
+        ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-dim); }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation with Home Button -->
+    <nav class="top-nav">
+        <div class="nav-left">
+            <a href="mission_control_unified.html" class="home-btn">
+                <span class="home-btn-icon">🏠</span>
+                <span>Home</span>
+            </a>
+            <div class="logo">
+                <span class="logo-icon">📁</span>
+                <span>Projects Hub</span>
+                <span class="version-tag">v6.0</span>
+            </div>
+        </div>
+        <div class="nav-center">
+            <a href="mission_control_unified.html" class="nav-link">🎯 Unified</a>
+            <a href="mission_control_projects.html" class="nav-link active">📁 Projects</a>
+            <a href="mission_control_scheduler.html" class="nav-link">📅 Scheduler</a>
+            <a href="mission_control_content_intelligence.html" class="nav-link">📝 Content</a>
+            <a href="mission_control_analytics.html" class="nav-link">📊 Analytics</a>
+        </div>
+        <div class="nav-right">
+            <span style="color: var(--text-secondary); font-size: 0.8rem;">🟢 All Systems Online</span>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb Navigation -->
+    <div class="breadcrumb">
+        <a href="mission_control_unified.html" class="breadcrumb-item">🏠 Dashboard</a>
+        <span class="breadcrumb-separator">▶</span>
+        <span class="breadcrumb-item active">📁 Projects</span>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <div class="page-header">
+            <h1 class="page-title">📁 Projects Hub</h1>
+            <p class="page-subtitle">Manage all your content projects, view generated content, and access related links</p>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('projects')">
+                🗂️ Projects
+                <span class="tab-count">4</span>
+            </button>
+            <button class="tab" onclick="showTab('content')">
+                📝 Generated Content
+                <span class="tab-count">12</span>
+            </button>
+            <button class="tab" onclick="showTab('links')">
+                🔗 Quick Links
+                <span class="tab-count">8</span>
+            </button>
+        </div>
+
+        <!-- Projects Tab -->
+        <div id="projects-tab" class="tab-content">
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div>
+                            <div class="project-title">🏥 Healthcare Innovation Series</div>
+                            <div class="project-subtitle">GLP-1, Telehealth, Biotech</div>
+                        </div>
+                        <span class="project-status status-active">● Active</span>
+                    </div>
+                    <div class="project-body">
+                        <div class="project-stats">
+                            <div class="project-stat">
+                                <div class="project-stat-value">8</div>
+                                <div class="project-stat-label">Posts</div>
+                            </div>
+                            <div class="project-stat">
+                                <div class="project-stat-value">67%</div>
+                                <div class="project-stat-label">Complete</div>
+                            </div>
+                            <div class="project-stat">
+                                <div class="project-stat-value">94</div>
+                                <div class="project-stat-label">Avg Score</div>
+                            </div>
+                        </div>
+                        <div class="project-parts">
+                            <div class="parts-title">Project Parts</div>
+                            <div class="part-item">
+                                <span class="part-name">✅ GLP-1 Market Overview</span>
+                                <span class="part-status part-status-complete">✓ Published</span>
+                            </div>
+                            <div class="part-item">
+                                <span class="part-name">✅ HIMS Infrastructure</span>
+                                <span class="part-status part-status-complete">✓ Published</span>
+                            </div>
+                            <div class="part-item">
+                                <span class="part-name">📝 Telehealth Regulation</span>
+                                <span class="part-status part-status-pending">⏳ Draft</span>
+                            </div>
+                            <div class="part-item">
+                                <span class="part-name">📋 Biotech Pipeline</span>
+                                <span class="part-status part-status-draft">📄 Planned</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-footer">
+                        <button class="project-btn project-btn-primary" onclick="viewProject('healthcare')">👁 View</button>
+                        <a href="mission_control_scheduler.html" class="project-btn project-btn-secondary">📅 Schedule</a>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div>
+                            <div class="project-title">💰 ETH Treasury Deep Dive</div>
+                            <div class="project-subtitle">Institutional Adoption</div>
+                        </div>
+                        <span class="project-status status-active">● Active</span>
+                    </div>
+                    <div class="project-body">
+                        <div class="project-stats">
+                            <div class="project-stat">
+                                <div class="project-stat-value">3</div>
+                                <div class="project-stat-label">Posts</div>
+                            </div>
+                            <div class="project-stat">
+                                <div class="project-stat-value">60%</div>
+                                <div class="project-stat-label">Complete</div>
+                            </div>
+                            <div class="project-stat">
+                                <div class="project-stat-value">78</div>
+                                <div class="project-stat-label">Avg Score</div>
+                            </div>
+                        </div>
+                        <div class="project-parts">
+                            <div class="parts-title">Project Parts</div>
+                            <div class="part-item">
+                                <span class="part-name">✅ Treasury Basics</span>
+                                <span class="part-status part-status-complete">✓ Published</span>
+                            </div>
+                            <div class="part-item">
+                                <span class="part-name">📝 Corporate Adoption</span>
+                                <span class="part-status part-status-pending">⏳ Review</span>
+                            </div>
+                            <div class="part-item">
+                                <span class="part-name">📋 Treasury Strategy</span>
+                                <span class="part-status part-status-draft">📄 Planned</span>
+                            </div>
+                            <div class="part-item">
+                                <span class="part-name">📋 Risk Analysis</span>
+                                <span class="part-status part-status-draft">📄 Planned</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-footer">
+                        <button class="project-btn project-btn-primary" onclick="viewProject('eth')">👁 View</button>
+                        <a href="mission_control_scheduler.html" class="project-btn project-btn-secondary">📅 Schedule</a>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div>
+                            <div class="project-title">🤖 AI Agentic Commerce</div>
+                            <div class="project-subtitle">Infrastructure & $3-5T Opportunity</div>
+                        </div>
+                        <span class="project-status status-draft">● Draft</span>
+                    </div>
+                    <div class="project-body">
+                        <div class="project-stats">
+                            <div class="project-stat">
+                                <div class="project-stat-value">2</div>
+                                <div class="project-stat-label">Posts</div>
+                            </div>
+                            <div class="project-stat">
+                                <div class="project-stat-value">25%</div>
+                                <div class="project-stat-label">Complete</div>
+                            </div>
+                            <div class="project-stat">
+                                <div class="project-stat-value">—</div>
+                                <div class="project-stat-label">Avg Score</div>
+                            </div>
+                        </div>
+                        <div class="project-parts">
+                            <div class="parts-title">Project Parts</div>
+                            <div class="part-item">
+                                <span class="part-name">📝 McKinsey Framework</span>
+                                <span class="part-status part-status-pending">⏳ Draft</span>
+                            </div>
+                            <div class="part-item">
+                                <span class="part-name">📋 Level 1-2 Analysis</span>
+                                <span class="part-status part-status-draft">📄 Planned</span>
+                            </div>
+                            <div class="part-item">
+                                <span class="part-name">📋 Infrastructure Plays</span>
+                                <span class="part-status part-status-draft">📄 Planned</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-footer">
+                        <button class="project-btn project-btn-primary" onclick="viewProject('ai')">👁 View</button>
+                        <a href="mission_control_content_intelligence.html" class="project-btn project-btn-secondary">✍️ Create</a>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div>
+                            <div class="project-title">📊 Growth Marketing Lessons</div>
+                            <div class="project-subtitle">Data-Driven Insights</div>
+                        </div>
+                        <span class="project-status status-paused">⏸ Paused</span>
+                    </div>
+                    <div class="project-body">
+                        <div class="project-stats">
+                            <div class="project-stat">
+                                <div class="project-stat-value">5</div>
+                                <div class="project-stat-label">Posts</div>
+                            </div>
+                            <div class="project-stat">
+                                <div class="project-stat-value">40%</div>
+                                <div class="project-stat-label">Complete</div>
+                            </div>
+                            <div class="project-stat">
+                                <div class="project-stat-value">85</div>
+                                <div class="project-stat-label">Avg Score</div>
+                            </div>
+                        </div>
+                        <div class="project-parts">
+                            <div class="parts-title">Project Parts</div>
+                            <div class="part-item">
+                                <span class="part-name">✅ Attribution Models</span>
+                                <span class="part-status part-status-complete">✓ Published</span>
+                            </div>
+                            <div class="part-item">
+                                <span class="part-name">✅ CAC Analysis</span>
+                                <span class="part-status part-status-complete">✓ Published</span>
+                            </div>
+                            <div class="part-item">
+                                <span class="part-name">⏸ Viral Loops</span>
+                                <span class="part-status part-status-pending">⏸ On Hold</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-footer">
+                        <button class="project-btn project-btn-primary" onclick="viewProject('growth')">👁 View</button>
+                        <button class="project-btn project-btn-secondary" onclick="resumeProject('growth')">▶ Resume</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Tab -->
+        <div id="content-tab" class="tab-content" style="display: none;">
+            <div class="content-grid">
+                <!-- Content Card 1 -->
+                <div class="content-card">
+                    <div class="content-header">
+                        <span class="content-type">📝 Thread</span>
+                        <span class="content-date">Today, 08:00</span>
+                    </div>
+                    <div class="content-body">
+                        <div class="content-preview">
+                            ETH treasuries are scaling faster than expected. Here's the data that matters:
+
+                            Key developments emerging in this space. Infrastructure build phase = investment phase...
+                        </div>
+                    </div>
+                    <div class="content-footer">
+                        <button class="content-btn" onclick="copyContent('eth-treasury')">📋 Copy</button>
+                        <button class="content-btn" onclick="viewFull('eth-treasury')">👁 View Full</button>
+                        <a href="https://twitter.com/intent/tweet?text=ETH+treasuries+are+scaling..." target="_blank" class="content-btn">🐦 Post to X</a>
+                    </div>
+                </div>
+
+                <!-- Content Card 2 -->
+                <div class="content-card">
+                    <div class="content-header">
+                        <span class="content-type">📝 Thread</span>
+                        <span class="content-date">Today, 07:30</span>
+                    </div>
+                    <div class="content-body">
+                        <div class="content-preview">
+                            HIMS secured $400M from JPMorgan. Not for M&A. For working capital. The infrastructure play:
+
+                            This changes everything about how we think about telehealth infrastructure...
+                        </div>
+                    </div>
+                    <div class="content-footer">
+                        <button class="content-btn" onclick="copyContent('hims')">📋 Copy</button>
+                        <button class="content-btn" onclick="viewFull('hims')">👁 View Full</button>
+                        <a href="https://twitter.com/intent/tweet?text=HIMS+secured+400M..." target="_blank" class="content-btn">🐦 Post to X</a>
+                    </div>
+                </div>
+
+                <!-- Content Card 3 -->
+                <div class="content-card">
+                    <div class="content-header">
+                        <span class="content-type">📊 Report</span>
+                        <span class="content-date">Jul 12, 2026</span>
+                    </div>
+                    <div class="content-body">
+                        <div class="content-preview">
+                            Research Report: AI Agent Capabilities 2025-2026
+
+                            Major Paradigm Shifts:
+                            - Enhanced Autonomy
+                            - Multimodal Processing
+                            - Advanced Memory Systems
+                            - MCP Protocol Standardization
+                        </div>
+                    </div>
+                    <div class="content-footer">
+                        <button class="content-btn" onclick="copyContent('report')">📋 Copy</button>
+                        <button class="content-btn" onclick="viewFull('report')">👁 View Full</button>
+                        <a href="mission_control_advanced_reporting.html" class="content-btn">📊 View Report</a>
+                    </div>
+                </div>
+
+                <!-- Content Card 4 -->
+                <div class="content-card">
+                    <div class="content-header">
+                        <span class="content-type">💬 Reply Template</span>
+                        <span class="content-date">Jul 12, 2026</span>
+                    </div>
+                    <div class="content-body">
+                        <div class="content-preview">
+                            Healthcare-GLP-1 Engagement Templates:
+
+                            "Great point on [topic]. The data actually shows..."
+                            "Curious about your take on [specific aspect]. Have you seen..."
+                        </div>
+                    </div>
+                    <div class="content-footer">
+                        <button class="content-btn" onclick="copyContent('templates')">📋 Copy</button>
+                        <button class="content-btn" onclick="viewFull('templates')">👁 View All</button>
+                        <a href="mission_control_autoreply.html" class="content-btn">💬 Auto-Reply</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Links Tab -->
+        <div id="links-tab" class="tab-content" style="display: none;">
+            <div class="links-grid">
+                <a href="mission_control_unified.html" class="link-card">
+                    <span class="link-icon" style="background: rgba(0, 212, 255, 0.1);">🎯</span>
+                    <div class="link-info">
+                        <div class="link-title">Unified Intelligence</div>
+                        <div class="link-desc">v5.6 — Master control dashboard</div>
+                    </div>
+                    <span class="link-arrow">→</span>
+                </a>
+
+                <a href="mission_control_scheduler.html" class="link-card">
+                    <span class="link-icon" style="background: rgba(255, 136, 0, 0.1);">📅</span>
+                    <div class="link-info">
+                        <div class="link-title">Content Scheduler</div>
+                        <div class="link-desc">v8.0 — Visual calendar & queue</div>
+                    </div>
+                    <span class="link-arrow">→</span>
+                </a>
+
+                <a href="mission_control_content_intelligence.html" class="link-card">
+                    <span class="link-icon" style="background: rgba(136, 0, 255, 0.1);">📝</span>
+                    <div class="link-info">
+                        <div class="link-title">Content Intelligence</div>
+                        <div class="link-desc">v7.4 — AI content generation</div>
+                    </div>
+                    <span class="link-arrow">→</span>
+                </a>
+
+                <a href="mission_control_analytics.html" class="link-card">
+                    <span class="link-icon" style="background: rgba(0, 255, 136, 0.1);">📊</span>
+                    <div class="link-info">
+                        <div class="link-title">Analytics Dashboard</div>
+                        <div class="link-desc">v7.5 — Performance metrics</div>
+                    </div>
+                    <span class="link-arrow">→</span>
+                </a>
+
+                <a href="mission_control_engagement_live.html" class="link-card">
+                    <span class="link-icon" style="background: rgba(255, 0, 68, 0.1);">🔥</span>
+                    <div class="link-info">
+                        <div class="link-title">Live Engagement</div>
+                        <div class="link-desc">v5.0 — Real-time monitoring</div>
+                    </div>
+                    <span class="link-arrow">→</span>
+                </a>
+
+                <a href="mission_control_advanced_reporting.html" class="link-card">
+                    <span class="link-icon" style="background: rgba(255, 215, 0, 0.1);">🧬</span>
+                    <div class="link-info">
+                        <div class="link-title">Advanced Reporting</div>
+                        <div class="link-desc">v5.7 — ML insights</div>
+                    </div>
+                    <span class="link-arrow">→</span>
+                </a>
+
+                <a href="mission_control_recycling.html" class="link-card">
+                    <span class="link-icon" style="background: rgba(0, 255, 204, 0.1);">♻️</span>
+                    <div class="link-info">
+                        <div class="link-title">Content Recycling</div>
+                        <div class="link-desc">v5.5 — Evergreen management</div>
+                    </div>
+                    <span class="link-arrow">→</span>
+                </a>
+
+                <a href="mission_control_autoreply.html" class="link-card">
+                    <span class="link-icon" style="background: rgba(204, 255, 0, 0.1);">💬</span>
+                    <div class="link-info">
+                        <div class="link-title">Auto-Reply</div>
+                        <div class="link-desc">v5.4 — Smart templates</div>
+                    </div>
+                    <span class="link-arrow">→</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.style.display = 'none';
+            });
+            
+            // Remove active from all tab buttons
+            document.querySelectorAll('.tab').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName + '-tab').style.display = 'block';
+            
+            // Add active to clicked button
+            event.target.closest('.tab').classList.add('active');
+        }
+
+        // Project actions
+        function viewProject(projectId) {
+            alert('Opening project: ' + projectId);
+            // In a real implementation, this would open the project detail view
+        }
+
+        function resumeProject(projectId) {
+            alert('Resuming project: ' + projectId);
+        }
+
+        // Content actions
+        function copyContent(contentId) {
+            // Copy to clipboard
+            navigator.clipboard.writeText('Content from ' + contentId);
+            alert('Content copied to clipboard!');
+        }
+
+        function viewFull(contentId) {
+            alert('Viewing full content: ' + contentId);
+        }
+    </script>
+</body>
+</html>

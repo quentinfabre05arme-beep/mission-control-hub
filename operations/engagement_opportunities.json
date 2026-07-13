@@ -1,0 +1,18 @@
+{
+  "eng_raoulgmi_1783794745": {
+    "id": "eng_raoulgmi_1783794745",
+    "target_handle": "@RaoulGMI",
+    "target_post_url": "https://x.com/RaoulGMI/status/...",
+    "post_content": "We're entering the economic singularity. Bitcoin becomes humanity's pension plan.",
+    "engagement_type": "reply",
+    "suggested_reply": "19 public companies now hold ETH ($13B+). The treasury strategy is evolving from passive holding to productive assets. Staking yield is the unlock.",
+    "context": {
+      "topic": "economic_singularity",
+      "sentiment": "bullish"
+    },
+    "priority": "medium",
+    "created_at": "2026-07-11T20:32:25.328756",
+    "status": "awaiting_approval",
+    "template_used": null
+  }
+}

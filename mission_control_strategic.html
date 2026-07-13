@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@quentinvest1 | Strategic Intelligence v5.2</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-tertiary: #1a1a1a;
+            --bg-card: #161616;
+            --bg-hover: #1e1e1e;
+            --accent-cyan: #00d4ff;
+            --accent-green: #00ff88;
+            --accent-orange: #ff8800;
+            --accent-red: #ff0044;
+            --accent-purple: #8800ff;
+            --accent-gold: #ffd700;
+            --accent-pink: #ff0066;
+            --accent-teal: #00ffcc;
+            --accent-blue: #0066ff;
+            --text-primary: #ffffff;
+            --text-secondary: #888888;
+            --text-dim: #444444;
+            --border-color: #222222;
+            --glass-bg: rgba(22, 22, 22, 0.8);
+            --glass-border: rgba(34, 34, 34, 0.5);
+            --heat-high: #ff4444;
+            --heat-med: #ff8800;
+            --heat-low: #00ff88;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto Mono', monospace;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(0, 212, 255, 0.03) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(136, 0, 255, 0.03) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(0, 255, 136, 0.02) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .top-nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 60px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 1.5rem;
+            z-index: 100;
+        }
+
+        .nav-left { display: flex; align-items: center; gap: 1rem; }
+        .logo { display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 1.1rem; }
+        .logo-icon { font-size: 1.2rem; }
+        .version-tag { font-size: 0.7rem; padding: 0.15rem 0.5rem; background: var(--accent-purple); border-radius: 4px; color: #000; font-weight: 700; }
+        .status-badge { display: flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; color: var(--text-secondary); }
+        .status-dot { width: 8px; height: 8px; background: var(--accent-green); border-radius: 50%; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .nav-right { display: flex; align-items: center; gap: 1rem; }
+        .nav-link { color: var(--text-secondary); text-decoration: none; font-size: 0.8rem; transition: color 0.2s; }
+        .nav-link:hover { color: var(--text-primary); }
+
+        .main-container {
+            padding: 80px 1.5rem 2rem;
+            max-width: 1600px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        @media (max-width: 1200px) {
+            .main-container { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 768px) {
+            .main-container { grid-template-columns: 1fr; padding: 80px 1rem 2rem; }
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 1rem 1.25rem;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-title { font-size: 0.85rem; font-weight: 600; letter-spacing: 0.5px; display: flex; align-items: center; gap: 0.5rem; }
+        .card-content { padding: 1.25rem; }
+
+        .competitive-matrix {
+            position: relative;
+            height: 280px;
+            background: radial-gradient(ellipse at center, rgba(0,212,255,0.05) 0%, transparent 70%);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-top: 0.5rem;
+        }
+
+        .matrix-axis-y {
+            position: absolute;
+            left: 10px; top: 50%;
+            transform: rotate(-90deg) translateX(-50%);
+            transform-origin: left center;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+        }
+
+        .matrix-axis-x {
+            position: absolute;
+            bottom: 10px; left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+        }
+
+        .competitor-dot {
+            position: absolute;
+            width: 48px; height: 48px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .competitor-dot.you {
+            background: var(--accent-cyan);
+            color: #000;
+            box-shadow: 0 0 20px rgba(0,212,255,0.5);
+        }
+
+        .competitor-dot.other {
+            background: var(--bg-tertiary);
+            border: 2px solid var(--text-dim);
+            color: var(--text-primary);
+        }
+
+        .competitor-dot:hover { transform: scale(1.15); }
+
+        .competitor-dot .rate { font-size: 0.75rem; font-weight: 700; }
+        .competitor-dot .name { font-size: 0.55rem; opacity: 0.8; }
+
+        .radar-container {
+            display: flex;
+            justify-content: center;
+            padding: 1rem 0;
+        }
+
+        .gap-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 0.5rem;
+        }
+
+        .gap-table th, .gap-table td {
+            padding: 0.6rem 0.75rem;
+            text-align: left;
+            font-size: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .gap-table th {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .gap-bar {
+            height: 6px;
+            background: var(--bg-secondary);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 0.3rem;
+        }
+
+        .gap-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+
+        .gap-fill.high { background: var(--accent-red); }
+        .gap-fill.medium { background: var(--accent-orange); }
+        .gap-fill.low { background: var(--accent-green); }
+
+        .opportunity-badge {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .opportunity-badge.high {
+            background: rgba(255, 68, 68, 0.2);
+            color: var(--accent-red);
+        }
+
+        .opportunity-badge.medium {
+            background: rgba(255, 136, 0, 0.2);
+            color: var(--accent-orange);
+        }
+
+        .opportunity-badge.low {
+            background: rgba(0, 255, 136, 0.2);
+            color: var(--accent-green);
+        }
+
+        .trend-heatmap {
+            display: grid;
+            grid-template-columns: auto repeat(4, 1fr);
+            gap: 2px;
+            margin-top: 0.5rem;
+        }
+
+        .heatmap-cell {
+            padding: 0.5rem;
+            text-align: center;
+            font-size: 0.7rem;
+            border-radius: 4px;
+        }
+
+        .heatmap-cell.header {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .heatmap-cell.label {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            text-align: left;
+        }
+
+        .heatmap-cell.high { background: rgba(0, 255, 136, 0.3); color: var(--accent-green); }
+        .heatmap-cell.medium { background: rgba(255, 136, 0, 0.3); color: var(--accent-orange); }
+        .heatmap-cell.low { background: rgba(255, 68, 68, 0.2); color: var(--accent-red); }
+
+        .recommendation-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .recommendation-item {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.875rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            transition: border-color 0.2s;
+        }
+
+        .recommendation-item:hover {
+            border-color: var(--accent-cyan);
+        }
+
+        .rec-priority {
+            width: 24px; height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .rec-priority.urgent { background: var(--accent-red); color: #fff; }
+        .rec-priority.high { background: var(--accent-orange); color: #000; }
+        .rec-priority.medium { background: var(--accent-gold); color: #000; }
+        .rec-priority.low { background: var(--text-dim); color: var(--text-primary); }
+
+        .rec-content { flex: 1; }
+        .rec-title { font-size: 0.8rem; font-weight: 600; margin-bottom: 0.25rem; }
+        .rec-desc { font-size: 0.7rem; color: var(--text-secondary); line-height: 1.4; }
+        .rec-meta { 
+            display: flex; 
+            gap: 1rem; 
+            margin-top: 0.5rem;
+            font-size: 0.65rem;
+            color: var(--text-dim);
+        }
+
+        .planner-grid {
+            display: grid;
+            grid-template-columns: 50px 1fr;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .planner-day {
+            background: var(--bg-secondary);
+            border-radius: 6px;
+            padding: 0.75rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .planner-day-label {
+            font-size: 0.65rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .planner-day-content {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 0.5rem;
+            font-size: 0.75rem;
+        }
+
+        .planner-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .planner-item:last-child { margin-bottom: 0; }
+
+        .planner-icon { font-size: 0.9rem; }
+
+        .planner-score {
+            margin-left: auto;
+            font-size: 0.65rem;
+            padding: 0.1rem 0.3rem;
+            border-radius: 3px;
+            background: var(--accent-green);
+            color: #000;
+            font-weight: 600;
+        }
+
+        .planner-gap {
+            font-size: 0.6rem;
+            color: var(--text-dim);
+            margin-left: 1.4rem;
+        }
+
+        .opportunity-radar {
+            position: relative;
+            height: 200px;
+            background: radial-gradient(circle at center, rgba(0,212,255,0.05) 0%, transparent 60%);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            margin: 1rem auto;
+            width: 200px;
+        }
+
+        .radar-center {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px; height: 40px;
+            background: var(--accent-cyan);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6rem;
+            font-weight: 700;
+            color: #000;
+        }
+
+        .radar-label {
+            position: absolute;
+            font-size: 0.65rem;
+            color: var(--text-secondary);
+        }
+
+        .radar-label.ai { top: 10px; left: 50%; transform: translateX(-50%); }
+        .radar-label.healthcare { right: 10px; top: 50%; transform: translateY(-50%); }
+        .radar-label.eth { bottom: 10px; left: 50%; transform: translateX(-50%); }
+        .radar-label.btc { left: 10px; top: 50%; transform: translateY(-50%); }
+
+        .radar-blip {
+            position: absolute;
+            width: 12px; height: 12px;
+            border-radius: 50%;
+            animation: radar-pulse 2s infinite;
+        }
+
+        @keyframes radar-pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.5; }
+        }
+
+        .radar-blip.high { background: var(--accent-red); box-shadow: 0 0 10px var(--accent-red); }
+        .radar-blip.medium { background: var(--accent-orange); box-shadow: 0 0 10px var(--accent-orange); }
+
+        .full-width { grid-column: 1 / -1; }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .stats-row { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+        }
+
+        .stat-change {
+            font-size: 0.65rem;
+            margin-top: 0.25rem;
+        }
+
+        .stat-change.positive { color: var(--accent-green); }
+        .stat-change.negative { color: var(--accent-red); }
+
+        .toast-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .toast {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            padding: 0.875rem 1rem;
+            min-width: 280px;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .toast-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .toast-icon { font-size: 1rem; }
+        .toast-title { font-size: 0.8rem; font-weight: 600; }
+        .toast-message { font-size: 0.7rem; color: var(--text-secondary); }
+    </style>
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-left">
+            <div class="logo">
+                <span class="logo-icon">🎯</span>
+                <span>StrategicIntel</span>
+                <span class="version-tag">v5.2</span>
+            </div>
+            <div class="status-badge">
+                <span class="status-dot"></span>
+                <span>LIVE</span>
+            </div>
+        </div>
+        <div class="nav-right">
+            <a href="mission_control_command_center.html" class="nav-link">Command</a>
+            <a href="mission_control_predictive_intelligence.html" class="nav-link">Predictive</a>
+            <a href="mission_control_engagement_live.html" class="nav-link">Engagement</a>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <!-- Stats Row -->
+        <div class="stats-row full-width">
+            <div class="stat-card">
+                <div class="stat-value">6.3%</div>
+                <div class="stat-label">Engagement Rate</div>
+                <div class="stat-change positive">+0.4% vs last week</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">219</div>
+                <div class="stat-label">Followers</div>
+                <div class="stat-change positive">+7 this week</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">82/100</div>
+                <div class="stat-label">Strategic Score</div>
+                <div class="stat-change positive">+5 vs baseline</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">3</div>
+                <div class="stat-label">High Opportunities</div>
+                <div class="stat-change positive">Act now</div>
+            </div>
+        </div>
+
+        <!-- Competitive Landscape -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">🎯 Competitive Landscape</div>
+            </div>
+            <div class="card-content">
+                <div class="competitive-matrix" id="compMatrix">
+                    <div class="matrix-axis-y">Engagement Rate →</div>
+                    <div class="matrix-axis-x">Post Volume →</div>
+                    
+                    <div class="competitor-dot you" style="left: 45%; top: 55%;">
+                        <span class="rate">6.3%</span>
+                        <span class="name">YOU</span>
+                    </div>
+                    
+                    <div class="competitor-dot other" style="left: 75%; top: 35%;">
+                        <span class="rate">8.2%</span>
+                        <span class="name">Dylan</span>
+                    </div>
+                    
+                    <div class="competitor-dot other" style="left: 25%; top: 25%;">
+                        <span class="rate">12.4%</span>
+                        <span class="name">Long</span>
+                    </div>
+                    
+                    <div class="competitor-dot other" style="left: 55%; top: 40%;">
+                        <span class="rate">9.7%</span>
+                        <span class="name">Tom</span>
+                    </div>
+                    
+                    <div class="competitor-dot other" style="left: 40%; top: 70%;">
+                        <span class="rate">5.1%</span>
+                        <span class="name">Raoul</span>
+                    </div>
+                </div>
+                
+                <table class="gap-table">
+                    <tr>
+                        <th>Competitor</th>
+                        <th>Engage</th>
+                        <th>Posts/Wk</th>
+                        <th>Gap</th>
+                    </tr>
+                    <tr>
+                        <td>DylanLeClair_</td>
+                        <td>8.2%</td>
+                        <td>47</td>
+                        <td><span class="opportunity-badge medium">-1.9pp</span></td>
+                    </tr>
+                    <tr>
+                        <td>TheLongInvestor</td>
+                        <td>12.4%</td>
+                        <td>8</td>
+                        <td><span class="opportunity-badge high">-6.1pp</span></td>
+                    </tr>
+                    <tr>
+                        <td>DrTomsLens</td>
+                        <td>9.7%</td>
+                        <td>15</td>
+                        <td><span class="opportunity-badge medium">-3.4pp</span></td>
+                    </tr>
+                    <tr>
+                        <td>RaoulGMI</td>
+                        <td>5.1%</td>
+                        <td>12</td>
+                        <td><span class="opportunity-badge low">+1.2pp ✓</span></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- Content Gap Radar -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">📊 Content Gap Analysis</div>
+            </div>
+            <div class="card-content">
+                <div class="radar-container">
+                    <canvas id="radarChart" width="220" height="220"></canvas>
+                </div>
+                
+                <table class="gap-table">
+                    <tr>
+                        <th>Type</th>
+                        <th>Your Coverage</th>
+                        <th>Gap</th>
+                        <th>Opportunity</th>
+                    </tr>
+                    <tr>
+                        <td>Educational</td>
+                        <td>
+                            <div class="gap-bar">
+                                <div class="gap-fill high" style="width: 65%"></div>
+                            </div>
+                        </td>
+                        <td>-27%</td>
+                        <td><span class="opportunity-badge high">HIGH</span></td>
+                    </tr>
+                    <tr>
+                        <td>Data-Driven</td>
+                        <td>
+                            <div class="gap-bar">
+                                <div class="gap-fill high" style="width: 45%"></div>
+                            </div>
+                        </td>
+                        <td>-33%</td>
+                        <td><span class="opportunity-badge high">HIGH</span></td>
+                    </tr>
+                    <tr>
+                        <td>Story-Driven</td>
+                        <td>
+                            <div class="gap-bar">
+                                <div class="gap-fill medium" style="width: 23%"></div>
+                            </div>
+                        </td>
+                        <td>-22%</td>
+                        <td><span class="opportunity-badge high">HIGH</span></td>
+                    </tr>
+                    <tr>
+                        <td>Contrarian</td>
+                        <td>
+                            <div class="gap-bar">
+                                <div class="gap-fill low" style="width: 78%"></div>
+                            </div>
+                        </td>
+                        <td>-7%</td>
+                        <td><span class="opportunity-badge low">LOW</span></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- Trend Correlation -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">🔥 Trend Correlation Matrix</div>
+            </div>
+            <div class="card-content">
+                <div class="trend-heatmap">
+                    <div class="heatmap-cell header">Source</div>
+                    <div class="heatmap-cell header">AI Agents</div>
+                    <div class="heatmap-cell header">Healthcare</div>
+                    <div class="heatmap-cell header">ETH Treasury</div>
+                    <div class="heatmap-cell header">BTC</div>
+                    
+                    <div class="heatmap-cell label">X/Twitter</div>
+                    <div class="heatmap-cell high">89%</div>
+                    <div class="heatmap-cell medium">68%</div>
+                    <div class="heatmap-cell medium">72%</div>
+                    <div class="heatmap-cell high">91%</div>
+                    
+                    <div class="heatmap-cell label">Reddit</div>
+                    <div class="heatmap-cell high">94%</div>
+                    <div class="heatmap-cell high">87%</div>
+                    <div class="heatmap-cell low">45%</div>
+                    <div class="heatmap-cell medium">78%</div>
+                    
+                    <div class="heatmap-cell label">News</div>
+                    <div class="heatmap-cell medium">82%</div>
+                    <div class="heatmap-cell high">85%</div>
+                    <div class="heatmap-cell high">88%</div>
+                    <div class="heatmap-cell high">90%</div>
+                    
+                    <div class="heatmap-cell label">Research</div>
+                    <div class="heatmap-cell high">96%</div>
+                    <div class="heatmap-cell high">91%</div>
+                    <div class="heatmap-cell high">94%</div>
+                    <div class="heatmap-cell high">89%</div>
+                </div>
+                
+                <div style="margin-top: 1rem; padding: 0.75rem; background: var(--bg-secondary); border-radius: 6px;">
+                    <div style="font-size: 0.75rem; font-weight: 600; margin-bottom: 0.5rem;">💡 Key Insight</div>
+                    <div style="font-size: 0.7rem; color: var(--text-secondary);">
+                        Healthcare + AI Agents showing 92% correlation — emerging intersection opportunity
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Strategic Recommendations -->
+        <div class="card full-width">
+            <div class="card-header">
+                <div class="card-title">💡 Strategic Recommendations</div>
+            </div>
+            <div class="card-content">
+                <div class="recommendation-list">
+                    <div class="recommendation-item">
+                        <div class="rec-priority urgent">P1</div>
+                        <div class="rec-content">
+                            <div class="rec-title">Post HIMS Healthcare Thread Immediately</div>
+                            <div class="rec-desc">Score 94, healthcare content gap is 27% — highest opportunity window. Expected +45 engagements.</div>
+                            <div class="rec-meta">
+                                <span>Confidence: 94%</span>
+                                <span>Impact: HIGH</span>
+                                <span>TTL: 6h</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="recommendation-item">
+                        <div class="rec-priority high">P2</div>
+                        <div class="rec-content">
+                            <div class="rec-title">Re-engage with DylanLeClair_ BTC Thread</div>
+                            <div class="rec-desc">Stale 6h, high-engagement account. Opportunity to establish visibility in BTC treasury narrative.</div>
+                            <div class="rec-meta">
+                                <span>Confidence: 87%</span>
+                                <span>Impact: MEDIUM</span>
+                                <span>+12 followers expected</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="recommendation-item">
+                        <div class="rec-priority high">P2</div>
+                        <div class="rec-content">
+                            <div class="rec-title">Create Data-Driven Educational Thread</div>
+                            <div class="rec-desc">Gap analysis shows -33% coverage in data-driven content. Create visual thread with numbers/charts.</div>
+                            <div class="rec-meta">
+                                <span>Confidence: 85%</span>
+                                <span>Impact: HIGH</span>
+                                <span>+38 engagements expected</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="recommendation-item">
+                        <div class="rec-priority medium">P3</div>
+                        <div class="rec-content">
+                            <div class="rec-title">Schedule Educational Content for Tuesday 14:30</div>
+                            <div class="rec-desc">Optimal timing window + educational content gap. Pre-draft thread on AI agentic commerce.</div>
+                            <div class="rec-meta">
+                                <span>Confidence: 82%</span>
+                                <span>Impact: MEDIUM</span>
+                                <span>Scheduled: Tue 14:30</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7-Day Strategic Planner -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">📅 7-Day Strategic Planner</div>
+            </div>
+            <div class="card-content">
+                <div class="planner-grid">
+                    <div class="planner-day">
+                        <div class="planner-day-label">Mon</div>
+                        <div class="planner-day-content">
+                            <div class="planner-item">
+                                <span class="planner-icon">🏥</span>
+                                <span>HIMS Thread</span>
+                                <span class="planner-score">94</span>
+                            </div>
+                            <div class="planner-gap">Gap: Underserved</div>
+                        </div>
+                    </div>
+                    
+                    <div class="planner-day">
+                        <div class="planner-day-label">Tue</div>
+                        <div class="planner-day-content">
+                            <div class="planner-item">
+                                <span class="planner-icon">🤖</span>
+                                <span>AI Agentic</span>
+                                <span class="planner-score">76</span>
+                            </div>
+                            <div class="planner-gap">Competitive: Low</div>
+                        </div>
+                    </div>
+                    
+                    <div class="planner-day">
+                        <div class="planner-day-label">Wed</div>
+                        <div class="planner-day-content">
+                            <div class="planner-item">
+                                <span class="planner-icon">💎</span>
+                                <span>ETH Treasury</span>
+                                <span class="planner-score">88</span>
+                            </div>
+                            <div class="planner-gap">Opportunity: High</div>
+                        </div>
+                    </div>
+                    
+                    <div class="planner-day">
+                        <div class="planner-day-label">Thu</div>
+                        <div class="planner-day-content">
+                            <div class="planner-item">
+                                <span class="planner-icon">📊</span>
+                                <span>Market Data</span>
+                                <span class="planner-score">72</span>
+                            </div>
+                            <div class="planner-gap">Type: Data-Driven</div>
+                        </div>
+                    </div>
+                    
+                    <div class="planner-day">
+                        <div class="planner-day-label">Fri</div>
+                        <div class="planner-day-content">
+                            <div class="planner-item">
+                                <span class="planner-icon">💬</span>
+                                <span>Community</span>
+                                <span class="planner-score">65</span>
+                            </div>
+                            <div class="planner-gap">Type: Engagement</div>
+                        </div>
+                    </div>
+                    
+                    <div class="planner-day">
+                        <div class="planner-day-label">Sat</div>
+                        <div class="planner-day-content">
+                            <div class="planner-item">
+                                <span class="planner-icon">🎯</span>
+                                <span>Strategy Review</span>
+                                <span class="planner-score">-</span>
+                            </div>
+                            <div class="planner-gap">Analysis</div>
+                        </div>
+                    </div>
+                    
+                    <div class="planner-day">
+                        <div class="planner-day-label">Sun</div>
+                        <div class="planner-day-content">
+                            <div class="planner-item">
+                                <span class="planner-icon">📈</span>
+                                <span>Week Review</span>
+                                <span class="planner-score">-</span>
+                            </div>
+                            <div class="planner-gap">Planning</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Opportunity Radar -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">🎯 Opportunity Radar</div>
+            </div>
+            <div class="card-content">
+                <div class="opportunity-radar">
+                    <div class="radar-center">YOU</div>
+                    <div class="radar-label ai">AI</div>
+                    <div class="radar-label healthcare">Health</div>
+                    <div class="radar-label eth">ETH</div>
+                    <div class="radar-label btc">BTC</div>
+                    
+                    <div class="radar-blip high" style="top: 30%; left: 60%;"></div>
+                    <div class="radar-blip medium" style="top: 50%; left: 30%;"></div>
+                    <div class="radar-blip high" style="top: 70%; left: 45%;"></div>
+                </div>
+                
+                <div style="margin-top: 1rem;">
+                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                        <div class="radar-blip high" style="position: static; width: 10px; height: 10px;"></div>
+                        <span style="font-size: 0.75rem;">Healthcare-AI Intersection (78%)</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                        <div class="radar-blip medium" style="position: static; width: 10px; height: 10px;"></div>
+                        <span style="font-size: 0.75rem;">ETH Treasury Momentum (89%)</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <div class="radar-blip high" style="position: static; width: 10px; height: 10px;"></div>
+                        <span style="font-size: 0.75rem;">Educational Content Window (74%)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Network Effect Map -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">🌐 Network Effect Map</div>
+            </div>
+            <div class="card-content">
+                <table class="gap-table">
+                    <tr>
+                        <th>Target</th>
+                        <th>Overlap</th>
+                        <th>Influence</th>
+                        <th>Status</th>
+                    </tr>
+                    <tr>
+                        <td>@TheLongInvestor</td>
+                        <td>
+                            <div class="gap-bar">
+                                <div class="gap-fill high" style="width: 78%"></div>
+                            </div>
+                        </td>
+                        <td>Very High</td>
+                        <td><span class="opportunity-badge low">Engaged ✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>@DrTomsLens</td>
+                        <td>
+                            <div class="gap-bar">
+                                <div class="gap-fill medium" style="width: 45%"></div>
+                            </div>
+                        </td>
+                        <td>High</td>
+                        <td><span class="opportunity-badge high">Target</span></td>
+                    </tr>
+                    <tr>
+                        <td>@DylanLeClair_</td>
+                        <td>
+                            <div class="gap-bar">
+                                <div class="gap-fill medium" style="width: 62%"></div>
+                            </div>
+                        </td>
+                        <td>Very High</td>
+                        <td><span class="opportunity-badge medium">Stale</span></td>
+                    </tr>
+                    <tr>
+                        <td>@RaoulGMI</td>
+                        <td>
+                            <div class="gap-bar">
+                                <div class="gap-fill low" style="width: 28%"></div>
+                            </div>
+                        </td>
+                        <td>Medium</td>
+                        <td><span class="opportunity-badge high">Target</span></td>
+                    </tr>
+                </table>
+                
+                <div style="margin-top: 1rem; padding: 0.75rem; background: var(--bg-secondary); border-radius: 6px;">
+                    <div style="font-size: 0.75rem; font-weight: 600; margin-bottom: 0.5rem;">📈 Network Growth</div>
+                    <div style="font-size: 0.7rem; color: var(--text-secondary);">
+                        +3 new connections this week • Best path: DrTomsLens → Healthcare community
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        // Radar Chart
+        const ctx = document.getElementById('radarChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: ['Educational', 'Contrarian', 'Data-Driven', 'Timely', 'Story-Driven'],
+                datasets: [{
+                    label: 'Your Coverage',
+                    data: [65, 78, 45, 82, 23],
+                    borderColor: '#00d4ff',
+                    backgroundColor: 'rgba(0, 212, 255, 0.2)',
+                    borderWidth: 2,
+                    pointBackgroundColor: '#00d4ff',
+                    pointBorderColor: '#fff',
+                    pointRadius: 4
+                }, {
+                    label: 'Market Demand',
+                    data: [92, 85, 78, 88, 45],
+                    borderColor: '#ff8800',
+                    backgroundColor: 'rgba(255, 136, 0, 0.1)',
+                    borderWidth: 2,
+                    borderDash: [5, 5],
+                    pointBackgroundColor: '#ff8800',
+                    pointBorderColor: '#fff',
+                    pointRadius: 3
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'bottom',
+                        labels: {
+                            color: '#888',
+                            font: { size: 10 }
+                        }
+                    }
+                },
+                scales: {
+                    r: {
+                        angleLines: { color: '#222' },
+                        grid: { color: '#222' },
+                        pointLabels: {
+                            color: '#888',
+                            font: { size: 10 }
+                        },
+                        ticks: {
+                            display: false,
+                            backdropColor: 'transparent'
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: 100
+                    }
+                }
+            }
+        });
+
+        // Toast notifications
+        function showToast(title, message, icon = '💡') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = `
+                <div class="toast-header">
+                    <span class="toast-icon">${icon}</span>
+                    <span class="toast-title">${title}</span>
+                </div>
+                <div class="toast-message">${message}</div>
+            `;
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 5000);
+        }
+
+        // Show initial toast
+        setTimeout(() => {
+            showToast('Strategic Alert', 'Healthcare-AI intersection opportunity detected. 24h window.', '🎯');
+        }, 1000);
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'r' || e.key === 'R') {
+                location.reload();
+            }
+            if (e.key === 't' || e.key === 'T') {
+                showToast('Test Alert', 'Strategic intelligence dashboard operational', '✅');
+            }
+        });
+    </script>
+</body>
+</html>

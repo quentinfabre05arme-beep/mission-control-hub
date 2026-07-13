@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@quentinvest1 | Performance Attribution v5.3</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-tertiary: #1a1a1a;
+            --bg-card: #161616;
+            --bg-hover: #1e1e1e;
+            --accent-cyan: #00d4ff;
+            --accent-green: #00ff88;
+            --accent-orange: #ff8800;
+            --accent-red: #ff0044;
+            --accent-purple: #8800ff;
+            --accent-gold: #ffd700;
+            --accent-pink: #ff0066;
+            --accent-teal: #00ffcc;
+            --text-primary: #ffffff;
+            --text-secondary: #888888;
+            --text-dim: #444444;
+            --border-color: #222222;
+            --glass-bg: rgba(22, 22, 22, 0.8);
+            --glass-border: rgba(34, 34, 34, 0.5);
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto Mono', monospace;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(0, 212, 255, 0.03) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(0, 255, 136, 0.03) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(255, 215, 0, 0.02) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .top-nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 60px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 1.5rem;
+            z-index: 100;
+        }
+
+        .nav-left { display: flex; align-items: center; gap: 1rem; }
+        .logo { display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 1.1rem; }
+        .logo-icon { font-size: 1.2rem; }
+        .version-tag { font-size: 0.7rem; padding: 0.15rem 0.5rem; background: var(--accent-gold); border-radius: 4px; color: #000; font-weight: 700; }
+        .status-badge { display: flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; color: var(--text-secondary); }
+        .status-dot { width: 8px; height: 8px; background: var(--accent-green); border-radius: 50%; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .nav-right { display: flex; align-items: center; gap: 1rem; }
+        .nav-link { color: var(--text-secondary); text-decoration: none; font-size: 0.8rem; transition: color 0.2s; }
+        .nav-link:hover { color: var(--text-primary); }
+
+        .main-container {
+            padding: 80px 1.5rem 2rem;
+            max-width: 1600px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        @media (max-width: 1200px) { .main-container { grid-template-columns: 1fr 1fr; } }
+        @media (max-width: 768px) { .main-container { grid-template-columns: 1fr; padding: 80px 1rem 2rem; } }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 1rem 1.25rem;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-title { font-size: 0.85rem; font-weight: 600; letter-spacing: 0.5px; display: flex; align-items: center; gap: 0.5rem; }
+        .card-content { padding: 1.25rem; }
+
+        .full-width { grid-column: 1 / -1; }
+        .half-width { grid-column: span 2; }
+
+        @media (max-width: 768px) {
+            .half-width { grid-column: 1 / -1; }
+        }
+
+        .stat-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+        }
+
+        .stat-change {
+            font-size: 0.65rem;
+            margin-top: 0.25rem;
+        }
+
+        .stat-change.positive { color: var(--accent-green); }
+        .stat-change.negative { color: var(--accent-red); }
+
+        .attribution-bar {
+            display: flex;
+            height: 32px;
+            border-radius: 6px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .attribution-segment {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #000;
+            transition: flex 0.3s ease;
+        }
+
+        .attribution-segment.hims { background: var(--accent-green); }
+        .attribution-segment.eth { background: var(--accent-cyan); }
+        .attribution-segment.organic { background: var(--accent-purple); color: #fff; }
+
+        .attribution-legend {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 0.75rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .legend-dot.hims { background: var(--accent-green); }
+        .legend-dot.eth { background: var(--accent-cyan); }
+        .legend-dot.organic { background: var(--accent-purple); }
+
+        .funnel-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            padding: 1rem 0;
+        }
+
+        .funnel-stage {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .funnel-bar {
+            height: 36px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            position: relative;
+        }
+
+        .funnel-bar.impressions { width: 100%; background: linear-gradient(90deg, var(--accent-purple), var(--accent-purple-dark, #5a1a9c)); }
+        .funnel-bar.clicks { width: 85%; background: linear-gradient(90deg, var(--accent-cyan), #0088cc); }
+        .funnel-bar.engagements { width: 65%; background: linear-gradient(90deg, var(--accent-teal), #00aa88); }
+        .funnel-bar.profile { width: 45%; background: linear-gradient(90deg, var(--accent-orange), #cc6600); }
+        .funnel-bar.followers { width: 25%; background: linear-gradient(90deg, var(--accent-green), #00aa66); }
+
+        .funnel-conversion {
+            font-size: 0.65rem;
+            color: var(--accent-green);
+            white-space: nowrap;
+        }
+
+        .funnel-arrow {
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 0.8rem;
+            margin: -0.25rem 0;
+        }
+
+        .roi-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 0.5rem;
+        }
+
+        .roi-table th, .roi-table td {
+            padding: 0.75rem;
+            text-align: left;
+            font-size: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .roi-table th {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .roi-table tr:last-child td { border-bottom: none; }
+
+        .roi-badge {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .roi-badge.high {
+            background: rgba(0, 255, 136, 0.2);
+            color: var(--accent-green);
+        }
+
+        .roi-badge.medium {
+            background: rgba(255, 136, 0, 0.2);
+            color: var(--accent-orange);
+        }
+
+        .roi-badge.low {
+            background: rgba(255, 68, 68, 0.2);
+            color: var(--accent-red);
+        }
+
+        .win-loss-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .win-loss-item {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+        }
+
+        .win-loss-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .win-loss-title {
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .win-loss-rate {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+        }
+
+        .win-loss-bar {
+            height: 8px;
+            background: var(--bg-tertiary);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+
+        .win-loss-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .win-loss-fill.high { background: var(--accent-green); }
+        .win-loss-fill.medium { background: var(--accent-orange); }
+        .win-loss-fill.low { background: var(--accent-red); }
+
+        .win-loss-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.65rem;
+            color: var(--text-secondary);
+        }
+
+        .timeline-container {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            left: 0.5rem;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border-color);
+        }
+
+        .timeline-day {
+            margin-bottom: 1.5rem;
+        }
+
+        .timeline-day-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            position: relative;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -1.6rem;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-color);
+        }
+
+        .timeline-dot.completed { background: var(--accent-green); border-color: var(--accent-green); }
+        .timeline-dot.scheduled { background: var(--accent-orange); border-color: var(--accent-orange); }
+        .timeline-dot.pending { background: var(--bg-tertiary); border-color: var(--text-dim); }
+
+        .timeline-content {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.75rem;
+            flex: 1;
+        }
+
+        .timeline-content.completed { border-color: var(--accent-green); }
+        .timeline-content.scheduled { border-color: var(--accent-orange); }
+
+        .timeline-title {
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-desc {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-result {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.65rem;
+        }
+
+        .timeline-stat {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .timeline-stat.positive { color: var(--accent-green); }
+        .timeline-stat.negative { color: var(--accent-red); }
+
+        .prediction-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+        }
+
+        .prediction-item:last-child { margin-bottom: 0; }
+
+        .prediction-status {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+
+        .prediction-status.accurate { background: rgba(0, 255, 136, 0.2); color: var(--accent-green); }
+        .prediction-status.under { background: rgba(255, 136, 0, 0.2); color: var(--accent-orange); }
+        .prediction-status.pending { background: rgba(136, 0, 255, 0.2); color: var(--accent-purple); }
+
+        .prediction-content { flex: 1; }
+        .prediction-title { font-size: 0.8rem; font-weight: 600; margin-bottom: 0.25rem; }
+        .prediction-values { font-size: 0.7rem; color: var(--text-secondary); }
+        .prediction-variance { font-size: 0.7rem; font-weight: 600; }
+        .prediction-variance.positive { color: var(--accent-green); }
+        .prediction-variance.negative { color: var(--accent-red); }
+
+        .accuracy-meter {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .accuracy-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+        }
+
+        .accuracy-bar {
+            flex: 1;
+            height: 12px;
+            background: var(--bg-tertiary);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .accuracy-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-green), var(--accent-cyan));
+            border-radius: 6px;
+            transition: width 0.5s ease;
+        }
+
+        .accuracy-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-align: right;
+        }
+
+        .performance-matrix {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 4px;
+            margin-top: 0.5rem;
+        }
+
+        .matrix-cell {
+            aspect-ratio: 1;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+            font-weight: 600;
+        }
+
+        .matrix-cell.header {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+        }
+
+        .matrix-cell.win { background: rgba(0, 255, 136, 0.3); color: var(--accent-green); }
+        .matrix-cell.loss { background: rgba(255, 68, 68, 0.2); color: var(--accent-red); }
+        .matrix-cell.draw { background: rgba(255, 136, 0, 0.2); color: var(--accent-orange); }
+        .matrix-cell.empty { background: var(--bg-tertiary); }
+
+        .toast-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .toast {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            padding: 0.875rem 1rem;
+            min-width: 280px;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .toast-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .toast-icon { font-size: 1rem; }
+        .toast-title { font-size: 0.8rem; font-weight: 600; }
+        .toast-message { font-size: 0.7rem; color: var(--text-secondary); }
+    </style>
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-left">
+            <div class="logo">
+                <span class="logo-icon">📊</span>
+                <span>Attribution</span>
+                <span class="version-tag">v5.3</span>
+            </div>
+            <div class="status-badge">
+                <span class="status-dot"></span>
+                <span>LIVE</span>
+            </div>
+        </div>
+        <div class="nav-right">
+            <a href="mission_control_strategic.html" class="nav-link">Strategic</a>
+            <a href="mission_control_predictive_intelligence.html" class="nav-link">Predictive</a>
+            <a href="mission_control_engagement_live.html" class="nav-link">Engagement</a>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <!-- Stats Row -->
+        <div class="card full-width">
+            <div class="card-content">
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;">
+                    <div class="stat-card">
+                        <div class="stat-value">71%</div>
+                        <div class="stat-label">Attribution Rate</div>
+                        <div class="stat-change positive">5/7 followers tracked</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">87%</div>
+                        <div class="stat-label">Prediction Accuracy</div>
+                        <div class="stat-change positive">+9% vs baseline</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">$0.12</div>
+                        <div class="stat-label">Cost per Follower</div>
+                        <div class="stat-change positive">Best: Replies</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">80%</div>
+                        <div class="stat-label">Healthcare Win Rate</div>
+                        <div class="stat-change positive">Best pillar</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Attribution Engine -->
+        <div class="card half-width">
+            <div class="card-header">
+                <div class="card-title">🎯 Attribution Engine</div>
+            </div>
+            <div class="card-content">
+                <div style="margin-bottom: 0.5rem;">
+                    <span style="font-size: 0.8rem; font-weight: 600;">+7 followers this week</span>
+                </div>
+                
+                <div class="attribution-bar">
+                    <div class="attribution-segment hims" style="flex: 0.43;">43%</div>
+                    <div class="attribution-segment eth" style="flex: 0.29;">29%</div>
+                    <div class="attribution-segment organic" style="flex: 0.28;">28%</div>
+                </div>
+
+                <div class="attribution-legend">
+                    <div class="legend-item">
+                        <div class="legend-dot hims"></div>
+                        <span>HIMS Thread: +3 followers</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot eth"></div>
+                        <span>ETH Reply: +2 followers</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot organic"></div>
+                        <span>Organic: +2 followers</span>
+                    </div>
+                </div>
+
+                <div style="margin-top: 1.5rem;">
+                    <div style="font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 0.5rem;">Attribution Funnel</div>
+                    <div class="funnel-container">
+                        <div class="funnel-stage">
+                            <div class="funnel-bar impressions">
+                                <span>2,847 Impressions</span>
+                                <span class="funnel-conversion">11.7% →</span>
+                            </div>
+                        </div>
+                        <div class="funnel-arrow">↓</div>
+                        <div class="funnel-stage">
+                            <div class="funnel-bar clicks">
+                                <span>334 Clicks</span>
+                                <span class="funnel-conversion">6.3% →</span>
+                            </div>
+                        </div>
+                        <div class="funnel-arrow">↓</div>
+                        <div class="funnel-stage">
+                            <div class="funnel-bar engagements">
+                                <span>21 Engagements</span>
+                                <span class="funnel-conversion">33.3% →</span>
+                            </div>
+                        </div>
+                        <div class="funnel-arrow">↓</div>
+                        <div class="funnel-stage">
+                            <div class="funnel-bar profile">
+                                <span>7 Profile Views</span>
+                                <span class="funnel-conversion">100% →</span>
+                            </div>
+                        </div>
+                        <div class="funnel-arrow">↓</div>
+                        <div class="funnel-stage">
+                            <div class="funnel-bar followers">
+                                <span>+7 Followers</span>
+                                <span class="funnel-conversion">0.25% conv</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ROI Calculator -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">💰 ROI Calculator</div>
+            </div>
+            <div class="card-content">
+                <table class="roi-table">
+                    <tr>
+                        <th>Type</th>
+                        <th>Cost</th>
+                        <th>Cost/Follower</th>
+                        <th>ROI</th>
+                    </tr>
+                    <tr>
+                        <td>Threads</td>
+                        <td>$1.52</td>
+                        <td>$0.51</td>
+                        <td><span class="roi-badge high">High</span></td>
+                    </tr>
+                    <tr>
+                        <td>Replies</td>
+                        <td>$0.23</td>
+                        <td>$0.12</td>
+                        <td><span class="roi-badge high">V. High</span></td>
+                    </tr>
+                    <tr>
+                        <td>Scheduled</td>
+                        <td>$0.89</td>
+                        <td>$0.89</td>
+                        <td><span class="roi-badge medium">Med</span></td>
+                    </tr>
+                </table>
+
+                <div style="margin-top: 1rem; padding: 0.75rem; background: var(--bg-secondary); border-radius: 6px;">
+                    <div style="font-size: 0.75rem; font-weight: 600; margin-bottom: 0.5rem;">💡 Recommendation</div>
+                    <div style="font-size: 0.7rem; color: var(--text-secondary);">
+                        Focus on replies for follower growth — $0.12 per follower vs $0.51 for threads. Best ROI activity.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Win/Loss Tracker -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">🏆 Win/Loss by Pillar</div>
+            </div>
+            <div class="card-content">
+                <div class="win-loss-container">
+                    <div class="win-loss-item">
+                        <div class="win-loss-header">
+                            <span class="win-loss-title">Healthcare (HIMS)</span>
+                            <span class="win-loss-rate">80%</span>
+                        </div>
+                        <div class="win-loss-bar">
+                            <div class="win-loss-fill high" style="width: 80%"></div>
+                        </div>
+                        <div class="win-loss-meta">
+                            <span>Wins: 4</span>
+                            <span>Losses: 1</span>
+                            <span>Avg: +47 eng</span>
+                        </div>
+                    </div>
+
+                    <div class="win-loss-item">
+                        <div class="win-loss-header">
+                            <span class="win-loss-title">ETH Treasury</span>
+                            <span class="win-loss-rate">60%</span>
+                        </div>
+                        <div class="win-loss-bar">
+                            <div class="win-loss-fill medium" style="width: 60%"></div>
+                        </div>
+                        <div class="win-loss-meta">
+                            <span>Wins: 3</span>
+                            <span>Losses: 2</span>
+                            <span>Avg: +28 eng</span>
+                        </div>
+                    </div>
+
+                    <div class="win-loss-item">
+                        <div class="win-loss-header">
+                            <span class="win-loss-title">AI Agents</span>
+                            <span class="win-loss-rate">40%</span>
+                        </div>
+                        <div class="win-loss-bar">
+                            <div class="win-loss-fill low" style="width: 40%"></div>
+                        </div>
+                        <div class="win-loss-meta">
+                            <span>Wins: 2</span>
+                            <span>Losses: 3</span>
+                            <span>Avg: +12 eng</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Execution Timeline -->
+        <div class="card half-width">
+            <div class="card-header">
+                <div class="card-title">📅 Execution Timeline</div>
+            </div>
+            <div class="card-content">
+                <div class="timeline-container">
+                    <div class="timeline-day">
+                        <div class="timeline-day-label">Monday, Jul 12</div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot completed"></div>
+                            <div class="timeline-content completed">
+                                <div class="timeline-title">Daily Briefing Generated</div>
+                                <div class="timeline-desc">Research cycle complete, content prioritized</div>
+                                <div class="timeline-result">
+                                    <span class="timeline-stat">08:00</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot completed"></div>
+                            <div class="timeline-content completed">
+                                <div class="timeline-title">HIMS Healthcare Thread Posted ✓</div>
+                                <div class="timeline-desc">Score 94 — highest priority content</div>
+                                <div class="timeline-result">
+                                    <span class="timeline-stat positive">+3 followers</span>
+                                    <span class="timeline-stat positive">+21 engagements</span>
+                                    <span class="timeline-stat">14:30</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot completed"></div>
+                            <div class="timeline-content completed">
+                                <div class="timeline-title">Research Cycle #8 Complete</div>
+                                <div class="timeline-desc">Strategic Intelligence v5.2 deployed</div>
+                                <div class="timeline-result">
+                                    <span class="timeline-stat">18:00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-day">
+                        <div class="timeline-day-label">Tuesday, Jul 13 (Today)</div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot completed"></div>
+                            <div class="timeline-content completed">
+                                <div class="timeline-title">Research Cycle #9 Complete</div>
+                                <div class="timeline-desc">Attribution Dashboard v5.3 deployed</div>
+                                <div class="timeline-result">
+                                    <span class="timeline-stat">00:44</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot scheduled"></div>
+                            <div class="timeline-content scheduled">
+                                <div class="timeline-title">Daily Briefing (Scheduled)</div>
+                                <div class="timeline-desc">Auto-generated market digest</div>
+                                <div class="timeline-result">
+                                    <span class="timeline-stat">08:00</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot pending"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-title">AI Agentic Thread (Planned)</div>
+                                <div class="timeline-desc">Score 76 — content drafted</div>
+                                <div class="timeline-result">
+                                    <span class="timeline-stat">14:30</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-day">
+                        <div class="timeline-day-label">Wednesday, Jul 14</div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot pending"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-title">ETH Treasury Update (Planned)</div>
+                                <div class="timeline-desc">Score 88 — optimal timing</div>
+                                <div class="timeline-result">
+                                    <span class="timeline-stat">17:00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Prediction Validator -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">✓ Prediction Validator</div>
+            </div>
+            <div class="card-content">
+                <div class="prediction-item">
+                    <div class="prediction-status accurate">✓</div>
+                    <div class="prediction-content">
+                        <div class="prediction-title">ETH Treasury Thread</div>
+                        <div class="prediction-values">Predicted: +38 eng | Actual: +42 eng</div>
+                    </div>
+                    <div class="prediction-variance positive">+10%</div>
+                </div>
+
+                <div class="prediction-item">
+                    <div class="prediction-status under">⚠</div>
+                    <div class="prediction-content">
+                        <div class="prediction-title">AI Agentic Thread</div>
+                        <div class="prediction-values">Predicted: +28 eng | Actual: +19 eng</div>
+                    </div>
+                    <div class="prediction-variance negative">-32%</div>
+                </div>
+
+                <div class="prediction-item">
+                    <div class="prediction-status pending">⏳</div>
+                    <div class="prediction-content">
+                        <div class="prediction-title">Healthcare Thread</div>
+                        <div class="prediction-values">Predicted: +45 eng | Status: Pending</div>
+                    </div>
+                    <div style="font-size: 0.7rem; color: var(--text-dim);">Not posted yet</div>
+                </div>
+
+                <div class="accuracy-meter">
+                    <div class="accuracy-value">87%</div>
+                    <div style="flex: 1;">
+                        <div class="accuracy-bar">
+                            <div class="accuracy-fill" style="width: 87%"></div>
+                        </div>
+                        <div class="accuracy-label">Model Accuracy (3 week trend)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Performance Matrix -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">🔢 Performance Matrix</div>
+            </div>
+            <div class="card-content">
+                <div style="font-size: 0.7rem; color: var(--text-secondary); margin-bottom: 0.5rem;">Content Type × Outcome (last 10 posts)</div>
+                <div class="performance-matrix">
+                    <div class="matrix-cell header"></div>
+                    <div class="matrix-cell header">M</div>
+                    <div class="matrix-cell header">T</div>
+                    <div class="matrix-cell header">W</div>
+                    <div class="matrix-cell header">T</div>
+                    
+                    <div class="matrix-cell header">H</div>
+                    <div class="matrix-cell win">W</div>
+                    <div class="matrix-cell win">W</div>
+                    <div class="matrix-cell loss">L</div>
+                    <div class="matrix-cell win">W</div>
+                    
+                    <div class="matrix-cell header">E</div>
+                    <div class="matrix-cell win">W</div>
+                    <div class="matrix-cell win">W</div>
+                    <div class="matrix-cell loss">L</div>
+                    <div class="matrix-cell draw">D</div>
+                    
+                    <div class="matrix-cell header">A</div>
+                    <div class="matrix-cell loss">L</div>
+                    <div class="matrix-cell win">W</div>
+                    <div class="matrix-cell loss">L</div>
+                    <div class="matrix-cell empty">-</div>
+                    
+                    <div class="matrix-cell header">B</div>
+                    <div class="matrix-cell empty">-</div>
+                    <div class="matrix-cell empty">-</div>
+                    <div class="matrix-cell empty">-</div>
+                    <div class="matrix-cell empty">-</div>
+                </div>
+                <div style="display: flex; gap: 1rem; margin-top: 0.75rem; font-size: 0.65rem; color: var(--text-secondary);">
+                    <span><span style="color: var(--accent-green);">■</span> Win</span>
+                    <span><span style="color: var(--accent-orange);">■</span> Draw</span>
+                    <span><span style="color: var(--accent-red);">■</span> Loss</span>
+                    <span style="margin-left: auto;">H=Healthcare, E=ETH, A=AI, B=BTC</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        // Show welcome toast
+        function showToast(title, message, icon = 'ℹ️') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = `
+                <div class="toast-header">
+                    <span class="toast-icon">${icon}</span>
+                    <span class="toast-title">${title}</span>
+                </div>
+                <div class="toast-message">${message}</div>
+            `;
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 5000);
+        }
+
+        // Show attribution insight on load
+        setTimeout(() => {
+            showToast('Attribution Update', 'HIMS thread attributed to +3 followers (43% of growth)', '🎯');
+        }, 1000);
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'r') {
+                e.preventDefault();
+                location.reload();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@quentinvest1 | Content Recycling & Sentiment v5.5</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-tertiary: #1a1a1a;
+            --bg-card: #161616;
+            --bg-hover: #1e1e1e;
+            --accent-cyan: #00d4ff;
+            --accent-green: #00ff88;
+            --accent-orange: #ff8800;
+            --accent-red: #ff0044;
+            --accent-purple: #8800ff;
+            --accent-gold: #ffd700;
+            --accent-pink: #ff0066;
+            --accent-teal: #00ffcc;
+            --accent-lime: #ccff00;
+            --text-primary: #ffffff;
+            --text-secondary: #888888;
+            --text-dim: #444444;
+            --border-color: #222222;
+            --glass-bg: rgba(22, 22, 22, 0.8);
+            --glass-border: rgba(34, 34, 34, 0.5);
+            --sentiment-pos: #00ff88;
+            --sentiment-neu: #ff8800;
+            --sentiment-neg: #ff0044;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto Mono', monospace;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(0, 212, 255, 0.03) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(136, 0, 255, 0.03) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(0, 255, 136, 0.02) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Top Navigation */
+        .top-nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 60px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 1.5rem;
+            z-index: 100;
+        }
+
+        .nav-left { display: flex; align-items: center; gap: 1rem; }
+        .logo { display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 1.1rem; }
+        .logo-icon { font-size: 1.2rem; }
+        .version-tag { font-size: 0.7rem; padding: 0.15rem 0.5rem; background: var(--accent-lime); border-radius: 4px; color: #000; font-weight: 700; }
+        .status-badge { display: flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; color: var(--text-secondary); }
+        .status-dot { width: 8px; height: 8px; background: var(--accent-green); border-radius: 50%; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .nav-right { display: flex; align-items: center; gap: 1.5rem; }
+        .nav-link { color: var(--text-secondary); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; padding: 0.5rem 1rem; border-radius: 6px; }
+        .nav-link:hover, .nav-link.active { color: var(--text-primary); background: var(--bg-hover); }
+
+        .main-container {
+            padding: 80px 1.5rem 2rem;
+            max-width: 1600px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 260px 1fr 340px;
+            gap: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        .card:hover { border-color: var(--accent-cyan); }
+        .card-header {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .card-title { font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; }
+        .card-body { padding: 1.25rem; }
+
+        /* Left Sidebar */
+        .sidebar-left { display: flex; flex-direction: column; gap: 1rem; }
+        
+        .recycling-status {
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 212, 255, 0.1));
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 12px;
+            padding: 1.25rem;
+            text-align: center;
+        }
+        .recycling-status-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .recycling-status-label { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.25rem; color: var(--accent-green); }
+        .recycling-status-desc { font-size: 0.75rem; color: var(--text-secondary); }
+        .recycling-stats { display: flex; justify-content: space-around; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-color); }
+        .recycling-stat { text-align: center; }
+        .recycling-stat-value { font-size: 1.25rem; font-weight: 700; color: var(--accent-cyan); }
+        .recycling-stat-label { font-size: 0.7rem; color: var(--text-secondary); margin-top: 0.25rem; }
+
+        .sentiment-gauge {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.25rem;
+            text-align: center;
+        }
+        .gauge-container { position: relative; width: 140px; height: 70px; margin: 0.5rem auto; }
+        .gauge-bg { position: absolute; width: 140px; height: 70px; border-radius: 140px 140px 0 0; background: conic-gradient(from 180deg, var(--sentiment-neg) 0deg, var(--sentiment-neu) 60deg, var(--sentiment-pos) 120deg, var(--sentiment-pos) 180deg); opacity: 0.3; }
+        .gauge-fill { position: absolute; width: 140px; height: 70px; border-radius: 140px 140px 0 0; background: conic-gradient(from 180deg, transparent 0deg, transparent var(--gauge-deg), var(--sentiment-pos) var(--gauge-deg), var(--sentiment-pos) 180deg); }
+        .gauge-needle { position: absolute; bottom: 0; left: 50%; width: 3px; height: 65px; background: var(--text-primary); transform-origin: bottom center; transform: rotate(var(--needle-deg)); transition: transform 0.5s ease; }
+        .gauge-value { font-size: 1.5rem; font-weight: 700; color: var(--sentiment-pos); margin-top: 0.5rem; }
+        .gauge-label { font-size: 0.75rem; color: var(--text-secondary); }
+
+        /* Center Content */
+        .center-content { display: flex; flex-direction: column; gap: 1rem; }
+        
+        .recycling-queue { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .queue-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .queue-item::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 4px; height: 100%;
+            background: var(--accent-green);
+        }
+        .queue-item.evergreen::before { background: var(--accent-green); }
+        .queue-item.trending::before { background: var(--accent-orange); }
+        .queue-item.stale::before { background: var(--accent-red); }
+        .queue-item-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.75rem; padding-left: 0.5rem; }
+        .queue-item-title { font-size: 0.85rem; font-weight: 600; color: var(--text-primary); line-height: 1.3; }
+        .queue-item-badge { font-size: 0.65rem; padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 600; text-transform: uppercase; }
+        .badge-evergreen { background: rgba(0, 255, 136, 0.15); color: var(--accent-green); }
+        .badge-trending { background: rgba(255, 136, 0, 0.15); color: var(--accent-orange); }
+        .badge-stale { background: rgba(255, 0, 68, 0.15); color: var(--accent-red); }
+        .queue-item-meta { display: flex; gap: 1rem; font-size: 0.75rem; color: var(--text-secondary); padding-left: 0.5rem; margin-bottom: 0.75rem; }
+        .queue-item-meta span { display: flex; align-items: center; gap: 0.3rem; }
+        .queue-item-actions { display: flex; gap: 0.5rem; padding-left: 0.5rem; }
+        .btn { padding: 0.4rem 0.75rem; border-radius: 6px; border: none; font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: inherit; }
+        .btn-primary { background: var(--accent-cyan); color: #000; }
+        .btn-primary:hover { background: #33ddff; }
+        .btn-secondary { background: var(--bg-tertiary); color: var(--text-secondary); border: 1px solid var(--border-color); }
+        .btn-secondary:hover { background: var(--bg-hover); color: var(--text-primary); }
+        .btn-success { background: rgba(0, 255, 136, 0.15); color: var(--accent-green); border: 1px solid rgba(0, 255, 136, 0.3); }
+        .btn-success:hover { background: rgba(0, 255, 136, 0.25); }
+
+        .ab-test-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.25rem;
+        }
+        .ab-test-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+        .ab-test-title { font-size: 0.9rem; font-weight: 600; }
+        .ab-test-status { font-size: 0.7rem; padding: 0.2rem 0.5rem; border-radius: 4px; background: rgba(0, 255, 136, 0.15); color: var(--accent-green); }
+        .ab-variants { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+        .variant {
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            position: relative;
+        }
+        .variant.winner { border-color: var(--accent-gold); }
+        .variant-header { display: flex; justify-content: space-between; margin-bottom: 0.5rem; }
+        .variant-label { font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase; }
+        .variant-engagement { font-size: 0.8rem; font-weight: 600; }
+        .variant-text { font-size: 0.8rem; line-height: 1.4; color: var(--text-secondary); }
+        .variant-stats { display: flex; gap: 0.75rem; margin-top: 0.75rem; font-size: 0.7rem; color: var(--text-dim); }
+        .winner-badge { position: absolute; top: -8px; right: 10px; background: var(--accent-gold); color: #000; font-size: 0.65rem; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 700; }
+
+        .sentiment-feed { display: flex; flex-direction: column; gap: 0.75rem; }
+        .sentiment-item {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.875rem;
+            display: flex;
+            gap: 0.75rem;
+            align-items: start;
+        }
+        .sentiment-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--bg-tertiary); display: flex; align-items: center; justify-content: center; font-size: 0.9rem; flex-shrink: 0; }
+        .sentiment-content { flex: 1; }
+        .sentiment-author { font-size: 0.8rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.25rem; }
+        .sentiment-text { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4; margin-bottom: 0.5rem; }
+        .sentiment-footer { display: flex; justify-content: space-between; align-items: center; }
+        .sentiment-score { display: flex; align-items: center; gap: 0.3rem; font-size: 0.75rem; }
+        .score-bar { width: 60px; height: 4px; background: var(--bg-tertiary); border-radius: 2px; overflow: hidden; }
+        .score-bar-fill { height: 100%; border-radius: 2px; }
+        .sentiment-time { font-size: 0.7rem; color: var(--text-dim); }
+
+        /* Right Sidebar */
+        .sidebar-right { display: flex; flex-direction: column; gap: 1rem; }
+
+        .recycling-rules {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.25rem;
+        }
+        .rules-title { font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem; color: var(--text-primary); }
+        .rule-item { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; font-size: 0.8rem; }
+        .rule-checkbox { width: 18px; height: 18px; border-radius: 4px; border: 2px solid var(--accent-cyan); display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: var(--accent-cyan); }
+        .rule-checkbox.checked { background: var(--accent-cyan); color: #000; }
+        .rule-text { color: var(--text-secondary); }
+        .rule-text.active { color: var(--text-primary); }
+
+        .sentiment-summary {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.25rem;
+        }
+        .summary-title { font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem; }
+        .summary-bars { display: flex; flex-direction: column; gap: 0.75rem; }
+        .summary-bar-item { display: flex; align-items: center; gap: 0.75rem; }
+        .summary-bar-label { font-size: 0.75rem; width: 50px; color: var(--text-secondary); }
+        .summary-bar-track { flex: 1; height: 8px; background: var(--bg-tertiary); border-radius: 4px; overflow: hidden; }
+        .summary-bar-fill { height: 100%; border-radius: 4px; transition: width 0.5s ease; }
+        .summary-bar-value { font-size: 0.75rem; width: 35px; text-align: right; color: var(--text-secondary); }
+
+        .performance-insight {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.08), rgba(136, 0, 255, 0.08));
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 12px;
+            padding: 1.25rem;
+        }
+        .insight-title { font-size: 0.8rem; font-weight: 600; color: var(--accent-cyan); margin-bottom: 0.75rem; }
+        .insight-text { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5; }
+        .insight-highlight { color: var(--accent-green); font-weight: 600; }
+
+        .chart-container { height: 200px; margin-top: 1rem; }
+        .mini-chart { height: 120px; }
+
+        .section-title {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        @media (max-width: 1200px) {
+            .main-container { grid-template-columns: 1fr 1fr; }
+            .sidebar-right { display: none; }
+        }
+        @media (max-width: 768px) {
+            .main-container { grid-template-columns: 1fr; padding: 80px 1rem 2rem; }
+            .sidebar-left, .sidebar-right { display: none; }
+            .recycling-queue { grid-template-columns: 1fr; }
+            .ab-variants { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-left">
+            <div class="logo">
+                <span class="logo-icon">♻️</span>
+                <span>Content Recycling</span>
+                <span class="version-tag">v5.5</span>
+            </div>
+            <div class="status-badge">
+                <span class="status-dot"></span>
+                <span>Recycling Engine Active</span>
+            </div>
+        </div>
+        <div class="nav-right">
+            <a href="mission_control_unified.html" class="nav-link">← Unified v5.6</a>
+            <a href="mission_control_autoreply.html" class="nav-link">Auto-Reply v5.4</a>
+            <a href="mission_control_attribution.html" class="nav-link">Attribution v5.3</a>
+            <a href="mission_control_strategic.html" class="nav-link">Strategic v5.2</a>
+            <a href="mission_control_engagement_live.html" class="nav-link">Live v5.0</a>
+            <a href="#" class="nav-link active">Recycling v5.5</a>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <!-- Left Sidebar -->
+        <div class="sidebar-left">
+            <div class="recycling-status">
+                <div class="recycling-status-icon">♻️</div>
+                <div class="recycling-status-label">Recycling Active</div>
+                <div class="recycling-status-desc">Auto-detecting evergreen content for reposting</div>
+                <div class="recycling-stats">
+                    <div class="recycling-stat">
+                        <div class="recycling-stat-value">12</div>
+                        <div class="recycling-stat-label">Evergreen</div>
+                    </div>
+                    <div class="recycling-stat">
+                        <div class="recycling-stat-value">3</div>
+                        <div class="recycling-stat-label">Queued</div>
+                    </div>
+                    <div class="recycling-stat">
+                        <div class="recycling-stat-value">28%</div>
+                        <div class="recycling-stat-label">Lift</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">📊 Sentiment Gauge</span>
+                </div>
+                <div class="card-body" style="text-align: center;">
+                    <div class="gauge-container">
+                        <div class="gauge-bg"></div>
+                        <div class="gauge-fill" style="--gauge-deg: 140deg;"></div>
+                        <div class="gauge-needle" style="--needle-deg: 50deg;"></div>
+                    </div>
+                    <div class="gauge-value">+78%</div>
+                    <div class="gauge-label">Positive Sentiment</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">📈 Recycle Performance</span>
+                </div>
+                <div class="card-body">
+                    <div class="mini-chart">
+                        <canvas id="recycleChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Center Content -->
+        <div class="center-content">
+            <div class="section-title">🔄 Content Recycling Queue</div>
+            <div class="recycling-queue">
+                <div class="queue-item evergreen">
+                    <div class="queue-item-header">
+                        <div class="queue-item-title">HIMS vs Traditional Healthcare: The $50B Disruption Nobody Saw Coming</div>
+                        <span class="queue-item-badge badge-evergreen">Evergreen</span>
+                    </div>
+                    <div class="queue-item-meta">
+                        <span>📅 45 days old</span>
+                        <span>🔥 89 engagements</span>
+                        <span>📊 94 score</span>
+                    </div>
+                    <div class="queue-item-actions">
+                        <button class="btn btn-primary">♻️ Recycle Now</button>
+                        <button class="btn btn-secondary">✏️ Edit Hook</button>
+                        <button class="btn btn-success">📅 Auto-Schedule</button>
+                    </div>
+                </div>
+
+                <div class="queue-item trending">
+                    <div class="queue-item-header">
+                        <div class="queue-item-title">ETH Treasury Strategy: Why Corporate Adoption Is Accelerating</div>
+                        <span class="queue-item-badge badge-trending">Trending Topic</span>
+                    </div>
+                    <div class="queue-item-meta">
+                        <span>📅 32 days old</span>
+                        <span>🔥 67 engagements</span>
+                        <span>📊 88 score</span>
+                    </div>
+                    <div class="queue-item-actions">
+                        <button class="btn btn-primary">♻️ Recycle Now</button>
+                        <button class="btn btn-secondary">✏️ Edit Hook</button>
+                        <button class="btn btn-success">📅 Auto-Schedule</button>
+                    </div>
+                </div>
+
+                <div class="queue-item evergreen">
+                    <div class="queue-item-header">
+                        <div class="queue-item-title">AI Agentic Commerce: How Autonomous Agents Will Reshape E-commerce</div>
+                        <span class="queue-item-badge badge-evergreen">Evergreen</span>
+                    </div>
+                    <div class="queue-item-meta">
+                        <span>📅 28 days old</span>
+                        <span>🔥 45 engagements</span>
+                        <span>📊 82 score</span>
+                    </div>
+                    <div class="queue-item-actions">
+                        <button class="btn btn-primary">♻️ Recycle Now</button>
+                        <button class="btn btn-secondary">✏️ Edit Hook</button>
+                        <button class="btn btn-success">📅 Auto-Schedule</button>
+                    </div>
+                </div>
+
+                <div class="queue-item stale">
+                    <div class="queue-item-header">
+                        <div class="queue-item-title">Market Update: Weekly Crypto Performance Analysis</div>
+                        <span class="queue-item-badge badge-stale">Stale</span>
+                    </div>
+                    <div class="queue-item-meta">
+                        <span>📅 60 days old</span>
+                        <span>🔥 23 engagements</span>
+                        <span>📊 45 score</span>
+                    </div>
+                    <div class="queue-item-actions">
+                        <button class="btn btn-secondary">✏️ Refresh Data</button>
+                        <button class="btn btn-secondary">🗑️ Archive</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-title">🧪 A/B Testing Framework</div>
+            <div class="ab-test-card">
+                <div class="ab-test-header">
+                    <div class="ab-test-title">Hook Variant Test: Healthcare Content</div>
+                    <span class="ab-test-status">✅ Complete</span>
+                </div>
+                <div class="ab-variants">
+                    <div class="variant winner">
+                        <span class="winner-badge">🏆 WINNER</span>
+                        <div class="variant-header">
+                            <span class="variant-label">Variant A</span>
+                            <span class="variant-engagement" style="color: var(--accent-gold);">+89 engagements</span>
+                        </div>
+                        <div class="variant-text">"The $50B healthcare disruption nobody is talking about"</div>
+                        <div class="variant-stats">
+                            <span>👁 1,247 views</span>
+                            <span>💬 23 replies</span>
+                            <span>🔖 12 bookmarks</span>
+                        </div>
+                    </div>
+                    <div class="variant">
+                        <div class="variant-header">
+                            <span class="variant-label">Variant B</span>
+                            <span class="variant-engagement" style="color: var(--text-secondary);">+54 engagements</span>
+                        </div>
+                        <div class="variant-text">"How telehealth is changing the healthcare landscape"</div>
+                        <div class="variant-stats">
+                            <span>👁 892 views</span>
+                            <span>💬 14 replies</span>
+                            <span>🔖 8 bookmarks</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="font-size: 0.8rem; color: var(--text-secondary); text-align: center; padding-top: 0.5rem; border-top: 1px solid var(--border-color);">
+                    🎯 <strong style="color: var(--accent-green);">+65% lift</strong> with contrarian hook vs descriptive hook — Pattern confirmed
+                </div>
+            </div>
+
+            <div class="section-title">😊 Real-Time Sentiment Stream</div>
+            <div class="sentiment-feed">
+                <div class="sentiment-item">
+                    <div class="sentiment-avatar">🎯</div>
+                    <div class="sentiment-content">
+                        <div class="sentiment-author">@TheLongInvestor</div>
+                        <div class="sentiment-text">"This HIMS analysis is exactly what I needed. Finally someone breaking down the unit economics properly."</div>
+                        <div class="sentiment-footer">
+                            <div class="sentiment-score">
+                                <span style="color: var(--sentiment-pos);">+92%</span>
+                                <div class="score-bar"><div class="score-bar-fill" style="width: 92%; background: var(--sentiment-pos);"></div></div>
+                            </div>
+                            <span class="sentiment-time">2 min ago</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="sentiment-item">
+                    <div class="sentiment-avatar">⚡</div>
+                    <div class="sentiment-content">
+                        <div class="sentiment-author">@DrTomsLens</div>
+                        <div class="sentiment-text">"Great thread on GLP-1 market dynamics. Would love to see a follow-up on the supply chain implications."</div>
+                        <div class="sentiment-footer">
+                            <div class="sentiment-score">
+                                <span style="color: var(--sentiment-pos);">+85%</span>
+                                <div class="score-bar"><div class="score-bar-fill" style="width: 85%; background: var(--sentiment-pos);"></div></div>
+                            </div>
+                            <span class="sentiment-time">15 min ago</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="sentiment-item">
+                    <div class="sentiment-avatar">🤔</div>
+                    <div class="sentiment-content">
+                        <div class="sentiment-author">@CryptoSkeptic</div>
+                        <div class="sentiment-text">"Interesting take on ETH treasury but I think you're underestimating the regulatory risks here."</div>
+                        <div class="sentiment-footer">
+                            <div class="sentiment-score">
+                                <span style="color: var(--sentiment-neu);">+12%</span>
+                                <div class="score-bar"><div class="score-bar-fill" style="width: 56%; background: var(--sentiment-neu);"></div></div>
+                            </div>
+                            <span class="sentiment-time">42 min ago</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Sidebar -->
+        <div class="sidebar-right">
+            <div class="recycling-rules">
+                <div class="rules-title">⚙️ Auto-Recycle Rules</div>
+                <div class="rule-item">
+                    <div class="rule-checkbox checked">✓</div>
+                    <span class="rule-text active">Score ≥ 80 = Auto-queue</span>
+                </div>
+                <div class="rule-item">
+                    <div class="rule-checkbox checked">✓</div>
+                    <span class="rule-text active">30+ days old = Eligible</span>
+                </div>
+                <div class="rule-item">
+                    <div class="rule-checkbox checked">✓</div>
+                    <span class="rule-text active">Min 7-day gap between reposts</span>
+                </div>
+                <div class="rule-item">
+                    <div class="rule-checkbox">○</div>
+                    <span class="rule-text">Auto-rewrite hooks (beta)</span>
+                </div>
+                <div class="rule-item">
+                    <div class="rule-checkbox checked">✓</div>
+                    <span class="rule-text active">Skip if topic oversaturated</span>
+                </div>
+            </div>
+
+            <div class="sentiment-summary">
+                <div class="summary-title">📊 Sentiment Breakdown</div>
+                <div class="summary-bars">
+                    <div class="summary-bar-item">
+                        <span class="summary-bar-label">😊 Pos</span>
+                        <div class="summary-bar-track"><div class="summary-bar-fill" style="width: 78%; background: var(--sentiment-pos);"></div></div>
+                        <span class="summary-bar-value">78%</span>
+                    </div>
+                    <div class="summary-bar-item">
+                        <span class="summary-bar-label">😐 Neu</span>
+                        <div class="summary-bar-track"><div class="summary-bar-fill" style="width: 16%; background: var(--sentiment-neu);"></div></div>
+                        <span class="summary-bar-value">16%</span>
+                    </div>
+                    <div class="summary-bar-item">
+                        <span class="summary-bar-label">😠 Neg</span>
+                        <div class="summary-bar-track"><div class="summary-bar-fill" style="width: 6%; background: var(--sentiment-neg);"></div></div>
+                        <span class="summary-bar-value">6%</span>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="sentimentChart"></canvas>
+                </div>
+            </div>
+
+            <div class="performance-insight">
+                <div class="insight-title">💡 Recycling Insight</div>
+                <div class="insight-text">
+                    Evergreen content recycling shows <span class="insight-highlight">+28% average engagement lift</span> vs original posting. Contrarian hooks perform best when recycled with updated data points.
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">📅 Upcoming Recycles</span>
+                </div>
+                <div class="card-body">
+                    <div style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.6;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <span>HIMS Thread</span>
+                            <span style="color: var(--accent-cyan);">Tomorrow</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <span>ETH Treasury</span>
+                            <span style="color: var(--accent-orange);">Wed 17:00</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>AI Commerce</span>
+                            <span style="color: var(--text-dim);">Fri (pending)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Recycle Performance Chart
+        const recycleCtx = document.getElementById('recycleChart').getContext('2d');
+        new Chart(recycleCtx, {
+            type: 'line',
+            data: {
+                labels: ['W1', 'W2', 'W3', 'W4', 'W5', 'W6'],
+                datasets: [{
+                    label: 'Original',
+                    data: [45, 52, 38, 67, 54, 89],
+                    borderColor: '#444444',
+                    backgroundColor: 'rgba(68, 68, 68, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                }, {
+                    label: 'Recycled',
+                    data: [58, 71, 52, 89, 78, 112],
+                    borderColor: '#00ff88',
+                    backgroundColor: 'rgba(0, 255, 136, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { display: false },
+                    y: { display: false }
+                }
+            }
+        });
+
+        // Sentiment Distribution Chart
+        const sentimentCtx = document.getElementById('sentimentChart').getContext('2d');
+        new Chart(sentimentCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Positive', 'Neutral', 'Negative'],
+                datasets: [{
+                    data: [78, 16, 6],
+                    backgroundColor: ['#00ff88', '#ff8800', '#ff0044'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '70%',
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@quentinvest1 | Mission Control v5.8</title>
+    <title>@quentinvest1 | Mission Control v6.4</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -93,6 +93,45 @@
             flex-shrink: 0;
         }
         .nav-link:hover, .nav-link.active { color: var(--text-primary); background: var(--bg-hover); }
+
+        /* Backtest Card Styles */
+        .backtest-card {
+            grid-column: span 3;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.25rem;
+            border-left: 3px solid var(--accent-gold);
+        }
+        .backtest-card:hover { border-color: var(--accent-gold); }
+        .backtest-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+        .backtest-title { font-size: 0.8rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; }
+        .backtest-badge {
+            font-size: 0.65rem;
+            padding: 0.1rem 0.4rem;
+            background: rgba(255, 215, 0, 0.2);
+            color: var(--accent-gold);
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        .backtest-value { font-size: 1.6rem; font-weight: 700; color: var(--accent-green); margin-bottom: 0.25rem; }
+        .backtest-sub { font-size: 0.75rem; color: var(--text-secondary); }
+        .backtest-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            margin-top: 0.75rem;
+            color: var(--accent-gold);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .backtest-link:hover { text-decoration: underline; }
 
         .main-container {
             padding: 80px 1.5rem 2rem;
@@ -952,7 +991,7 @@
             <div class="logo">
                 <span class="logo-icon">🐾</span>
                 <span>Mission Control</span>
-                <span class="version-tag">v5.8</span>
+                <span class="version-tag">v6.4</span>
             </div>
             <div class="status-badge">
                 <span class="status-dot"></span>
@@ -969,6 +1008,7 @@
             <a href="#search" class="nav-link" onclick="showSection('search')">🔍 Search</a>
             <a href="#competitors" class="nav-link" onclick="showSection('competitors')">Competitors</a>
             <a href="#mytasks" class="nav-link" onclick="showSection('mytasks')">🤖 My Tasks</a>
+            <a href="backtesting_module.html" class="nav-link">📊 Backtest</a>
             <a href="#settings" class="nav-link" onclick="showSection('settings')">System</a>
         </div>
     </nav>
@@ -1133,6 +1173,24 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Backtest Card -->
+                <a href="backtesting_module.html" class="backtest-card" style="text-decoration: none; color: inherit; display: block;">
+                    <div class="backtest-header">
+                        <span class="backtest-title">Backtest Module</span>
+                        <span class="backtest-badge">NEW v6.4</span>
+                    </div>
+                    <div class="backtest-value">+12.4%</div>
+                    <div class="backtest-sub">Strategy vs Buy & Hold | 89% Win Rate | Cycle #39</div>
+                    <div style="margin-top: 0.75rem; display: flex; gap: 1rem; font-size: 0.75rem; color: var(--text-secondary);">
+                        <span>📊 47 Trades</span>
+                        <span>⚡ Sharpe: 1.84</span>
+                        <span>🔥 Max DD: -8.2%</span>
+                    </div>
+                    <div class="backtest-link">
+                        Open Backtest Module →
+                    </div>
+                </a>
 
                 <div class="charts-grid">
                     <div class="chart-container">
@@ -3691,6 +3749,116 @@ Errors: 0</div>
                     const text = focusedElement.closest('.activity-item').querySelector('.activity-text')?.textContent || '';
                     copyToClipboard(text);
                 }
+            }
+        });
+
+        // Auto-refresh market data every 60 seconds
+        let marketDataRefreshInterval = null;
+        let lastMarketData = null;
+
+        function startMarketDataAutoRefresh() {
+            if (marketDataRefreshInterval) return;
+            
+            async function fetchMarketData() {
+                try {
+                    const response = await fetch('market_data.json?t=' + Date.now());
+                    if (!response.ok) return;
+                    
+                    const data = await response.json();
+                    if (!data.assets) return;
+                    
+                    // Only update if data changed
+                    const dataHash = JSON.stringify(data.assets);
+                    if (dataHash === lastMarketData) return;
+                    lastMarketData = dataHash;
+                    
+                    // Update dashboard elements
+                    updateMarketDisplay(data);
+                    
+                    // Show subtle refresh indicator
+                    showRefreshIndicator();
+                    
+                } catch (err) {
+                    // Silent fail - don't spam user with errors
+                    console.log('Market data refresh failed:', err.message);
+                }
+            }
+            
+            fetchMarketData(); // Initial fetch
+            marketDataRefreshInterval = setInterval(fetchMarketData, 60000);
+        }
+
+        function updateMarketDisplay(data) {
+            // Update asset cards if they exist
+            const assets = data.assets;
+            if (assets['BTC/USD']) updateAssetCard('btc', assets['BTC/USD']);
+            if (assets['ETH/USD']) updateAssetCard('eth', assets['ETH/USD']);
+            if (assets['MSTR']) updateAssetCard('mstr', assets['MSTR']);
+            if (assets['HIMS']) updateAssetCard('hims', assets['HIMS']);
+        }
+
+        function updateAssetCard(symbol, assetData) {
+            // Find card by data attribute or class
+            const cards = document.querySelectorAll('.asset-card, .stat-card, [data-symbol]');
+            cards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                if (text.includes(symbol.toLowerCase()) || card.dataset.symbol === symbol) {
+                    // Update price if element exists
+                    const priceEl = card.querySelector('.price, [data-field="price"], .stat-value');
+                    if (priceEl && assetData.price) {
+                        priceEl.textContent = '$' + parseFloat(assetData.price).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                    }
+                    
+                    // Update change indicator
+                    const changeEl = card.querySelector('.change, [data-field="change"]');
+                    if (changeEl && assetData.percent_change) {
+                        const isPositive = parseFloat(assetData.percent_change) >= 0;
+                        changeEl.textContent = (isPositive ? '+' : '') + parseFloat(assetData.percent_change).toFixed(2) + '%';
+                        changeEl.style.color = isPositive ? 'var(--accent-green)' : 'var(--accent-red)';
+                    }
+                    
+                    // Add update timestamp
+                    card.dataset.lastUpdate = new Date().toISOString();
+                }
+            });
+        }
+
+        function showRefreshIndicator() {
+            // Create or update a subtle pulse indicator
+            let indicator = document.getElementById('live-indicator');
+            if (!indicator) {
+                indicator = document.createElement('div');
+                indicator.id = 'live-indicator';
+                indicator.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    width: 8px;
+                    height: 8px;
+                    background: var(--accent-green);
+                    border-radius: 50%;
+                    z-index: 10000;
+                    transition: opacity 0.3s;
+                `;
+                document.body.appendChild(indicator);
+            }
+            
+            indicator.style.opacity = '1';
+            setTimeout(() => {
+                indicator.style.opacity = '0.3';
+            }, 2000);
+        }
+
+        // Start auto-refresh when page loads
+        document.addEventListener('DOMContentLoaded', startMarketDataAutoRefresh);
+
+        // Pause refresh when tab is hidden (save resources)
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden && marketDataRefreshInterval) {
+                clearInterval(marketDataRefreshInterval);
+                marketDataRefreshInterval = null;
+            } else if (!document.hidden && !marketDataRefreshInterval) {
+                startMarketDataAutoRefresh();
             }
         });
     </script>

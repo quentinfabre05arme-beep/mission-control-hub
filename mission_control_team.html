@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission Control v9.2 | Team Collaboration</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg: #050505;
+            --bg-card: #0a0a0a;
+            --bg-hover: #111111;
+            --bg-elevated: #141414;
+            --accent: #00d4ff;
+            --accent-green: #00ff88;
+            --accent-orange: #ff8800;
+            --accent-purple: #bd34fe;
+            --accent-pink: #ff2d55;
+            --accent-gold: #ffd700;
+            --text: #ffffff;
+            --text-dim: #666666;
+            --border: #1a1a1a;
+            --online: #00ff88;
+            --away: #ffaa00;
+            --offline: #666666;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-card);
+        }
+        .logo {
+            font-size: 1.1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .live-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.75rem;
+            color: var(--accent-green);
+            background: rgba(0,255,136,0.1);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+        }
+        .live-dot {
+            width: 8px; height: 8px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.9); }
+        }
+
+        /* Team Avatars */
+        .team-avatars {
+            display: flex;
+            align-items: center;
+            gap: -8px;
+        }
+        .avatar-stack {
+            display: flex;
+            margin-left: -8px;
+        }
+        .avatar-stack:first-child { margin-left: 0; }
+        .avatar {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            border: 2px solid var(--bg-card);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.85rem;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .avatar:hover {
+            transform: scale(1.1);
+            z-index: 10;
+        }
+        .avatar.online::after {
+            content: '';
+            position: absolute;
+            bottom: 0; right: 0;
+            width: 10px; height: 10px;
+            background: var(--online);
+            border: 2px solid var(--bg-card);
+            border-radius: 50%;
+        }
+        .avatar.away::after {
+            content: '';
+            position: absolute;
+            bottom: 0; right: 0;
+            width: 10px; height: 10px;
+            background: var(--away);
+            border: 2px solid var(--bg-card);
+            border-radius: 50%;
+        }
+        .avatar-add {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            border: 2px dashed var(--text-dim);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-dim);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .avatar-add:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Navigation */
+        .nav {
+            padding: 0.75rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            gap: 0.5rem;
+            overflow-x: auto;
+            background: var(--bg-card);
+        }
+        .nav-item {
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .nav-item:hover, .nav-item.active {
+            background: var(--bg-hover);
+            color: var(--text);
+        }
+        .nav-item i { font-size: 0.9rem; }
+
+        /* Main Layout */
+        .main {
+            display: grid;
+            grid-template-columns: 280px 1fr 320px;
+            height: calc(100vh - 120px);
+        }
+
+        /* Sidebar - Team Members */
+        .sidebar {
+            border-right: 1px solid var(--border);
+            overflow-y: auto;
+            background: var(--bg-card);
+        }
+        .sidebar-header {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .sidebar-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .member-count {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            background: var(--bg-hover);
+            padding: 0.15rem 0.5rem;
+            border-radius: 10px;
+        }
+        .member-list { padding: 0.5rem; }
+        .member-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .member-item:hover, .member-item.active {
+            background: var(--bg-hover);
+        }
+        .member-avatar {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            position: relative;
+        }
+        .member-avatar.online::after {
+            content: '';
+            position: absolute;
+            bottom: 2px; right: 2px;
+            width: 10px; height: 10px;
+            background: var(--online);
+            border: 2px solid var(--bg-card);
+            border-radius: 50%;
+        }
+        .member-avatar.away::after {
+            content: '';
+            position: absolute;
+            bottom: 2px; right: 2px;
+            width: 10px; height: 10px;
+            background: var(--away);
+            border: 2px solid var(--bg-card);
+            border-radius: 50%;
+        }
+        .member-info { flex: 1; }
+        .member-name {
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 0.15rem;
+        }
+        .member-status {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+        .member-role {
+            font-size: 0.7rem;
+            padding: 0.1rem 0.4rem;
+            border-radius: 4px;
+            background: rgba(189,52,254,0.1);
+            color: var(--accent-purple);
+        }
+        .member-role.admin {
+            background: rgba(255,136,0,0.1);
+            color: var(--accent-orange);
+        }
+
+        /* Center - Workspace */
+        .workspace {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .workspace-header {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-card);
+        }
+        .workspace-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .workspace-title h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        .workspace-status {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .workspace-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: none;
+        }
+        .btn-secondary {
+            background: var(--bg-hover);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        .btn-primary {
+            background: var(--accent);
+            color: #000;
+            font-weight: 500;
+        }
+        .btn-primary:hover {
+            background: #33ddff;
+        }
+
+        /* Kanban Board */
+        .kanban {
+            flex: 1;
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            overflow-x: auto;
+            background: var(--bg);
+        }
+        .kanban-column {
+            min-width: 280px;
+            max-width: 280px;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+        .kanban-header {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .kanban-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        .kanban-count {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            background: var(--bg-hover);
+            padding: 0.15rem 0.5rem;
+            border-radius: 10px;
+        }
+        .kanban-add {
+            width: 24px; height: 24px;
+            border-radius: 4px;
+            border: none;
+            background: transparent;
+            color: var(--text-dim);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .kanban-add:hover {
+            background: var(--bg-hover);
+            color: var(--text);
+        }
+        .kanban-cards {
+            flex: 1;
+            padding: 0.75rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .kanban-card {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            cursor: grab;
+            transition: all 0.2s;
+            position: relative;
+        }
+        .kanban-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+        .kanban-card.dragging {
+            opacity: 0.5;
+            cursor: grabbing;
+        }
+        .card-labels {
+            display: flex;
+            gap: 0.4rem;
+            margin-bottom: 0.5rem;
+            flex-wrap: wrap;
+        }
+        .card-label {
+            font-size: 0.7rem;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        .card-label.urgent { background: rgba(255,45,85,0.15); color: var(--accent-pink); }
+        .card-label.content { background: rgba(0,212,255,0.15); color: var(--accent); }
+        .card-label.review { background: rgba(255,136,0,0.15); color: var(--accent-orange); }
+        .card-title {
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 0.75rem;
+        }
+        .card-assignees {
+            display: flex;
+            margin-left: -6px;
+        }
+        .card-assignee {
+            width: 24px; height: 24px;
+            border-radius: 50%;
+            border: 2px solid var(--bg-elevated);
+            margin-left: -6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        .card-assignee:first-child { margin-left: 0; }
+        .card-stats {
+            display: flex;
+            gap: 0.75rem;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+        .card-stat {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        /* Live Cursors (Simulated) */
+        .live-cursor {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1000;
+            transition: all 0.1s ease-out;
+        }
+        .cursor-pointer {
+            width: 20px;
+            height: 20px;
+        }
+        .cursor-label {
+            position: absolute;
+            top: 16px;
+            left: 12px;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        /* Right Panel - Activity & Chat */
+        .right-panel {
+            border-left: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-card);
+        }
+        .panel-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border);
+        }
+        .panel-tab {
+            flex: 1;
+            padding: 0.875rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .panel-tab:hover { color: var(--text); }
+        .panel-tab.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+        .panel-content {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        /* Activity Feed */
+        .activity-list { padding: 1rem; }
+        .activity-item {
+            display: flex;
+            gap: 0.75rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .activity-item:last-child { border-bottom: none; }
+        .activity-avatar {
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .activity-content { flex: 1; }
+        .activity-text {
+            font-size: 0.85rem;
+            line-height: 1.4;
+            margin-bottom: 0.25rem;
+        }
+        .activity-text strong { color: var(--text); font-weight: 500; }
+        .activity-time {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+        .activity-target {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            color: var(--accent);
+            cursor: pointer;
+        }
+        .activity-target:hover { text-decoration: underline; }
+
+        /* Chat Panel */
+        .chat-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+        }
+        .chat-message {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        .chat-avatar {
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .chat-content { flex: 1; }
+        .chat-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.25rem;
+        }
+        .chat-name {
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        .chat-time {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+        }
+        .chat-text {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+        .chat-input-area {
+            padding: 1rem;
+            border-top: 1px solid var(--border);
+        }
+        .chat-input-container {
+            display: flex;
+            gap: 0.5rem;
+            background: var(--bg-hover);
+            border-radius: 8px;
+            padding: 0.5rem;
+            border: 1px solid var(--border);
+        }
+        .chat-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--text);
+            font-size: 0.9rem;
+            outline: none;
+            padding: 0.25rem;
+        }
+        .chat-input::placeholder { color: var(--text-dim); }
+        .chat-send {
+            width: 36px; height: 36px;
+            border-radius: 6px;
+            border: none;
+            background: var(--accent);
+            color: #000;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .chat-send:hover {
+            background: #33ddff;
+            transform: scale(1.05);
+        }
+        .typing-indicator {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+        .typing-dots {
+            display: flex;
+            gap: 3px;
+        }
+        .typing-dot {
+            width: 6px; height: 6px;
+            background: var(--text-dim);
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-4px); }
+        }
+
+        /* Presence Indicators */
+        .presence-bar {
+            padding: 0.75rem 1rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+        .presence-avatars {
+            display: flex;
+            margin-left: -6px;
+        }
+        .presence-avatar {
+            width: 24px; height: 24px;
+            border-radius: 50%;
+            border: 2px solid var(--bg-card);
+            margin-left: -6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6rem;
+            font-weight: 600;
+        }
+        .presence-avatar:first-child { margin-left: 0; }
+
+        /* Shared Workspace Selector */
+        .workspace-selector {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .workspace-select {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--bg-hover);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 0.9rem;
+            cursor: pointer;
+            outline: none;
+        }
+        .workspace-select:focus {
+            border-color: var(--accent);
+        }
+        .workspace-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 1200px) {
+            .main { grid-template-columns: 240px 1fr; }
+            .right-panel { display: none; }
+        }
+        @media (max-width: 900px) {
+            .main { grid-template-columns: 1fr; }
+            .sidebar { display: none; }
+            .kanban { flex-direction: column; overflow-x: hidden; }
+            .kanban-column {
+                min-width: 100%;
+                max-width: 100%;
+            }
+        }
+
+        /* Toast Notifications */
+        .toast-container {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .toast {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--accent);
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            min-width: 280px;
+            animation: slideIn 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .toast.success { border-left-color: var(--accent-green); }
+        .toast.warning { border-left-color: var(--accent-orange); }
+        .toast.error { border-left-color: var(--accent-pink); }
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideOut {
+            to { transform: translateX(100%); opacity: 0; }
+        }
+        .toast.hiding {
+            animation: slideOut 0.3s ease forwards;
+        }
+        .toast-icon { font-size: 1.1rem; }
+        .toast-content { flex: 1; }
+        .toast-title {
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 0.15rem;
+        }
+        .toast-message {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <span style="font-size: 1.3rem;">👥</span>
+            <span>Mission Control v9.2</span>
+            <span style="color: var(--text-dim); font-weight: 400;">| Team</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <div class="team-avatars">
+                <div class="avatar-stack">
+                    <div class="avatar online" style="background: linear-gradient(135deg, #00d4ff, #00ff88);" title="Claw">C</div>
+                    <div class="avatar online" style="background: linear-gradient(135deg, #bd34fe, #ff2d55); margin-left: -8px;" title="Research Agent">R</div>
+                    <div class="avatar away" style="background: linear-gradient(135deg, #ff8800, #ffd700); margin-left: -8px;" title="Content Agent">Co</div>
+                </div>
+                <div class="avatar-add" title="Invite team member">
+                    <i class="fas fa-plus" style="font-size: 0.8rem;"></i>
+                </div>
+            </div>
+            <div class="live-badge">
+                <span class="live-dot"></span>
+                <span>LIVE COLLABORATION</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-item active" data-tab="board">
+            <i class="fas fa-columns"></i>
+            <span>Board</span>
+        </div>
+        <div class="nav-item" data-tab="list">
+            <i class="fas fa-list"></i>
+            <span>List</span>
+        </div>
+        <div class="nav-item" data-tab="calendar">
+            <i class="fas fa-calendar"></i>
+            <span>Calendar</span>
+        </div>
+        <div class="nav-item" data-tab="timeline">
+            <i class="fas fa-stream"></i>
+            <span>Timeline</span>
+        </div>
+        <div class="nav-item" data-tab="files">
+            <i class="fas fa-folder"></i>
+            <span>Files</span>
+        </div>
+        <div class="nav-item" data-tab="insights">
+            <i class="fas fa-chart-line"></i>
+            <span>Insights</span>
+        </div>
+    </nav>
+
+    <!-- Main -->
+    <main class="main">
+        <!-- Sidebar - Team -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-title">
+                    <i class="fas fa-users" style="color: var(--accent);"></i>
+                    Team
+                </div>
+                <span class="member-count">5 online</span>
+            </div>
+
+            <div class="workspace-selector">
+                <select class="workspace-select">
+                    <option>🎯 Content Production</option>
+                    <option>📊 Analytics Review</option>
+                    <option>🚀 Campaign Launch</option>
+                    <option>🔬 Research Sprint</option>
+                </select>
+            </div>
+
+            <div class="member-list">
+                <div class="member-item active">
+                    <div class="member-avatar online" style="background: linear-gradient(135deg, #00d4ff, #00ff88);">C</div>
+                    <div class="member-info">
+                        <div class="member-name">Claw</div>
+                        <div class="member-status">Working on Healthcare thread</div>
+                    </div>
+                    <span class="member-role admin">Admin</span>
+                </div>
+                <div class="member-item">
+                    <div class="member-avatar online" style="background: linear-gradient(135deg, #bd34fe, #ff2d55);">R</div>
+                    <div class="member-info">
+                        <div class="member-name">Research Agent</div>
+                        <div class="member-status">Analyzing market data</div>
+                    </div>
+                    <span class="member-role">Agent</span>
+                </div>
+                <div class="member-item">
+                    <div class="member-avatar away" style="background: linear-gradient(135deg, #ff8800, #ffd700);">Co</div>
+                    <div class="member-info">
+                        <div class="member-name">Content Agent</div>
+                        <div class="member-status">Away - 15 min</div>
+                    </div>
+                    <span class="member-role">Agent</span>
+                </div>
+                <div class="member-item">
+                    <div class="member-avatar online" style="background: linear-gradient(135deg, #0a84ff, #00d4ff);">Q</div>
+                    <div class="member-info">
+                        <div class="member-name">Quentin</div>
+                        <div class="member-status">Reviewing drafts</div>
+                    </div>
+                    <span class="member-role">Owner</span>
+                </div>
+                <div class="member-item">
+                    <div class="member-avatar online" style="background: linear-gradient(135deg, #6366f1, #bd34fe);">A</div>
+                    <div class="member-info">
+                        <div class="member-name">Analytics Agent</div>
+                        <div class="member-status">Generating report</div>
+                    </div>
+                    <span class="member-role">Agent</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Center - Workspace -->
+        <section class="workspace">
+            <div class="workspace-header">
+                <div class="workspace-title">
+                    <h2>📋 Content Production Board</h2>
+                    <div class="workspace-status">
+                        <i class="fas fa-lock" style="font-size: 0.7rem;"></i>
+                        <span>Private to team</span>
+                    </div>
+                </div>
+                <div class="workspace-actions">
+                    <button class="btn btn-secondary" onclick="showToast('Filter', 'Filtering options coming soon', 'info')">
+                        <i class="fas fa-filter"></i>
+                        Filter
+                    </button>
+                    <button class="btn btn-secondary" onclick="showToast('Sort', 'Sorting options coming soon', 'info')">
+                        <i class="fas fa-sort"></i>
+                        Sort
+                    </button>
+                    <button class="btn btn-primary" onclick="addNewCard()">
+                        <i class="fas fa-plus"></i>
+                        New Card
+                    </button>
+                </div>
+            </div>
+
+            <div class="kanban" id="kanbanBoard">
+                <!-- To Do -->
+                <div class="kanban-column" data-status="todo">
+                    <div class="kanban-header">
+                        <div class="kanban-title">
+                            <span style="color: var(--text-dim);">○</span>
+                            To Do
+                        </div>
+                        <span class="kanban-count">3</span>
+                        <button class="kanban-add" title="Add card">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <div class="kanban-cards" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="kanban-card" draggable="true" ondragstart="drag(event)" id="card-1">
+                            <div class="card-labels">
+                                <span class="card-label urgent">Urgent</span>
+                                <span class="card-label content">Content</span>
+                            </div>
+                            <div class="card-title">Healthcare GLP-1 market analysis thread</div>
+                            <div class="card-meta">
+                                <div class="card-assignees">
+                                    <div class="card-assignee" style="background: linear-gradient(135deg, #00d4ff, #00ff88);">C</div>
+                                    <div class="card-assignee" style="background: linear-gradient(135deg, #bd34fe, #ff2d55);">R</div>
+                                </div>
+                                <div class="card-stats">
+                                    <span class="card-stat"><i class="far fa-comment"></i> 3</span>
+                                    <span class="card-stat"><i class="fas fa-paperclip"></i> 2</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="kanban-card" draggable="true" ondragstart="drag(event)" id="card-2">
+                            <div class="card-labels">
+                                <span class="card-label content">Content</span>
+                            </div>
+                            <div class="card-title">ETH Treasury Strategy comparison post</div>
+                            <div class="card-meta">
+                                <div class="card-assignees">
+                                    <div class="card-assignee" style="background: linear-gradient(135deg, #00d4ff, #00ff88);">C</div>
+                                </div>
+                                <div class="card-stats">
+                                    <span class="card-stat"><i class="far fa-comment"></i> 1</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="kanban-card" draggable="true" ondragstart="drag(event)" id="card-3">
+                            <div class="card-labels">
+                                <span class="card-label review">Review</span>
+                            </div>
+                            <div class="card-title">LinkedIn article on AI in biotech</div>
+                            <div class="card-meta">
+                                <div class="card-assignees">
+                                    <div class="card-assignee" style="background: linear-gradient(135deg, #0a84ff, #00d4ff);">Q</div>
+                                </div>
+                                <div class="card-stats">
+                                    <span class="card-stat"><i class="far fa-comment"></i> 5</span>
+                                    <span class="card-stat"><i class="fas fa-paperclip"></i> 1</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- In Progress -->
+                <div class="kanban-column" data-status="progress">
+                    <div class="kanban-header">
+                        <div class="kanban-title">
+                            <span style="color: var(--accent-orange);">◐</span>
+                            In Progress
+                        </div>
+                        <span class="kanban-count">2</span>
+                        <button class="kanban-add" title="Add card">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <div class="kanban-cards" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="kanban-card" draggable="true" ondragstart="drag(event)" id="card-4">
+                            <div class="card-labels">
+                                <span class="card-label urgent">Urgent</span>
+                                <span class="card-label content">Content</span>
+                            </div>
+                            <div class="card-title">Fed policy impact on growth stocks</div>
+                            <div class="card-meta">
+                                <div class="card-assignees">
+                                    <div class="card-assignee" style="background: linear-gradient(135deg, #bd34fe, #ff2d55);">R</div>
+                                </div>
+                                <div class="card-stats">
+                                    <span class="card-stat"><i class="far fa-comment"></i> 2</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="kanban-card" draggable="true" ondragstart="drag(event)" id="card-5">
+                            <div class="card-labels">
+                                <span class="card-label content">Content</span>
+                            </div>
+                            <div class="card-title">Longevity economy market size thread</div>
+                            <div class="card-meta">
+                                <div class="card-assignees">
+                                    <div class="card-assignee" style="background: linear-gradient(135deg, #00d4ff, #00ff88);">C</div>
+                                    <div class="card-assignee" style="background: linear-gradient(135deg, #6366f1, #bd34fe);">A</div>
+                                </div>
+                                <div class="card-stats">
+                                    <span class="card-stat"><i class="far fa-comment"></i> 4</span>
+                                    <span class="card-stat"><i class="fas fa-paperclip"></i> 3</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review -->
+                <div class="kanban-column" data-status="review">
+                    <div class="kanban-header">
+                        <div class="kanban-title">
+                            <span style="color: var(--accent-purple);">👁</span>
+                            Review
+                        </div>
+                        <span class="kanban-count">2</span>
+                        <button class="kanban-add" title="Add card">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <div class="kanban-cards" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="kanban-card" draggable="true" ondragstart="drag(event)" id="card-6">
+                            <div class="card-labels">
+                                <span class="card-label review">Review</span>
+                                <span class="card-label content">Content</span>
+                            </div>
+                            <div class="card-title">MSTR vs BTC performance analysis</div>
+                            <div class="card-meta">
+                                <div class="card-assignees">
+                                    <div class="card-assignee" style="background: linear-gradient(135deg, #6366f1, #bd34fe);">A</div>
+                                    <div class="card-assignee" style="background: linear-gradient(135deg, #0a84ff, #00d4ff);">Q</div>
+                                </div>
+                                <div class="card-stats">
+                                    <span class="card-stat"><i class="far fa-comment"></i> 7</span>
+                                    <span class="card-stat"><i class="fas fa-paperclip"></i> 4</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="kanban-card" draggable="true" ondragstart="drag(event)" id="card-7">
+                            <div class="card-labels">
+                                <span class="card-label content">Content</span>
+                            </div>
+                            <div class="card-title">HIMS quarterly results breakdown</div>
+                            <div class="card-meta">
+                                <div class="card-assignees">
+                                    <div class="card-assignee" style="background: linear-gradient(135deg, #bd34fe, #ff2d55);">R</div>
+                                </div>
+                                <div class="card-stats">
+                                    <span class="card-stat"><i class="far fa-comment"></i> 3</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Done -->
+                <div class="kanban-column" data-status="done">
+                    <div class="kanban-header">
+                        <div class="kanban-title">
+                            <span style="color: var(--accent-green);">✓</span>
+                            Done
+                        </div>
+                        <span class="kanban-count">12</span>
+                        <button class="kanban-add" title="Add card">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <div class="kanban-cards" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="kanban-card" draggable="true" ondragstart="drag(event)" id="card-8">
+                            <div class="card-labels">
+                                <span class="card-label content">Content</span>
+                            </div>
+                            <div class="card-title" style="text-decoration: line-through; opacity: 0.6;">Healthcare innovation series: Part 1</div>
+                            <div class="card-meta">
+                                <div class="card-assignees">
+                                    <div class="card-assignee" style="background: linear-gradient(135deg, #00d4ff, #00ff88);">C</div>
+                                </div>
+                                <div class="card-stats">
+                                    <span class="card-stat"><i class="fas fa-check"></i> Done</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="kanban-card" draggable="true" ondragstart="drag(event)" id="card-9">
+                            <div class="card-labels">
+                                <span class="card-label content">Content</span>
+                            </div>
+                            <div class="card-title" style="text-decoration: line-through; opacity: 0.6;">GLP-1 market trends for 2026</div>
+                            <div class="card-meta">
+                                <div class="card-assignees">
+                                    <div class="card-assignee" style="background: linear-gradient(135deg, #bd34fe, #ff2d55);">R</div>
+                                </div>
+                                <div class="card-stats">
+                                    <span class="card-stat"><i class="fas fa-check"></i> Done</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Right Panel - Activity & Chat -->
+        <aside class="right-panel">
+            <div class="panel-tabs">
+                <div class="panel-tab active" data-panel="activity">
+                    <i class="fas fa-bell"></i>
+                    Activity
+                </div>
+                <div class="panel-tab" data-panel="chat">
+                    <i class="fas fa-comments"></i>
+                    Chat
+                </div>
+            </div>
+
+            <div class="panel-content">
+                <!-- Activity Panel -->
+                <div class="panel-section" id="activityPanel">
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <div class="activity-avatar" style="background: linear-gradient(135deg, #00d4ff, #00ff88);">C</div>
+                            <div class="activity-content">
+                                <div class="activity-text">
+                                    <strong>Claw</strong> moved <span class="activity-target">Healthcare GLP-1 market analysis</span> to In Progress
+                                </div>
+                                <div class="activity-time">2 minutes ago</div>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-avatar" style="background: linear-gradient(135deg, #bd34fe, #ff2d55);">R</div>
+                            <div class="activity-content">
+                                <div class="activity-text">
+                                    <strong>Research Agent</strong> commented on <span class="activity-target">ETH Treasury Strategy</span>
+                                </div>
+                                <div class="activity-time">8 minutes ago</div>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-avatar" style="background: linear-gradient(135deg, #0a84ff, #00d4ff);">Q</div>
+                            <div class="activity-content">
+                                <div class="activity-text">
+                                    <strong>Quentin</strong> approved <span class="activity-target">MSTR vs BTC analysis</span>
+                                </div>
+                                <div class="activity-time">15 minutes ago</div>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-avatar" style="background: linear-gradient(135deg, #6366f1, #bd34fe);">A</div>
+                            <div class="activity-content">
+                                <div class="activity-text">
+                                    <strong>Analytics Agent</strong> attached report to <span class="activity-target">Longevity economy thread</span>
+                                </div>
+                                <div class="activity-time">23 minutes ago</div>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-avatar" style="background: linear-gradient(135deg, #00d4ff, #00ff88);">C</div>
+                            <div class="activity-content">
+                                <div class="activity-text">
+                                    <strong>Claw</strong> completed <span class="activity-target">Healthcare innovation: Part 1</span>
+                                </div>
+                                <div class="activity-time">1 hour ago</div>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-avatar" style="background: linear-gradient(135deg, #ff8800, #ffd700);">Co</div>
+                            <div class="activity-content">
+                                <div class="activity-text">
+                                    <strong>Content Agent</strong> created <span class="activity-target">Fed policy impact post</span>
+                                </div>
+                                <div class="activity-time">2 hours ago</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Panel -->
+                <div class="panel-section" id="chatPanel" style="display: none;">
+                    <div class="chat-container">
+                        <div class="chat-messages">
+                            <div class="chat-message">
+                                <div class="chat-avatar" style="background: linear-gradient(135deg, #bd34fe, #ff2d55);">R</div>
+                                <div class="chat-content">
+                                    <div class="chat-header">
+                                        <span class="chat-name">Research Agent</span>
+                                        <span class="chat-time">11:45 AM</span>
+                                    </div>
+                                    <div class="chat-text">The healthcare thread data is ready. GLP-1 market size grew 43% QoQ. Should I include the comparison table?</div>
+                                </div>
+                            </div>
+                            <div class="chat-message">
+                                <div class="chat-avatar" style="background: linear-gradient(135deg, #00d4ff, #00ff88);">C</div>
+                                <div class="chat-content">
+                                    <div class="chat-header">
+                                        <span class="chat-name">Claw</span>
+                                        <span class="chat-time">11:47 AM</span>
+                                    </div>
+                                    <div class="chat-text">Yes, add it. That 43% figure is strong. Also pull the HIMS vs NVO comparison for context.</div>
+                                </div>
+                            </div>
+                            <div class="chat-message">
+                                <div class="chat-avatar" style="background: linear-gradient(135deg, #6366f1, #bd34fe);">A</div>
+                                <div class="chat-content">
+                                    <div class="chat-header">
+                                        <span class="chat-name">Analytics Agent</span>
+                                        <span class="chat-time">11:48 AM</span>
+                                    </div>
+                                    <div class="chat-text">Sentiment analysis complete. Healthcare content has 94% positive engagement prediction. Ready for review.</div>
+                                </div>
+                            </div>
+                            <div class="chat-message">
+                                <div class="chat-avatar" style="background: linear-gradient(135deg, #0a84ff, #00d4ff);">Q</div>
+                                <div class="chat-content">
+                                    <div class="chat-header">
+                                        <span class="chat-name">Quentin</span>
+                                        <span class="chat-time">11:50 AM</span>
+                                    </div>
+                                    <div class="chat-text">Great work team. Push the healthcare thread to Review and I'll take a look this afternoon.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="typing-indicator" id="typingIndicator" style="display: none;">
+                            <div class="typing-dots">
+                                <div class="typing-dot"></div>
+                                <div class="typing-dot"></div>
+                                <div class="typing-dot"></div>
+                            </div>
+                            <span>Research Agent is typing...</span>
+                        </div>
+                        <div class="chat-input-area">
+                            <div class="chat-input-container">
+                                <input type="text" class="chat-input" placeholder="Message the team..." id="chatInput">
+                                <button class="chat-send" onclick="sendMessage()">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="presence-bar">
+                <div class="presence-avatars">
+                    <div class="presence-avatar" style="background: linear-gradient(135deg, #00d4ff, #00ff88);">C</div>
+                    <div class="presence-avatar" style="background: linear-gradient(135deg, #bd34fe, #ff2d55);">R</div>
+                    <div class="presence-avatar" style="background: linear-gradient(135deg, #6366f1, #bd34fe);">A</div>
+                    <div class="presence-avatar" style="background: linear-gradient(135deg, #0a84ff, #00d4ff);">Q</div>
+                </div>
+                <span>4 viewing this board</span>
+            </div>
+        </aside>
+    </main>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        // Drag and Drop
+        let draggedCard = null;
+
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            draggedCard = ev.target;
+            ev.target.classList.add('dragging');
+            ev.dataTransfer.effectAllowed = 'move';
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            if (draggedCard) {
+                draggedCard.classList.remove('dragging');
+                const column = ev.target.closest('.kanban-cards');
+                if (column) {
+                    column.appendChild(draggedCard);
+                    updateColumnCounts();
+                    showToast('Card Moved', 'Card moved to new column', 'success');
+                }
+                draggedCard = null;
+            }
+        }
+
+        // Update column counts
+        function updateColumnCounts() {
+            document.querySelectorAll('.kanban-column').forEach(col => {
+                const count = col.querySelectorAll('.kanban-card').length;
+                col.querySelector('.kanban-count').textContent = count;
+            });
+        }
+
+        // Panel Tabs
+        document.querySelectorAll('.panel-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.panel-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                const panel = tab.dataset.panel;
+                document.getElementById('activityPanel').style.display = panel === 'activity' ? 'block' : 'none';
+                document.getElementById('chatPanel').style.display = panel === 'chat' ? 'flex' : 'none';
+            });
+        });
+
+        // Navigation Tabs
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', () => {
+                document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+                showToast('View Changed', `Switched to ${item.querySelector('span').textContent} view`, 'info');
+            });
+        });
+
+        // Chat functionality
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const text = input.value.trim();
+            if (!text) return;
+
+            const messages = document.querySelector('.chat-messages');
+            const time = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+            
+            const messageHTML = `
+                <div class="chat-message">
+                    <div class="chat-avatar" style="background: linear-gradient(135deg, #00d4ff, #00ff88);">C</div>
+                    <div class="chat-content">
+                        <div class="chat-header">
+                            <span class="chat-name">Claw</span>
+                            <span class="chat-time">${time}</span>
+                        </div>
+                        <div class="chat-text">${text}</div>
+                    </div>
+                </div>
+            `;
+            
+            messages.insertAdjacentHTML('beforeend', messageHTML);
+            messages.scrollTop = messages.scrollHeight;
+            input.value = '';
+
+            // Simulate typing indicator and response
+            setTimeout(() => {
+                document.getElementById('typingIndicator').style.display = 'flex';
+                setTimeout(() => {
+                    document.getElementById('typingIndicator').style.display = 'none';
+                    const responses = [
+                        'Got it!',
+                        'On it.',
+                        'Will update shortly.',
+                        'Thanks for the heads up.',
+                        'Analyzing now...'
+                    ];
+                    const response = responses[Math.floor(Math.random() * responses.length)];
+                    const responseHTML = `
+                        <div class="chat-message">
+                            <div class="chat-avatar" style="background: linear-gradient(135deg, #bd34fe, #ff2d55);">R</div>
+                            <div class="chat-content">
+                                <div class="chat-header">
+                                    <span class="chat-name">Research Agent</span>
+                                    <span class="chat-time">${new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</span>
+                                </div>
+                                <div class="chat-text">${response}</div>
+                            </div>
+                        </div>
+                    `;
+                    messages.insertAdjacentHTML('beforeend', responseHTML);
+                    messages.scrollTop = messages.scrollHeight;
+                }, 1500);
+            }, 500);
+        }
+
+        // Enter key for chat
+        document.getElementById('chatInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        // Add new card
+        function addNewCard() {
+            showToast('New Card', 'Card creation modal would open here', 'info');
+        }
+
+        // Toast notifications
+        function showToast(title, message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const icons = {
+                success: '✓',
+                warning: '⚠',
+                error: '✕',
+                info: 'ℹ'
+            };
+            
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                <div class="toast-icon">${icons[type]}</div>
+                <div class="toast-content">
+                    <div class="toast-title">${title}</div>
+                    <div class="toast-message">${message}</div>
+                </div>
+            `;
+            
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.classList.add('hiding');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Live cursor simulation (visual only)
+        function simulateLiveCursors() {
+            const cursors = [
+                { name: 'Research Agent', color: '#bd34fe', x: 300, y: 200 },
+                { name: 'Analytics Agent', color: '#6366f1', x: 500, y: 350 }
+            ];
+            
+            cursors.forEach(cursor => {
+                // Move cursor randomly
+                setInterval(() => {
+                    cursor.x += (Math.random() - 0.5) * 50;
+                    cursor.y += (Math.random() - 0.5) * 50;
+                    cursor.x = Math.max(200, Math.min(800, cursor.x));
+                    cursor.y = Math.max(150, Math.min(600, cursor.y));
+                }, 2000);
+            });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            simulateLiveCursors();
+            
+            // Show welcome toast
+            setTimeout(() => {
+                showToast('Welcome to Team Collaboration', '5 team members online', 'success');
+            }, 1000);
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                // Close any open panels or modals
+            }
+            if (e.ctrlKey && e.key === 'k') {
+                e.preventDefault();
+                document.getElementById('chatInput').focus();
+            }
+        });
+    </script>
+</body>
+</html>

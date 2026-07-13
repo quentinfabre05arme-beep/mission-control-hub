@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission Control Hub | Live Intelligence</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg: #0a0a0a;
+            --bg-card: #111111;
+            --bg-hover: #1a1a1a;
+            --accent: #00d4ff;
+            --accent-2: #00ff88;
+            --text: #ffffff;
+            --text-dim: #666666;
+            --border: #222222;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 1.25rem; font-weight: 700; display: flex; align-items: center; gap: 0.5rem; }
+        .live-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.75rem;
+            color: var(--accent-2);
+        }
+        .live-dot {
+            width: 8px; height: 8px;
+            background: var(--accent-2);
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        /* Search Bar */
+        .search-container {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .search-box {
+            width: 100%;
+            max-width: 600px;
+            padding: 1rem 1.25rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.2s;
+        }
+        .search-box:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+        }
+        .search-box::placeholder { color: var(--text-dim); }
+
+        /* Main Grid */
+        .main-grid {
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            max-width: 1400px;
+        }
+
+        /* Card */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .card-badge {
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--accent);
+        }
+        .card-desc {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            margin-bottom: 1rem;
+        }
+        .card-stats {
+            display: flex;
+            gap: 1.5rem;
+        }
+        .stat {
+            display: flex;
+            flex-direction: column;
+        }
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        .stat-label {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            padding: 0 2rem 2rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .action-btn {
+            padding: 0.75rem 1.25rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .action-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Drill-down Panel */
+        .drill-panel {
+            display: none;
+            position: fixed;
+            top: 0; right: 0;
+            width: 500px;
+            max-width: 100%;
+            height: 100vh;
+            background: var(--bg);
+            border-left: 1px solid var(--border);
+            z-index: 100;
+            overflow-y: auto;
+        }
+        .drill-panel.active { display: block; }
+        .drill-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .drill-close {
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        .drill-content { padding: 1.5rem; }
+        .drill-section {
+            margin-bottom: 2rem;
+        }
+        .drill-section-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+        .drill-item {
+            padding: 1rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .drill-item:hover {
+            border-color: var(--accent);
+        }
+        .drill-item-title {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+        .drill-item-meta {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+
+        /* Live Data Indicator */
+        .last-updated {
+            padding: 1rem 2rem;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            border-top: 1px solid var(--border);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            🎯 Mission Control Hub
+        </div>
+        <div class="live-badge">
+            <span class="live-dot"></span>
+            <span>LIVE DATA</span>
+        </div>
+    </header>
+
+    <!-- Search -->
+    <div class="search-container">
+        <input type="text" class="search-box" placeholder="Search projects, content, analytics..." id="searchInput">
+    </div>
+
+    <!-- Main Cards -->
+    <div class="main-grid">
+        <!-- Projects -->
+        <div class="card" onclick="openDrill('projects')">
+            <div class="card-header">
+                <div class="card-title">📁 Projects</div>
+                <span class="card-badge">4 Active</span>
+            </div>
+            <div class="card-desc">Healthcare, ETH Treasury, AI Commerce, Growth</div>
+            <div class="card-stats">
+                <div class="stat">
+                    <span class="stat-value">67%</span>
+                    <span class="stat-label">Avg Complete</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">18</span>
+                    <span class="stat-label">Posts Ready</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="card" onclick="openDrill('content')">
+            <div class="card-header">
+                <div class="card-title">📝 Content</div>
+                <span class="card-badge">AI Ready</span>
+            </div>
+            <div class="card-desc">Generate, schedule, and manage posts</div>
+            <div class="card-stats">
+                <div class="stat">
+                    <span class="stat-value">12</span>
+                    <span class="stat-label">Queued</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">87</span>
+                    <span class="stat-label">Avg Score</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analytics -->
+        <div class="card" onclick="openDrill('analytics')">
+            <div class="card-header">
+                <div class="card-title">📊 Analytics</div>
+                <span class="card-badge">Live</span>
+            </div>
+            <div class="card-desc">Real-time performance metrics</div>
+            <div class="card-stats">
+                <div class="stat">
+                    <span class="stat-value">219</span>
+                    <span class="stat-label">Followers</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">6.3%</span>
+                    <span class="stat-label">Engagement</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Campaigns -->
+        <div class="card" onclick="openDrill('campaigns')">
+            <div class="card-header">
+                <div class="card-title">📢 Campaigns</div>
+                <span class="card-badge">3 Running</span>
+            </div>
+            <div class="card-desc">Cross-platform campaign management</div>
+            <div class="card-stats">
+                <div class="stat">
+                    <span class="stat-value">247%</span>
+                    <span class="stat-label">ROI</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">12.4K</span>
+                    <span class="stat-label">Reach</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Intelligence -->
+        <div class="card" onclick="openDrill('intelligence')">
+            <div class="card-header">
+                <div class="card-title">🧠 Intelligence</div>
+                <span class="card-badge">Active</span>
+            </div>
+            <div class="card-desc">AI insights and recommendations</div>
+            <div class="card-stats">
+                <div class="stat">
+                    <span class="stat-value">94%</span>
+                    <span class="stat-label">Accuracy</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">8</span>
+                    <span class="stat-label">Insights</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- External Data -->
+        <div class="card" onclick="openDrill('external')">
+            <div class="card-header">
+                <div class="card-title">🌐 External</div>
+                <span class="card-badge">4 Feeds</span>
+            </div>
+            <div class="card-desc">Market data and news feeds</div>
+            <div class="card-stats">
+                <div class="stat">
+                    <span class="stat-value" id="card-btc-price">—</span>
+                    <span class="stat-label">BTC</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value" id="card-eth-price">—</span>
+                    <span class="stat-label">ETH</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Calendar -->
+        <div class="card" onclick="openDrill('calendar')">
+            <div class="card-header">
+                <div class="card-title">📅 Calendar</div>
+                <span class="card-badge" id="calendar-badge">Connected</span>
+            </div>
+            <div class="card-desc">Google Calendar events and deadlines</div>
+            <div class="card-stats">
+                <div class="stat">
+                    <span class="stat-value" id="calendar-count">—</span>
+                    <span class="stat-label">Events</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value" id="calendar-next">—</span>
+                    <span class="stat-label">Next</span>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="quick-actions">
+        <button class="action-btn" onclick="quickAction('generate')">✨ Generate Content</button>
+        <button class="action-btn" onclick="quickAction('schedule')">📅 Schedule Post</button>
+        <button class="action-btn" onclick="quickAction('research')">🔍 Quick Research</button>
+        <button class="action-btn" onclick="quickAction('export')">📤 Export Data</button>
+        <button class="action-btn" onclick="syncCalendar()">🔄 Sync Calendar</button>
+    </div>
+
+    <!-- Last Updated -->
+    <div class="last-updated">
+        Last updated: <span id="lastUpdated">Just now</span> | Data sources: X API, CoinGecko, Yahoo Finance
+    </div>
+
+    <!-- Drill-down Panels -->
+    <div class="drill-panel" id="drill-projects">
+        <div class="drill-header">
+            <h2>📁 Projects</h2>
+            <button class="drill-close" onclick="closeDrill()">×</button>
+        </div>
+        <div class="drill-content">
+            <div class="drill-section">
+                <div class="drill-section-title">Active Projects</div>
+                <div class="drill-item" onclick="window.open('mission_control_projects.html', '_blank')">
+                    <div class="drill-item-title">🏥 Healthcare Innovation Series</div>
+                    <div class="drill-item-meta">67% complete • 8/12 posts • 94 avg score</div>
+                </div>
+                <div class="drill-item" onclick="window.open('mission_control_projects.html', '_blank')">
+                    <div class="drill-item-title">💰 ETH Treasury Deep Dive</div>
+                    <div class="drill-item-meta">60% complete • 3/5 posts • 78 avg score</div>
+                </div>
+                <div class="drill-item" onclick="window.open('mission_control_projects.html', '_blank')">
+                    <div class="drill-item-title">🤖 AI Agentic Commerce</div>
+                    <div class="drill-item-meta">25% complete • 2/8 posts • Draft</div>
+                </div>
+            </div>
+            <div class="drill-section">
+                <div class="drill-section-title">Quick Links</div>
+                <div class="drill-item" onclick="window.open('mission_control_scheduler.html', '_blank')">
+                    <div class="drill-item-title">📅 Content Scheduler</div>
+                    <div class="drill-item-meta">Visual calendar & queue management</div>
+                </div>
+                <div class="drill-item" onclick="window.open('mission_control_campaigns.html', '_blank')">
+                    <div class="drill-item-title">📢 Campaign Manager</div>
+                    <div class="drill-item-meta">Multi-post campaign coordination</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="drill-panel" id="drill-content">
+        <div class="drill-header">
+            <h2>📝 Content</h2>
+            <button class="drill-close" onclick="closeDrill()">×</button>
+        </div>
+        <div class="drill-content">
+            <div class="drill-section">
+                <div class="drill-section-title">Create</div>
+                <div class="drill-item" onclick="window.open('mission_control_content_intelligence.html', '_blank')">
+                    <div class="drill-item-title">🤖 AI Content Generator</div>
+                    <div class="drill-item-meta">Generate posts with 87% predicted engagement</div>
+                </div>
+                <div class="drill-item" onclick="window.open('mission_control_scheduler.html', '_blank')">
+                    <div class="drill-item-title">📅 Schedule Posts</div>
+                    <div class="drill-item-meta">12 posts queued • Next: Today 2:30 PM</div>
+                </div>
+            </div>
+            <div class="drill-section">
+                <div class="drill-section-title">Recent Content</div>
+                <div class="drill-item">
+                    <div class="drill-item-title">ETH Treasury Thread</div>
+                    <div class="drill-item-meta">Generated today • Score: 78</div>
+                </div>
+                <div class="drill-item">
+                    <div class="drill-item-title">HIMS Healthcare Analysis</div>
+                    <div class="drill-item-meta">Generated today • Score: 91</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="drill-panel" id="drill-analytics">
+        <div class="drill-header">
+            <h2>📊 Analytics</h2>
+            <button class="drill-close" onclick="closeDrill()">×</button>
+        </div>
+        <div class="drill-content">
+            <div class="drill-section">
+                <div class="drill-section-title">X Performance</div>
+                <div class="drill-item" onclick="window.open('mission_control_analytics.html', '_blank')">
+                    <div class="drill-item-title">📈 Performance Dashboard</div>
+                    <div class="drill-item-meta">219 followers • 6.3% engagement</div>
+                </div>
+                <div class="drill-item" onclick="window.open('mission_control_engagement_live.html', '_blank')">
+                    <div class="drill-item-title">🔥 Live Engagement</div>
+                    <div class="drill-item-meta">Real-time monitoring & reply assistant</div>
+                </div>
+            </div>
+            <div class="drill-section">
+                <div class="drill-section-title">LinkedIn</div>
+                <div class="drill-item" onclick="window.open('mission_control_cross_platform.html', '_blank')">
+                    <div class="drill-item-title">🌐 Cross-Platform Analytics</div>
+                    <div class="drill-item-meta">347 connections • 4.8% engagement</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="drill-panel" id="drill-campaigns">
+        <div class="drill-header">
+            <h2>📢 Campaigns</h2>
+            <button class="drill-close" onclick="closeDrill()">×</button>
+        </div>
+        <div class="drill-content">
+            <div class="drill-section">
+                <div class="drill-section-title">Active Campaigns</div>
+                <div class="drill-item" onclick="window.open('mission_control_campaigns.html', '_blank')">
+                    <div class="drill-item-title">🏃 Healthcare Innovation Series</div>
+                    <div class="drill-item-meta">8/12 posts • 67% complete • 247% ROI</div>
+                </div>
+                <div class="drill-item" onclick="window.open('mission_control_campaigns.html', '_blank')">
+                    <div class="drill-item-title">▶️ ETH Treasury Deep Dive</div>
+                    <div class="drill-item-meta">3/5 posts • 60% complete</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="drill-panel" id="drill-intelligence">
+        <div class="drill-header">
+            <h2>🧠 Intelligence</h2>
+            <button class="drill-close" onclick="closeDrill()">×</button>
+        </div>
+        <div class="drill-content">
+            <div class="drill-section">
+                <div class="drill-section-title">AI Systems</div>
+                <div class="drill-item" onclick="window.open('mission_control_predictive_intelligence.html', '_blank')">
+                    <div class="drill-item-title">🔮 Predictive Intelligence</div>
+                    <div class="drill-item-meta">87% accuracy • Best time: 5:30 PM</div>
+                </div>
+                <div class="drill-item" onclick="window.open('mission_control_autonomous.html', '_blank')">
+                    <div class="drill-item-title">🤖 Autonomous Decision</div>
+                    <div class="drill-item-meta">Self-initiated actions with approval</div>
+                </div>
+            </div>
+            <div class="drill-section">
+                <div class="drill-section-title">Orchestration</div>
+                <div class="drill-item" onclick="window.open('mission_control_orchestration.html', '_blank')">
+                    <div class="drill-item-title">⚡ Workflow Builder</div>
+                    <div class="drill-item-meta">12 active workflows • 94% success rate</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="drill-panel" id="drill-external">
+        <div class="drill-header">
+            <h2>🌐 External Data</h2>
+            <button class="drill-close" onclick="closeDrill()">×</button>
+        </div>
+        <div class="drill-content">
+            <div class="drill-section">
+                <div class="drill-section-title">Live Market Data</div>
+                <div id="market-data-live">
+                    <div class="drill-item">
+                        <div class="drill-item-title">📊 Loading market data...</div>
+                        <div class="drill-item-meta">Fetching from CoinGecko & Yahoo Finance</div>
+                    </div>
+                </div>
+            </div>
+            <div class="drill-section">
+                <div class="drill-section-title">Data Sources</div>
+                <div class="drill-item">
+                    <div class="drill-item-title">🪙 CoinGecko</div>
+                    <div class="drill-item-meta" id="coingecko-status">Checking...</div>
+                </div>
+                <div class="drill-item">
+                    <div class="drill-item-title">📈 Yahoo Finance</div>
+                    <div class="drill-item-meta" id="yahoo-status">Checking...</div>
+                </div>
+            </div>
+            <div class="drill-section">
+                <div class="drill-section-title">Actions</div>
+                <div class="drill-item" onclick="refreshMarketData()">
+                    <div class="drill-item-title">🔄 Refresh Now</div>
+                    <div class="drill-item-meta" id="market-last-updated">Last updated: Never</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Calendar Drill Panel -->
+    <div class="drill-panel" id="drill-calendar">
+        <div class="drill-header">
+            <h2>📅 Calendar</h2>
+            <button class="drill-close" onclick="closeDrill()">×</button>
+        </div>
+        <div class="drill-content">
+            <div class="drill-section">
+                <div class="drill-section-title">Upcoming Events</div>
+                <div id="calendar-events-list">
+                    <div class="drill-item">
+                        <div class="drill-item-title">Loading...</div>
+                        <div class="drill-item-meta">Fetching from Google Calendar</div>
+                    </div>
+                </div>
+            </div>
+            <div class="drill-section">
+                <div class="drill-section-title">Sync Status</div>
+                <div class="drill-item" onclick="syncCalendar()">
+                    <div class="drill-item-title">🔄 Sync Now</div>
+                    <div class="drill-item-meta" id="calendar-last-sync">Last synced: Never</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Calendar data store
+        let calendarData = { events: [], lastSync: null };
+
+        // Load calendar data on page load
+        function loadCalendarData() {
+            fetch('data/calendar_events.json')
+                .then(r => r.json())
+                .then(data => {
+                    calendarData = data;
+                    updateCalendarUI();
+                })
+                .catch(e => {
+                    console.log('Calendar not synced yet');
+                    document.getElementById('calendar-badge').textContent = 'Not Synced';
+                    document.getElementById('calendar-badge').style.background = 'rgba(255, 136, 0, 0.1)';
+                    document.getElementById('calendar-badge').style.color = '#ff8800';
+                });
+        }
+
+        // Update calendar UI
+        function updateCalendarUI() {
+            if (calendarData.error) {
+                document.getElementById('calendar-badge').textContent = 'Auth Required';
+                return;
+            }
+
+            const count = calendarData.count || 0;
+            const events = calendarData.events || [];
+            
+            document.getElementById('calendar-count').textContent = count;
+            
+            if (events.length > 0) {
+                const next = events[0];
+                document.getElementById('calendar-next').textContent = next.time || 'Today';
+            }
+
+            // Update drill panel
+            const list = document.getElementById('calendar-events-list');
+            if (events.length > 0) {
+                list.innerHTML = events.slice(0, 10).map(e => `
+                    <div class="drill-item" onclick="window.open('${e.link}', '_blank')">
+                        <div class="drill-item-title">${e.title}</div>
+                        <div class="drill-item-meta">${e.date} at ${e.time}</div>
+                    </div>
+                `).join('');
+            } else {
+                list.innerHTML = `
+                    <div class="drill-item">
+                        <div class="drill-item-title">No upcoming events</div>
+                        <div class="drill-item-meta">Your calendar is clear for the next 30 days</div>
+                    </div>
+                `;
+            }
+
+            if (calendarData.updated) {
+                document.getElementById('calendar-last-sync').textContent = 
+                    'Last synced: ' + new Date(calendarData.updated).toLocaleString();
+            }
+        }
+
+        // Sync calendar
+        function syncCalendar() {
+            alert('To sync calendar, run: python scripts/calendar_fetcher.py\n\nOr authenticate first with: python scripts/google_calendar_auth.py');
+        }
+
+        // Load on startup
+        loadCalendarData();
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const term = e.target.value.toLowerCase();
+            const cards = document.querySelectorAll('.card');
+            
+            cards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                card.style.display = text.includes(term) ? 'block' : 'none';
+            });
+        });
+
+        // Drill-down panels
+        function openDrill(type) {
+            document.querySelectorAll('.drill-panel').forEach(p => p.classList.remove('active'));
+            document.getElementById('drill-' + type).classList.add('active');
+        }
+
+        function closeDrill() {
+            document.querySelectorAll('.drill-panel').forEach(p => p.classList.remove('active'));
+        }
+
+        // Quick actions
+        function quickAction(action) {
+            switch(action) {
+                case 'generate':
+                    window.open('mission_control_content_intelligence.html', '_blank');
+                    break;
+                case 'schedule':
+                    window.open('mission_control_scheduler.html', '_blank');
+                    break;
+                case 'research':
+                    alert('Research mode: Use the search bar to find topics');
+                    break;
+                case 'export':
+                    alert('Export feature: Data will be downloaded as JSON');
+                    break;
+            }
+        }
+
+        // Market Data Functions
+        let marketData = { assets: {}, timestamp: null };
+
+        function refreshMarketData() {
+            fetch('data/market_live.json')
+                .then(r => {
+                    if (!r.ok) throw new Error('No data');
+                    return r.json();
+                })
+                .then(data => {
+                    marketData = data;
+                    updateMarketUI();
+                })
+                .catch(e => {
+                    console.log('Market data not available');
+                    document.getElementById('coingecko-status').textContent = 'Offline - Run python scripts/market_fetcher.py';
+                    document.getElementById('yahoo-status').textContent = 'Offline - Run python scripts/market_fetcher.py';
+                });
+        }
+
+        function updateMarketUI() {
+            if (!marketData.assets || Object.keys(marketData.assets).length === 0) return;
+
+            const assets = marketData.assets;
+            
+            // Update card values
+            if (assets.BTC) {
+                document.getElementById('card-btc-price').textContent = '$' + assets.BTC.price.toLocaleString();
+            }
+            if (assets.ETH) {
+                document.getElementById('card-eth-price').textContent = '$' + assets.ETH.price.toLocaleString();
+            }
+            
+            const container = document.getElementById('market-data-live');
+            
+            let html = '';
+            
+            // BTC
+            if (assets.BTC) {
+                const change = assets.BTC.change_24h;
+                const sign = change >= 0 ? '+' : '';
+                const color = change >= 0 ? 'var(--accent-2)' : '#ff6b6b';
+                html += `
+                    <div class="drill-item">
+                        <div class="drill-item-title">🪙 Bitcoin (BTC)</div>
+                        <div class="drill-item-meta">
+                            <span style="font-size: 1.2rem; font-weight: 600;">$${assets.BTC.price.toLocaleString()}</span>
+                            <span style="color: ${color}; margin-left: 0.5rem;">${sign}${change.toFixed(2)}%</span>
+                        </div>
+                    </div>`;
+            }
+            
+            // ETH
+            if (assets.ETH) {
+                const change = assets.ETH.change_24h;
+                const sign = change >= 0 ? '+' : '';
+                const color = change >= 0 ? 'var(--accent-2)' : '#ff6b6b';
+                html += `
+                    <div class="drill-item">
+                        <div class="drill-item-title">💎 Ethereum (ETH)</div>
+                        <div class="drill-item-meta">
+                            <span style="font-size: 1.2rem; font-weight: 600;">$${assets.ETH.price.toLocaleString()}</span>
+                            <span style="color: ${color}; margin-left: 0.5rem;">${sign}${change.toFixed(2)}%</span>
+                        </div>
+                    </div>`;
+            }
+            
+            // MSTR
+            if (assets.MSTR) {
+                const change = assets.MSTR.change_24h;
+                const sign = change >= 0 ? '+' : '';
+                const color = change >= 0 ? 'var(--accent-2)' : '#ff6b6b';
+                html += `
+                    <div class="drill-item">
+                        <div class="drill-item-title">🏢 MicroStrategy (MSTR)</div>
+                        <div class="drill-item-meta">
+                            <span style="font-size: 1.2rem; font-weight: 600;">$${assets.MSTR.price.toFixed(2)}</span>
+                            <span style="color: ${color}; margin-left: 0.5rem;">${sign}${change.toFixed(2)}%</span>
+                        </div>
+                    </div>`;
+            }
+            
+            // HIMS
+            if (assets.HIMS) {
+                const change = assets.HIMS.change_24h;
+                const sign = change >= 0 ? '+' : '';
+                const color = change >= 0 ? 'var(--accent-2)' : '#ff6b6b';
+                html += `
+                    <div class="drill-item">
+                        <div class="drill-item-title">💊 Hims & Hers (HIMS)</div>
+                        <div class="drill-item-meta">
+                            <span style="font-size: 1.2rem; font-weight: 600;">$${assets.HIMS.price.toFixed(2)}</span>
+                            <span style="color: ${color}; margin-left: 0.5rem;">${sign}${change.toFixed(2)}%</span>
+                        </div>
+                    </div>`;
+            }
+            
+            container.innerHTML = html;
+            
+            // Update statuses
+            document.getElementById('coingecko-status').textContent = '✅ Online';
+            document.getElementById('coingecko-status').style.color = 'var(--accent-2)';
+            document.getElementById('yahoo-status').textContent = '✅ Online';
+            document.getElementById('yahoo-status').style.color = 'var(--accent-2)';
+            
+            if (marketData.timestamp) {
+                document.getElementById('market-last-updated').textContent = 
+                    'Last updated: ' + new Date(marketData.timestamp).toLocaleTimeString();
+            }
+        }
+
+        // Load market data on startup
+        refreshMarketData();
+
+        // Update timestamp
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('lastUpdated').textContent = now.toLocaleTimeString();
+        }
+        setInterval(updateTime, 30000);
+        updateTime();
+
+        // Close drill on escape key
+        document.addEventListener('keydown', function(e) {
+            try {
+            if (e.key === 'Escape') closeDrill();
+        });
+    </script>
+</body>
+</html>

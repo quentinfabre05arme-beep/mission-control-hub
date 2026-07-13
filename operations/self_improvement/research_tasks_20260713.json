@@ -1,0 +1,126 @@
+{
+  "generated": "2026-07-13T18:11:33.130362+00:00",
+  "task_count": 12,
+  "tasks": [
+    {
+      "id": "research_001",
+      "category": "agent_capabilities",
+      "query": "AI agent capabilities 2025 new features",
+      "priority": "high",
+      "status": "pending",
+      "created": "2026-07-13T18:11:33.129124+00:00",
+      "completed": null,
+      "findings": null
+    },
+    {
+      "id": "research_002",
+      "category": "agent_capabilities",
+      "query": "autonomous AI agents breakthrough 2025",
+      "priority": "high",
+      "status": "pending",
+      "created": "2026-07-13T18:11:33.129131+00:00",
+      "completed": null,
+      "findings": null
+    },
+    {
+      "id": "research_003",
+      "category": "agent_capabilities",
+      "query": "multi-agent frameworks 2025",
+      "priority": "high",
+      "status": "pending",
+      "created": "2026-07-13T18:11:33.129134+00:00",
+      "completed": null,
+      "findings": null
+    },
+    {
+      "id": "research_004",
+      "category": "automation_patterns",
+      "query": "AI automation best practices 2025",
+      "priority": "high",
+      "status": "pending",
+      "created": "2026-07-13T18:11:33.129138+00:00",
+      "completed": null,
+      "findings": null
+    },
+    {
+      "id": "research_005",
+      "category": "automation_patterns",
+      "query": "agentic workflow patterns 2025",
+      "priority": "high",
+      "status": "pending",
+      "created": "2026-07-13T18:11:33.129141+00:00",
+      "completed": null,
+      "findings": null
+    },
+    {
+      "id": "research_006",
+      "category": "automation_patterns",
+      "query": "AI agent evaluation metrics",
+      "priority": "high",
+      "status": "pending",
+      "created": "2026-07-13T18:11:33.129144+00:00",
+      "completed": null,
+      "findings": null
+    },
+    {
+      "id": "research_007",
+      "category": "content_strategies",
+      "query": "X Twitter algorithm 2025 changes",
+      "priority": "medium",
+      "status": "pending",
+      "created": "2026-07-13T18:11:33.129147+00:00",
+      "completed": null,
+      "findings": null
+    },
+    {
+      "id": "research_008",
+      "category": "content_strategies",
+      "query": "social media engagement strategies 2025",
+      "priority": "medium",
+      "status": "pending",
+      "created": "2026-07-13T18:11:33.129150+00:00",
+      "completed": null,
+      "findings": null
+    },
+    {
+      "id": "research_009",
+      "category": "content_strategies",
+      "query": "content creation AI tools 2025",
+      "priority": "medium",
+      "status": "pending",
+      "created": "2026-07-13T18:11:33.129152+00:00",
+      "completed": null,
+      "findings": null
+    },
+    {
+      "id": "research_010",
+      "category": "research_methods",
+      "query": "social media research methods 2025",
+      "priority": "medium",
+      "status": "pending",
+      "created": "2026-07-13T18:11:33.129155+00:00",
+      "completed": null,
+      "findings": null
+    },
+    {
+      "id": "research_011",
+      "category": "research_methods",
+      "query": "sentiment analysis tools 2025",
+      "priority": "medium",
+      "status": "pending",
+      "created": "2026-07-13T18:11:33.129157+00:00",
+      "completed": null,
+      "findings": null
+    },
+    {
+      "id": "research_012",
+      "category": "research_methods",
+      "query": "trend detection algorithms",
+      "priority": "medium",
+      "status": "pending",
+      "created": "2026-07-13T18:11:33.129160+00:00",
+      "completed": null,
+      "findings": null
+    }
+  ]
+}

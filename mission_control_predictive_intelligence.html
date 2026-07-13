@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@quentinvest1 | Predictive Intelligence v5.1</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-tertiary: #1a1a1a;
+            --bg-card: #161616;
+            --bg-hover: #1e1e1e;
+            --accent-cyan: #00d4ff;
+            --accent-green: #00ff88;
+            --accent-orange: #ff8800;
+            --accent-red: #ff0044;
+            --accent-purple: #8800ff;
+            --accent-gold: #ffd700;
+            --accent-pink: #ff0066;
+            --accent-teal: #00ffcc;
+            --text-primary: #ffffff;
+            --text-secondary: #888888;
+            --text-dim: #444444;
+            --border-color: #222222;
+            --glass-bg: rgba(22, 22, 22, 0.8);
+            --glass-border: rgba(34, 34, 34, 0.5);
+            --heatmap-low: #1a3d1a;
+            --heatmap-med: #3d8c3d;
+            --heatmap-high: #ffd700;
+            --heatmap-peak: #ff4444;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto Mono', monospace;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(0, 212, 255, 0.03) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(136, 0, 255, 0.03) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(0, 255, 136, 0.02) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .top-nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 60px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 1.5rem;
+            z-index: 100;
+        }
+
+        .nav-left { display: flex; align-items: center; gap: 1rem; }
+        .logo { display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 1.1rem; }
+        .logo-icon { font-size: 1.2rem; }
+        .version-tag { font-size: 0.7rem; padding: 0.15rem 0.5rem; background: var(--accent-purple); border-radius: 4px; color: #000; font-weight: 700; }
+        .status-badge { display: flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; color: var(--text-secondary); }
+        .status-dot { width: 8px; height: 8px; background: var(--accent-green); border-radius: 50%; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .nav-right { display: flex; align-items: center; gap: 1rem; }
+        .nav-link { color: var(--text-secondary); text-decoration: none; font-size: 0.8rem; transition: color 0.2s; }
+        .nav-link:hover { color: var(--text-primary); }
+
+        .main-container {
+            padding: 80px 1.5rem 2rem;
+            max-width: 1600px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 280px 1fr 320px;
+            gap: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-title { font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; }
+        .card-body { padding: 1.25rem; }
+
+        /* Left Panel - ML Predictions */
+        .prediction-card {
+            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-tertiary) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .prediction-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 3px; height: 100%;
+            background: var(--accent-cyan);
+        }
+
+        .prediction-card.high-confidence::before { background: var(--accent-green); }
+        .prediction-card.medium-confidence::before { background: var(--accent-orange); }
+        .prediction-card.low-confidence::before { background: var(--accent-red); }
+
+        .prediction-label { font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 0.25rem; }
+        .prediction-value { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.25rem; }
+        .prediction-meta { font-size: 0.75rem; color: var(--text-secondary); }
+        .confidence-badge {
+            position: absolute;
+            top: 1rem; right: 1rem;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            background: rgba(0, 255, 136, 0.1);
+            color: var(--accent-green);
+        }
+
+        /* Heatmap Grid */
+        .heatmap-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            margin-top: 1rem;
+        }
+
+        .heatmap-cell {
+            aspect-ratio: 1;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+        }
+
+        .heatmap-cell:hover { transform: scale(1.1); z-index: 2; }
+        .heatmap-cell.level-0 { background: var(--heatmap-low); color: var(--text-dim); }
+        .heatmap-cell.level-1 { background: var(--heatmap-med); color: var(--text-primary); }
+        .heatmap-cell.level-2 { background: var(--heatmap-high); color: #000; font-weight: 700; }
+        .heatmap-cell.level-3 { background: var(--heatmap-peak); color: #fff; font-weight: 700; box-shadow: 0 0 10px rgba(255, 68, 68, 0.5); }
+
+        .heatmap-labels {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            margin-top: 0.5rem;
+            text-align: center;
+            font-size: 0.65rem;
+            color: var(--text-secondary);
+        }
+
+        /* Center Panel - Anomaly Detection */
+        .anomaly-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        .anomaly-card:hover { border-color: var(--accent-cyan); }
+        .anomaly-card.viral { border-color: var(--accent-pink); background: linear-gradient(135deg, rgba(255, 0, 102, 0.05) 0%, transparent 100%); }
+        .anomaly-card.spike { border-color: var(--accent-green); }
+        .anomaly-card.warning { border-color: var(--accent-orange); }
+
+        .anomaly-icon {
+            width: 48px; height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .anomaly-icon.viral { background: rgba(255, 0, 102, 0.1); }
+        .anomaly-icon.spike { background: rgba(0, 255, 136, 0.1); }
+        .anomaly-icon.warning { background: rgba(255, 136, 0, 0.1); }
+
+        .anomaly-content { flex: 1; }
+        .anomaly-title { font-weight: 600; margin-bottom: 0.25rem; }
+        .anomaly-desc { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem; }
+        .anomaly-meta { display: flex; gap: 1rem; font-size: 0.75rem; color: var(--text-dim); }
+        .anomaly-action {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .anomaly-action:hover { background: var(--accent-cyan); color: #000; border-color: var(--accent-cyan); }
+
+        /* Timing Recommendations */
+        .timing-slot {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            background: var(--bg-secondary);
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .timing-slot:hover { background: var(--bg-tertiary); }
+        .timing-slot.recommended { border: 1px solid var(--accent-green); background: rgba(0, 255, 136, 0.05); }
+
+        .timing-score {
+            width: 48px; height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            position: relative;
+        }
+
+        .timing-score::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            border-top-color: var(--accent-green);
+            transform: rotate(45deg);
+        }
+
+        .timing-score.high { background: rgba(0, 255, 136, 0.1); color: var(--accent-green); }
+        .timing-score.medium { background: rgba(255, 136, 0, 0.1); color: var(--accent-orange); }
+        .timing-score.low { background: rgba(255, 68, 68, 0.1); color: var(--accent-red); }
+
+        .timing-info { flex: 1; }
+        .timing-time { font-weight: 600; }
+        .timing-reason { font-size: 0.75rem; color: var(--text-secondary); }
+        .timing-badge {
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            background: var(--bg-tertiary);
+        }
+        .timing-badge.optimal { background: rgba(0, 255, 136, 0.1); color: var(--accent-green); }
+        .timing-badge.good { background: rgba(255, 136, 0, 0.1); color: var(--accent-orange); }
+
+        /* Competitor Grid */
+        .competitor-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            background: var(--bg-secondary);
+        }
+
+        .competitor-avatar {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        .competitor-info { flex: 1; }
+        .competitor-name { font-weight: 600; font-size: 0.85rem; }
+        .competitor-handle { font-size: 0.7rem; color: var(--text-secondary); }
+        .competitor-stats { display: flex; gap: 1rem; font-size: 0.75rem; }
+        .competitor-stat { text-align: center; }
+        .competitor-stat-value { font-weight: 600; color: var(--accent-cyan); }
+        .competitor-stat-label { color: var(--text-dim); }
+
+        /* Algorithm Score */
+        .algo-score-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .algo-score-ring {
+            width: 160px; height: 160px;
+            border-radius: 50%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .algo-score-ring svg { position: absolute; inset: 0; transform: rotate(-90deg); }
+        .algo-score-ring circle { fill: none; stroke-width: 8; }
+        .algo-score-ring .bg { stroke: var(--bg-tertiary); }
+        .algo-score-ring .progress { stroke: var(--accent-cyan); stroke-linecap: round; transition: stroke-dashoffset 1s ease; }
+
+        .algo-score-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            z-index: 1;
+        }
+
+        .algo-factors {
+            margin-top: 1.5rem;
+        }
+
+        .algo-factor {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .algo-factor-bar {
+            flex: 1;
+            height: 6px;
+            background: var(--bg-tertiary);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .algo-factor-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+
+        .algo-factor-label { font-size: 0.75rem; width: 80px; color: var(--text-secondary); }
+        .algo-factor-value { font-size: 0.75rem; width: 30px; text-align: right; font-weight: 600; }
+
+        /* Toast Notifications */
+        .toast-container {
+            position: fixed;
+            bottom: 2rem; right: 2rem;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .toast {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            min-width: 280px;
+            animation: slideIn 0.3s ease, fadeOut 0.3s ease 4.7s forwards;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes fadeOut {
+            to { transform: translateX(100%); opacity: 0; }
+        }
+
+        .toast-title { font-weight: 600; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.25rem; }
+        .toast-message { font-size: 0.85rem; color: var(--text-secondary); }
+
+        /* Mobile */
+        @media (max-width: 1200px) {
+            .main-container { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .main-container { padding: 80px 1rem 1rem; }
+            .heatmap-grid { grid-template-columns: repeat(7, 1fr); gap: 2px; }
+            .heatmap-cell { font-size: 0.5rem; }
+            .heatmap-labels { font-size: 0.5rem; }
+            .toast-container { right: 1rem; bottom: 1rem; left: 1rem; }
+            .toast { min-width: auto; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-left">
+            <div class="logo">
+                <span class="logo-icon">🧠</span>
+                <span>PredictiveIntel</span>
+                <span class="version-tag">v5.1</span>
+            </div>
+            <div class="status-badge">
+                <span class="status-dot"></span>
+                <span>ML Models Active</span>
+            </div>
+        </div>
+        <div class="nav-right">
+            <a href="mission_control_engagement_live.html" class="nav-link">← Live</a>
+            <a href="mission_control_command_center.html" class="nav-link">Command</a>
+            <a href="mission_control_orchestrator.html" class="nav-link">Orchestrator</a>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <!-- Left Panel: ML Predictions -->
+        <div class="left-panel">
+            <div class="card" style="margin-bottom: 1.5rem;">
+                <div class="card-header">
+                    <div class="card-title">🎯 ML Predictions</div>
+                </div>
+                <div class="card-body">
+                    <div class="prediction-card high-confidence">
+                        <span class="confidence-badge">94% confidence</span>
+                        <div class="prediction-label">Next Viral Probability</div>
+                        <div class="prediction-value" style="color: var(--accent-green);">73%</div>
+                        <div class="prediction-meta">Based on HIMS thread analysis</div>
+                    </div>
+
+                    <div class="prediction-card high-confidence">
+                        <span class="confidence-badge">91% confidence</span>
+                        <div class="prediction-label">Optimal Post Time</div>
+                        <div class="prediction-value" style="color: var(--accent-cyan);">14:30</div>
+                        <div class="prediction-meta">Tomorrow for max engagement</div>
+                    </div>
+
+                    <div class="prediction-card medium-confidence">
+                        <span class="confidence-badge" style="background: rgba(255, 136, 0, 0.1); color: var(--accent-orange);">78% confidence</span>
+                        <div class="prediction-label">Sentiment Risk</div>
+                        <div class="prediction-value" style="color: var(--accent-orange);">Low</div>
+                        <div class="prediction-meta">Current topic sentiment stable</div>
+                    </div>
+
+                    <div class="prediction-card high-confidence">
+                        <span class="confidence-badge">89% confidence</span>
+                        <div class="prediction-label">Engagement Forecast</div>
+                        <div class="prediction-value" style="color: var(--accent-teal);">+24%</div>
+                        <div class="prediction-meta">Expected next 48 hours</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">📊 Engagement Heatmap</div>
+                </div>
+                <div class="card-body">
+                    <div style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
+                        Best posting times (7 days, 24h)
+                    </div>
+                    <div class="heatmap-grid" id="heatmapGrid"></div>
+                    <div class="heatmap-labels">
+                        <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+                    </div>
+                    <div style="display: flex; gap: 1rem; margin-top: 1rem; font-size: 0.7rem;">
+                        <div style="display: flex; align-items: center; gap: 0.25rem;">
+                            <span style="width: 12px; height: 12px; background: var(--heatmap-low); border-radius: 2px;"></span>
+                            <span>Low</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.25rem;">
+                            <span style="width: 12px; height: 12px; background: var(--heatmap-med); border-radius: 2px;"></span>
+                            <span>Med</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.25rem;">
+                            <span style="width: 12px; height: 12px; background: var(--heatmap-high); border-radius: 2px;"></span>
+                            <span>High</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.25rem;">
+                            <span style="width: 12px; height: 12px; background: var(--heatmap-peak); border-radius: 2px;"></span>
+                            <span>Peak</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Center Panel: Anomaly Detection -->
+        <div class="center-panel">
+            <div class="card" style="margin-bottom: 1.5rem;">
+                <div class="card-header">
+                    <div class="card-title">⚡ Anomaly Detection</div>
+                    <span style="font-size: 0.8rem; color: var(--text-secondary);">Live monitoring</span>
+                </div>
+                <div class="card-body">
+                    <div class="anomaly-card viral">
+                        <div class="anomaly-icon viral">🔥</div>
+                        <div class="anomaly-content">
+                            <div class="anomaly-title">Viral Potential Detected</div>
+                            <div class="anomaly-desc">ETH Treasury thread showing 340% above normal engagement velocity. Reply rate spiking.</div>
+                            <div class="anomaly-meta">
+                                <span>⏰ 2 min ago</span>
+                                <span>📈 +340% velocity</span>
+                                <span>💬 23 replies/min</span>
+                            </div>
+                        </div>
+                        <button class="anomaly-action">Monitor</button>
+                    </div>
+
+                    <div class="anomaly-card spike">
+                        <div class="anomaly-icon spike">📈</div>
+                        <div class="anomaly-content">
+                            <div class="anomaly-title">Engagement Spike</div>
+                            <div class="anomaly-desc">@TheLongInvestor replied to your thread. Their followers highly engaged with similar content.</div>
+                            <div class="anomaly-meta">
+                                <span>⏰ 8 min ago</span>
+                                <span>👥 47K followers</span>
+                                <span>🎯 12% avg engagement</span>
+                            </div>
+                        </div>
+                        <button class="anomaly-action">Reply</button>
+                    </div>
+
+                    <div class="anomaly-card warning">
+                        <div class="anomaly-icon warning">⚠️</div>
+                        <div class="anomaly-content">
+                            <div class="anomaly-title">Sentiment Shift Warning</div>
+                            <div class="anomaly-desc">Healthcare sector sentiment declining -0.8σ in last hour. Consider delay for HIMS thread.</div>
+                            <div class="anomaly-meta">
+                                <span>⏰ 15 min ago</span>
+                                <span>📉 -0.8σ sentiment</span>
+                                <span>🏥 Healthcare sector</span>
+                            </div>
+                        </div>
+                        <button class="anomaly-action">Details</button>
+                    </div>
+
+                    <div class="anomaly-card">
+                        <div class="anomaly-icon" style="background: rgba(0, 212, 255, 0.1);">🤖</div>
+                        <div class="anomaly-content">
+                            <div class="anomaly-title">Algorithm Update Detected</div>
+                            <div class="anomaly-desc">X algorithm showing 23% boost for educational threads. Educational content trending +15%.</div>
+                            <div class="anomaly-meta">
+                                <span>⏰ 32 min ago</span>
+                                <span>🔄 Algorithm change</span>
+                                <span>📚 +15% educational</span>
+                            </div>
+                        </div>
+                        <button class="anomaly-action">Adapt</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">⏰ Timing Recommendations</div>
+                    <span style="font-size: 0.8rem; color: var(--text-secondary);">AI-optimized schedule</span>
+                </div>
+                <div class="card-body">
+                    <div class="timing-slot recommended">
+                        <div class="timing-score high">94</div>
+                        <div class="timing-info">
+                            <div class="timing-time">Tomorrow 14:30</div>
+                            <div class="timing-reason">Peak engagement window + HIMS sentiment recovering</div>
+                        </div>
+                        <span class="timing-badge optimal">OPTIMAL</span>
+                    </div>
+
+                    <div class="timing-slot">
+                        <div class="timing-score high">88</div>
+                        <div class="timing-info">
+                            <div class="timing-time">Tomorrow 09:00</div>
+                            <div class="timing-reason">Morning commuter engagement high on weekdays</div>
+                        </div>
+                        <span class="timing-badge good">GOOD</span>
+                    </div>
+
+                    <div class="timing-slot">
+                        <div class="timing-score medium">76</div>
+                        <div class="timing-info">
+                            <div class="timing-time">Today 23:00</div>
+                            <div class="timing-reason">Overnight US engagement + Asian morning overlap</div>
+                        </div>
+                        <span class="timing-badge good">GOOD</span>
+                    </div>
+
+                    <div class="timing-slot">
+                        <div class="timing-score medium">71</div>
+                        <div class="timing-info">
+                            <div class="timing-time">Tomorrow 11:00</div>
+                            <div class="timing-reason">Pre-lunch European engagement window</div>
+                        </div>
+                        <span class="timing-badge good">GOOD</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Panel: Competitor Tracking -->
+        <div class="right-panel">
+            <div class="card" style="margin-bottom: 1.5rem;">
+                <div class="card-header">
+                    <div class="card-title">🏆 Competitor Tracking</div>
+                </div>
+                <div class="card-body">
+                    <div style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 1rem;">
+                        Similar accounts, last 24h
+                    </div>
+
+                    <div class="competitor-row">
+                        <div class="competitor-avatar">DL</div>
+                        <div class="competitor-info">
+                            <div class="competitor-name">Dylan LeClair</div>
+                            <div class="competitor-handle">@DylanLeClair_</div>
+                        </div>
+                        <div class="competitor-stats">
+                            <div class="competitor-stat">
+                                <div class="competitor-stat-value">+47</div>
+                                <div class="competitor-stat-label">Posts</div>
+                            </div>
+                            <div class="competitor-stat">
+                                <div class="competitor-stat-value">8.2%</div>
+                                <div class="competitor-stat-label">Engage</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="competitor-row">
+                        <div class="competitor-avatar">RG</div>
+                        <div class="competitor-info">
+                            <div class="competitor-name">Raoul Pal</div>
+                            <div class="competitor-handle">@RaoulGMI</div>
+                        </div>
+                        <div class="competitor-stats">
+                            <div class="competitor-stat">
+                                <div class="competitor-stat-value">+12</div>
+                                <div class="competitor-stat-label">Posts</div>
+                            </div>
+                            <div class="competitor-stat">
+                                <div class="competitor-stat-value">5.1%</div>
+                                <div class="competitor-stat-label">Engage</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="competitor-row">
+                        <div class="competitor-avatar">TL</div>
+                        <div class="competitor-info">
+                            <div class="competitor-name">The Long Investor</div>
+                            <div class="competitor-handle">@TheLongInvestor</div>
+                        </div>
+                        <div class="competitor-stats">
+                            <div class="competitor-stat">
+                                <div class="competitor-stat-value">+8</div>
+                                <div class="competitor-stat-label">Posts</div>
+                            </div>
+                            <div class="competitor-stat">
+                                <div class="competitor-stat-value">12.4%</div>
+                                <div class="competitor-stat-label">Engage</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="competitor-row">
+                        <div class="competitor-avatar">DT</div>
+                        <div class="competitor-info">
+                            <div class="competitor-name">Dr. Tom's Lens</div>
+                            <div class="competitor-handle">@DrTomsLens</div>
+                        </div>
+                        <div class="competitor-stats">
+                            <div class="competitor-stat">
+                                <div class="competitor-stat-value">+15</div>
+                                <div class="competitor-stat-label">Posts</div>
+                            </div>
+                            <div class="competitor-stat">
+                                <div class="competitor-stat-value">9.7%</div>
+                                <div class="competitor-stat-label">Engage</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">🤖 Algorithm Score</div>
+                </div>
+                <div class="card-body">
+                    <div class="algo-score-container">
+                        <div class="algo-score-ring">
+                            <svg width="160" height="160">
+                                <circle class="bg" cx="80" cy="80" r="72"></circle>
+                                <circle class="progress" cx="80" cy="80" r="72" 
+                                    stroke-dasharray="452" stroke-dashoffset="45"></circle>
+                            </svg>
+                            <div class="algo-score-value" style="color: var(--accent-cyan);">87</div>
+                        </div>
+                    </div>
+                    <div style="text-align: center; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">
+                        Content favorability score
+                    </div>
+
+                    <div class="algo-factors">
+                        <div class="algo-factor">
+                            <span class="algo-factor-label">Relevance</span>
+                            <div class="algo-factor-bar">
+                                <div class="algo-factor-fill" style="width: 92%; background: var(--accent-green);"></div>
+                            </div>
+                            <span class="algo-factor-value">92</span>
+                        </div>
+                        <div class="algo-factor">
+                            <span class="algo-factor-label">Recency</span>
+                            <div class="algo-factor-bar">
+                                <div class="algo-factor-fill" style="width: 85%; background: var(--accent-green);"></div>
+                            </div>
+                            <span class="algo-factor-value">85</span>
+                        </div>
+                        <div class="algo-factor">
+                            <span class="algo-factor-label">Authority</span>
+                            <div class="algo-factor-bar">
+                                <div class="algo-factor-fill" style="width: 78%; background: var(--accent-orange);"></div>
+                            </div>
+                            <span class="algo-factor-value">78</span>
+                        </div>
+                        <div class="algo-factor">
+                            <span class="algo-factor-label">Engagement</span>
+                            <div class="algo-factor-bar">
+                                <div class="algo-factor-fill" style="width: 89%; background: var(--accent-green);"></div>
+                            </div>
+                            <span class="algo-factor-value">89</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        // Generate heatmap data
+        function generateHeatmap() {
+            const grid = document.getElementById('heatmapGrid');
+            const hours = ['12a', '4a', '8a', '12p', '4p', '8p'];
+            
+            // Simulate 7 days x 6 time slots
+            for (let day = 0; day < 7; day++) {
+                for (let slot = 0; slot < 6; slot++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'heatmap-cell';
+                    
+                    // Peak engagement Tuesday-Thursday, 2-4 PM
+                    let level = 0;
+                    if ((day >= 1 && day <= 3) && slot === 3) {
+                        level = 3; // Peak
+                    } else if ((day >= 1 && day <= 3) && (slot === 2 || slot === 4)) {
+                        level = 2; // High
+                    } else if (slot >= 2 && slot <= 4) {
+                        level = 1; // Medium
+                    }
+                    
+                    // Add some randomness
+                    if (Math.random() > 0.8) level = Math.min(3, level + 1);
+                    
+                    cell.classList.add(`level-${level}`);
+                    cell.title = `${['Mon','Tue','Wed','Thu','Fri','Sat','Sun'][day]} ${hours[slot]}:00 - Level ${level}`;
+                    
+                    grid.appendChild(cell);
+                }
+            }
+        }
+
+        // Toast notification system
+        function showToast(title, message, icon = '🤖') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = `
+                <div class="toast-title">${icon} ${title}</div>
+                <div class="toast-message">${message}</div>
+            `;
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 5000);
+        }
+
+        // Simulate live anomaly detection
+        function simulateAnomalies() {
+            const anomalies = [
+                { title: 'Trending Topic', message: '#HIMS gaining momentum (+23%)', icon: '📈' },
+                { title: 'Competitor Alert', message: '@DylanLeClair_ posted about GLP-1', icon: '👁️' },
+                { title: 'Sentiment Boost', message: 'Healthcare sector sentiment +0.5σ', icon: '📊' },
+                { title: 'Engagement Drop', message: 'Your last post 15% below baseline', icon: '⚠️' }
+            ];
+            
+            // Show initial toast
+            setTimeout(() => {
+                showToast('ML Models Ready', 'Predictive intelligence active', '🧠');
+            }, 1000);
+            
+            // Random anomalies
+            setInterval(() => {
+                if (Math.random() > 0.7) {
+                    const anomaly = anomalies[Math.floor(Math.random() * anomalies.length)];
+                    showToast(anomaly.title, anomaly.message, anomaly.icon);
+                }
+            }, 15000);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            generateHeatmap();
+            simulateAnomalies();
+            
+            // Animate score ring
+            setTimeout(() => {
+                const progress = document.querySelector('.progress');
+                if (progress) {
+                    const circumference = 2 * Math.PI * 72;
+                    const offset = circumference - (0.87 * circumference);
+                    progress.style.strokeDashoffset = offset;
+                }
+            }, 500);
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'r' || e.key === 'R') {
+                location.reload();
+            }
+            if (e.key === 't' || e.key === 'T') {
+                showToast('Test Alert', 'ML prediction system operational', '🧠');
+            }
+        });
+    </script>
+</body>
+</html>

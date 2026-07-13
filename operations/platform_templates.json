@@ -1,0 +1,68 @@
+{
+  "x_thread": {
+    "max_length": 280,
+    "hashtag_count": 3,
+    "tone": "analytical",
+    "structure": "hook → thread",
+    "best_time": "8-10am ET",
+    "cta_options": [
+      "What do you think?",
+      "Agree or disagree?",
+      "Thoughts?"
+    ]
+  },
+  "x_single": {
+    "max_length": 280,
+    "hashtag_count": 3,
+    "tone": "concise",
+    "structure": "insight + data",
+    "best_time": "12-2pm ET",
+    "cta_options": [
+      "Drop a comment",
+      "Thoughts?",
+      "DM for details"
+    ]
+  },
+  "instagram_carousel": {
+    "slides": "5-10",
+    "slide_structure": "hook slide → point slides → CTA slide",
+    "caption_length": 2200,
+    "hashtag_count": 10,
+    "tone": "visual + educational",
+    "best_time": "6-9pm ET",
+    "image_ratio": "4:5"
+  },
+  "instagram_story": {
+    "slides": "3-5",
+    "interactive": "polls, questions, sliders",
+    "hashtag_stickers": true,
+    "tone": "casual, behind-scenes",
+    "best_time": "morning 8-10am, evening 7-9pm"
+  },
+  "youtube_shorts": {
+    "duration": "30-60s",
+    "hook": "first 3 seconds critical",
+    "structure": "hook → insight → CTA",
+    "caption_length": 100,
+    "tone": "fast-paced, high energy"
+  },
+  "linkedin_article": {
+    "length": "500-1000 words",
+    "structure": "insight → data → analysis → conclusion",
+    "hashtag_count": 5,
+    "tone": "professional, authoritative",
+    "best_time": "Tuesday-Thursday 8-10am",
+    "cta_options": [
+      "What's your take?",
+      "Share your experience",
+      "Comment below"
+    ]
+  },
+  "newsletter": {
+    "length": "500-800 words",
+    "structure": "subject line → hook → body → CTA",
+    "sections": "intro, main point, supporting data, conclusion",
+    "tone": "conversational, valuable",
+    "best_day": "Tuesday or Thursday"
+  }
+}

@@ -1,0 +1,179 @@
+{
+  "lastUpdated": "2026-07-13T19:53:00+02:00",
+  "marketStatus": "OPEN",
+  "signals": {
+    "BTC": {
+      "symbol": "BTC/USD",
+      "name": "Bitcoin",
+      "price": 62192.6,
+      "change24h": -2.43,
+      "rsi": 45.47,
+      "macd": -272.69,
+      "macdSignal": "bearish",
+      "sma50": 64579.19,
+      "bbUpper": 64388,
+      "bbLower": 62033,
+      "signal": "HOLD",
+      "signalStrength": 52,
+      "riskScore": 58,
+      "trend": "down",
+      "contentTrigger": "ETH treasury yield narrative strengthened by Strategy BTC sale",
+      "nextSupport": 62033,
+      "nextResistance": 64579,
+      "apiSource": "Twelve Data",
+      "lastPriceUpdate": "2026-07-13T19:50:00+02:00"
+    },
+    "ETH": {
+      "symbol": "ETH/USD",
+      "name": "Ethereum",
+      "price": 1774.58,
+      "change24h": -1.75,
+      "rsi": 53.8,
+      "macd": 0.0,
+      "macdSignal": "neutral",
+      "sma50": 1750.0,
+      "bbUpper": 1850,
+      "bbLower": 1700,
+      "signal": "BUY",
+      "signalStrength": 68,
+      "riskScore": 42,
+      "trend": "up",
+      "contentTrigger": "Relative strength vs BTC; treasury narrative intact",
+      "nextSupport": 1700,
+      "nextResistance": 1850,
+      "apiSource": "Twelve Data",
+      "lastPriceUpdate": "2026-07-13T19:50:00+02:00"
+    },
+    "MSTR": {
+      "symbol": "MSTR",
+      "name": "Strategy Inc.",
+      "price": 91.87,
+      "change24h": -1.2,
+      "rsi": 45.6,
+      "macd": 0.0,
+      "macdSignal": "neutral",
+      "sma50": 93.5,
+      "bbUpper": 98.0,
+      "bbLower": 87.0,
+      "signal": "HOLD",
+      "signalStrength": 55,
+      "riskScore": 61,
+      "trend": "sideways",
+      "contentTrigger": "First-ever BTC sale ($216M) creates treasury strategy debate",
+      "nextSupport": 87.0,
+      "nextResistance": 98.0,
+      "apiSource": "Alpha Vantage",
+      "lastPriceUpdate": "2026-07-13T19:45:00+02:00"
+    },
+    "HIMS": {
+      "symbol": "HIMS",
+      "name": "Hims & Hers Health",
+      "price": 34.28,
+      "change24h": 0.8,
+      "rsi": 53.8,
+      "macd": 0.0,
+      "macdSignal": "neutral",
+      "sma50": 33.2,
+      "bbUpper": 37.5,
+      "bbLower": 31.0,
+      "signal": "BUY",
+      "signalStrength": 72,
+      "riskScore": 38,
+      "trend": "up",
+      "contentTrigger": "GLP-1 momentum + telehealth distribution play",
+      "nextSupport": 31.0,
+      "nextResistance": 37.5,
+      "apiSource": "Alpha Vantage",
+      "lastPriceUpdate": "2026-07-13T19:45:00+02:00"
+    }
+  },
+  "macro": {
+    "fearGreedIndex": 47,
+    "fearGreedLabel": "Neutral",
+    "vix": 18.5,
+    "dxy": 103.2,
+    "us10y": 4.28,
+    "btcDominance": 54.2,
+    "ethDominance": 16.8,
+    "marketBreadth": "mixed"
+  },
+  "portfolio": {
+    "totalValue": 24518.0,
+    "dayChange": -312.0,
+    "dayChangePct": -1.26,
+    "betaToBTC": 0.78,
+    "maxDrawdown": 8.4,
+    "var95": 1840
+  },
+  "alerts": [
+    {
+      "id": "alt-001",
+      "type": "trend",
+      "severity": "medium",
+      "asset": "ETH",
+      "title": "ETH showing relative strength",
+      "description": "ETH down -1.75% vs BTC -2.43%. RSI neutral-bullish at 53.8. Treasury narrative intact.",
+      "timestamp": "2026-07-13T19:50:00+02:00",
+      "action": "Consider GLP-1/healthcare pivot content or ETH treasury thread"
+    },
+    {
+      "id": "alt-002",
+      "type": "risk",
+      "severity": "high",
+      "asset": "BTC",
+      "title": "BTC below 50-SMA",
+      "description": "Price $62,192 below 50-SMA $64,579. MACD histogram turning positive but still below signal line.",
+      "timestamp": "2026-07-13T19:50:00+02:00",
+      "action": "Watch $62,033 support; avoid aggressive BTC long content"
+    },
+    {
+      "id": "alt-003",
+      "type": "opportunity",
+      "severity": "medium",
+      "asset": "HIMS",
+      "title": "HIMS holding support",
+      "description": "Price above 50-SMA. GLP-1 momentum building. Down 51% from peak creates recovery narrative.",
+      "timestamp": "2026-07-13T19:45:00+02:00",
+      "action": "Strong content candidate: GLP-1 market + HIMS telehealth angle"
+    },
+    {
+      "id": "alt-004",
+      "type": "content",
+      "severity": "high",
+      "asset": "MSTR",
+      "title": "Strategy BTC sale event",
+      "description": "First-ever $216M BTC sale validates ETH treasury yield argument.",
+      "timestamp": "2026-07-13T19:45:00+02:00",
+      "action": "Publish ETH Treasury thread or reply to @saylor post"
+    }
+  ],
+  "contentRecommendations": [
+    {
+      "priority": 1,
+      "theme": "ETH Treasury Yield",
+      "score": 88,
+      "rationale": "Strategy BTC sale creates perfect contrarian setup for ETH yield narrative",
+      "asset": "ETH",
+      "format": "Thread",
+      "optimalTime": "17:00-18:00 CET"
+    },
+    {
+      "priority": 2,
+      "theme": "GLP-1 Market + HIMS",
+      "score": 85,
+      "rationale": "Healthcare trending; HIMS technicals constructive",
+      "asset": "HIMS",
+      "format": "Thread",
+      "optimalTime": "17:00-18:00 CET"
+    },
+    {
+      "priority": 3,
+      "theme": "BTC Supply Shock",
+      "score": 78,
+      "rationale": "Post-halving mechanics but current price action weak",
+      "asset": "BTC",
+      "format": "Single Post",
+      "optimalTime": "18:00-19:00 CET"
+    }
+  ]
+}

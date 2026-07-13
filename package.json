@@ -1,0 +1,11 @@
+{
+  "name": "mission-control-hub",
+  "version": "1.0.0",
+  "description": "Mission Control Dashboard for X content management",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

@@ -1,0 +1,38 @@
+{
+  "account": {
+    "handle": "@quentinvest1",
+    "target_followers": 10000,
+    "current_followers": 212
+  },
+  "content": {
+    "posting_times": [
+      "08:00",
+      "12:00",
+      "16:00"
+    ],
+    "engagement_times": [
+      "09:00",
+      "13:00",
+      "19:00"
+    ],
+    "threads_ready": [
+      "hims",
+      "ai_commerce"
+    ]
+  },
+  "targets": {
+    "tier_1": [
+      "TheLongInvestor",
+      "DrTomsLens",
+      "DylanLeClair_",
+      "RaoulGMI"
+    ],
+    "tier_2": [],
+    "tier_3": []
+  },
+  "automation": {
+    "daily_digest_enabled": true,
+    "auto_content_enabled": false,
+    "metrics_tracking_enabled": true
+  }
+}

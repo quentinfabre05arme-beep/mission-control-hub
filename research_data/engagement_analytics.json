@@ -1,0 +1,56 @@
+{
+  "version": "1.0",
+  "created": "2026-07-13T07:19:53.160272",
+  "test_types": {
+    "content_format": [
+      "thread",
+      "single_post",
+      "carousel",
+      "video"
+    ],
+    "posting_time": [
+      "morning",
+      "midday",
+      "evening",
+      "night"
+    ],
+    "hashtag_strategy": [
+      "minimal",
+      "trending",
+      "niche",
+      "mixed"
+    ],
+    "tone": [
+      "analytical",
+      "casual",
+      "provocative",
+      "educational"
+    ]
+  },
+  "metrics": {
+    "primary": [
+      "engagement_rate",
+      "reach",
+      "impressions"
+    ],
+    "secondary": [
+      "profile_visits",
+      "follows",
+      "saves"
+    ],
+    "tertiary": [
+      "reply_sentiment",
+      "share_rate"
+    ]
+  },
+  "sample_size": {
+    "minimum_posts": 10,
+    "test_duration_days": 7,
+    "confidence_threshold": 0.95
+  },
+  "automation_rules": {
+    "auto_advance": false,
+    "require_approval": true,
+    "notification_on_completion": true
+  }
+}

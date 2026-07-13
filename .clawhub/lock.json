@@ -1,0 +1,116 @@
+{
+  "version": 1,
+  "skills": {
+    "google-calendar-cli": {
+      "version": "1.0.0",
+      "installedAt": 1783908000075,
+      "registry": "https://clawhub.ai",
+      "artifact": {
+        "kind": "archive",
+        "sha256": "ac1bc1284d58b530ed61d7445b40760245f33c28cb84c4c590ae59a2522b6bb6",
+        "integrity": "sha256-rBvBKE1YtTDtYddEW0B2AkXzPCjLhMTFkK5ZolIra7Y="
+      },
+      "skillFile": {
+        "path": "SKILL.md",
+        "sha256": "f4efb3190e9c36d3bf189fc94c2ab9a66203bec0c4819ee03cfce4c2c43f23d2"
+      },
+      "verification": {
+        "schema": "clawhub.skill.verify.v1",
+        "ok": true,
+        "decision": "pass",
+        "reasons": [],
+        "card": {
+          "available": true,
+          "path": "skill-card.md",
+          "url": "https://wry-manatee-359.convex.site/api/v1/skills/google-calendar-cli/card?ownerHandle=terrycarter1985&version=1.0.0",
+          "sha256": "a4a57d92fa564b9eb19f6bdf7d542a345583cda2637d91c65da48f42ac04c2e8",
+          "size": 1878,
+          "contentType": "text/markdown; charset=utf-8"
+        },
+        "artifact": {
+          "sourceFingerprint": "83170134704cbf588db9420b95aa8c09e1ced8630127e57913a3b250688e3e2d",
+          "bundleFingerprints": [
+            "30f42721d939a27acbe996521fe6f86e27c55562518e7bd21cddf317aac530d4"
+          ],
+          "files": [
+            {
+              "path": "SKILL.md",
+              "size": 3453,
+              "sha256": "f4efb3190e9c36d3bf189fc94c2ab9a66203bec0c4819ee03cfce4c2c43f23d2",
+              "contentType": "text/markdown"
+            }
+          ]
+        },
+        "provenance": {
+          "source": "unavailable",
+          "reason": "No server-resolved GitHub import provenance is stored for this version."
+        },
+        "security": {
+          "status": "clean",
+          "passed": true,
+          "rawStatus": "clean",
+          "verdict": "benign",
+          "confidence": "high",
+          "summary": "This is a straightforward Google Calendar CLI helper, but it can read and change real calendar data once the user authorizes it.",
+          "model": "gpt-5.5",
+          "checkedAt": 1779950286675,
+          "signals": {
+            "staticScan": {
+              "status": "clean",
+              "rawStatus": "clean",
+              "reasonCodes": [],
+              "summary": "No suspicious patterns detected.",
+              "engineVersion": "v2.4.24",
+              "checkedAt": 1778935755549
+            },
+            "virusTotal": {
+              "status": "clean",
+              "rawStatus": "clean",
+              "verdict": null,
+              "analysis": null,
+              "source": "engines",
+              "scanner": null,
+              "engineStats": {
+                "harmless": 0,
+                "malicious": 0,
+                "suspicious": 0,
+                "undetected": 64
+              },
+              "checkedAt": 1780087587506
+            },
+            "skillSpector": {
+              "status": "suspicious",
+              "rawStatus": "suspicious",
+              "score": 30,
+              "severity": "MEDIUM",
+              "recommendation": "CAUTION",
+              "issueCount": 3,
+              "scannerVersion": "2.0.0",
+              "summary": null,
+              "error": null,
+              "checkedAt": 1779950262097
+            },
+            "dependencyRegistry": null
+          }
+        },
+        "signature": {
+          "status": "unsigned"
+        }
+      }
+    },
+    "oo-googlecalendar": {
+      "version": "1.0.1",
+      "installedAt": 1783908053292,
+      "registry": "https://clawhub.ai",
+      "artifact": {
+        "kind": "archive",
+        "sha256": "9ff68f0125fd60d9619391967ada9bceffae7e4513c9a4026352ffe190675b0d",
+        "integrity": "sha256-n/aPASX9YNlhk5GWetqbzv+ufkUTyaQCY1L/4ZBnWw0="
+      },
+      "skillFile": {
+        "path": "SKILL.md",
+        "sha256": "681bb8b45c21b3caa59d2a753423764f65dd6a3f7c7c1ece224e6b17598a6e64"
+      }
+    }
+  }
+}

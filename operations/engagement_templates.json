@@ -1,0 +1,24 @@
+{
+  "eth_treasury": {
+    "strategy_sale": "The BTC treasury playbook is proven. The next evolution is earning yield while holding — that's where ETH treasuries come in. 3-4% staking APR changes the math for CFOs.",
+    "microstrategy_evolution": "Saylor had to sell $216M BTC to fund operations. ETH treasuries with staking yield wouldn't face this dilemma — 3% on $100M = $3M annual income.",
+    "institutional_adoption": "19 public companies now hold ETH ($13B+). The treasury strategy is evolving from passive holding to productive assets. Staking yield is the unlock."
+  },
+  "hims_healthcare": {
+    "infrastructure_play": "Exactly right on the infrastructure play. HIMS isn't just telehealth — it's the rails for GLP-1 distribution at scale. The $725M revenue run rate proves it.",
+    "regulatory_clarity": "The Novo Nordisk deal was the signal. HIMS pivoted from regulatory gray area to FDA-approved drugs. That's infrastructure being built for the long haul.",
+    "picks_and_shovels": "The drug gets headlines. The infrastructure wins. HIMS owns the patient relationship, the logistics, the prescription flow. That's the durable moat."
+  },
+  "ai_agentic_commerce": {
+    "mckinsey_thesis": "McKinsey's $3-5T by 2030 projection is directionally right. The winners won't be LLM makers — they'll be the companies that own customer relationships at scale.",
+    "customer_relationships": "Agents need data to be useful. The incumbents with existing customer relationships (banks, retailers, SaaS) have the moat here.",
+    "timeline_prediction": "We're entering the agentic economy faster than most realize. By 2027, agent-mediated transactions will be normalized. By 2030, table stakes."
+  },
+  "engagement_hooks": {
+    "curiosity_open": "Interesting angle. What do you think about...",
+    "agreement_build": "Exactly. And what's fascinating is...",
+    "conviction_close": "This is the signal most are missing. The next 12 months will validate this thesis.",
+    "data_point": "The numbers tell the story: {stat}",
+    "question_pivot": "Great point. Have you considered {alternative_angle}?"
+  }
+}

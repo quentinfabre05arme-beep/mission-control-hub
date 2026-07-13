@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@quentinvest1 | Federated Intelligence Network v7.1</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg-primary: #050505;
+            --bg-secondary: #0a0a0a;
+            --bg-tertiary: #111111;
+            --bg-card: #141414;
+            --bg-hover: #1a1a1a;
+            --accent-cyan: #00d4ff;
+            --accent-green: #00ff88;
+            --accent-orange: #ff8800;
+            --accent-red: #ff3860;
+            --accent-purple: #bd34fe;
+            --accent-gold: #ffd700;
+            --accent-pink: #ff2d55;
+            --accent-teal: #00d4aa;
+            --accent-blue: #0a84ff;
+            --accent-indigo: #6366f1;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-tertiary: #6e6e6e;
+            --text-dim: #404040;
+            --border-color: #1f1f1f;
+            --glass-bg: rgba(20, 20, 20, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.08);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(99, 102, 241, 0.08) 0%, transparent 40%),
+                radial-gradient(ellipse at 80% 80%, rgba(0, 212, 255, 0.06) 0%, transparent 40%),
+                radial-gradient(ellipse at 50% 50%, rgba(189, 52, 254, 0.04) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .ambient-grid {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .top-nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 64px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(24px) saturate(180%);
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 1.5rem;
+            z-index: 100;
+        }
+
+        .nav-left { display: flex; align-items: center; gap: 1rem; }
+        .logo { display: flex; align-items: center; gap: 0.5rem; font-weight: 600; font-size: 1.1rem; }
+        .version-tag { 
+            font-size: 0.7rem; 
+            padding: 0.2rem 0.5rem; 
+            background: linear-gradient(135deg, var(--accent-indigo), var(--accent-purple)); 
+            border-radius: 4px; 
+            color: #fff; 
+            font-weight: 700; 
+        }
+
+        .federation-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 0.8rem;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+        .federation-dot {
+            width: 8px; height: 8px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+        .main-container {
+            padding: 90px 1.5rem 2rem;
+            max-width: 1600px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        @media (max-width: 1200px) {
+            .main-container { grid-template-columns: 1fr; }
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.2s;
+        }
+        .card:hover { border-color: var(--accent-indigo); }
+
+        .card-header {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .card-title { font-weight: 600; display: flex; align-items: center; gap: 0.5rem; }
+        .card-body { padding: 1.25rem; }
+
+        .instance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+
+        .instance-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1.25rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .instance-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(90deg, var(--accent-green), var(--accent-cyan));
+        }
+        .instance-card.remote::before {
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-pink));
+        }
+        .instance-card.edge::before {
+            background: linear-gradient(90deg, var(--accent-orange), var(--accent-gold));
+        }
+
+        .instance-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+        .instance-name { font-weight: 600; font-size: 1.1rem; }
+        .instance-type {
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+            background: var(--bg-tertiary);
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .instance-type.master { color: var(--accent-green); }
+        .instance-type.remote { color: var(--accent-purple); }
+        .instance-type.edge { color: var(--accent-orange); }
+
+        .instance-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+        }
+        .stat-box {
+            text-align: center;
+            padding: 0.75rem;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+        }
+        .stat-value { font-size: 1.3rem; font-weight: 700; }
+        .stat-value.online { color: var(--accent-green); }
+        .stat-value.syncing { color: var(--accent-cyan); }
+        .stat-value.offline { color: var(--accent-red); }
+        .stat-label { font-size: 0.7rem; color: var(--text-tertiary); margin-top: 0.25rem; }
+
+        .sync-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 0.75rem;
+        }
+        .sync-bar {
+            flex: 1;
+            height: 4px;
+            background: var(--bg-tertiary);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .sync-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-green), var(--accent-cyan));
+            border-radius: 2px;
+            transition: width 0.5s;
+        }
+
+        .network-visualization {
+            position: relative;
+            height: 300px;
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .federation-node {
+            position: absolute;
+            width: 60px; height: 60px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 600;
+            border: 2px solid;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .federation-node:hover { transform: scale(1.1); }
+        .federation-node.master {
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--accent-green);
+            border-color: var(--accent-green);
+            color: #000;
+            width: 80px; height: 80px;
+            font-size: 0.8rem;
+            box-shadow: 0 0 40px rgba(0, 255, 136, 0.4);
+        }
+        .federation-node.remote {
+            background: var(--bg-card);
+            border-color: var(--accent-purple);
+            color: var(--accent-purple);
+        }
+        .federation-node.remote:nth-child(2) { top: 15%; left: 20%; }
+        .federation-node.remote:nth-child(3) { top: 15%; right: 20%; }
+        .federation-node.remote:nth-child(4) { bottom: 15%; left: 20%; }
+        .federation-node.remote:nth-child(5) { bottom: 15%; right: 20%; }
+        .federation-node.edge {
+            width: 40px; height: 40px;
+            background: var(--bg-card);
+            border-color: var(--accent-orange);
+            color: var(--accent-orange);
+            font-size: 0.6rem;
+        }
+        .federation-node.edge:nth-child(6) { top: 35%; left: 10%; }
+        .federation-node.edge:nth-child(7) { top: 35%; right: 10%; }
+        .federation-node.edge:nth-child(8) { bottom: 35%; left: 10%; }
+        .federation-node.edge:nth-child(9) { bottom: 35%; right: 10%; }
+
+        .connection-line {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+            height: 2px;
+            transform-origin: left center;
+            opacity: 0.6;
+            animation: data-flow 2s infinite;
+        }
+        @keyframes data-flow {
+            0% { opacity: 0.3; }
+            50% { opacity: 0.8; }
+            100% { opacity: 0.3; }
+        }
+
+        .activity-feed {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .activity-item {
+            display: flex;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+            transition: background 0.2s;
+        }
+        .activity-item:hover { background: var(--bg-hover); }
+        .activity-icon {
+            width: 32px; height: 32px;
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+        .activity-icon.sync { background: rgba(0, 212, 255, 0.1); color: var(--accent-cyan); }
+        .activity-icon.share { background: rgba(189, 52, 254, 0.1); color: var(--accent-purple); }
+        .activity-icon.learn { background: rgba(0, 255, 136, 0.1); color: var(--accent-green); }
+        .activity-content { flex: 1; }
+        .activity-title { font-size: 0.9rem; font-weight: 500; }
+        .activity-meta { font-size: 0.75rem; color: var(--text-tertiary); margin-top: 0.25rem; }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        @media (max-width: 900px) {
+            .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        .metric-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1.25rem;
+            position: relative;
+        }
+        .metric-label { font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; }
+        .metric-value { font-size: 1.75rem; font-weight: 700; margin-top: 0.5rem; }
+        .metric-trend {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+        .metric-trend.up { color: var(--accent-green); }
+        .metric-trend.down { color: var(--accent-red); }
+
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-indigo), var(--accent-purple));
+            color: #fff;
+        }
+        .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3); }
+        .btn-secondary {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+        .btn-secondary:hover { border-color: var(--text-secondary); }
+
+        .insight-card {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(189, 52, 254, 0.1));
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+        .insight-header { display: flex; align-items: center; gap: 0.5rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .insight-text { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; }
+
+        .data-flow-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+        .flow-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .flow-item:last-child { border-bottom: none; }
+        .flow-source { font-weight: 500; min-width: 100px; }
+        .flow-arrow { color: var(--accent-cyan); }
+        .flow-target { color: var(--text-secondary); }
+        .flow-badge {
+            margin-left: auto;
+            padding: 0.2rem 0.5rem;
+            background: rgba(0, 255, 136, 0.1);
+            color: var(--accent-green);
+            border-radius: 4px;
+            font-size: 0.7rem;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-left: 3px solid var(--accent-green);
+            border-radius: 8px;
+            padding: 1rem;
+            transform: translateX(120%);
+            transition: transform 0.3s;
+            z-index: 1000;
+            max-width: 350px;
+        }
+        .toast.show { transform: translateX(0); }
+        .toast-title { font-weight: 600; margin-bottom: 0.25rem; }
+        .toast-message { font-size: 0.9rem; color: var(--text-secondary); }
+
+        .legend {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        .legend-dot {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+        }
+        .legend-dot.master { background: var(--accent-green); }
+        .legend-dot.remote { background: var(--accent-purple); }
+        .legend-dot.edge { background: var(--accent-orange); }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+        .action-btn {
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+        }
+        .action-btn:hover {
+            border-color: var(--accent-indigo);
+            background: var(--bg-hover);
+        }
+        .action-icon { font-size: 1.25rem; margin-bottom: 0.5rem; }
+        .action-label { font-size: 0.85rem; font-weight: 500; }
+        .action-desc { font-size: 0.75rem; color: var(--text-tertiary); margin-top: 0.25rem; }
+    </style>
+</head>
+<body>
+    <div class="ambient-grid"></div>
+    
+    <nav class="top-nav">
+        <div class="nav-left">
+            <div class="logo">
+                <span>🌐</span>
+                <span>Federated Intelligence</span>
+                <span class="version-tag">v7.1</span>
+            </div>
+            <div class="federation-status">
+                <div class="federation-dot"></div>
+                <span>Federation Active</span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <div class="main-content">
+            <!-- Global Metrics -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-label">Active Instances</div>
+                    <div class="metric-value" style="color: var(--accent-green);">9</div>
+                    <div class="metric-trend up">
+                        <span>↑</span>
+                        <span>+2 this cycle</span>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Sync Health</div>
+                    <div class="metric-value" style="color: var(--accent-cyan);">99.7%</div>
+                    <div class="metric-trend up">
+                        <span>↑</span>
+                        <span>+0.3%</span>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Data Shared</div>
+                    <div class="metric-value" style="color: var(--accent-purple);">2.4 MB</div>
+                    <div class="metric-trend up">
+                        <span>↑</span>
+                        <span>+847 KB today</span>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Consensus Rate</div>
+                    <div class="metric-value" style="color: var(--accent-gold);">94%</div>
+                    <div class="metric-trend up">
+                        <span>↑</span>
+                        <span>+6% this week</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Instance Grid -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>🔌</span>
+                        <span>Federated Instances</span>
+                    </div>
+                    <button class="btn btn-primary" onclick="showToast('Adding new instance...', 'Initiating edge node deployment')">+ Add Instance</button>
+                </div>
+                <div class="card-body">
+                    <div class="instance-grid">
+                        <div class="instance-card">
+                            <div class="instance-header">
+                                <div>
+                                    <div class="instance-name">Mission Control Master</div>
+                                    <div style="font-size: 0.8rem; color: var(--text-tertiary); margin-top: 0.25rem;">Paris, France • Edge/Paris-01</div>
+                                </div>
+                                <span class="instance-type master">Master</span>
+                            </div>
+                            <div class="instance-stats">
+                                <div class="stat-box">
+                                    <div class="stat-value online">●</div>
+                                    <div class="stat-label">Status</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-value">47 ms</div>
+                                    <div class="stat-label">Latency</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-value">100%</div>
+                                    <div class="stat-label">Uptime</div>
+                                </div>
+                            </div>
+                            <div class="sync-indicator">
+                                <span>Sync:</span>
+                                <div class="sync-bar">
+                                    <div class="sync-progress" style="width: 100%"></div>
+                                </div>
+                                <span>100%</span>
+                            </div>
+                        </div>
+
+                        <div class="instance-card remote">
+                            <div class="instance-header">
+                                <div>
+                                    <div class="instance-name">Research Node Alpha</div>
+                                    <div style="font-size: 0.8rem; color: var(--text-tertiary); margin-top: 0.25rem;">Cloud/AWS-US-East-1</div>
+                                </div>
+                                <span class="instance-type remote">Remote</span>
+                            </div>
+                            <div class="instance-stats">
+                                <div class="stat-box">
+                                    <div class="stat-value online">●</div>
+                                    <div class="stat-label">Status</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-value">124 ms</div>
+                                    <div class="stat-label">Latency</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-value">99.9%</div>
+                                    <div class="stat-label">Uptime</div>
+                                </div>
+                            </div>
+                            <div class="sync-indicator">
+                                <span>Sync:</span>
+                                <div class="sync-bar">
+                                    <div class="sync-progress" style="width: 98%"></div>
+                                </div>
+                                <span>98%</span>
+                            </div>
+                        </div>
+
+                        <div class="instance-card remote">
+                            <div class="instance-header">
+                                <div>
+                                    <div class="instance-name">Content Engine Beta</div>
+                                    <div style="font-size: 0.8rem; color: var(--text-tertiary); margin-top: 0.25rem;">Cloud/GCP-EU-West-1</div>
+                                </div>
+                                <span class="instance-type remote">Remote</span>
+                            </div>
+                            <div class="instance-stats">
+                                <div class="stat-box">
+                                    <div class="stat-value online">●</div>
+                                    <div class="stat-label">Status</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-value">89 ms</div>
+                                    <div class="stat-label">Latency</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-value">99.8%</div>
+                                    <div class="stat-label">Uptime</div>
+                                </div>
+                            </div>
+                            <div class="sync-indicator">
+                                <span>Sync:</span>
+                                <div class="sync-bar">
+                                    <div class="sync-progress" style="width: 99%"></div>
+                                </div>
+                                <span>99%</span>
+                            </div>
+                        </div>
+
+                        <div class="instance-card edge">
+                            <div class="instance-header">
+                                <div>
+                                    <div class="instance-name">Mobile Edge Node</div>
+                                    <div style="font-size: 0.8rem; color: var(--text-tertiary); margin-top: 0.25rem;">iOS/Safari • iPhone 15</div>
+                                </div>
+                                <span class="instance-type edge">Edge</span>
+                            </div>
+                            <div class="instance-stats">
+                                <div class="stat-box">
+                                    <div class="stat-value syncing">◐</div>
+                                    <div class="stat-label">Status</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-value">45 ms</div>
+                                    <div class="stat-label">Latency</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-value">95%</div>
+                                    <div class="stat-label">Battery</div>
+                                </div>
+                            </div>
+                            <div class="sync-indicator">
+                                <span>Sync:</span>
+                                <div class="sync-bar">
+                                    <div class="sync-progress" style="width: 87%"></div>
+                                </div>
+                                <span>87%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Network Visualization -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>🕸️</span>
+                        <span>Federation Topology</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="network-visualization" id="networkViz">
+                        <div class="federation-node master">
+                            <span style="font-size: 1.2rem;">🎯</span>
+                            <span>Master</span>
+                        </div>
+                        <div class="federation-node remote">
+                            <span>📡</span>
+                            <span>Alpha</span>
+                        </div>
+                        <div class="federation-node remote">
+                            <span>📝</span>
+                            <span>Beta</span>
+                        </div>
+                        <div class="federation-node remote">
+                            <span>🔍</span>
+                            <span>Gamma</span>
+                        </div>
+                        <div class="federation-node remote">
+                            <span>📊</span>
+                            <span>Delta</span>
+                        </div>
+                        <div class="federation-node edge">
+                            <span>📱</span>
+                        </div>
+                        <div class="federation-node edge">
+                            <span>💻</span>
+                        </div>
+                        <div class="federation-node edge">
+                            <span>🖥️</span>
+                        </div>
+                        <div class="federation-node edge">
+                            <span>⌚</span>
+                        </div>
+                    </div>
+                    <div class="legend">
+                        <div class="legend-item">
+                            <div class="legend-dot master"></div>
+                            <span>Master Node</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-dot remote"></div>
+                            <span>Remote Instance</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-dot edge"></div>
+                            <span>Edge Device</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Flow -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>🔄</span>
+                        <span>Live Data Flow</span>
+                    </div>
+                    <span style="font-size: 0.8rem; color: var(--text-tertiary);">Last sync: 12s ago</span>
+                </div>
+                <div class="card-body">
+                    <div class="data-flow-panel">
+                        <div class="flow-item">
+                            <span class="flow-source">Research Node</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-target">Master Intelligence</span>
+                            <span class="flow-badge">Insights: 3</span>
+                        </div>
+                        <div class="flow-item">
+                            <span class="flow-source">Content Engine</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-target">Master Queue</span>
+                            <span class="flow-badge">Drafts: 2</span>
+                        </div>
+                        <div class="flow-item">
+                            <span class="flow-source">Master</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-target">All Nodes</span>
+                            <span class="flow-badge">Decisions: 1</span>
+                        </div>
+                        <div class="flow-item">
+                            <span class="flow-source">Mobile Edge</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-target">Master</span>
+                            <span class="flow-badge">Events: 5</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Insight Card -->
+            <div class="insight-card">
+                <div class="insight-header">
+                    <span>💡</span>
+                    <span>Federation Insight</span>
+                </div>
+                <div class="insight-text">
+                    Cross-instance learning is active. Research Node Alpha discovered a new engagement pattern that has been propagated to all 9 instances. Expected impact: +12% engagement lift within 48 hours.
+                </div>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <!-- Quick Actions -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>⚡</span>
+                        <span>Federation Actions</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="quick-actions">
+                        <button class="action-btn" onclick="showToast('Broadcast initiated', 'Sending update to all 9 instances...')">
+                            <div class="action-icon">📢</div>
+                            <div class="action-label">Broadcast</div>
+                            <div class="action-desc">Send to all nodes</div>
+                        </button>
+                        <button class="action-btn" onclick="showToast('Sync started', 'Full federation sync in progress...')">
+                            <div class="action-icon">🔄</div>
+                            <div class="action-label">Force Sync</div>
+                            <div class="action-desc">Update all data</div>
+                        </button>
+                        <button class="action-btn" onclick="showToast('Consensus vote', 'Initiating federated decision...')">
+                            <div class="action-icon">🗳️</div>
+                            <div class="action-label">Vote</div>
+                            <div class="action-desc">Federated decision</div>
+                        </button>
+                        <button class="action-btn" onclick="showToast('Migration', 'Starting workload redistribution...')">
+                            <div class="action-icon">🔀</div>
+                            <div class="action-label">Migrate</div>
+                            <div class="action-desc">Balance load</div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Activity Feed -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>📡</span>
+                        <span>Federation Activity</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="activity-feed">
+                        <div class="activity-item">
+                            <div class="activity-icon sync">↻</div>
+                            <div class="activity-content">
+                                <div class="activity-title">Full sync completed</div>
+                                <div class="activity-meta">All 9 instances • 2 min ago</div>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon learn">🧠</div>
+                            <div class="activity-content">
+                                <div class="activity-title">Pattern learned from Alpha</div>
+                                <div class="activity-meta">Propagated to 8 instances • 5 min ago</div>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon share">📤</div>
+                            <div class="activity-content">
+                                <div class="activity-title">Insight shared: Healthcare</div>
+                                <div class="activity-meta">From Beta to federation • 8 min ago</div>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon sync">↻</div>
+                            <div class="activity-content">
+                                <div class="activity-title">Edge node connected</div>
+                                <div class="activity-meta">Mobile Edge • 15 min ago</div>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon learn">🧠</div>
+                            <div class="activity-content">
+                                <div class="activity-title">Model update distributed</div>
+                                <div class="activity-meta">v6.0 → v6.1 • 32 min ago</div>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon share">📤</div>
+                            <div class="activity-content">
+                                <div class="activity-title">Consensus reached</div>
+                                <div class="activity-meta">94% agreement • 1 hour ago</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Consensus Panel -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>🗳️</span>
+                        <span>Active Votes</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div style="padding: 1rem; background: var(--bg-secondary); border-radius: 8px; margin-bottom: 0.75rem;">
+                        <div style="font-weight: 500; margin-bottom: 0.5rem;">Deploy HIMS thread now?</div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                            <div style="flex: 1; height: 6px; background: var(--bg-tertiary); border-radius: 3px; overflow: hidden;">
+                                <div style="width: 78%; height: 100%; background: var(--accent-green); border-radius: 3px;"></div>
+                            </div>
+                            <span style="font-size: 0.8rem; color: var(--accent-green);">78%</span>
+                        </div>
+                        <div style="font-size: 0.75rem; color: var(--text-tertiary);">7/9 instances agree</div>
+                    </div>
+                    <div style="padding: 1rem; background: var(--bg-secondary); border-radius: 8px;">
+                        <div style="font-weight: 500; margin-bottom: 0.5rem;">Adjust optimal timing window?</div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                            <div style="flex: 1; height: 6px; background: var(--bg-tertiary); border-radius: 3px; overflow: hidden;">
+                                <div style="width: 56%; height: 100%; background: var(--accent-orange); border-radius: 3px;"></div>
+                            </div>
+                            <span style="font-size: 0.8rem; color: var(--accent-orange);">56%</span>
+                        </div>
+                        <div style="font-size: 0.75rem; color: var(--text-tertiary);">Pending consensus...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">
+        <div class="toast-title" id="toastTitle">Notification</div>
+        <div class="toast-message" id="toastMessage">Message</div>
+    </div>
+
+    <script>
+        // Toast notification system
+        function showToast(title, message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastTitle').textContent = title;
+            document.getElementById('toastMessage').textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        // Animate network connections
+        function drawConnections() {
+            const viz = document.getElementById('networkViz');
+            const master = viz.querySelector('.master');
+            const remotes = viz.querySelectorAll('.remote');
+            const edges = viz.querySelectorAll('.edge');
+            
+            const masterRect = master.getBoundingClientRect();
+            const vizRect = viz.getBoundingClientRect();
+            
+            // Draw lines from master to remotes
+            remotes.forEach(remote => {
+                const remoteRect = remote.getBoundingClientRect();
+                const line = document.createElement('div');
+                line.className = 'connection-line';
+                
+                const x1 = masterRect.left + masterRect.width/2 - vizRect.left;
+                const y1 = masterRect.top + masterRect.height/2 - vizRect.top;
+                const x2 = remoteRect.left + remoteRect.width/2 - vizRect.left;
+                const y2 = remoteRect.top + remoteRect.height/2 - vizRect.top;
+                
+                const length = Math.sqrt(Math.pow(x2-x1, 2) + Math.pow(y2-y1, 2));
+                const angle = Math.atan2(y2-y1, x2-x1) * 180 / Math.PI;
+                
+                line.style.width = length + 'px';
+                line.style.left = x1 + 'px';
+                line.style.top = y1 + 'px';
+                line.style.transform = `rotate(${angle}deg)`;
+                line.style.transformOrigin = '0 50%';
+                
+                viz.appendChild(line);
+            });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(drawConnections, 100);
+            
+            // Simulated live updates
+            setInterval(() => {
+                const progressBars = document.querySelectorAll('.sync-progress');
+                progressBars.forEach(bar => {
+                    const current = parseInt(bar.style.width);
+                    const change = Math.random() > 0.5 ? 1 : -1;
+                    const newWidth = Math.max(80, Math.min(100, current + change));
+                    bar.style.width = newWidth + '%';
+                    bar.parentElement.nextElementSibling.textContent = newWidth + '%';
+                });
+            }, 5000);
+        });
+
+        // Window resize handler
+        window.addEventListener('resize', () => {
+            document.querySelectorAll('.connection-line').forEach(el => el.remove());
+            setTimeout(drawConnections, 100);
+        });
+    </script>
+</body>
+</html>

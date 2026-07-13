@@ -1,0 +1,30 @@
+{
+  "analysis": {
+    "total_posts": 2,
+    "total_engagement": 1092.5,
+    "avg_engagement_rate": 7.5,
+    "best_post": {
+      "id": "1",
+      "score": 735.0,
+      "format": "single"
+    },
+    "format_performance": {
+      "single": 546.25
+    },
+    "time_performance": {
+      "15": 546.25
+    },
+    "length_analysis": {
+      "short": 546.25,
+      "medium": 0.0,
+      "long": 0.0
+    },
+    "hashtag_performance": {}
+  },
+  "recommendations": [
+    "Focus on single format (best performing)",
+    "Optimal posting times: 15:00",
+    "Optimal content length: short"
+  ],
+  "analyzed_at": "2026-07-12T15:33:59.732996"
+}

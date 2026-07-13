@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission Control PWA Assets Generator</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #050505;
+            color: #fff;
+            padding: 40px;
+            min-height: 100vh;
+        }
+        h1 {
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #00d4ff, #bd34fe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .section {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: #111;
+            border-radius: 16px;
+            border: 1px solid #222;
+        }
+        h2 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #00d4ff;
+        }
+        .canvas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
+        }
+        .canvas-item {
+            text-align: center;
+        }
+        .canvas-label {
+            font-size: 12px;
+            color: #888;
+            margin-top: 10px;
+        }
+        canvas {
+            border: 1px solid #333;
+            border-radius: 8px;
+            background: transparent;
+        }
+        .instructions {
+            background: #1a1a1a;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #aaa;
+        }
+        .instructions code {
+            background: #222;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #00d4ff;
+        }
+        .download-btn {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #00d4ff, #0a84ff);
+            border: none;
+            border-radius: 8px;
+            color: #000;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .download-btn:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <h1>🚀 Mission Control PWA Assets</h1>
+
+    <div class="section">
+        <h2>App Icons</h2>
+        <div class="canvas-grid" id="iconGrid"></div>
+        <button class="download-btn" onclick="downloadAllIcons()">Download All Icons</button>
+    </div>
+
+    <div class="section">
+        <h2>Splash Screens</h2>
+        <div class="canvas-grid" id="splashGrid"></div>
+        <button class="download-btn" onclick="downloadAllSplashes()">Download All Splash Screens</button>
+    </div>
+
+    <div class="section">
+        <h2>Setup Instructions</h2>
+        <div class="instructions">
+            <p><strong>To set up your PWA:</strong></p>
+            <ol>
+                <li>Download the icons above and save them to an <code>icons/</code> folder</li>
+                <li>Download the splash screens and save them to a <code>splash/</code> folder</li>
+                <li>Place <code>manifest.json</code> and <code>sw.js</code> in your root directory</li>
+                <li>Serve the files over HTTPS (required for PWA features)</li>
+                <li>Open the app in Chrome/Edge/Safari and look for the install prompt</li>
+            </ol>
+            
+            <p><strong>Folder structure:</strong></p>
+            <pre style="background: #0a0a0a; padding: 15px; border-radius: 8px; overflow-x: auto;">
+/
+├── mission_control_mobile_pwa.html
+├── manifest.json
+├── sw.js
+├── icons/
+│   ├── icon-72x72.png
+│   ├── icon-96x96.png
+│   ├── icon-128x128.png
+│   ├── icon-144x144.png
+│   ├── icon-152x152.png
+│   ├── icon-167x167.png
+│   ├── icon-180x180.png
+│   ├── icon-192x192.png
+│   ├── icon-384x384.png
+│   └── icon-512x512.png
+└── splash/
+    ├── launch-640x1136.png
+    ├── launch-750x1334.png
+    ├── launch-1242x2208.png
+    ├── launch-1125x2436.png
+    ├── launch-1170x2532.png
+    └── launch-1290x2796.png
+            </pre>
+            
+            <p><strong>To generate actual PNG files from this page:</strong></p>
+            <p>Right-click on each canvas and select "Save image as..." or use the download buttons above.</p>
+        </div>
+    </div>
+
+    <script>
+        // Icon sizes
+        const iconSizes = [72, 96, 128, 144, 152, 167, 180, 192, 384, 512];
+        
+        // Splash screen sizes (iOS)
+        const splashSizes = [
+            { w: 640, h: 1136, name: '640x1136' },  // iPhone SE
+            { w: 750, h: 1334, name: '750x1334' },  // iPhone 8
+            { w: 1242, h: 2208, name: '1242x2208' }, // iPhone 8 Plus
+            { w: 1125, h: 2436, name: '1125x2436' }, // iPhone X/XS
+            { w: 1170, h: 2532, name: '1170x2532' }, // iPhone 12/13/14
+            { w: 1290, h: 2796, name: '1290x2796' }, // iPhone 14 Pro Max
+        ];
+
+        function drawIcon(canvas, size) {
+            const ctx = canvas.getContext('2d');
+            
+            // Background gradient
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, '#0a0a0a');
+            gradient.addColorStop(1, '#111111');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, size, size);
+            
+            // Border
+            ctx.strokeStyle = '#00d4ff';
+            ctx.lineWidth = size * 0.04;
+            ctx.beginPath();
+            ctx.arc(size / 2, size / 2, size * 0.42, 0, Math.PI * 2);
+            ctx.stroke();
+            
+            // Glow effect
+            const glowGradient = ctx.createRadialGradient(
+                size / 2, size / 2, size * 0.3,
+                size / 2, size / 2, size * 0.45
+            );
+            glowGradient.addColorStop(0, 'rgba(0, 212, 255, 0.2)');
+            glowGradient.addColorStop(1, 'transparent');
+            ctx.fillStyle = glowGradient;
+            ctx.beginPath();
+            ctx.arc(size / 2, size / 2, size * 0.45, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Paw print emoji
+            ctx.font = `${size * 0.4}px -apple-system, sans-serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('🐾', size / 2, size / 2);
+            
+            // Version badge (only on larger icons)
+            if (size >= 192) {
+                ctx.fillStyle = '#00d4ff';
+                ctx.beginPath();
+                ctx.arc(size * 0.75, size * 0.75, size * 0.12, 0, Math.PI * 2);
+                ctx.fill();
+                
+                ctx.fillStyle = '#000';
+                ctx.font = `bold ${size * 0.06}px -apple-system, sans-serif`;
+                ctx.fillText('v9', size * 0.75, size * 0.75);
+            }
+        }
+
+        function drawSplash(canvas, w, h) {
+            const ctx = canvas.getContext('2d');
+            
+            // Background
+            const gradient = ctx.createLinearGradient(0, 0, w, h);
+            gradient.addColorStop(0, '#050505');
+            gradient.addColorStop(0.5, '#0a0a0a');
+            gradient.addColorStop(1, '#0d1117');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, w, h);
+            
+            // Grid pattern
+            ctx.strokeStyle = 'rgba(0, 212, 255, 0.03)';
+            ctx.lineWidth = 1;
+            const gridSize = Math.max(w, h) / 20;
+            
+            for (let x = 0; x < w; x += gridSize) {
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, h);
+                ctx.stroke();
+            }
+            for (let y = 0; y < h; y += gridSize) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(w, y);
+                ctx.stroke();
+            }
+            
+            // Central glow
+            const glow = ctx.createRadialGradient(
+                w / 2, h / 2 - 50, 0,
+                w / 2, h / 2 - 50, w * 0.4
+            );
+            glow.addColorStop(0, 'rgba(0, 212, 255, 0.1)');
+            glow.addColorStop(0.5, 'rgba(189, 52, 254, 0.05)');
+            glow.addColorStop(1, 'transparent');
+            ctx.fillStyle = glow;
+            ctx.fillRect(0, 0, w, h);
+            
+            // Logo container
+            const logoSize = Math.min(w, h) * 0.15;
+            ctx.strokeStyle = '#00d4ff';
+            ctx.lineWidth = 4;
+            ctx.beginPath();
+            ctx.arc(w / 2, h / 2 - 40, logoSize / 2, 0, Math.PI * 2);
+            ctx.stroke();
+            
+            // Glow around logo
+            const logoGlow = ctx.createRadialGradient(
+                w / 2, h / 2 - 40, logoSize / 2,
+                w / 2, h / 2 - 40, logoSize
+            );
+            logoGlow.addColorStop(0, 'rgba(0, 212, 255, 0.3)');
+            logoGlow.addColorStop(1, 'transparent');
+            ctx.fillStyle = logoGlow;
+            ctx.beginPath();
+            ctx.arc(w / 2, h / 2 - 40, logoSize, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Icon
+            ctx.font = `${logoSize * 0.5}px -apple-system, sans-serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('🐾', w / 2, h / 2 - 40);
+            
+            // Title
+            ctx.fillStyle = '#fff';
+            ctx.font = `bold ${w * 0.05}px -apple-system, BlinkMacSystemFont, sans-serif`;
+            ctx.fillText('Mission Control', w / 2, h / 2 + logoSize + 20);
+            
+            // Version
+            ctx.fillStyle = '#00d4ff';
+            ctx.font = `${w * 0.025}px -apple-system, sans-serif`;
+            ctx.fillText('v9.1', w / 2, h / 2 + logoSize + 50);
+            
+            // Bottom loading bar
+            const barWidth = w * 0.3;
+            const barHeight = 4;
+            ctx.fillStyle = '#222';
+            ctx.fillRect((w - barWidth) / 2, h * 0.85, barWidth, barHeight);
+            
+            ctx.fillStyle = '#00d4ff';
+            ctx.fillRect((w - barWidth) / 2, h * 0.85, barWidth * 0.7, barHeight);
+        }
+
+        // Generate icons
+        const iconGrid = document.getElementById('iconGrid');
+        iconSizes.forEach(size => {
+            const item = document.createElement('div');
+            item.className = 'canvas-item';
+            
+            const canvas = document.createElement('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            canvas.id = `icon-${size}`;
+            
+            drawIcon(canvas, size);
+            
+            const label = document.createElement('div');
+            label.className = 'canvas-label';
+            label.textContent = `${size}x${size}`;
+            
+            item.appendChild(canvas);
+            item.appendChild(label);
+            iconGrid.appendChild(item);
+        });
+
+        // Generate splash screens
+        const splashGrid = document.getElementById('splashGrid');
+        splashSizes.forEach(({ w, h, name }) => {
+            const item = document.createElement('div');
+            item.className = 'canvas-item';
+            
+            const canvas = document.createElement('canvas');
+            canvas.width = w;
+            canvas.height = h;
+            canvas.id = `splash-${name}`;
+            canvas.style.maxWidth = '150px';
+            canvas.style.height = 'auto';
+            
+            drawSplash(canvas, w, h);
+            
+            const label = document.createElement('div');
+            label.className = 'canvas-label';
+            label.textContent = name;
+            
+            item.appendChild(canvas);
+            item.appendChild(label);
+            splashGrid.appendChild(item);
+        });
+
+        // Download functions
+        function downloadCanvas(canvas, filename) {
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        function downloadAllIcons() {
+            iconSizes.forEach((size, i) => {
+                setTimeout(() => {
+                    const canvas = document.getElementById(`icon-${size}`);
+                    downloadCanvas(canvas, `icon-${size}x${size}.png`);
+                }, i * 200);
+            });
+        }
+
+        function downloadAllSplashes() {
+            splashSizes.forEach(({ name }, i) => {
+                setTimeout(() => {
+                    const canvas = document.getElementById(`splash-${name}`);
+                    downloadCanvas(canvas, `launch-${name}.png`);
+                }, i * 200);
+            });
+        }
+    </script>
+</body>
+</html>

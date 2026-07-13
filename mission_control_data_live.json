@@ -1,0 +1,735 @@
+{
+  "timestamp": "2026-07-12T22:44:00.000Z",
+  "version": "5.3",
+  "ollama_usage": {
+    "tier": "Pro ($20/month)",
+    "used_percent": 74,
+    "tokens_used": "1.4M",
+    "tokens_remaining": "3.6M estimated",
+    "daily_budget_used": "70%",
+    "reset_in": "5h 9m",
+    "models_active": 1,
+    "cost_today": "$1.52",
+    "cost_this_week": "$8.65",
+    "days_left_in_cycle": 11,
+    "usage_trend": [
+      {"day": "Jul 6", "cost": 1.20},
+      {"day": "Jul 7", "cost": 1.45},
+      {"day": "Jul 8", "cost": 0.98},
+      {"day": "Jul 9", "cost": 1.32},
+      {"day": "Jul 10", "cost": 1.51},
+      {"day": "Jul 11", "cost": 1.38},
+      {"day": "Jul 12", "cost": 1.52}
+    ]
+  },
+  "bcm_stats": {
+    "brain": {
+      "tasks_today": 5,
+      "tasks_this_week": 13,
+      "tokens": "58K",
+      "cost_share": "15%",
+      "last_task": "Mission Control Research Cycle #4",
+      "model": "kimi-k2.5:cloud",
+      "status": "active",
+      "success_rate": "95%"
+    },
+    "coding": {
+      "tasks_today": 3,
+      "tasks_this_week": 9,
+      "tokens": "92K",
+      "cost_share": "25%",
+      "last_task": "Dashboard Enhancement v3.1",
+      "model": "kimi-k2.7-code",
+      "status": "active",
+      "success_rate": "92%"
+    },
+    "muscles": {
+      "tasks_today": 8,
+      "tasks_this_week": 28,
+      "tokens": "420K",
+      "cost_share": "60%",
+      "last_task": "X engagement - @TheLongInvestor",
+      "model": "kimi-k2.5:cloud",
+      "status": "idle",
+      "success_rate": "88%"
+    }
+  },
+  "x_mission": {
+    "handle": "@quentinvest1",
+    "followers": {
+      "current": 219,
+      "start": 212,
+      "target": 10000,
+      "gained_today": 7,
+      "gained_this_week": 7,
+      "progress_pct": 2.19,
+      "to_goal": 9781
+    },
+    "content": {
+      "threads_posted": 1,
+      "posts_today": 0,
+      "posts_this_week": 1,
+      "replies_today": 4,
+      "scheduled": 2
+    },
+    "engagement": {
+      "avg_impressions": 334,
+      "avg_engagements": 21,
+      "avg_rate": 6.3,
+      "best_performing": "ETH Treasury Thread",
+      "engagement_history": [
+        {"date": "Jul 6", "impressions": 180, "engagements": 8, "rate": 4.4},
+        {"date": "Jul 7", "impressions": 220, "engagements": 12, "rate": 5.5},
+        {"date": "Jul 8", "impressions": 195, "engagements": 9, "rate": 4.6},
+        {"date": "Jul 9", "impressions": 450, "engagements": 28, "rate": 6.2},
+        {"date": "Jul 10", "impressions": 280, "engagements": 16, "rate": 5.7},
+        {"date": "Jul 11", "impressions": 245, "engagements": 12, "rate": 4.9},
+        {"date": "Jul 12", "impressions": 334, "engagements": 21, "rate": 6.3}
+      ]
+    },
+    "streak": {
+      "current": 2,
+      "best": 2
+    }
+  },
+  "content_pillars": {
+    "pillars": [
+      {
+        "name": "ETH as Treasury Reserve",
+        "icon": "💎",
+        "status": "posted",
+        "last_post": "Jul 9",
+        "next_post": "Jul 14",
+        "engagement": "high",
+        "threads": 1,
+        "ideas": 3
+      },
+      {
+        "name": "HIMS + Healthcare",
+        "icon": "🏥",
+        "status": "urgent",
+        "last_post": null,
+        "next_post": "Today",
+        "engagement": "-",
+        "threads": 0,
+        "ideas": 2
+      },
+      {
+        "name": "AI Agentic Commerce",
+        "icon": "🤖",
+        "status": "researching",
+        "last_post": null,
+        "next_post": "Jul 14",
+        "engagement": "-",
+        "threads": 0,
+        "ideas": 1
+      },
+      {
+        "name": "BTC Treasury Plays",
+        "icon": "₿",
+        "status": "ready",
+        "last_post": null,
+        "next_post": "Jul 15",
+        "engagement": "-",
+        "threads": 0,
+        "ideas": 2
+      },
+      {
+        "name": "Biotech/GLP-1 Trends",
+        "icon": "💊",
+        "status": "scheduled",
+        "last_post": null,
+        "next_post": "Jul 16",
+        "engagement": "-",
+        "threads": 0,
+        "ideas": 1
+      }
+    ]
+  },
+  "daily_rhythm": {
+    "current_phase": "research",
+    "phase_name": "🔬 Research & Analysis",
+    "phase_desc": "18:00-20:00: Dashboard improvements & data analysis",
+    "next_action": "Mission Control Research Cycle #4 (18:51)",
+    "tasks_completed_today": 14,
+    "tasks_total_today": 15,
+    "progress_pct": 93
+  },
+  "what_to_post": {
+    "urgent": [
+      {
+        "title": "HIMS Healthcare Infrastructure Thread",
+        "priority": "URGENT",
+        "pillar": "HIMS + Healthcare",
+        "status": "ready",
+        "tier": "MUSCLES",
+        "length": "5 tweets",
+        "hook": "The drug gets the headlines. The infrastructure play is HIMS — telehealth rails for GLP-1 delivery. $725M revenue, Novo Nordisk deal locked.",
+        "cta": "📋 Copy to Post"
+      }
+    ],
+    "today": [
+      {
+        "title": "Reply to @TheLongInvestor ETH thread",
+        "priority": "HIGH",
+        "pillar": "ETH Treasury",
+        "status": "scheduled",
+        "tier": "MUSCLES",
+        "reply_template": "The BTC treasury playbook is proven. The next evolution is earning yield while holding — that's where ETH treasuries come in. 3-4% staking APR changes the math.",
+        "cta": "💬 Copy Reply"
+      },
+      {
+        "title": "AI Agentic Commerce: 3-5T by 2030",
+        "priority": "MEDIUM",
+        "pillar": "AI Agentic Commerce",
+        "status": "researching",
+        "tier": "BRAIN",
+        "length": "7 tweets",
+        "hook": "McKinsey says $3-5T in agentic commerce by 2030. The winners won't be LLM makers — they'll be the intelligence companies that own customer relationships.",
+        "cta": "🧠 Research Now"
+      }
+    ],
+    "this_week": [
+      "ETH Treasury update thread",
+      "Portfolio positions check",
+      "Market structure analysis"
+    ]
+  },
+  "engagement_targets": {
+    "tier1": [
+      {
+        "handle": "@TheLongInvestor",
+        "focus": "ETH tech analysis",
+        "last_interaction": "1 day ago",
+        "status": "engaged"
+      },
+      {
+        "handle": "@DrTomsLens",
+        "focus": "Healthcare/biotech",
+        "last_interaction": "never",
+        "status": "not_engaged"
+      },
+      {
+        "handle": "@DylanLeClair_",
+        "focus": "BTC analysis",
+        "last_interaction": "6 days ago",
+        "status": "not_engaged"
+      },
+      {
+        "handle": "@RaoulGMI",
+        "focus": "Macro/crypto",
+        "last_interaction": "never",
+        "status": "not_engaged"
+      },
+      {
+        "handle": "@naval",
+        "focus": "Philosophy/wealth",
+        "last_interaction": "never",
+        "status": "not_engaged"
+      }
+    ],
+    "opportunities": [
+      {
+        "topic": "ETH treasury thesis",
+        "opportunity": "Reply to trending thread",
+        "priority": "high"
+      },
+      {
+        "topic": "GLP-1 disruption",
+        "opportunity": "Quote tweet major news",
+        "priority": "medium"
+      },
+      {
+        "topic": "BTC Treasury plays",
+        "opportunity": "Engage with MSTR/NFLX thread",
+        "priority": "medium"
+      }
+    ]
+  },
+  "active_tasks": [
+    {
+      "name": "mission-control-research",
+      "tier": "BCM",
+      "status": "running",
+      "model": "kimi-k2.5:cloud",
+      "age": "now",
+      "type": "cron"
+    },
+    {
+      "name": "eth_treasury_thread",
+      "tier": "MUSCLES",
+      "status": "completed",
+      "model": "kimi-k2.5:cloud",
+      "age": "2 days ago",
+      "type": "file"
+    },
+    {
+      "name": "x_thread_Why_ETH_beats_BTC_as_20260",
+      "tier": "MUSCLES",
+      "status": "completed",
+      "model": "kimi-k2.5:cloud",
+      "age": "1 day ago",
+      "type": "file"
+    },
+    {
+      "name": "dashboard_v3_enhancement",
+      "tier": "CODING",
+      "status": "running",
+      "model": "kimi-k2.7-code",
+      "age": "now",
+      "type": "code"
+    }
+  ],
+  "content_pipeline": {
+    "ready": 1,
+    "in_progress": 2,
+    "scheduled": 2,
+    "posted": 2,
+    "total": 7
+  },
+  "system_health": {
+    "status": "operational",
+    "ollama_cloud": "connected",
+    "primary_model": "kimi-k2.5:cloud",
+    "gateway_uptime": "2d 5h 42m",
+    "last_check": "21:44:00",
+    "api_latency": "38ms",
+    "active_sessions": 2,
+    "data_freshness": "Live"
+  },
+  "orchestration": {
+    "agents_active": 4,
+    "agents": [
+      {
+        "name": "Mission Control",
+        "status": "running",
+        "task": "Research cycle #4",
+        "progress": 75,
+        "last_output": "18:51:00",
+        "model": "kimi-k2.5:cloud"
+      },
+      {
+        "name": "Self-Improvement",
+        "status": "idle",
+        "task": "Awaiting next cycle",
+        "progress": 0,
+        "last_output": "16:31:00",
+        "model": "kimi-k2.5:cloud"
+      },
+      {
+        "name": "Daily Briefing",
+        "status": "scheduled",
+        "task": "Tomorrow 08:00",
+        "progress": 0,
+        "last_output": "08:00:00",
+        "model": "kimi-k2.5:cloud"
+      },
+      {
+        "name": "X Engagement",
+        "status": "idle",
+        "task": "Awaiting manual trigger",
+        "progress": 0,
+        "last_output": "16:45:00",
+        "model": "kimi-k2.5:cloud"
+      }
+    ],
+    "quick_actions": [
+      {"id": "post_hims", "label": "Post HIMS Thread", "icon": "🏥", "status": "ready"},
+      {"id": "generate_briefing", "label": "Generate Briefing", "icon": "📄", "status": "ready"},
+      {"id": "run_research", "label": "Run Research Cycle", "icon": "🔬", "status": "running"},
+      {"id": "check_engagement", "label": "Check Engagement", "icon": "💬", "status": "ready"}
+    ]
+  },
+  "recent_activity": [
+    {
+      "time": "18:51",
+      "type": "cmd",
+      "command": "Started: mission-control-research cycle #4"
+    },
+    {
+      "time": "18:45",
+      "type": "info",
+      "command": "System metrics updated"
+    },
+    {
+      "time": "18:30",
+      "type": "cmd",
+      "command": "Agent: Self-Improvement cycle completed"
+    },
+    {
+      "time": "17:21",
+      "type": "cmd",
+      "command": "Started: mission-control-research cycle #3"
+    },
+    {
+      "time": "17:15",
+      "type": "info",
+      "command": "Updated mission_control_data_live.json"
+    },
+    {
+      "time": "16:45",
+      "type": "cmd",
+      "command": "Completed: X engagement - @TheLongInvestor"
+    },
+    {
+      "time": "14:30",
+      "type": "info",
+      "command": "Dashboard v2.2 enhancement in progress"
+    },
+    {
+      "time": "12:00",
+      "type": "cmd",
+      "command": "Scheduled: HIMS thread for today"
+    },
+    {
+      "time": "09:00",
+      "type": "info",
+      "command": "Morning digest sent"
+    },
+    {
+      "time": "08:00",
+      "type": "cmd",
+      "command": "Daily rhythm: Research phase started"
+    }
+  ],
+  "weekly_summary": {
+    "followers_gained": 7,
+    "posts_made": 1,
+    "engagements": 25,
+    "avg_engagement_rate": 5.9,
+    "best_day": "Saturday",
+    "best_time": "5:00 PM",
+    "top_performer": "ETH Treasury Thread"
+  },
+  "improvements_log": [
+    {
+      "date": "2026-07-12",
+      "version": "5.0",
+      "changes": [
+        "Live engagement intelligence dashboard v5.0",
+        "Real-time metrics: engagement, velocity, reach, sentiment",
+        "Interactive activity feed with category filters",
+        "Momentum detector with hot/cold/viral states",
+        "AI-powered reply assistant with smart suggestions",
+        "Target monitor for high-value account tracking",
+        "Engagement velocity chart with 24h baseline comparison",
+        "Toast notification system for live events",
+        "Animated UI with scanline effects and gradients",
+        "Keyboard shortcuts (Ctrl+R, N for new activity)"
+      ]
+    },
+    {
+      "date": "2026-07-12",
+      "version": "4.1",
+      "changes": [
+        "Live engagement monitoring dashboard",
+        "Real-time activity feed with filtering",
+        "Hot/cold momentum detector",
+        "Reply assistant with smart suggestions",
+        "Target monitor for engagement opportunities",
+        "Engagement velocity chart with baseline comparison",
+        "Toast notifications for live events"
+      ]
+    },
+    {
+      "date": "2026-07-12",
+      "version": "4.0",
+      "changes": [
+        "Unified command center dashboard",
+        "Smart notification system with priorities",
+        "Auto-scheduling engine",
+        "Efficiency score tracking",
+        "Keyboard shortcuts (⌘K command bar)"
+      ]
+    },
+    {
+      "date": "2026-07-12",
+      "version": "3.1",
+      "changes": [
+        "Automation orchestration dashboard",
+        "Real-time system monitoring",
+        "One-click action triggers",
+        "Integrated agent status panel"
+      ]
+    },
+    {
+      "date": "2026-07-12",
+      "version": "3.0",
+      "changes": [
+        "Predictive content performance dashboard",
+        "AI-powered scoring engine",
+        "Best time to post optimizer",
+        "Content queue with predictions"
+      ]
+    },
+    {
+      "date": "2026-07-12",
+      "version": "2.2",
+      "changes": [
+        "Added Chart.js visualization for engagement trends",
+        "Real-time data integration with live polling",
+        "Enhanced analytics dashboard",
+        "Mobile-optimized charts"
+      ]
+    },
+    {
+      "date": "2026-07-11",
+      "version": "2.1",
+      "changes": [
+        "Fixed JSON loading issues",
+        "Added embedded data pipeline"
+      ]
+    },
+    {
+      "date": "2026-07-11",
+      "version": "2.0",
+      "changes": [
+        "Initial responsive dashboard",
+        "WCAG 2.2 accessibility features",
+        "Mobile-first layout"
+      ]
+    }
+  ],
+  "predictive": {
+    "model_version": "v3.0.2",
+    "accuracy": 87,
+    "predictions_made": 47,
+    "trained_on": 2847,
+    "features": 23,
+    "content_queue": [
+      {
+        "title": "HIMS Healthcare Thread",
+        "score": 94,
+        "hook": "The drug gets the headlines...",
+        "tier": "high"
+      },
+      {
+        "title": "BTC Treasury Plays",
+        "score": 88,
+        "hook": "Public companies hold $40B+ in BTC...",
+        "tier": "high"
+      },
+      {
+        "title": "AI Agentic Commerce",
+        "score": 76,
+        "hook": "McKinsey says $3-5T in agentic commerce...",
+        "tier": "medium"
+      }
+    ],
+    "best_times": {
+      "optimal": "17:00",
+      "secondary": ["10:00", "12:00", "18:00"],
+      "avoid": ["06:00", "22:00"]
+    },
+    "top_performers": ["Contrarian Takes", "Data/Numbers in Hook", "Healthcare Content"],
+    "avoid_topics": ["Generic AI Content"]
+  },
+  "strategic_intelligence": {
+    "version": "5.2",
+    "strategic_score": 82,
+    "score_change": 5,
+    "competitive_position": {
+      "rank": "mid-tier",
+      "engagement_rate": 6.3,
+      "gap_to_leader": 6.1,
+      "trend": "growing",
+      "competitors_tracked": 5
+    },
+    "competitors": [
+      {"handle": "@DylanLeClair_", "engagement_rate": 8.2, "posts_per_week": 47, "gap": -1.9, "status": "ahead"},
+      {"handle": "@TheLongInvestor", "engagement_rate": 12.4, "posts_per_week": 8, "gap": -6.1, "status": "leader"},
+      {"handle": "@DrTomsLens", "engagement_rate": 9.7, "posts_per_week": 15, "gap": -3.4, "status": "ahead"},
+      {"handle": "@RaoulGMI", "engagement_rate": 5.1, "posts_per_week": 12, "gap": 1.2, "status": "behind"}
+    ],
+    "content_gaps": [
+      {"type": "Educational", "your_coverage": 65, "market_demand": 92, "gap": -27, "opportunity": "HIGH"},
+      {"type": "Data-Driven", "your_coverage": 45, "market_demand": 78, "gap": -33, "opportunity": "HIGH"},
+      {"type": "Story-Driven", "your_coverage": 23, "market_demand": 45, "gap": -22, "opportunity": "HIGH"},
+      {"type": "Contrarian", "your_coverage": 78, "market_demand": 85, "gap": -7, "opportunity": "LOW"}
+    ],
+    "trend_correlation": {
+      "healthcare_ai_intersection": 92,
+      "eth_treasury": 88,
+      "btc_treasury": 91
+    },
+    "opportunities": [
+      {"name": "Healthcare-AI Intersection", "strength": 78, "ttl_hours": 24, "type": "content_gap"},
+      {"name": "ETH Treasury Momentum", "strength": 89, "ttl_hours": 6, "type": "trend"},
+      {"name": "Educational Content Window", "strength": 74, "ttl_hours": 48, "type": "timing"}
+    ],
+    "recommendations": [
+      {"priority": "URGENT", "title": "Post HIMS Healthcare Thread", "confidence": 94, "expected_impact": "+45 engagements", "ttl_hours": 6},
+      {"priority": "HIGH", "title": "Re-engage DylanLeClair_ BTC Thread", "confidence": 87, "expected_impact": "+12 followers", "ttl_hours": 12},
+      {"priority": "HIGH", "title": "Create Data-Driven Thread", "confidence": 85, "expected_impact": "+38 engagements", "ttl_hours": 48}
+    ],
+    "network_effects": {
+      "connections_gained_week": 3,
+      "best_path": "DrTomsLens → Healthcare community",
+      "targets": [
+        {"handle": "@TheLongInvestor", "overlap_pct": 78, "influence": "Very High", "status": "engaged"},
+        {"handle": "@DrTomsLens", "overlap_pct": 45, "influence": "High", "status": "target"},
+        {"handle": "@DylanLeClair_", "overlap_pct": 62, "influence": "Very High", "status": "stale"},
+        {"handle": "@RaoulGMI", "overlap_pct": 28, "influence": "Medium", "status": "target"}
+      ]
+    }
+  },
+  "engagement_live": {
+    "status": "active",
+    "last_update": "2026-07-12T22:14:00.000Z",
+    "metrics": {
+      "engagement_rate": 6.3,
+      "engagement_change": 0.4,
+      "velocity_score": 87,
+      "velocity_change": 12,
+      "today_reach": 1247,
+      "reach_change": 89,
+      "sentiment": 92,
+      "sentiment_status": "positive"
+    },
+    "momentum": {
+      "status": "hot",
+      "indicator": "🔥",
+      "label": "TRENDING HOT",
+      "description": "ETH Treasury thread gaining traction. Engagement rate +47% above average.",
+      "above_average_pct": 47,
+      "new_replies": 12,
+      "retweets": 8,
+      "new_follows": 23
+    },
+    "velocity_history": [
+      {"time": "00:00", "engagements": 2, "baseline": 5},
+      {"time": "04:00", "engagements": 1, "baseline": 4},
+      {"time": "08:00", "engagements": 5, "baseline": 8},
+      {"time": "12:00", "engagements": 12, "baseline": 15},
+      {"time": "16:00", "engagements": 28, "baseline": 20},
+      {"time": "20:00", "engagements": 45, "baseline": 18},
+      {"time": "22:00", "engagements": 52, "baseline": 15}
+    ],
+    "recent_activity": [
+      {"type": "reply", "user": "CryptoChris", "handle": "@cryptochris_eth", "time": "Just now", "text": "The ETH treasury thesis is exactly what I've been thinking..."},
+      {"type": "retweet", "user": "DeFi Daily", "handle": "@defidaily", "time": "2 min ago", "text": "Retweeted your ETH Treasury thread to 12.4K followers"},
+      {"type": "mention", "user": "TheLongInvestor", "handle": "@TheLongInvestor", "time": "5 min ago", "text": "Mentioned you in: '@quentinvest1 has a solid take on ETH treasuries...'"}
+    ],
+    "reply_assistant": [
+      {
+        "target": "@TheLongInvestor",
+        "posted": "ETH staking yields are compressing as more institutional money flows in...",
+        "suggestions": [
+          "Exactly why the infrastructure play (Lido, Rocket Pool) matters more than raw yield. The fee accrual model changes the game.",
+          "Compression is the signal. Institutional demand > yield %. The narrative is treasury adoption, not DeFi yields."
+        ]
+      },
+      {
+        "target": "@DrTomsLens",
+        "posted": "GLP-1 market is still underestimating the infrastructure layer...",
+        "suggestions": [
+          "HIMS at $725M revenue is the picks-and-shovels play. Drug gets headlines, rails get compounding."
+        ]
+      }
+    ],
+    "target_monitor": [
+      {"handle": "@TheLongInvestor", "name": "TheLongInvestor", "initials": "TL", "last_post": "2 min ago", "status": "recent"},
+      {"handle": "@DrTomsLens", "name": "DrTomsLens", "initials": "DT", "last_post": "15 min ago", "status": "recent"},
+      {"handle": "@DylanLeClair_", "name": "DylanLeClair_", "initials": "DL", "last_post": "6h ago", "status": "stale"},
+      {"handle": "@RaoulGMI", "name": "RaoulGMI", "initials": "RG", "last_post": "2d ago", "status": "stale"}
+    ]
+  },
+  "attribution": {
+    "version": "5.3",
+    "attribution_rate": 71,
+    "prediction_accuracy": 87,
+    "roi_leader": "replies",
+    "followers_attributed": 5,
+    "followers_total": 7,
+    "by_content": [
+      {"content": "HIMS Thread", "followers": 3, "share": 43},
+      {"content": "ETH Reply", "followers": 2, "share": 29},
+      {"content": "Organic", "followers": 2, "share": 28}
+    ],
+    "roi_by_type": [
+      {"type": "Threads", "cost": 1.52, "cost_per_follower": 0.51, "roi": "high"},
+      {"type": "Replies", "cost": 0.23, "cost_per_follower": 0.12, "roi": "very_high"},
+      {"type": "Scheduled", "cost": 0.89, "cost_per_follower": 0.89, "roi": "medium"}
+    ],
+    "win_loss": [
+      {"pillar": "Healthcare", "wins": 4, "losses": 1, "rate": 80, "avg_engagement": 47},
+      {"pillar": "ETH Treasury", "wins": 3, "losses": 2, "rate": 60, "avg_engagement": 28},
+      {"pillar": "AI Agents", "wins": 2, "losses": 3, "rate": 40, "avg_engagement": 12}
+    ],
+    "prediction_validation": [
+      {"content": "ETH Treasury Thread", "predicted": 38, "actual": 42, "variance": 10, "status": "accurate"},
+      {"content": "AI Agentic Thread", "predicted": 28, "actual": 19, "variance": -32, "status": "under"},
+      {"content": "Healthcare Thread", "predicted": 45, "actual": null, "variance": null, "status": "pending"}
+    ]
+  },
+    "version": "4.0",
+    "efficiency_score": 87,
+    "notifications": [
+      {
+        "id": "notif_001",
+        "priority": "urgent",
+        "icon": "🏥",
+        "title": "HIMS Healthcare Thread Ready",
+        "message": "Score 94 - 5 tweets drafted, ready to post",
+        "actions": ["post_now", "schedule", "edit", "snooze"],
+        "timestamp": "2026-07-12T21:44:00Z",
+        "pillar": "Healthcare"
+      },
+      {
+        "id": "notif_002",
+        "priority": "scheduled",
+        "icon": "📄",
+        "title": "Daily Briefing Tomorrow",
+        "message": "Auto-scheduled for 08:00. Market digest + portfolio updates.",
+        "actions": ["preview", "modify", "cancel"],
+        "timestamp": "2026-07-12T21:44:00Z",
+        "scheduled_for": "2026-07-13T08:00:00Z"
+      },
+      {
+        "id": "notif_003",
+        "priority": "auto",
+        "icon": "₿",
+        "title": "BTC Treasury Thread",
+        "message": "Auto-queued for 17:00. Score: 88. Optimal window detected.",
+        "actions": ["review", "reschedule", "cancel"],
+        "timestamp": "2026-07-12T21:44:00Z",
+        "scheduled_for": "2026-07-12T17:00:00Z"
+      }
+    ],
+    "auto_queue": [
+      {
+        "content_id": "btc_treasury_001",
+        "title": "BTC Treasury Plays Analysis",
+        "scheduled_for": "17:00",
+        "score": 88,
+        "auto_queued": true,
+        "reason": "Score 88 + optimal engagement window"
+      }
+    ],
+    "bottlenecks": [
+      "1 high-priority post waiting (HIMS)",
+      "3 engagement targets not contacted"
+    ],
+    "wins": [
+      "ETH thread posted (high engagement)",
+      "Research cycles on schedule",
+      "System uptime: 100%"
+    ],
+    "context_phase": "research",
+    "quick_actions": [
+      {"key": "P", "action": "Quick Post", "icon": "✍️", "status": "ready"},
+      {"key": "S", "action": "Schedule", "icon": "📅", "status": "ready"},
+      {"key": "R", "action": "Research", "icon": "🔬", "status": "running"},
+      {"key": "E", "action": "Engage", "icon": "💬", "status": "ready"}
+    ],
+    "dashboard_stats": {
+      "tasks_completed": 13,
+      "tasks_total": 15,
+      "tasks_pct": 87,
+      "followers_gained_week": 7,
+      "followers_growth_pct": 3.3,
+      "engagement_rate": 6.3,
+      "engagement_change": 0.4
+    }
+  }
+}

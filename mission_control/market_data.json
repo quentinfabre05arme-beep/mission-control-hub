@@ -1,70 +1,53 @@
-{
-  "timestamp": "2026-07-13 19:19:00",
-  "source": "Twelve Data API",
-  "assets": {
-    "BTC": {
-      "symbol": "BTC/USD",
-      "price": 62192.60,
-      "change": -1547.72,
-      "change_percent": -2.43,
-      "open": 63740.32,
-      "high": 64388.01,
-      "low": 62033.00,
-      "previous_close": 63740.32,
-      "rsi_14": 45.47,
-      "macd": -272.69,
-      "macd_signal": -668.98,
-      "macd_hist": 396.28,
-      "sma_50": 64579.19,
-      "signal": "NEUTRAL",
-      "signal_color": "yellow"
-    },
-    "ETH": {
-      "symbol": "ETH/USD",
-      "price": 1774.58,
-      "change": -31.59,
-      "change_percent": -1.75,
-      "open": 1805.93,
-      "high": 1843.00,
-      "low": 1762.55,
-      "previous_close": 1806.17,
-      "rsi_14": 53.80,
-      "signal": "NEUTRAL-BULLISH",
-      "signal_color": "green"
-    },
-    "MSTR": {
-      "symbol": "MSTR",
-      "name": "Strategy Inc.",
-      "exchange": "NASDAQ",
-      "price": 91.87,
-      "change": -2.77,
-      "change_percent": -2.93,
-      "open": 91.575,
-      "high": 93.64,
-      "low": 90.05,
-      "previous_close": 94.64,
-      "volume": 622152,
-      "avg_volume": 24412525,
-      "rsi_14": null,
-      "signal": "NEUTRAL",
-      "signal_color": "yellow"
-    },
-    "HIMS": {
-      "symbol": "HIMS",
-      "name": "Hims & Hers Health, Inc.",
-      "exchange": "NYSE",
-      "price": 34.28,
-      "change": -0.10,
-      "change_percent": -0.29,
-      "open": 34.30,
-      "high": 35.20,
-      "low": 33.90,
-      "previous_close": 34.38,
-      "volume": 888380,
-      "avg_volume": 13254948,
-      "rsi_14": null,
-      "signal": "NEUTRAL",
-      "signal_color": "green"
-    }
-  }
+﻿{
+    "timestamp":  "2026-07-13 21:10:45",
+    "assets":  {
+                   "ETH/USD":  {
+                                   "high":  "1843",
+                                   "change":  "-39.88000",
+                                   "low":  "1750.69",
+                                   "price":  "1766.29",
+                                   "is_market_open":  true,
+                                   "timestamp":  "2026-07-13 21:10:45",
+                                   "open":  "1805.93",
+                                   "status":  "success",
+                                   "percent_change":  "-2.20799",
+                                   "volume":  null
+                               },
+                   "HIMS":  {
+                                "high":  "35.2",
+                                "change":  "-0.19000107",
+                                "low":  "33.85",
+                                "price":  "34.19",
+                                "is_market_open":  true,
+                                "timestamp":  "2026-07-13 21:10:45",
+                                "open":  "34.3",
+                                "status":  "success",
+                                "percent_change":  "-0.55264998",
+                                "volume":  "1020212"
+                            },
+                   "BTC/USD":  {
+                                   "high":  "64388.01",
+                                   "change":  "-1771.99000",
+                                   "low":  "61750.9",
+                                   "price":  "61968.33",
+                                   "is_market_open":  true,
+                                   "timestamp":  "2026-07-13 21:10:45",
+                                   "open":  "63740.32",
+                                   "status":  "success",
+                                   "percent_change":  "-2.78001",
+                                   "volume":  null
+                               },
+                   "MSTR":  {
+                                "high":  "93.64",
+                                "change":  "-2.41000",
+                                "low":  "90.05",
+                                "price":  "92.23",
+                                "is_market_open":  true,
+                                "timestamp":  "2026-07-13 21:10:45",
+                                "open":  "91.575",
+                                "status":  "success",
+                                "percent_change":  "-2.54649",
+                                "volume":  "834944"
+                            }
+               }
 }

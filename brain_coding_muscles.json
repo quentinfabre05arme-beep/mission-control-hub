@@ -1,0 +1,46 @@
+{
+  "system": "Brain-Coding-Muscles",
+  "description": "Three-tier efficiency system for research, coding, and execution",
+  "tiers": {
+    "brain": {
+      "role": "Research, strategy, deep analysis",
+      "models": ["deepseek-v4-pro", "nemotron-3-super", "kimi-k2.6"],
+      "primary": "deepseek-v4-pro",
+      "cost_profile": "high",
+      "use_when": [
+        "Complex research",
+        "Strategic planning",
+        "Multi-step analysis",
+        "Decision making"
+      ]
+    },
+    "coding": {
+      "role": "Development, technical implementation",
+      "models": ["kimi-k2.7-code", "qwen3-coder", "deepseek-v4-flash"],
+      "primary": "kimi-k2.7-code",
+      "cost_profile": "medium",
+      "use_when": [
+        "Website building",
+        "App development",
+        "Code review",
+        "Technical architecture"
+      ]
+    },
+    "muscles": {
+      "role": "Content, execution, quick tasks",
+      "models": ["kimi-k2.5", "deepseek-v4-flash", "gemma4"],
+      "primary": "kimi-k2.5",
+      "cost_profile": "low",
+      "use_when": [
+        "Social media posts",
+        "Quick replies",
+        "Sales copy",
+        "Routine tasks"
+      ]
+    }
+  },
+  "defaults": {
+    "auto_route": true,
+    "fallback_chain": ["muscles", "coding", "brain"]
+  }
+}

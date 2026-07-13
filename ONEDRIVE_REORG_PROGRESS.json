@@ -1,0 +1,793 @@
+{
+    "started":  "2026-07-10T13:22:00",
+    "estimated_completion":  "2026-07-10T16:05:36.153495",
+    "last_update":  "2026-07-10T15:21:49.315886",
+    "status":  "running",
+    "total_target":  45000,
+    "current_batch":  49,
+    "total_processed":  12211,
+    "batches":  [
+                    {
+                        "files_moved":  500,
+                        "timestamp":  "2026-07-10T14:46:32",
+                        "batch_number":  1,
+                        "stats":  {
+                                      "Word":  0,
+                                      "Errors":  0,
+                                      "Video":  0,
+                                      "Code":  500,
+                                      "PDF":  0,
+                                      "Other":  0,
+                                      "Image":  0
+                                  }
+                    },
+                    {
+                        "files_moved":  500,
+                        "timestamp":  "2026-07-10T14:50:11",
+                        "batch_number":  2,
+                        "stats":  {
+                                      "Word":  0,
+                                      "PDF":  0,
+                                      "Other":  0,
+                                      "Audio":  0,
+                                      "Video":  0,
+                                      "Image":  0,
+                                      "Errors":  0,
+                                      "Code":  500,
+                                      "Archive":  0
+                                  }
+                    },
+                    {
+                        "batch_number":  3,
+                        "timestamp":  "2026-07-10T14:50:43.153539",
+                        "files_moved":  0,
+                        "stats":  {
+                                      "PDF":  0,
+                                      "Image":  0,
+                                      "Video":  0,
+                                      "Audio":  0,
+                                      "Word":  0,
+                                      "Code":  0,
+                                      "Archive":  0,
+                                      "Other":  0,
+                                      "Errors":  500
+                                  }
+                    },
+                    {
+                        "batch_number":  4,
+                        "timestamp":  "2026-07-10T14:51:03.451808",
+                        "files_moved":  0,
+                        "stats":  {
+                                      "PDF":  0,
+                                      "Image":  0,
+                                      "Video":  0,
+                                      "Audio":  0,
+                                      "Word":  0,
+                                      "Code":  0,
+                                      "Archive":  0,
+                                      "Other":  0,
+                                      "Errors":  500
+                                  }
+                    },
+                    {
+                        "batch_number":  5,
+                        "timestamp":  "2026-07-10T14:52:00.607646",
+                        "files_moved":  500,
+                        "stats":  {
+                                      "PDF":  0,
+                                      "Image":  0,
+                                      "Video":  0,
+                                      "Audio":  0,
+                                      "Word":  0,
+                                      "Code":  500,
+                                      "Archive":  0,
+                                      "Other":  0,
+                                      "Errors":  0
+                                  }
+                    },
+                    {
+                        "batch_number":  6,
+                        "timestamp":  "2026-07-10T14:52:06.704536",
+                        "files_moved":  500,
+                        "stats":  {
+                                      "PDF":  0,
+                                      "Image":  0,
+                                      "Video":  0,
+                                      "Audio":  0,
+                                      "Word":  0,
+                                      "Code":  500,
+                                      "Archive":  0,
+                                      "Other":  0,
+                                      "Errors":  0
+                                  }
+                    },
+                    {
+                        "batch_number":  7,
+                        "timestamp":  "2026-07-10T14:52:09.592641",
+                        "files_moved":  500,
+                        "stats":  {
+                                      "PDF":  0,
+                                      "Image":  0,
+                                      "Video":  0,
+                                      "Audio":  0,
+                                      "Word":  0,
+                                      "Code":  500,
+                                      "Archive":  0,
+                                      "Other":  0,
+                                      "Errors":  0
+                                  }
+                    },
+                    {
+                        "batch_number":  8,
+                        "timestamp":  "2026-07-10T14:52:12.709557",
+                        "files_moved":  500,
+                        "stats":  {
+                                      "PDF":  0,
+                                      "Image":  0,
+                                      "Video":  0,
+                                      "Audio":  0,
+                                      "Word":  0,
+                                      "Code":  500,
+                                      "Archive":  0,
+                                      "Other":  0,
+                                      "Errors":  0
+                                  }
+                    },
+                    {
+                        "batch_number":  9,
+                        "timestamp":  "2026-07-10T14:52:15.874327",
+                        "files_moved":  500,
+                        "stats":  {
+                                      "PDF":  0,
+                                      "Image":  0,
+                                      "Video":  0,
+                                      "Audio":  0,
+                                      "Word":  0,
+                                      "Code":  499,
+                                      "Archive":  0,
+                                      "Other":  1,
+                                      "Errors":  0
+                                  }
+                    },
+                    {
+                        "batch_number":  10,
+                        "timestamp":  "2026-07-10T14:52:18.706083",
+                        "files_moved":  500,
+                        "stats":  {
+                                      "PDF":  0,
+                                      "Image":  0,
+                                      "Video":  0,
+                                      "Audio":  0,
+                                      "Word":  0,
+                                      "Code":  500,
+                                      "Archive":  0,
+                                      "Other":  0,
+                                      "Errors":  0
+                                  }
+                    },
+                    {
+                        "batch_number":  11,
+                        "timestamp":  "2026-07-10T14:52:26.166593",
+                        "files_moved":  500,
+                        "stats":  {
+                                      "PDF":  0,
+                                      "Image":  0,
+                                      "Video":  0,
+                                      "Audio":  0,
+                                      "Word":  0,
+                                      "Code":  500,
+                                      "Archive":  0,
+                                      "Other":  0,
+                                      "Errors":  0
+                                  }
+                    },
+                    {
+                        "batch_number":  12,
+                        "timestamp":  "2026-07-10T14:52:30.016578",
+                        "files_moved":  500,
+                        "stats":  {
+                                      "PDF":  0,
+                                      "Image":  0,
+                                      "Video":  0,
+                                      "Audio":  0,
+                                      "Word":  0,
+                                      "Code":  495,
+                                      "Archive":  0,
+                                      "Other":  5,
+                                      "Errors":  0
+                                  }
+                    },
+                    {
+                        "batch_number":  13,
+                        "timestamp":  "2026-07-10T14:52:33.483428",
+                        "files_moved":  500,
+                        "stats":  {
+                                      "PDF":  100,
+                                      "Image":  6,
+                                      "Video":  0,
+                                      "Audio":  0,
+                                      "Word":  156,
+                                      "Code":  215,
+                                      "Archive":  0,
+                                      "Other":  23,
+                                      "Errors":  0
+                                  }
+                    },
+                    {
+                        "batch_number":  14,
+                        "timestamp":  "2026-07-10T14:53:15.512130",
+                        "files_moved":  500,
+                        "stats":  {
+                                      "PDF":  8,
+                                      "Image":  69,
+                                      "Video":  0,
+                                      "Audio":  102,
+                                      "Word":  271,
+                                      "Code":  34,
+                                      "Archive":  12,
+                                      "Other":  4,
+                                      "Errors":  0
+                                  }
+                    },
+                    {
+                        "batch_number":  15,
+                        "timestamp":  "2026-07-10T14:53:30.654766",
+                        "files_moved":  500,
+                        "stats":  {
+                                      "PDF":  4,
+                                      "Image":  32,
+                                      "Video":  0,
+                                      "Audio":  166,
+                                      "Word":  220,
+                                      "Code":  20,
+                                      "Archive":  0,
+                                      "Other":  58,
+                                      "Errors":  0
+                                  }
+                    },
+                    {
+                        "batch_number":  16,
+                        "timestamp":  "2026-07-10T14:53:44.640401",
+                        "files_moved":  500,
+                        "stats":  {
+                                      "PDF":  4,
+                                      "Image":  61,
+                                      "Video":  0,
+                                      "Audio":  40,
+                                      "Word":  318,
+                                      "Code":  11,
+                                      "Archive":  36,
+                                      "Other":  30,
+                                      "Errors":  0
+                                  }
+                    },
+                    {
+                        "batch_number":  17,
+                        "timestamp":  "2026-07-10T14:53:51.419169",
+                        "files_moved":  500,
+                        "stats":  {
+                                      "PDF":  3,
+                                      "Image":  112,
+                                      "Video":  26,
+                                      "Audio":  0,
+                                      "Word":  349,
+                                      "Code":  0,
+                                      "Archive":  4,
+                                      "Other":  6,
+                                      "Errors":  0
+                                  }
+                    },
+                    {
+                        "batch_number":  18,
+                        "timestamp":  "2026-07-10T14:54:00.209739",
+                        "files_moved":  500,
+                        "stats":  {
+                                      "PDF":  2,
+                                      "Image":  35,
+                                      "Video":  4,
+                                      "Audio":  0,
+                                      "Word":  446,
+                                      "Code":  0,
+                                      "Archive":  6,
+                                      "Other":  7,
+                                      "Errors":  0
+                                  }
+                    },
+                    {
+                        "batch_number":  19,
+                        "timestamp":  "2026-07-10T14:54:07.479200",
+                        "files_moved":  500,
+                        "stats":  {
+                                      "PDF":  2,
+                                      "Image":  184,
+                                      "Video":  2,
+                                      "Audio":  0,
+                                      "Word":  237,
+                                      "Code":  56,
+                                      "Archive":  1,
+                                      "Other":  18,
+                                      "Errors":  0
+                                  }
+                    },
+                    {
+                        "batch_number":  20,
+                        "timestamp":  "2026-07-10T14:54:17.189229",
+                        "files_moved":  500,
+                        "stats":  {
+                                      "PDF":  4,
+                                      "Image":  3,
+                                      "Video":  1,
+                                      "Audio":  0,
+                                      "Word":  428,
+                                      "Code":  15,
+                                      "Archive":  15,
+                                      "Other":  34,
+                                      "Errors":  0
+                                  }
+                    },
+                    {
+                        "batch_number":  21,
+                        "timestamp":  "2026-07-10T14:54:31.477065",
+                        "files_moved":  500,
+                        "stats":  {
+                                      "PDF":  1,
+                                      "Image":  198,
+                                      "Video":  15,
+                                      "Audio":  0,
+                                      "Word":  169,
+                                      "Code":  71,
+                                      "Archive":  5,
+                                      "Other":  41,
+                                      "Errors":  0
+                                  }
+                    },
+                    {
+                        "batch_number":  22,
+                        "timestamp":  "2026-07-10T14:54:57.153180",
+                        "files_moved":  500,
+                        "stats":  {
+                                      "PDF":  6,
+                                      "Image":  26,
+                                      "Video":  1,
+                                      "Audio":  9,
+                                      "Word":  418,
+                                      "Code":  1,
+                                      "Archive":  3,
+                                      "Other":  36,
+                                      "Errors":  0
+                                  }
+                    },
+                    {
+                        "batch_number":  23,
+                        "timestamp":  "2026-07-10T14:56:10.776652",
+                        "files_moved":  500,
+                        "stats":  {
+                                      "PDF":  11,
+                                      "Image":  178,
+                                      "Video":  70,
+                                      "Audio":  83,
+                                      "Word":  139,
+                                      "Code":  2,
+                                      "Archive":  4,
+                                      "Other":  13,
+                                      "Errors":  0
+                                  }
+                    },
+                    {
+                        "batch_number":  24,
+                        "timestamp":  "2026-07-10T15:01:05.731152",
+                        "files_moved":  500,
+                        "stats":  {
+                                      "PDF":  11,
+                                      "Image":  464,
+                                      "Video":  0,
+                                      "Audio":  0,
+                                      "Word":  4,
+                                      "Code":  15,
+                                      "Archive":  0,
+                                      "Other":  6,
+                                      "Errors":  0
+                                  }
+                    },
+                    {
+                        "batch_number":  25,
+                        "timestamp":  "2026-07-10T15:03:39.583575",
+                        "files_moved":  99,
+                        "stats":  {
+                                      "PDF":  11,
+                                      "Image":  1,
+                                      "Video":  12,
+                                      "Audio":  0,
+                                      "Word":  53,
+                                      "Code":  1,
+                                      "Archive":  0,
+                                      "Other":  21,
+                                      "Errors":  0
+                                  }
+                    },
+                    {
+                        "batch_number":  26,
+                        "timestamp":  "2026-07-10T15:04:33.825105",
+                        "files_moved":  13,
+                        "stats":  {
+                                      "PDF":  11,
+                                      "Image":  0,
+                                      "Video":  0,
+                                      "Audio":  0,
+                                      "Word":  2,
+                                      "Code":  0,
+                                      "Archive":  0,
+                                      "Other":  0,
+                                      "Errors":  0
+                                  }
+                    },
+                    {
+                        "batch_number":  27,
+                        "timestamp":  "2026-07-10T15:05:16.610948",
+                        "files_moved":  13,
+                        "stats":  {
+                                      "PDF":  11,
+                                      "Image":  0,
+                                      "Video":  0,
+                                      "Audio":  0,
+                                      "Word":  2,
+                                      "Code":  0,
+                                      "Archive":  0,
+                                      "Other":  0,
+                                      "Errors":  0
+                                  }
+                    },
+                    {
+                        "batch_number":  28,
+                        "timestamp":  "2026-07-10T15:05:58.595451",
+                        "files_moved":  13,
+                        "stats":  {
+                                      "PDF":  11,
+                                      "Image":  0,
+                                      "Video":  0,
+                                      "Audio":  0,
+                                      "Word":  2,
+                                      "Code":  0,
+                                      "Archive":  0,
+                                      "Other":  0,
+                                      "Errors":  0
+                                  }
+                    },
+                    {
+                        "batch_number":  29,
+                        "timestamp":  "2026-07-10T15:06:40.580554",
+                        "files_moved":  13,
+                        "stats":  {
+                                      "PDF":  11,
+                                      "Image":  0,
+                                      "Video":  0,
+                                      "Audio":  0,
+                                      "Word":  2,
+                                      "Code":  0,
+                                      "Archive":  0,
+                                      "Other":  0,
+                                      "Errors":  0
+                                  }
+                    },
+                    {
+                        "batch_number":  30,
+                        "timestamp":  "2026-07-10T15:07:22.136050",
+                        "files_moved":  13,
+                        "stats":  {
+                                      "PDF":  11,
+                                      "Image":  0,
+                                      "Video":  0,
+                                      "Audio":  0,
+                                      "Word":  2,
+                                      "Code":  0,
+                                      "Archive":  0,
+                                      "Other":  0,
+                                      "Errors":  0
+                                  }
+                    },
+                    {
+                        "batch_number":  31,
+                        "timestamp":  "2026-07-10T15:08:04.043103",
+                        "files_moved":  13,
+                        "stats":  {
+                                      "PDF":  11,
+                                      "Image":  0,
+                                      "Video":  0,
+                                      "Audio":  0,
+                                      "Word":  2,
+                                      "Code":  0,
+                                      "Archive":  0,
+                                      "Other":  0,
+                                      "Errors":  0
+                                  }
+                    },
+                    {
+                        "batch_number":  32,
+                        "timestamp":  "2026-07-10T15:08:46.964921",
+                        "files_moved":  13,
+                        "stats":  {
+                                      "PDF":  11,
+                                      "Image":  0,
+                                      "Video":  0,
+                                      "Audio":  0,
+                                      "Word":  2,
+                                      "Code":  0,
+                                      "Archive":  0,
+                                      "Other":  0,
+                                      "Errors":  0
+                                  }
+                    },
+                    {
+                        "batch_number":  33,
+                        "timestamp":  "2026-07-10T15:09:28.754994",
+                        "files_moved":  13,
+                        "stats":  {
+                                      "PDF":  11,
+                                      "Image":  0,
+                                      "Video":  0,
+                                      "Audio":  0,
+                                      "Word":  2,
+                                      "Code":  0,
+                                      "Archive":  0,
+                                      "Other":  0,
+                                      "Errors":  0
+                                  }
+                    },
+                    {
+                        "batch_number":  34,
+                        "timestamp":  "2026-07-10T15:10:11.463249",
+                        "files_moved":  13,
+                        "stats":  {
+                                      "PDF":  11,
+                                      "Image":  0,
+                                      "Video":  0,
+                                      "Audio":  0,
+                                      "Word":  2,
+                                      "Code":  0,
+                                      "Archive":  0,
+                                      "Other":  0,
+                                      "Errors":  0
+                                  }
+                    },
+                    {
+                        "batch_number":  35,
+                        "timestamp":  "2026-07-10T15:10:54.789896",
+                        "files_moved":  13,
+                        "stats":  {
+                                      "PDF":  11,
+                                      "Image":  0,
+                                      "Video":  0,
+                                      "Audio":  0,
+                                      "Word":  2,
+                                      "Code":  0,
+                                      "Archive":  0,
+                                      "Other":  0,
+                                      "Errors":  0
+                                  }
+                    },
+                    {
+                        "batch_number":  36,
+                        "timestamp":  "2026-07-10T15:11:36.921876",
+                        "files_moved":  13,
+                        "stats":  {
+                                      "PDF":  11,
+                                      "Image":  0,
+                                      "Video":  0,
+                                      "Audio":  0,
+                                      "Word":  2,
+                                      "Code":  0,
+                                      "Archive":  0,
+                                      "Other":  0,
+                                      "Errors":  0
+                                  }
+                    },
+                    {
+                        "batch_number":  37,
+                        "timestamp":  "2026-07-10T15:12:21.701368",
+                        "files_moved":  13,
+                        "stats":  {
+                                      "PDF":  11,
+                                      "Image":  0,
+                                      "Video":  0,
+                                      "Audio":  0,
+                                      "Word":  2,
+                                      "Code":  0,
+                                      "Archive":  0,
+                                      "Other":  0,
+                                      "Errors":  0
+                                  }
+                    },
+                    {
+                        "batch_number":  38,
+                        "timestamp":  "2026-07-10T15:13:03.578544",
+                        "files_moved":  13,
+                        "stats":  {
+                                      "PDF":  11,
+                                      "Image":  0,
+                                      "Video":  0,
+                                      "Audio":  0,
+                                      "Word":  2,
+                                      "Code":  0,
+                                      "Archive":  0,
+                                      "Other":  0,
+                                      "Errors":  0
+                                  }
+                    },
+                    {
+                        "batch_number":  39,
+                        "timestamp":  "2026-07-10T15:13:44.435252",
+                        "files_moved":  13,
+                        "stats":  {
+                                      "PDF":  11,
+                                      "Image":  0,
+                                      "Video":  0,
+                                      "Audio":  0,
+                                      "Word":  2,
+                                      "Code":  0,
+                                      "Archive":  0,
+                                      "Other":  0,
+                                      "Errors":  0
+                                  }
+                    },
+                    {
+                        "batch_number":  40,
+                        "timestamp":  "2026-07-10T15:14:25.594480",
+                        "files_moved":  13,
+                        "stats":  {
+                                      "PDF":  11,
+                                      "Image":  0,
+                                      "Video":  0,
+                                      "Audio":  0,
+                                      "Word":  2,
+                                      "Code":  0,
+                                      "Archive":  0,
+                                      "Other":  0,
+                                      "Errors":  0
+                                  }
+                    },
+                    {
+                        "batch_number":  41,
+                        "timestamp":  "2026-07-10T15:15:07.947201",
+                        "files_moved":  13,
+                        "stats":  {
+                                      "PDF":  11,
+                                      "Image":  0,
+                                      "Video":  0,
+                                      "Audio":  0,
+                                      "Word":  2,
+                                      "Code":  0,
+                                      "Archive":  0,
+                                      "Other":  0,
+                                      "Errors":  0
+                                  }
+                    },
+                    {
+                        "batch_number":  42,
+                        "timestamp":  "2026-07-10T15:16:36.425746",
+                        "files_moved":  13,
+                        "stats":  {
+                                      "PDF":  11,
+                                      "Image":  0,
+                                      "Video":  0,
+                                      "Audio":  0,
+                                      "Word":  2,
+                                      "Code":  0,
+                                      "Archive":  0,
+                                      "Other":  0,
+                                      "Errors":  0
+                                  }
+                    },
+                    {
+                        "batch_number":  43,
+                        "timestamp":  "2026-07-10T15:17:45.795820",
+                        "files_moved":  13,
+                        "stats":  {
+                                      "PDF":  11,
+                                      "Image":  0,
+                                      "Video":  0,
+                                      "Audio":  0,
+                                      "Word":  2,
+                                      "Code":  0,
+                                      "Archive":  0,
+                                      "Other":  0,
+                                      "Errors":  0
+                                  }
+                    },
+                    {
+                        "batch_number":  44,
+                        "timestamp":  "2026-07-10T15:18:26.426287",
+                        "files_moved":  13,
+                        "stats":  {
+                                      "PDF":  11,
+                                      "Image":  0,
+                                      "Video":  0,
+                                      "Audio":  0,
+                                      "Word":  2,
+                                      "Code":  0,
+                                      "Archive":  0,
+                                      "Other":  0,
+                                      "Errors":  0
+                                  }
+                    },
+                    {
+                        "batch_number":  45,
+                        "timestamp":  "2026-07-10T15:19:07.093400",
+                        "files_moved":  13,
+                        "stats":  {
+                                      "PDF":  11,
+                                      "Image":  0,
+                                      "Video":  0,
+                                      "Audio":  0,
+                                      "Word":  2,
+                                      "Code":  0,
+                                      "Archive":  0,
+                                      "Other":  0,
+                                      "Errors":  0
+                                  }
+                    },
+                    {
+                        "batch_number":  46,
+                        "timestamp":  "2026-07-10T15:19:47.634431",
+                        "files_moved":  13,
+                        "stats":  {
+                                      "PDF":  11,
+                                      "Image":  0,
+                                      "Video":  0,
+                                      "Audio":  0,
+                                      "Word":  2,
+                                      "Code":  0,
+                                      "Archive":  0,
+                                      "Other":  0,
+                                      "Errors":  0
+                                  }
+                    },
+                    {
+                        "batch_number":  47,
+                        "timestamp":  "2026-07-10T15:20:28.223101",
+                        "files_moved":  13,
+                        "stats":  {
+                                      "PDF":  11,
+                                      "Image":  0,
+                                      "Video":  0,
+                                      "Audio":  0,
+                                      "Word":  2,
+                                      "Code":  0,
+                                      "Archive":  0,
+                                      "Other":  0,
+                                      "Errors":  0
+                                  }
+                    },
+                    {
+                        "batch_number":  48,
+                        "timestamp":  "2026-07-10T15:21:08.764747",
+                        "files_moved":  13,
+                        "stats":  {
+                                      "PDF":  11,
+                                      "Image":  0,
+                                      "Video":  0,
+                                      "Audio":  0,
+                                      "Word":  2,
+                                      "Code":  0,
+                                      "Archive":  0,
+                                      "Other":  0,
+                                      "Errors":  0
+                                  }
+                    },
+                    {
+                        "batch_number":  49,
+                        "timestamp":  "2026-07-10T15:21:49.315870",
+                        "files_moved":  13,
+                        "stats":  {
+                                      "PDF":  11,
+                                      "Image":  0,
+                                      "Video":  0,
+                                      "Audio":  0,
+                                      "Word":  2,
+                                      "Code":  0,
+                                      "Archive":  0,
+                                      "Other":  0,
+                                      "Errors":  0
+                                  }
+                    }
+                ]
+}

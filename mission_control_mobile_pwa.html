@@ -1,0 +1,3712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#050505">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="description" content="Mission Control v9.1 - Mobile PWA Dashboard for @quentinvest1">
+    <meta name="application-name" content="Mission Control">
+    <meta name="msapplication-TileColor" content="#00d4ff">
+    <meta name="msapplication-tap-highlight" content="no">
+    
+    <title>@quentinvest1 | Mission Control v9.1</title>
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json" id="manifest-link">
+    
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="icons/icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/icon-180x180.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="icons/icon-167x167.png">
+    
+    <!-- Splash Screens -->
+    <link rel="apple-touch-startup-image" href="splash/launch-640x1136.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="splash/launch-750x1334.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="splash/launch-1242x2208.png" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="splash/launch-1125x2436.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="splash/launch-1170x2532.png" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="splash/launch-1290x2796.png" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3)">
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ============================================
+           CSS VARIABLES - Mission Control v9.1
+           ============================================ */
+        :root {
+            /* Background Colors */
+            --bg-primary: #050505;
+            --bg-secondary: #0a0a0a;
+            --bg-tertiary: #111111;
+            --bg-card: #141414;
+            --bg-elevated: #1a1a1a;
+            --bg-hover: #222222;
+            
+            /* Accent Colors */
+            --accent-cyan: #00d4ff;
+            --accent-green: #00ff88;
+            --accent-orange: #ff8800;
+            --accent-red: #ff3860;
+            --accent-purple: #bd34fe;
+            --accent-gold: #ffd700;
+            --accent-pink: #ff2d55;
+            --accent-teal: #00d4aa;
+            --accent-blue: #0a84ff;
+            --accent-indigo: #6366f1;
+            --accent-amber: #ffaa00;
+            
+            /* Text Colors */
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-tertiary: #6e6e6e;
+            --text-dim: #404040;
+            
+            /* Border & Glass */
+            --border-color: #1f1f1f;
+            --glass-bg: rgba(20, 20, 20, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            
+            /* Spacing & Touch */
+            --touch-target: 48px;
+            --safe-top: env(safe-area-inset-top, 0px);
+            --safe-bottom: env(safe-area-inset-bottom, 0px);
+            --safe-left: env(safe-area-inset-left, 0px);
+            --safe-right: env(safe-area-inset-right, 0px);
+            
+            /* Animation */
+            --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Bottom nav height */
+            --bottom-nav-height: 64px;
+            --header-height: 60px;
+            --status-bar-height: 24px;
+        }
+
+        /* ============================================
+           RESET & BASE STYLES
+           ============================================ */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overscroll-behavior: none;
+            height: 100%;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            min-height: 100dvh;
+            line-height: 1.5;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            padding-top: calc(var(--header-height) + var(--status-bar-height));
+            padding-bottom: calc(var(--bottom-nav-height) + var(--safe-bottom) + 16px);
+        }
+
+        /* ============================================
+           AMBIENT BACKGROUND EFFECTS
+           ============================================ */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(ellipse at 20% 20%, rgba(0, 212, 255, 0.05) 0%, transparent 40%),
+                radial-gradient(ellipse at 80% 80%, rgba(255, 170, 0, 0.03) 0%, transparent 40%),
+                radial-gradient(ellipse at 50% 50%, rgba(189, 52, 254, 0.03) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        .ambient-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(0, 212, 255, 0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.015) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Scanline Effect */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                transparent 50%,
+                rgba(0, 212, 255, 0.008) 50%
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.5;
+        }
+
+        /* ============================================
+           HEADER - Glass Morphism
+           ============================================ */
+        .app-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: calc(var(--header-height) + var(--status-bar-height));
+            padding-top: var(--status-bar-height);
+            background: var(--glass-bg);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border-bottom: 1px solid var(--glass-border);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-left: calc(16px + var(--safe-left));
+            padding-right: calc(16px + var(--safe-right));
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-container {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--accent-cyan);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+            animation: logo-pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes logo-pulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(0, 212, 255, 0.3); }
+            50% { box-shadow: 0 0 30px rgba(0, 212, 255, 0.5); }
+        }
+
+        .header-title-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header-title {
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .header-title span {
+            color: var(--accent-cyan);
+        }
+
+        .version-badge {
+            font-size: 10px;
+            padding: 2px 8px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            border-radius: 4px;
+            color: #fff;
+            font-weight: 700;
+            width: fit-content;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-btn {
+            width: var(--touch-target);
+            height: var(--touch-target);
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 18px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition-fast);
+            position: relative;
+        }
+
+        .header-btn:active {
+            background: var(--bg-hover);
+            transform: scale(0.95);
+        }
+
+        .header-btn.active {
+            color: var(--accent-cyan);
+        }
+
+        .notification-dot {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 8px;
+            height: 8px;
+            background: var(--accent-red);
+            border-radius: 50%;
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        /* Connection Status Indicator */
+        .connection-status {
+            position: fixed;
+            top: calc(var(--header-height) + var(--status-bar-height));
+            left: 0;
+            right: 0;
+            height: 4px;
+            z-index: 999;
+            transition: all var(--transition-normal);
+        }
+
+        .connection-status.online {
+            background: linear-gradient(90deg, var(--accent-green), var(--accent-teal));
+            opacity: 0;
+        }
+
+        .connection-status.offline {
+            background: linear-gradient(90deg, var(--accent-red), var(--accent-orange));
+            opacity: 1;
+        }
+
+        .connection-banner {
+            position: fixed;
+            top: calc(var(--header-height) + var(--status-bar-height));
+            left: 0;
+            right: 0;
+            padding: 8px 16px;
+            background: var(--accent-red);
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+            text-align: center;
+            z-index: 998;
+            transform: translateY(-100%);
+            transition: transform var(--transition-normal);
+        }
+
+        .connection-banner.show {
+            transform: translateY(0);
+        }
+
+        /* ============================================
+           OFFLINE MODE UI
+           ============================================ */
+        .offline-indicator {
+            position: fixed;
+            bottom: calc(var(--bottom-nav-height) + var(--safe-bottom) + 20px);
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--bg-elevated);
+            border: 1px solid var(--accent-orange);
+            padding: 12px 20px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent-orange);
+            z-index: 100;
+            opacity: 0;
+            transition: all var(--transition-normal);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .offline-indicator.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* ============================================
+           MAIN CONTAINER & SECTIONS
+           ============================================ */
+        .main-container {
+            padding: 16px;
+            max-width: 100%;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ============================================
+           GLASS MORPHISM CARDS
+           ============================================ */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 16px;
+            transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+        }
+
+        .glass-card:active {
+            transform: scale(0.995);
+        }
+
+        .glass-card.accent-cyan { border-top: 2px solid var(--accent-cyan); }
+        .glass-card.accent-green { border-top: 2px solid var(--accent-green); }
+        .glass-card.accent-orange { border-top: 2px solid var(--accent-orange); }
+        .glass-card.accent-purple { border-top: 2px solid var(--accent-purple); }
+        .glass-card.accent-red { border-top: 2px solid var(--accent-red); }
+
+        .card-header {
+            padding: 16px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-title {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-badge {
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 700;
+        }
+
+        .card-badge.live {
+            background: var(--accent-green);
+            color: var(--bg-primary);
+            animation: pulse-badge 2s infinite;
+        }
+
+        .card-badge.offline {
+            background: var(--accent-red);
+            color: white;
+        }
+
+        .card-badge.cached {
+            background: var(--accent-orange);
+            color: var(--bg-primary);
+        }
+
+        @keyframes pulse-badge {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .card-content {
+            padding: 16px;
+        }
+
+        /* ============================================
+           SWIPEABLE CONTENT CARDS
+           ============================================ */
+        .swipe-container {
+            position: relative;
+            overflow: hidden;
+            touch-action: pan-y;
+        }
+
+        .swipe-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 12px;
+            transition: transform var(--transition-fast);
+            cursor: grab;
+            position: relative;
+            user-select: none;
+        }
+
+        .swipe-card.dragging {
+            cursor: grabbing;
+            transition: none;
+        }
+
+        .swipe-card.swiped-left {
+            transform: translateX(-100px);
+        }
+
+        .swipe-actions {
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            padding-right: 16px;
+            gap: 8px;
+            opacity: 0;
+            transition: opacity var(--transition-fast);
+        }
+
+        .swipe-card.swiped-left + .swipe-actions,
+        .swipe-card.swiped-left .swipe-actions {
+            opacity: 1;
+        }
+
+        .swipe-action-btn {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+            transition: transform var(--transition-fast);
+        }
+
+        .swipe-action-btn.delete {
+            background: var(--accent-red);
+        }
+
+        .swipe-action-btn.edit {
+            background: var(--accent-blue);
+        }
+
+        .swipe-action-btn.share {
+            background: var(--accent-green);
+        }
+
+        .swipe-action-btn:active {
+            transform: scale(0.9);
+        }
+
+        /* ============================================
+           PULL TO REFRESH
+           ============================================ */
+        .pull-refresh {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pull-refresh-indicator {
+            position: absolute;
+            top: -60px;
+            left: 0;
+            right: 0;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: var(--accent-cyan);
+            transition: transform var(--transition-fast);
+        }
+
+        .pull-refresh.pulling .pull-refresh-indicator {
+            transform: translateY(60px);
+        }
+
+        .pull-refresh.refreshing .pull-refresh-indicator {
+            transform: translateY(60px);
+        }
+
+        .pull-refresh.refreshing .pull-refresh-indicator i {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* ============================================
+           STATS GRID
+           ============================================ */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
+        }
+
+        .stat-card.green::before {
+            background: linear-gradient(90deg, var(--accent-green), var(--accent-teal));
+        }
+
+        .stat-card.orange::before {
+            background: linear-gradient(90deg, var(--accent-orange), var(--accent-amber));
+        }
+
+        .stat-card.purple::before {
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-pink));
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-icon {
+            font-size: 16px;
+            color: var(--accent-cyan);
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            font-family: 'SF Mono', Monaco, monospace;
+        }
+
+        .stat-change {
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .stat-change.positive { color: var(--accent-green); }
+        .stat-change.negative { color: var(--accent-red); }
+
+        /* ============================================
+           QUICK ACTIONS BAR
+           ============================================ */
+        .quick-actions {
+            display: flex;
+            gap: 10px;
+            padding: 16px;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            overflow-x: auto;
+            scrollbar-width: none;
+            margin: -16px;
+            margin-bottom: 16px;
+            padding-left: calc(16px + var(--safe-left));
+            padding-right: calc(16px + var(--safe-right));
+        }
+
+        .quick-actions::-webkit-scrollbar { display: none; }
+
+        .quick-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            color: var(--text-primary);
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
+            min-height: var(--touch-target);
+            transition: all var(--transition-fast);
+            cursor: pointer;
+        }
+
+        .quick-btn:active {
+            transform: scale(0.95);
+            background: var(--accent-cyan);
+            color: var(--bg-primary);
+        }
+
+        .quick-btn.urgent {
+            background: linear-gradient(135deg, rgba(255, 56, 96, 0.2) 0%, rgba(189, 52, 254, 0.2) 100%);
+            border-color: var(--accent-red);
+            animation: pulse-urgent 2s infinite;
+        }
+
+        @keyframes pulse-urgent {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 56, 96, 0.4); }
+            50% { box-shadow: 0 0 0 8px rgba(255, 56, 96, 0); }
+        }
+
+        /* ============================================
+           FLOATING ACTION BUTTON (FAB)
+           ============================================ */
+        .fab-container {
+            position: fixed;
+            bottom: calc(var(--bottom-nav-height) + var(--safe-bottom) + 20px);
+            right: calc(20px + var(--safe-right));
+            z-index: 900;
+        }
+
+        .fab {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            border: none;
+            color: white;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.4);
+            transition: all var(--transition-fast);
+            cursor: pointer;
+        }
+
+        .fab:active {
+            transform: scale(0.95);
+            box-shadow: 0 4px 16px rgba(0, 212, 255, 0.3);
+        }
+
+        .fab.expanded {
+            transform: rotate(45deg);
+        }
+
+        .fab-menu {
+            position: absolute;
+            bottom: 72px;
+            right: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px);
+            transition: all var(--transition-normal);
+        }
+
+        .fab-menu.show {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        .fab-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+
+        .fab-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            background: var(--bg-elevated);
+            padding: 6px 12px;
+            border-radius: 8px;
+            white-space: nowrap;
+        }
+
+        .fab-action {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: white;
+            cursor: pointer;
+            transition: transform var(--transition-fast);
+        }
+
+        .fab-action:active {
+            transform: scale(0.9);
+        }
+
+        .fab-action.post { background: var(--accent-green); }
+        .fab-action.schedule { background: var(--accent-purple); }
+        .fab-action.draft { background: var(--accent-orange); }
+        .fab-action.idea { background: var(--accent-pink); }
+
+        /* ============================================
+           BOTTOM NAVIGATION
+           ============================================ */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: calc(var(--bottom-nav-height) + var(--safe-bottom));
+            padding-bottom: var(--safe-bottom);
+            background: var(--glass-bg);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .nav-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            height: var(--bottom-nav-height);
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 600;
+            transition: all var(--transition-fast);
+            position: relative;
+        }
+
+        .nav-item:active {
+            color: var(--accent-cyan);
+        }
+
+        .nav-item.active {
+            color: var(--accent-cyan);
+        }
+
+        .nav-item.active::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 3px;
+            background: var(--accent-cyan);
+            border-radius: 0 0 4px 4px;
+        }
+
+        .nav-icon {
+            font-size: 22px;
+            transition: transform var(--transition-fast);
+        }
+
+        .nav-item.active .nav-icon {
+            transform: translateY(-2px);
+        }
+
+        /* ============================================
+           TOAST NOTIFICATIONS
+           ============================================ */
+        .toast-container {
+            position: fixed;
+            top: calc(var(--header-height) + var(--status-bar-height) + 20px);
+            left: 16px;
+            right: 16px;
+            z-index: 1001;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            pointer-events: none;
+        }
+
+        .toast {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            transform: translateY(-100px);
+            opacity: 0;
+            transition: all var(--transition-normal);
+            pointer-events: auto;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast.success { border-left: 3px solid var(--accent-green); }
+        .toast.error { border-left: 3px solid var(--accent-red); }
+        .toast.warning { border-left: 3px solid var(--accent-orange); }
+        .toast.info { border-left: 3px solid var(--accent-cyan); }
+
+        .toast-icon {
+            font-size: 20px;
+        }
+
+        .toast.success .toast-icon { color: var(--accent-green); }
+        .toast.error .toast-icon { color: var(--accent-red); }
+        .toast.warning .toast-icon { color: var(--accent-orange); }
+        .toast.info .toast-icon { color: var(--accent-cyan); }
+
+        .toast-content {
+            flex: 1;
+        }
+
+        .toast-title {
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .toast-message {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .toast-close {
+            background: none;
+            border: none;
+            color: var(--text-tertiary);
+            font-size: 16px;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        /* ============================================
+           PUSH NOTIFICATION PERMISSION MODAL
+           ============================================ */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity var(--transition-normal);
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            width: 100%;
+            max-width: 340px;
+            overflow: hidden;
+            transform: scale(0.9) translateY(20px);
+            transition: transform var(--transition-normal);
+        }
+
+        .modal-overlay.show .modal {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-header {
+            padding: 24px 24px 16px;
+            text-align: center;
+        }
+
+        .modal-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: white;
+            margin: 0 auto 16px;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .modal-subtitle {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .modal-body {
+            padding: 0 24px 24px;
+        }
+
+        .modal-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .modal-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: var(--bg-tertiary);
+            border-radius: 12px;
+        }
+
+        .modal-item-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .modal-item-text {
+            flex: 1;
+        }
+
+        .modal-item-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .modal-item-desc {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: 12px;
+            padding: 0 24px 24px;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .modal-btn:active {
+            transform: scale(0.98);
+        }
+
+        .modal-btn.primary {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            color: white;
+        }
+
+        .modal-btn.secondary {
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+        }
+
+        /* ============================================
+           INSTALL PROMPT
+           ============================================ */
+        .install-banner {
+            position: fixed;
+            bottom: calc(var(--bottom-nav-height) + var(--safe-bottom) + 80px);
+            left: 16px;
+            right: 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            z-index: 950;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            transform: translateY(200px);
+            transition: transform var(--transition-normal);
+        }
+
+        .install-banner.show {
+            transform: translateY(0);
+        }
+
+        .install-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
+
+        .install-content {
+            flex: 1;
+        }
+
+        .install-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .install-subtitle {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .install-btn {
+            padding: 10px 20px;
+            background: var(--accent-cyan);
+            color: var(--bg-primary);
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .install-btn:active {
+            transform: scale(0.95);
+        }
+
+        .install-close {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: none;
+            border: none;
+            color: var(--text-tertiary);
+            font-size: 18px;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        /* ============================================
+           DASHBOARD SECTION CONTENT
+           ============================================ */
+        .welcome-card {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(189, 52, 254, 0.1) 100%);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .welcome-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, var(--text-primary), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .welcome-subtitle {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .welcome-stats {
+            display: flex;
+            gap: 20px;
+        }
+
+        .welcome-stat {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .welcome-stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            font-family: 'SF Mono', Monaco, monospace;
+        }
+
+        .welcome-stat-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
+
+        /* Activity Feed */
+        .activity-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .activity-icon.viral { background: rgba(0, 255, 136, 0.15); color: var(--accent-green); }
+        .activity-icon.mention { background: rgba(0, 212, 255, 0.15); color: var(--accent-cyan); }
+        .activity-icon.milestone { background: rgba(255, 170, 0, 0.15); color: var(--accent-amber); }
+        .activity-icon.scheduled { background: rgba(189, 52, 254, 0.15); color: var(--accent-purple); }
+
+        .activity-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .activity-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .activity-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+        }
+
+        .activity-time {
+            font-size: 11px;
+            color: var(--text-tertiary);
+        }
+
+        /* ============================================
+           CAMPAIGNS SECTION
+           ============================================ */
+        .campaign-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+
+        .campaign-header {
+            padding: 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .campaign-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .campaign-meta {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .campaign-progress {
+            padding: 16px;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+
+        .progress-bar-container {
+            height: 8px;
+            background: var(--bg-tertiary);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-bar-fill.cyan {
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
+        }
+
+        .progress-bar-fill.green {
+            background: linear-gradient(90deg, var(--accent-green), var(--accent-teal));
+        }
+
+        .progress-bar-fill.purple {
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-pink));
+        }
+
+        .campaign-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            padding: 0 16px 16px;
+        }
+
+        .campaign-stat {
+            text-align: center;
+            padding: 12px;
+            background: var(--bg-tertiary);
+            border-radius: 10px;
+        }
+
+        .campaign-stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            font-family: 'SF Mono', Monaco, monospace;
+        }
+
+        .campaign-stat-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        /* ============================================
+           SCHEDULER SECTION
+           ============================================ */
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .calendar-nav {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .calendar-btn {
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: var(--bg-tertiary);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .calendar-title {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .calendar-day-header {
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-secondary);
+            padding: 8px;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            position: relative;
+        }
+
+        .calendar-day:active {
+            transform: scale(0.95);
+        }
+
+        .calendar-day.today {
+            background: var(--accent-cyan);
+            color: var(--bg-primary);
+        }
+
+        .calendar-day.has-event::after {
+            content: '';
+            position: absolute;
+            bottom: 6px;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--accent-green);
+        }
+
+        .calendar-day.selected {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.3);
+        }
+
+        /* Time Slots */
+        .time-slots {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .time-slot {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+        }
+
+        .time-slot-time {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            width: 60px;
+            font-family: 'SF Mono', Monaco, monospace;
+        }
+
+        .time-slot-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .time-slot-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .time-slot-type {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .time-slot-status {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .time-slot-status.scheduled { background: var(--accent-purple); }
+        .time-slot-status.posted { background: var(--accent-green); }
+        .time-slot-status.draft { background: var(--accent-orange); }
+
+        /* ============================================
+           ANALYTICS SECTION
+           ============================================ */
+        .chart-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .chart-title {
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .chart-periods {
+            display: flex;
+            gap: 8px;
+        }
+
+        .chart-period {
+            padding: 6px 12px;
+            background: var(--bg-tertiary);
+            border: none;
+            border-radius: 8px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            cursor: pointer;
+        }
+
+        .chart-period.active {
+            background: var(--accent-cyan);
+            color: var(--bg-primary);
+        }
+
+        .mini-chart {
+            height: 100px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 6px;
+        }
+
+        .mini-chart-bar {
+            flex: 1;
+            background: linear-gradient(to top, var(--accent-cyan), var(--accent-blue));
+            border-radius: 4px 4px 0 0;
+            min-height: 10px;
+            transition: height 0.5s ease;
+        }
+
+        /* Performance Metrics */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .metric-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .metric-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .metric-value {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-family: 'SF Mono', Monaco, monospace;
+        }
+
+        .metric-sparkline {
+            height: 30px;
+            display: flex;
+            align-items: flex-end;
+            gap: 2px;
+        }
+
+        .metric-spark {
+            flex: 1;
+            background: var(--accent-cyan);
+            border-radius: 2px;
+            opacity: 0.6;
+        }
+
+        /* ============================================
+           SETTINGS SECTION
+           ============================================ */
+        .settings-group {
+            margin-bottom: 24px;
+        }
+
+        .settings-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            padding-left: 4px;
+        }
+
+        .settings-list {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .settings-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: background var(--transition-fast);
+        }
+
+        .settings-item:last-child {
+            border-bottom: none;
+        }
+
+        .settings-item:active {
+            background: var(--bg-hover);
+        }
+
+        .settings-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--bg-tertiary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--accent-cyan);
+        }
+
+        .settings-content {
+            flex: 1;
+        }
+
+        .settings-label {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .settings-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .settings-value {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* Toggle Switch */
+        .toggle {
+            width: 52px;
+            height: 30px;
+            background: var(--bg-tertiary);
+            border-radius: 15px;
+            position: relative;
+            cursor: pointer;
+            transition: background var(--transition-fast);
+        }
+
+        .toggle.active {
+            background: var(--accent-cyan);
+        }
+
+        .toggle-thumb {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            transition: transform var(--transition-fast);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .toggle.active .toggle-thumb {
+            transform: translateX(22px);
+        }
+
+        /* PWA Status Card */
+        .pwa-status-card {
+            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-tertiary) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .pwa-status-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .pwa-status-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
+
+        .pwa-status-info {
+            flex: 1;
+        }
+
+        .pwa-status-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .pwa-status-version {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .pwa-indicators {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .pwa-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            background: var(--bg-primary);
+            border-radius: 10px;
+        }
+
+        .pwa-indicator-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+
+        .pwa-indicator-status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .pwa-indicator-status.online {
+            color: var(--accent-green);
+        }
+
+        .pwa-indicator-status.offline {
+            color: var(--accent-red);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+
+        .status-dot.pulse {
+            animation: status-pulse 2s infinite;
+        }
+
+        @keyframes status-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Performance Dashboard */
+        .perf-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .perf-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .perf-score {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            position: relative;
+        }
+
+        .perf-score.excellent {
+            background: rgba(0, 255, 136, 0.15);
+            color: var(--accent-green);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+        }
+
+        .perf-score.good {
+            background: rgba(0, 212, 255, 0.15);
+            color: var(--accent-cyan);
+        }
+
+        .perf-score.needs-improvement {
+            background: rgba(255, 170, 0, 0.15);
+            color: var(--accent-amber);
+        }
+
+        .perf-info {
+            flex: 1;
+        }
+
+        .perf-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .perf-subtitle {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .perf-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .perf-metric {
+            text-align: center;
+            padding: 12px;
+            background: var(--bg-tertiary);
+            border-radius: 10px;
+        }
+
+        .perf-metric-value {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            font-family: 'SF Mono', Monaco, monospace;
+        }
+
+        .perf-metric-value.good { color: var(--accent-green); }
+        .perf-metric-value.needs { color: var(--accent-amber); }
+        .perf-metric-value.poor { color: var(--accent-red); }
+
+        .perf-metric-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        /* ============================================
+           LONG PRESS MENU
+           ============================================ */
+        .context-menu {
+            position: fixed;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 8px 0;
+            min-width: 180px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            z-index: 3000;
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.95);
+            transition: all var(--transition-fast);
+        }
+
+        .context-menu.show {
+            opacity: 1;
+            pointer-events: auto;
+            transform: scale(1);
+        }
+
+        .context-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background var(--transition-fast);
+        }
+
+        .context-item:hover {
+            background: var(--bg-hover);
+        }
+
+        .context-item.danger {
+            color: var(--accent-red);
+        }
+
+        .context-divider {
+            height: 1px;
+            background: var(--border-color);
+            margin: 8px 0;
+        }
+
+        /* Long press ripple */
+        .long-press-ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(0, 212, 255, 0.3);
+            transform: scale(0);
+            pointer-events: none;
+            animation: ripple 0.6s ease-out;
+        }
+
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* ============================================
+           ANIMATIONS & UTILITIES
+           ============================================ */
+        .fade-in {
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .slide-up {
+            animation: slideUp 0.4s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .skeleton {
+            background: linear-gradient(90deg, var(--bg-tertiary) 25%, var(--bg-hover) 50%, var(--bg-tertiary) 75%);
+            background-size: 200% 100%;
+            animation: skeleton-loading 1.5s infinite;
+        }
+
+        @keyframes skeleton-loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Utility classes */
+        .text-gradient {
+            background: linear-gradient(135deg, var(--text-primary), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .text-cyan { color: var(--accent-cyan); }
+        .text-green { color: var(--accent-green); }
+        .text-orange { color: var(--accent-orange); }
+        .text-red { color: var(--accent-red); }
+        .text-purple { color: var(--accent-purple); }
+        .text-secondary { color: var(--text-secondary); }
+
+        .hidden { display: none !important; }
+
+        /* ============================================
+           SCROLLBAR STYLES
+           ============================================ */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-tertiary);
+        }
+
+        /* ============================================
+           DESKTOP ADAPTATIONS
+           ============================================ */
+        @media (min-width: 768px) {
+            .main-container {
+                max-width: 800px;
+                margin: 0 auto;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .fab-container {
+                right: calc(50% - 380px);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .main-container {
+                max-width: 1000px;
+            }
+
+            .dashboard-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+
+            .fab-container {
+                right: calc(50% - 480px);
+            }
+        }
+
+        /* ============================================
+           REDUCED MOTION
+           ============================================ */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* ============================================
+           DARK MODE SUPPORT (System Override)
+           ============================================ */
+        @media (prefers-color-scheme: light) {
+            /* Keep dark theme regardless of system preference */
+        }
+    </style>
+</head>
+<body>
+    <!-- Ambient Background -->
+    <div class="ambient-grid"></div>
+    <div class="scanlines"></div>
+
+    <!-- Connection Status Bar -->
+    <div class="connection-status online" id="connectionStatusBar"></div>
+    <div class="connection-banner" id="connectionBanner">
+        <i class="fas fa-wifi-slash"></i> You're offline. Some features may be limited.
+    </div>
+
+    <!-- Offline Indicator -->
+    <div class="offline-indicator" id="offlineIndicator">
+        <i class="fas fa-cloud"></i>
+        <span>Cached data mode</span>
+    </div>
+
+    <!-- App Header -->
+    <header class="app-header">
+        <div class="header-brand">
+            <div class="logo-container">🐾</div>
+            <div class="header-title-group">
+                <div class="header-title">Mission <span>Control</span></div>
+                <div class="version-badge">v9.1</div>
+            </div>
+        </div>
+        <div class="header-actions">
+            <button class="header-btn" id="notificationBtn" aria-label="Notifications">
+                <i class="fas fa-bell"></i>
+                <span class="notification-dot hidden" id="notificationDot"></span>
+            </button>
+            <button class="header-btn" id="syncBtn" aria-label="Sync">
+                <i class="fas fa-sync-alt" id="syncIcon"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Main Container -->
+    <main class="main-container" id="mainContainer">
+        
+        <!-- DASHBOARD SECTION -->
+        <section class="section active" id="section-dashboard">
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+                <button class="quick-btn urgent" onclick="showCreateModal()">
+                    <i class="fas fa-fire"></i> Post Now
+                </button>
+                <button class="quick-btn" onclick="copyQuickHook()">
+                    <i class="fas fa-copy"></i> Copy Hook
+                </button>
+                <button class="quick-btn" onclick="navigateTo('campaigns')">
+                    <i class="fas fa-bullseye"></i> Engage
+                </button>
+                <button class="quick-btn" onclick="navigateTo('analytics')">
+                    <i class="fas fa-chart-line"></i> Stats
+                </button>
+            </div>
+
+            <!-- Welcome Card -->
+            <div class="welcome-card">
+                <div class="welcome-title">Welcome back, Commander</div>
+                <div class="welcome-subtitle">Your mission dashboard is ready. 3 campaigns active.</div>
+                <div class="welcome-stats">
+                    <div class="welcome-stat">
+                        <div class="welcome-stat-value" id="dashFollowers">213</div>
+                        <div class="welcome-stat-label">Followers</div>
+                    </div>
+                    <div class="welcome-stat">
+                        <div class="welcome-stat-value" id="dashEngagement">4.9%</div>
+                        <div class="welcome-stat-label">Engagement</div>
+                    </div>
+                    <div class="welcome-stat">
+                        <div class="welcome-stat-value" id="dashScheduled">5</div>
+                        <div class="welcome-stat-label">Scheduled</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Impressions</span>
+                        <i class="fas fa-eye stat-icon"></i>
+                    </div>
+                    <div class="stat-value text-cyan">2.4K</div>
+                    <div class="stat-change positive">
+                        <i class="fas fa-arrow-up"></i> 12.5%
+                    </div>
+                </div>
+                <div class="stat-card green">
+                    <div class="stat-header">
+                        <span class="stat-label">Engagement</span>
+                        <i class="fas fa-heart stat-icon text-green"></i>
+                    </div>
+                    <div class="stat-value text-green">847</div>
+                    <div class="stat-change positive">
+                        <i class="fas fa-arrow-up"></i> 8.3%
+                    </div>
+                </div>
+                <div class="stat-card orange">
+                    <div class="stat-header">
+                        <span class="stat-label">Clicks</span>
+                        <i class="fas fa-mouse-pointer stat-icon text-orange"></i>
+                    </div>
+                    <div class="stat-value text-orange">156</div>
+                    <div class="stat-change positive">
+                        <i class="fas fa-arrow-up"></i> 5.2%
+                    </div>
+                </div>
+                <div class="stat-card purple">
+                    <div class="stat-header">
+                        <span class="stat-label">Viral Score</span>
+                        <i class="fas fa-rocket stat-icon text-purple"></i>
+                    </div>
+                    <div class="stat-value text-purple">8.7</div>
+                    <div class="stat-change positive">
+                        <i class="fas fa-arrow-up"></i> 1.2
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="glass-card accent-cyan">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fas fa-bolt"></i> Recent Activity
+                    </div>
+                    <div class="card-badge live">LIVE</div>
+                </div>
+                <div class="card-content pull-refresh" id="activityFeed">
+                    <div class="pull-refresh-indicator">
+                        <i class="fas fa-spinner"></i>
+                    </div>
+                    <div class="activity-list">
+                        <div class="activity-item" data-long-press>
+                            <div class="activity-icon viral">
+                                <i class="fas fa-fire"></i>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-title">Post going viral!</div>
+                                <div class="activity-desc">Your "HIMS Infrastructure" thread hit 1.2K views</div>
+                                <div class="activity-time">2 minutes ago</div>
+                            </div>
+                        </div>
+                        <div class="activity-item" data-long-press>
+                            <div class="activity-icon mention">
+                                <i class="fas fa-at"></i>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-title">New mention from @sama</div>
+                                <div class="activity-desc">Sam Altman replied to your ETH thread</div>
+                                <div class="activity-time">15 minutes ago</div>
+                            </div>
+                        </div>
+                        <div class="activity-item" data-long-press>
+                            <div class="activity-icon milestone">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-title">Campaign milestone reached</div>
+                                <div class="activity-desc">Q3 Growth campaign: 75% complete</div>
+                                <div class="activity-time">1 hour ago</div>
+                            </div>
+                        </div>
+                        <div class="activity-item" data-long-press>
+                            <div class="activity-icon scheduled">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-title">Post scheduled</div>
+                                <div class="activity-desc">"AI Commerce Analysis" set for tomorrow 9am</div>
+                                <div class="activity-time">3 hours ago</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CAMPAIGNS SECTION -->
+        <section class="section" id="section-campaigns">
+            <div class="glass-card accent-green">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fas fa-bullhorn"></i> Active Campaigns
+                    </div>
+                    <div class="card-badge live">3 RUNNING</div>
+                </div>
+                <div class="card-content">
+                    <div class="swipe-container" id="campaignsList">
+                        <!-- Campaign 1 -->
+                        <div class="swipe-card" data-swipe>
+                            <div class="campaign-card" style="margin-bottom: 0;">
+                                <div class="campaign-header">
+                                    <div class="campaign-title">Q3 Growth Sprint</div>
+                                    <div class="campaign-meta">Jul 1 - Sep 30 • Twitter/X</div>
+                                </div>
+                                <div class="campaign-progress">
+                                    <div class="progress-info">
+                                        <span>Progress</span>
+                                        <span class="text-cyan">75%</span>
+                                    </div>
+                                    <div class="progress-bar-container">
+                                        <div class="progress-bar-fill cyan" style="width: 75%;"></div>
+                                    </div>
+                                </div>
+                                <div class="campaign-stats">
+                                    <div class="campaign-stat">
+                                        <div class="campaign-stat-value">2.1K</div>
+                                        <div class="campaign-stat-label">Impressions</div>
+                                    </div>
+                                    <div class="campaign-stat">
+                                        <div class="campaign-stat-value">847</div>
+                                        <div class="campaign-stat-label">Engagement</div>
+                                    </div>
+                                    <div class="campaign-stat">
+                                        <div class="campaign-stat-value">+23</div>
+                                        <div class="campaign-stat-label">Followers</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Campaign 2 -->
+                        <div class="swipe-card" data-swipe>
+                            <div class="campaign-card" style="margin-bottom: 0;">
+                                <div class="campaign-header">
+                                    <div class="campaign-title">Healthcare Deep Dive</div>
+                                    <div class="campaign-meta">Jul 10 - Jul 24 • Multi-platform</div>
+                                </div>
+                                <div class="campaign-progress">
+                                    <div class="progress-info">
+                                        <span>Progress</span>
+                                        <span class="text-green">45%</span>
+                                    </div>
+                                    <div class="progress-bar-container">
+                                        <div class="progress-bar-fill green" style="width: 45%;"></div>
+                                    </div>
+                                </div>
+                                <div class="campaign-stats">
+                                    <div class="campaign-stat">
+                                        <div class="campaign-stat-value">890</div>
+                                        <div class="campaign-stat-label">Impressions</div>
+                                    </div>
+                                    <div class="campaign-stat">
+                                        <div class="campaign-stat-value">234</div>
+                                        <div class="campaign-stat-label">Engagement</div>
+                                    </div>
+                                    <div class="campaign-stat">
+                                        <div class="campaign-stat-value">+8</div>
+                                        <div class="campaign-stat-label">Followers</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Campaign 3 -->
+                        <div class="swipe-card" data-swipe>
+                            <div class="campaign-card" style="margin-bottom: 0;">
+                                <div class="campaign-header">
+                                    <div class="campaign-title">AI Commerce Series</div>
+                                    <div class="campaign-meta">Jul 15 - Aug 15 • LinkedIn</div>
+                                </div>
+                                <div class="campaign-progress">
+                                    <div class="progress-info">
+                                        <span>Progress</span>
+                                        <span class="text-purple">20%</span>
+                                    </div>
+                                    <div class="progress-bar-container">
+                                        <div class="progress-bar-fill purple" style="width: 20%;"></div>
+                                    </div>
+                                </div>
+                                <div class="campaign-stats">
+                                    <div class="campaign-stat">
+                                        <div class="campaign-stat-value">456</div>
+                                        <div class="campaign-stat-label">Impressions</div>
+                                    </div>
+                                    <div class="campaign-stat">
+                                        <div class="campaign-stat-value">89</div>
+                                        <div class="campaign-stat-label">Engagement</div>
+                                    </div>
+                                    <div class="campaign-stat">
+                                        <div class="campaign-stat-value">+3</div>
+                                        <div class="campaign-stat-label">Followers</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Campaign Templates -->
+            <div class="glass-card accent-purple">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fas fa-layer-group"></i> Quick Templates
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="quick-actions" style="padding: 0; margin: 0;">
+                        <button class="quick-btn">
+                            <i class="fas fa-bolt"></i> Viral Thread
+                        </button>
+                        <button class="quick-btn">
+                            <i class="fas fa-reply"></i> Reply Campaign
+                        </button>
+                        <button class="quick-btn">
+                            <i class="fas fa-chart-bar"></i> Data Story
+                        </button>
+                        <button class="quick-btn">
+                            <i class="fas fa-question-circle"></i> AMA Series
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCHEDULER SECTION -->
+        <section class="section" id="section-scheduler">
+            <div class="glass-card accent-cyan">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fas fa-calendar-alt"></i> Content Calendar
+                    </div>
+                    <div class="card-badge" id="calendarBadge">5 POSTS</div>
+                </div>
+                <div class="card-content">
+                    <div class="calendar-header">
+                        <div class="calendar-nav">
+                            <button class="calendar-btn" onclick="changeMonth(-1)">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <div class="calendar-title" id="calendarTitle">July 2025</div>
+                            <button class="calendar-btn" onclick="changeMonth(1)">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                        <button class="calendar-btn" onclick="goToToday()">
+                            <i class="fas fa-calendar-day"></i>
+                        </button>
+                    </div>
+
+                    <div class="calendar-grid" id="calendarGrid">
+                        <!-- Days generated by JS -->
+                    </div>
+
+                    <div class="time-slots" id="timeSlots">
+                        <div class="time-slot" data-long-press>
+                            <div class="time-slot-time">09:00</div>
+                            <div class="time-slot-content">
+                                <div class="time-slot-title">AI Commerce Analysis Thread</div>
+                                <div class="time-slot-type">🤖 AI • 5 tweets</div>
+                            </div>
+                            <div class="time-slot-status scheduled"></div>
+                        </div>
+                        <div class="time-slot" data-long-press>
+                            <div class="time-slot-time">12:00</div>
+                            <div class="time-slot-content">
+                                <div class="time-slot-title">Reply to @TheLongInvestor</div>
+                                <div class="time-slot-type">💎 ETH Treasury</div>
+                            </div>
+                            <div class="time-slot-status scheduled"></div>
+                        </div>
+                        <div class="time-slot" data-long-press>
+                            <div class="time-slot-time">15:00</div>
+                            <div class="time-slot-content">
+                                <div class="time-slot-title">Healthcare Infrastructure Deep Dive</div>
+                                <div class="time-slot-type">🏥 HIMS • 8 tweets</div>
+                            </div>
+                            <div class="time-slot-status draft"></div>
+                        </div>
+                        <div class="time-slot" data-long-press>
+                            <div class="time-slot-time">18:00</div>
+                            <div class="time-slot-content">
+                                <div class="time-slot-title">Market Analysis: DeFi Yields</div>
+                                <div class="time-slot-type">📊 Data • 4 tweets</div>
+                            </div>
+                            <div class="time-slot-status draft"></div>
+                        </div>
+                        <div class="time-slot" data-long-press>
+                            <div class="time-slot-time">21:00</div>
+                            <div class="time-slot-content">
+                                <div class="time-slot-title">Weekend Reflection Thread</div>
+                                <div class="time-slot-type">🧠 Thoughts • 3 tweets</div>
+                            </div>
+                            <div class="time-slot-status scheduled"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ANALYTICS SECTION -->
+        <section class="section" id="section-analytics">
+            <!-- Performance Score -->
+            <div class="perf-card">
+                <div class="perf-header">
+                    <div class="perf-score excellent">92</div>
+                    <div class="perf-info">
+                        <div class="perf-title">Performance Score</div>
+                        <div class="perf-subtitle">Based on Core Web Vitals & engagement</div>
+                    </div>
+                </div>
+                <div class="perf-metrics">
+                    <div class="perf-metric">
+                        <div class="perf-metric-value good">0.8s</div>
+                        <div class="perf-metric-label">LCP</div>
+                    </div>
+                    <div class="perf-metric">
+                        <div class="perf-metric-value good">0.05s</div>
+                        <div class="perf-metric-label">FID</div>
+                    </div>
+                    <div class="perf-metric">
+                        <div class="perf-metric-value good">0.01</div>
+                        <div class="perf-metric-label">CLS</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Engagement Chart -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <div class="chart-title">Engagement Over Time</div>
+                    <div class="chart-periods">
+                        <button class="chart-period active">7D</button>
+                        <button class="chart-period">30D</button>
+                        <button class="chart-period">90D</button>
+                    </div>
+                </div>
+                <div class="mini-chart" id="engagementChart">
+                    <!-- Bars generated by JS -->
+                </div>
+            </div>
+
+            <!-- Metrics Grid -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-label">Follower Growth</div>
+                    <div class="metric-value text-green">+47</div>
+                    <div class="metric-sparkline">
+                        <div class="metric-spark" style="height: 30%;"></div>
+                        <div class="metric-spark" style="height: 50%;"></div>
+                        <div class="metric-spark" style="height: 40%;"></div>
+                        <div class="metric-spark" style="height: 70%;"></div>
+                        <div class="metric-spark" style="height: 60%;"></div>
+                        <div class="metric-spark" style="height: 90%;"></div>
+                        <div class="metric-spark" style="height: 100%;"></div>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Avg Engagement</div>
+                    <div class="metric-value text-cyan">4.9%</div>
+                    <div class="metric-sparkline">
+                        <div class="metric-spark" style="height: 40%;"></div>
+                        <div class="metric-spark" style="height: 60%;"></div>
+                        <div class="metric-spark" style="height: 55%;"></div>
+                        <div class="metric-spark" style="height: 70%;"></div>
+                        <div class="metric-spark" style="height: 65%;"></div>
+                        <div class="metric-spark" style="height: 80%;"></div>
+                        <div class="metric-spark" style="height: 85%;"></div>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Viral Coefficient</div>
+                    <div class="metric-value text-purple">1.34</div>
+                    <div class="metric-sparkline">
+                        <div class="metric-spark" style="height: 20%;"></div>
+                        <div class="metric-spark" style="height: 40%;"></div>
+                        <div class="metric-spark" style="height: 35%;"></div>
+                        <div class="metric-spark" style="height: 60%;"></div>
+                        <div class="metric-spark" style="height: 80%;"></div>
+                        <div class="metric-spark" style="height: 70%;"></div>
+                        <div class="metric-spark" style="height: 90%;"></div>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Best Post Time</div>
+                    <div class="metric-value text-orange">9:00 AM</div>
+                    <div class="metric-sparkline">
+                        <div class="metric-spark" style="height: 80%;"></div>
+                        <div class="metric-spark" style="height: 40%;"></div>
+                        <div class="metric-spark" style="height: 30%;"></div>
+                        <div class="metric-spark" style="height: 60%;"></div>
+                        <div class="metric-spark" style="height: 50%;"></div>
+                        <div class="metric-spark" style="height: 90%;"></div>
+                        <div class="metric-spark" style="height: 70%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top Performing Content -->
+            <div class="glass-card accent-gold">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fas fa-crown"></i> Top Performing
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="activity-list">
+                        <div class="activity-item" data-long-press>
+                            <div class="activity-icon viral">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-title">HIMS Infrastructure Thread</div>
+                                <div class="activity-desc">1.2K views • 89 engagements • 8.7 score</div>
+                                <div class="activity-time">Posted 2 days ago</div>
+                            </div>
+                        </div>
+                        <div class="activity-item" data-long-press>
+                            <div class="activity-icon mention">
+                                <i class="fas fa-medal"></i>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-title">ETH as Treasury Analysis</div>
+                                <div class="activity-desc">856 views • 67 engagements • 7.9 score</div>
+                                <div class="activity-time">Posted 5 days ago</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SETTINGS SECTION -->
+        <section class="section" id="section-settings">
+            <!-- PWA Status Card -->
+            <div class="pwa-status-card">
+                <div class="pwa-status-header">
+                    <div class="pwa-status-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div class="pwa-status-info">
+                        <div class="pwa-status-title">Mission Control PWA</div>
+                        <div class="pwa-status-version">Version 9.1.0 • Build 2025.07.13</div>
+                    </div>
+                </div>
+                <div class="pwa-indicators">
+                    <div class="pwa-indicator">
+                        <div class="pwa-indicator-label">
+                            <i class="fas fa-wifi text-cyan"></i>
+                            Connection Status
+                        </div>
+                        <div class="pwa-indicator-status online" id="pwaConnectionStatus">
+                            <span class="status-dot pulse"></span>
+                            Online
+                        </div>
+                    </div>
+                    <div class="pwa-indicator">
+                        <div class="pwa-indicator-label">
+                            <i class="fas fa-bell text-cyan"></i>
+                            Push Notifications
+                        </div>
+                        <div class="pwa-indicator-status online" id="pwaPushStatus">
+                            <span class="status-dot"></span>
+                            <span id="pushStatusText">Allowed</span>
+                        </div>
+                    </div>
+                    <div class="pwa-indicator">
+                        <div class="pwa-indicator-label">
+                            <i class="fas fa-hdd text-cyan"></i>
+                            Cache Storage
+                        </div>
+                        <div class="pwa-indicator-status online" id="pwaCacheStatus">
+                            <span class="status-dot"></span>
+                            <span id="cacheSize">2.4 MB</span>
+                        </div>
+                    </div>
+                    <div class="pwa-indicator">
+                        <div class="pwa-indicator-label">
+                            <i class="fas fa-cog text-cyan"></i>
+                            Service Worker
+                        </div>
+                        <div class="pwa-indicator-status online" id="pwaSwStatus">
+                            <span class="status-dot pulse"></span>
+                            Active
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notifications Settings -->
+            <div class="settings-group">
+                <div class="settings-title">Notifications</div>
+                <div class="settings-list">
+                    <div class="settings-item" onclick="toggleSetting(this)">
+                        <div class="settings-icon">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <div class="settings-content">
+                            <div class="settings-label">Viral Content Alerts</div>
+                            <div class="settings-desc">Get notified when posts go viral</div>
+                        </div>
+                        <div class="toggle active" data-toggle>
+                            <div class="toggle-thumb"></div>
+                        </div>
+                    </div>
+                    <div class="settings-item" onclick="toggleSetting(this)">
+                        <div class="settings-icon">
+                            <i class="fas fa-at"></i>
+                        </div>
+                        <div class="settings-content">
+                            <div class="settings-label">Mentions & Replies</div>
+                            <div class="settings-desc">Important account interactions</div>
+                        </div>
+                        <div class="toggle active" data-toggle>
+                            <div class="toggle-thumb"></div>
+                        </div>
+                    </div>
+                    <div class="settings-item" onclick="toggleSetting(this)">
+                        <div class="settings-icon">
+                            <i class="fas fa-flag-checkered"></i>
+                        </div>
+                        <div class="settings-content">
+                            <div class="settings-label">Campaign Milestones</div>
+                            <div class="settings-desc">Reach goals and achievements</div>
+                        </div>
+                        <div class="toggle active" data-toggle>
+                            <div class="toggle-thumb"></div>
+                        </div>
+                    </div>
+                    <div class="settings-item" onclick="toggleSetting(this)">
+                        <div class="settings-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="settings-content">
+                            <div class="settings-label">Scheduled Post Reminders</div>
+                            <div class="settings-desc">Before posts go live</div>
+                        </div>
+                        <div class="toggle" data-toggle>
+                            <div class="toggle-thumb"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Appearance Settings -->
+            <div class="settings-group">
+                <div class="settings-title">Appearance</div>
+                <div class="settings-list">
+                    <div class="settings-item" onclick="toggleSetting(this)">
+                        <div class="settings-icon">
+                            <i class="fas fa-moon"></i>
+                        </div>
+                        <div class="settings-content">
+                            <div class="settings-label">Dark Mode</div>
+                            <div class="settings-desc">Always on for Mission Control</div>
+                        </div>
+                        <div class="toggle active" data-toggle>
+                            <div class="toggle-thumb"></div>
+                        </div>
+                    </div>
+                    <div class="settings-item" onclick="toggleSetting(this)">
+                        <div class="settings-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <div class="settings-content">
+                            <div class="settings-label">Animations</div>
+                            <div class="settings-desc">UI transitions and effects</div>
+                        </div>
+                        <div class="toggle active" data-toggle>
+                            <div class="toggle-thumb"></div>
+                        </div>
+                    </div>
+                    <div class="settings-item" onclick="toggleSetting(this)">
+                        <div class="settings-icon">
+                            <i class="fas fa-compress"></i>
+                        </div>
+                        <div class="settings-content">
+                            <div class="settings-label">Compact Mode</div>
+                            <div class="settings-desc">Smaller cards and spacing</div>
+                        </div>
+                        <div class="toggle" data-toggle>
+                            <div class="toggle-thumb"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data & Privacy -->
+            <div class="settings-group">
+                <div class="settings-title">Data & Privacy</div>
+                <div class="settings-list">
+                    <div class="settings-item" onclick="clearCache()">
+                        <div class="settings-icon">
+                            <i class="fas fa-trash-alt"></i>
+                        </div>
+                        <div class="settings-content">
+                            <div class="settings-label">Clear Cache</div>
+                            <div class="settings-desc">Remove cached data and images</div>
+                        </div>
+                        <div class="settings-value">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                    <div class="settings-item" onclick="exportData()">
+                        <div class="settings-icon">
+                            <i class="fas fa-download"></i>
+                        </div>
+                        <div class="settings-content">
+                            <div class="settings-label">Export Data</div>
+                            <div class="settings-desc">Download your analytics history</div>
+                        </div>
+                        <div class="settings-value">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                    <div class="settings-item" onclick="showPushPermissionModal()">
+                        <div class="settings-icon">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <div class="settings-content">
+                            <div class="settings-label">Push Notification Settings</div>
+                            <div class="settings-desc">Manage browser permissions</div>
+                        </div>
+                        <div class="settings-value">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- About -->
+            <div class="settings-group">
+                <div class="settings-title">About</div>
+                <div class="settings-list">
+                    <div class="settings-item">
+                        <div class="settings-icon">
+                            <i class="fas fa-info-circle"></i>
+                        </div>
+                        <div class="settings-content">
+                            <div class="settings-label">Version</div>
+                            <div class="settings-desc">9.1.0 (Build 2025.07.13)</div>
+                        </div>
+                    </div>
+                    <div class="settings-item">
+                        <div class="settings-icon">
+                            <i class="fas fa-code-branch"></i>
+                        </div>
+                        <div class="settings-content">
+                            <div class="settings-label">Last Updated</div>
+                            <div class="settings-desc" id="lastUpdated">July 13, 2025</div>
+                        </div>
+                    </div>
+                    <div class="settings-item" onclick="checkForUpdates()">
+                        <div class="settings-icon">
+                            <i class="fas fa-sync"></i>
+                        </div>
+                        <div class="settings-content">
+                            <div class="settings-label">Check for Updates</div>
+                            <div class="settings-desc">Verify latest version</div>
+                        </div>
+                        <div class="settings-value">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="height: 40px;"></div>
+        </section>
+    </main>
+
+    <!-- Floating Action Button -->
+    <div class="fab-container">
+        <div class="fab-menu" id="fabMenu">
+            <div class="fab-item">
+                <span class="fab-label">New Idea</span>
+                <button class="fab-action idea" onclick="createNew('idea')">
+                    <i class="fas fa-lightbulb"></i>
+                </button>
+            </div>
+            <div class="fab-item">
+                <span class="fab-label">Save Draft</span>
+                <button class="fab-action draft" onclick="createNew('draft')">
+                    <i class="fas fa-save"></i>
+                </button>
+            </div>
+            <div class="fab-item">
+                <span class="fab-label">Schedule</span>
+                <button class="fab-action schedule" onclick="createNew('schedule')">
+                    <i class="fas fa-calendar-plus"></i>
+                </button>
+            </div>
+            <div class="fab-item">
+                <span class="fab-label">Post Now</span>
+                <button class="fab-action post" onclick="createNew('post')">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+        <button class="fab" id="fabBtn" onclick="toggleFab()">
+            <i class="fas fa-plus"></i>
+        </button>
+    </div>
+
+    <!-- Install Banner -->
+    <div class="install-banner" id="installBanner">
+        <button class="install-close" onclick="dismissInstallBanner()">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="install-icon">🐾</div>
+        <div class="install-content">
+            <div class="install-title">Add Mission Control</div>
+            <div class="install-subtitle">Install for offline access & push notifications</div>
+        </div>
+        <button class="install-btn" onclick="installPWA()">Install</button>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="#" class="nav-item active" data-section="dashboard" onclick="navigateTo('dashboard', event)">
+            <i class="fas fa-home nav-icon"></i>
+            <span>Dashboard</span>
+        </a>
+        <a href="#" class="nav-item" data-section="campaigns" onclick="navigateTo('campaigns', event)">
+            <i class="fas fa-bullhorn nav-icon"></i>
+            <span>Campaigns</span>
+        </a>
+        <a href="#" class="nav-item" data-section="scheduler" onclick="navigateTo('scheduler', event)">
+            <i class="fas fa-calendar-alt nav-icon"></i>
+            <span>Scheduler</span>
+        </a>
+        <a href="#" class="nav-item" data-section="analytics" onclick="navigateTo('analytics', event)">
+            <i class="fas fa-chart-line nav-icon"></i>
+            <span>Analytics</span>
+        </a>
+        <a href="#" class="nav-item" data-section="settings" onclick="navigateTo('settings', event)">
+            <i class="fas fa-cog nav-icon"></i>
+            <span>Settings</span>
+        </a>
+    </nav>
+
+    <!-- Push Notification Permission Modal -->
+    <div class="modal-overlay" id="pushModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-icon">
+                    <i class="fas fa-bell"></i>
+                </div>
+                <div class="modal-title">Stay in the Mission Loop</div>
+                <div class="modal-subtitle">Enable push notifications to never miss important updates about your campaigns.</div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-list">
+                    <div class="modal-item">
+                        <div class="modal-item-icon" style="background: rgba(0, 255, 136, 0.15); color: var(--accent-green);">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <div class="modal-item-text">
+                            <div class="modal-item-title">Viral Content Alerts</div>
+                            <div class="modal-item-desc">Know immediately when posts take off</div>
+                        </div>
+                    </div>
+                    <div class="modal-item">
+                        <div class="modal-item-icon" style="background: rgba(0, 212, 255, 0.15); color: var(--accent-cyan);">
+                            <i class="fas fa-at"></i>
+                        </div>
+                        <div class="modal-item-text">
+                            <div class="modal-item-title">Mention Notifications</div>
+                            <div class="modal-item-desc">Respond quickly to important replies</div>
+                        </div>
+                    </div>
+                    <div class="modal-item">
+                        <div class="modal-item-icon" style="background: rgba(189, 52, 254, 0.15); color: var(--accent-purple);">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="modal-item-text">
+                            <div class="modal-item-title">Campaign Milestones</div>
+                            <div class="modal-item-desc">Celebrate wins and track progress</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn secondary" onclick="dismissPushModal()">Not Now</button>
+                <button class="modal-btn primary" onclick="enablePushNotifications()">Enable Notifications</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Context Menu -->
+    <div class="context-menu" id="contextMenu">
+        <div class="context-item" onclick="contextAction('edit')">
+            <i class="fas fa-edit"></i> Edit
+        </div>
+        <div class="context-item" onclick="contextAction('share')">
+            <i class="fas fa-share-alt"></i> Share
+        </div>
+        <div class="context-item" onclick="contextAction('duplicate')">
+            <i class="fas fa-copy"></i> Duplicate
+        </div>
+        <div class="context-divider"></div>
+        <div class="context-item danger" onclick="contextAction('delete')">
+            <i class="fas fa-trash-alt"></i> Delete
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // PWA & SERVICE WORKER REGISTRATION
+        // ============================================
+        
+        let deferredPrompt = null;
+        let swRegistration = null;
+
+        // Register Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', async () => {
+                try {
+                    swRegistration = await navigator.serviceWorker.register('sw.js');
+                    console.log('SW registered:', swRegistration.scope);
+                    updateSWStatus('Active');
+                    
+                    // Listen for updates
+                    swRegistration.addEventListener('updatefound', () => {
+                        const newWorker = swRegistration.installing;
+                        newWorker.addEventListener('statechange', () => {
+                            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                showToast('Update available! Refresh to apply.', 'info');
+                            }
+                        });
+                    });
+                } catch (error) {
+                    console.error('SW registration failed:', error);
+                    updateSWStatus('Failed');
+                }
+            });
+
+            // Listen for messages from SW
+            navigator.serviceWorker.addEventListener('message', (event) => {
+                if (event.data.type === 'SYNC_COMPLETE') {
+                    showToast('Data synced successfully', 'success');
+                    document.getElementById('syncIcon').classList.remove('fa-spin');
+                }
+            });
+        }
+
+        // Before Install Prompt
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            showInstallBanner();
+        });
+
+        // App Installed
+        window.addEventListener('appinstalled', () => {
+            deferredPrompt = null;
+            hideInstallBanner();
+            showToast('Mission Control installed!', 'success');
+        });
+
+        // ============================================
+        // ONLINE/OFFLINE HANDLING
+        // ============================================
+        
+        function updateOnlineStatus() {
+            const isOnline = navigator.onLine;
+            const connectionBar = document.getElementById('connectionStatusBar');
+            const connectionBanner = document.getElementById('connectionBanner');
+            const offlineIndicator = document.getElementById('offlineIndicator');
+            const pwaStatus = document.getElementById('pwaConnectionStatus');
+
+            if (isOnline) {
+                connectionBar.classList.remove('offline');
+                connectionBar.classList.add('online');
+                connectionBanner.classList.remove('show');
+                offlineIndicator.classList.remove('show');
+                pwaStatus.classList.remove('offline');
+                pwaStatus.classList.add('online');
+                pwaStatus.innerHTML = '<span class="status-dot pulse"></span> Online';
+            } else {
+                connectionBar.classList.remove('online');
+                connectionBar.classList.add('offline');
+                connectionBanner.classList.add('show');
+                offlineIndicator.classList.add('show');
+                pwaStatus.classList.remove('online');
+                pwaStatus.classList.add('offline');
+                pwaStatus.innerHTML = '<span class="status-dot"></span> Offline';
+                showToast('You\'re offline. Using cached data.', 'warning');
+            }
+        }
+
+        window.addEventListener('online', updateOnlineStatus);
+        window.addEventListener('offline', updateOnlineStatus);
+
+        // ============================================
+        // NAVIGATION
+        // ============================================
+        
+        function navigateTo(section, event) {
+            if (event) event.preventDefault();
+            
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            
+            // Show selected section
+            document.getElementById(`section-${section}`).classList.add('active');
+            document.querySelector(`.nav-item[data-section="${section}"]`).classList.add('active');
+            
+            // Close FAB menu if open
+            closeFab();
+            
+            // Update header if needed
+            updateHeaderForSection(section);
+        }
+
+        function updateHeaderForSection(section) {
+            const titles = {
+                dashboard: 'Mission Control',
+                campaigns: 'Campaigns',
+                scheduler: 'Scheduler',
+                analytics: 'Analytics',
+                settings: 'Settings'
+            };
+            // Could update header title here if needed
+        }
+
+        // ============================================
+        // FLOATING ACTION BUTTON
+        // ============================================
+        
+        function toggleFab() {
+            const fab = document.getElementById('fabBtn');
+            const menu = document.getElementById('fabMenu');
+            
+            fab.classList.toggle('expanded');
+            menu.classList.toggle('show');
+        }
+
+        function closeFab() {
+            const fab = document.getElementById('fabBtn');
+            const menu = document.getElementById('fabMenu');
+            
+            fab.classList.remove('expanded');
+            menu.classList.remove('show');
+        }
+
+        function createNew(type) {
+            closeFab();
+            const messages = {
+                post: 'Opening composer...',
+                schedule: 'Opening scheduler...',
+                draft: 'Creating draft...',
+                idea: 'Capturing idea...'
+            };
+            showToast(messages[type] || 'Creating...', 'info');
+        }
+
+        // ============================================
+        // TOAST NOTIFICATIONS
+        // ============================================
+        
+        function showToast(message, type = 'info', duration = 3000) {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            
+            const icons = {
+                success: 'check-circle',
+                error: 'exclamation-circle',
+                warning: 'exclamation-triangle',
+                info: 'info-circle'
+            };
+            
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                <i class="fas fa-${icons[type]} toast-icon"></i>
+                <div class="toast-content">${message}</div>
+                <button class="toast-close" onclick="this.parentElement.remove()">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            container.appendChild(toast);
+            
+            // Trigger animation
+            requestAnimationFrame(() => {
+                toast.classList.add('show');
+            });
+            
+            // Auto remove
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, duration);
+        }
+
+        // ============================================
+        // INSTALL BANNER
+        // ============================================
+        
+        function showInstallBanner() {
+            // Only show if not already installed
+            if (!window.matchMedia('(display-mode: standalone)').matches && 
+                !window.navigator.standalone) {
+                setTimeout(() => {
+                    document.getElementById('installBanner').classList.add('show');
+                }, 3000);
+            }
+        }
+
+        function hideInstallBanner() {
+            document.getElementById('installBanner').classList.remove('show');
+        }
+
+        function dismissInstallBanner() {
+            hideInstallBanner();
+            localStorage.setItem('installBannerDismissed', Date.now());
+        }
+
+        async function installPWA() {
+            if (!deferredPrompt) {
+                showToast('Installation not available', 'error');
+                return;
+            }
+            
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            
+            if (outcome === 'accepted') {
+                showToast('Installing Mission Control...', 'success');
+            }
+            
+            deferredPrompt = null;
+            hideInstallBanner();
+        }
+
+        // ============================================
+        // PUSH NOTIFICATIONS
+        // ============================================
+        
+        function showPushPermissionModal() {
+            document.getElementById('pushModal').classList.add('show');
+        }
+
+        function dismissPushModal() {
+            document.getElementById('pushModal').classList.remove('show');
+        }
+
+        async function enablePushNotifications() {
+            dismissPushModal();
+            
+            if (!('Notification' in window)) {
+                showToast('Push notifications not supported', 'error');
+                updatePushStatus('Not Supported');
+                return;
+            }
+            
+            try {
+                const permission = await Notification.requestPermission();
+                
+                if (permission === 'granted') {
+                    subscribeToPush();
+                    updatePushStatus('Allowed');
+                    showToast('Push notifications enabled!', 'success');
+                } else {
+                    updatePushStatus('Blocked');
+                    showToast('Push notifications blocked', 'warning');
+                }
+            } catch (error) {
+                console.error('Push permission error:', error);
+                updatePushStatus('Error');
+            }
+        }
+
+        async function subscribeToPush() {
+            if (!swRegistration) return;
+            
+            try {
+                const subscription = await swRegistration.pushManager.subscribe({
+                    userVisibleOnly: true,
+                    applicationServerKey: urlBase64ToUint8Array(
+                        'BEl62iOMsaU4MxPvlmG9L7a1t9_7A7FJj8Jq6vZr9xOQmVJ8xM3QyZ0b1nKx9yL7w5mN3pQr6sT9vW2yZ4aBcD5eF6gH7'
+                    )
+                });
+                
+                console.log('Push subscription:', subscription);
+            } catch (error) {
+                console.error('Push subscription failed:', error);
+            }
+        }
+
+        function updatePushStatus(status) {
+            const el = document.getElementById('pwaPushStatus');
+            const text = document.getElementById('pushStatusText');
+            const dot = el.querySelector('.status-dot');
+            
+            text.textContent = status;
+            
+            if (status === 'Allowed') {
+                el.classList.add('online');
+                el.classList.remove('offline');
+                dot.classList.add('pulse');
+            } else {
+                el.classList.remove('online');
+                el.classList.add('offline');
+                dot.classList.remove('pulse');
+            }
+        }
+
+        function urlBase64ToUint8Array(base64String) {
+            const padding = '='.repeat((4 - base64String.length % 4) % 4);
+            const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+            const rawData = window.atob(base64);
+            return Uint8Array.from([...rawData].map(char => char.charCodeAt(0)));
+        }
+
+        // ============================================
+        // SWIPE GESTURES
+        // ============================================
+        
+        let swipeStartX = 0;
+        let swipeCurrentX = 0;
+        let swipingElement = null;
+
+        document.querySelectorAll('[data-swipe]').forEach(el => {
+            el.addEventListener('touchstart', handleSwipeStart, { passive: true });
+            el.addEventListener('touchmove', handleSwipeMove, { passive: true });
+            el.addEventListener('touchend', handleSwipeEnd, { passive: true });
+            el.addEventListener('mousedown', handleSwipeStart);
+            el.addEventListener('mousemove', handleSwipeMove);
+            el.addEventListener('mouseup', handleSwipeEnd);
+        });
+
+        function handleSwipeStart(e) {
+            swipeStartX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+            swipingElement = e.currentTarget;
+            swipingElement.classList.add('dragging');
+        }
+
+        function handleSwipeMove(e) {
+            if (!swipingElement) return;
+            
+            swipeCurrentX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+            const deltaX = swipeCurrentX - swipeStartX;
+            
+            if (deltaX < 0) {
+                swipingElement.style.transform = `translateX(${Math.max(deltaX, -100)}px)`;
+            }
+        }
+
+        function handleSwipeEnd(e) {
+            if (!swipingElement) return;
+            
+            const deltaX = swipeCurrentX - swipeStartX;
+            
+            if (deltaX < -50) {
+                swipingElement.classList.add('swiped-left');
+                swipingElement.style.transform = '';
+            } else {
+                swipingElement.classList.remove('swiped-left');
+                swipingElement.style.transform = '';
+            }
+            
+            swipingElement.classList.remove('dragging');
+            swipingElement = null;
+        }
+
+        // ============================================
+        // PULL TO REFRESH
+        // ============================================
+        
+        let pullStartY = 0;
+        let pullCurrentY = 0;
+        let pullElement = null;
+        let isPulling = false;
+
+        document.querySelectorAll('.pull-refresh').forEach(el => {
+            el.addEventListener('touchstart', handlePullStart, { passive: true });
+            el.addEventListener('touchmove', handlePullMove, { passive: true });
+            el.addEventListener('touchend', handlePullEnd, { passive: true });
+        });
+
+        function handlePullStart(e) {
+            pullElement = e.currentTarget;
+            const scrollTop = pullElement.scrollTop;
+            
+            if (scrollTop === 0) {
+                pullStartY = e.touches[0].clientY;
+                isPulling = true;
+            }
+        }
+
+        function handlePullMove(e) {
+            if (!isPulling) return;
+            
+            pullCurrentY = e.touches[0].clientY;
+            const deltaY = pullCurrentY - pullStartY;
+            
+            if (deltaY > 0 && deltaY < 100) {
+                pullElement.parentElement.classList.add('pulling');
+            }
+        }
+
+        function handlePullEnd(e) {
+            if (!isPulling) return;
+            
+            const deltaY = pullCurrentY - pullStartY;
+            
+            if (deltaY > 60) {
+                pullElement.parentElement.classList.add('refreshing');
+                refreshData();
+            }
+            
+            pullElement.parentElement.classList.remove('pulling');
+            isPulling = false;
+            pullElement = null;
+        }
+
+        function refreshData() {
+            setTimeout(() => {
+                document.querySelectorAll('.pull-refresh').forEach(el => {
+                    el.parentElement.classList.remove('refreshing');
+                });
+                showToast('Data refreshed', 'success');
+            }, 1500);
+        }
+
+        // ============================================
+        // LONG PRESS ACTIONS
+        // ============================================
+        
+        let longPressTimer = null;
+        let longPressTarget = null;
+        const contextMenu = document.getElementById('contextMenu');
+
+        document.querySelectorAll('[data-long-press]').forEach(el => {
+            el.addEventListener('touchstart', handleLongPressStart, { passive: true });
+            el.addEventListener('touchend', handleLongPressEnd);
+            el.addEventListener('touchmove', handleLongPressEnd);
+            el.addEventListener('contextmenu', (e) => e.preventDefault());
+            el.addEventListener('mousedown', handleLongPressStart);
+            el.addEventListener('mouseup', handleLongPressEnd);
+        });
+
+        function handleLongPressStart(e) {
+            longPressTarget = e.currentTarget;
+            
+            // Add ripple effect
+            const rect = longPressTarget.getBoundingClientRect();
+            const ripple = document.createElement('div');
+            ripple.className = 'long-press-ripple';
+            ripple.style.width = ripple.style.height = '50px';
+            ripple.style.left = (e.type.includes('touch') ? e.touches[0].clientX : e.clientX) - rect.left - 25 + 'px';
+            ripple.style.top = (e.type.includes('touch') ? e.touches[0].clientY : e.clientY) - rect.top - 25 + 'px';
+            longPressTarget.appendChild(ripple);
+            
+            longPressTimer = setTimeout(() => {
+                showContextMenu(e);
+                ripple.remove();
+            }, 500);
+        }
+
+        function handleLongPressEnd(e) {
+            if (longPressTimer) {
+                clearTimeout(longPressTimer);
+                longPressTimer = null;
+            }
+            
+            const ripple = longPressTarget?.querySelector('.long-press-ripple');
+            if (ripple) ripple.remove();
+        }
+
+        function showContextMenu(e) {
+            const x = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+            const y = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+            
+            contextMenu.style.left = Math.min(x, window.innerWidth - 200) + 'px';
+            contextMenu.style.top = Math.min(y, window.innerHeight - 200) + 'px';
+            contextMenu.classList.add('show');
+            
+            // Haptic feedback if available
+            if (navigator.vibrate) navigator.vibrate(50);
+        }
+
+        function contextAction(action) {
+            contextMenu.classList.remove('show');
+            showToast(`${action.charAt(0).toUpperCase() + action.slice(1)} action triggered`, 'info');
+        }
+
+        // Close context menu on tap outside
+        document.addEventListener('click', (e) => {
+            if (!contextMenu.contains(e.target)) {
+                contextMenu.classList.remove('show');
+            }
+        });
+
+        // ============================================
+        // CALENDAR
+        // ============================================
+        
+        let currentMonth = new Date();
+        const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'];
+        const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+        function renderCalendar() {
+            const grid = document.getElementById('calendarGrid');
+            const title = document.getElementById('calendarTitle');
+            
+            title.textContent = `${monthNames[currentMonth.getMonth()]} ${currentMonth.getFullYear()}`;
+            
+            grid.innerHTML = '';
+            
+            // Day headers
+            dayNames.forEach(day => {
+                const header = document.createElement('div');
+                header.className = 'calendar-day-header';
+                header.textContent = day;
+                grid.appendChild(header);
+            });
+            
+            const firstDay = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1).getDay();
+            const daysInMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0).getDate();
+            const today = new Date();
+            
+            // Empty cells
+            for (let i = 0; i < firstDay; i++) {
+                const empty = document.createElement('div');
+                grid.appendChild(empty);
+            }
+            
+            // Days
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayEl = document.createElement('div');
+                dayEl.className = 'calendar-day';
+                dayEl.textContent = day;
+                
+                if (day === today.getDate() && 
+                    currentMonth.getMonth() === today.getMonth() &&
+                    currentMonth.getFullYear() === today.getFullYear()) {
+                    dayEl.classList.add('today');
+                }
+                
+                // Random events for demo
+                if ([2, 5, 8, 12, 15, 18, 22, 25, 28].includes(day)) {
+                    dayEl.classList.add('has-event');
+                }
+                
+                dayEl.addEventListener('click', () => selectDate(dayEl, day));
+                grid.appendChild(dayEl);
+            }
+        }
+
+        function changeMonth(delta) {
+            currentMonth.setMonth(currentMonth.getMonth() + delta);
+            renderCalendar();
+        }
+
+        function goToToday() {
+            currentMonth = new Date();
+            renderCalendar();
+        }
+
+        function selectDate(el, day) {
+            document.querySelectorAll('.calendar-day').forEach(d => d.classList.remove('selected'));
+            el.classList.add('selected');
+            showToast(`Selected July ${day}, 2025`, 'info');
+        }
+
+        // ============================================
+        // CHARTS
+        // ============================================
+        
+        function renderEngagementChart() {
+            const chart = document.getElementById('engagementChart');
+            const data = [45, 62, 55, 78, 65, 89, 92];
+            
+            chart.innerHTML = '';
+            data.forEach((value, i) => {
+                const bar = document.createElement('div');
+                bar.className = 'mini-chart-bar';
+                bar.style.height = '0%';
+                
+                // Stagger animation
+                setTimeout(() => {
+                    bar.style.height = value + '%';
+                }, i * 100);
+                
+                chart.appendChild(bar);
+            });
+        }
+
+        // ============================================
+        // SETTINGS
+        // ============================================
+        
+        function toggleSetting(el) {
+            const toggle = el.querySelector('[data-toggle]');
+            if (toggle) {
+                toggle.classList.toggle('active');
+                const isActive = toggle.classList.contains('active');
+                const label = el.querySelector('.settings-label').textContent;
+                showToast(`${label} ${isActive ? 'enabled' : 'disabled'}`, 'info');
+            }
+        }
+
+        function clearCache() {
+            if ('caches' in window) {
+                caches.keys().then(names => {
+                    names.forEach(name => caches.delete(name));
+                });
+            }
+            document.getElementById('cacheSize').textContent = '0 B';
+            showToast('Cache cleared', 'success');
+        }
+
+        function exportData() {
+            showToast('Preparing data export...', 'info');
+            setTimeout(() => {
+                showToast('Analytics data exported!', 'success');
+            }, 1500);
+        }
+
+        function checkForUpdates() {
+            showToast('Checking for updates...', 'info');
+            setTimeout(() => {
+                showToast('You\'re on the latest version!', 'success');
+            }, 1500);
+        }
+
+        function updateSWStatus(status) {
+            const el = document.getElementById('pwaSwStatus');
+            el.innerHTML = `<span class="status-dot ${status === 'Active' ? 'pulse' : ''}"></span> ${status}`;
+            if (status !== 'Active') {
+                el.classList.remove('online');
+                el.classList.add('offline');
+            }
+        }
+
+        // ============================================
+        // UTILITIES
+        // ============================================
+        
+        function copyQuickHook() {
+            const hook = "The drug gets the headlines. The infrastructure play is HIMS — telehealth rails for GLP-1 delivery. $725M revenue, Novo Nordisk deal locked.";
+            
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(hook).then(() => {
+                    showToast('Hook copied to clipboard!', 'success');
+                });
+            } else {
+                showToast('Hook: ' + hook.substring(0, 50) + '...', 'info');
+            }
+        }
+
+        function showCreateModal() {
+            showToast('Opening composer...', 'info');
+        }
+
+        // Sync button
+        document.getElementById('syncBtn').addEventListener('click', () => {
+            const icon = document.getElementById('syncIcon');
+            icon.classList.add('fa-spin');
+            
+            // Trigger background sync if available
+            if ('serviceWorker' in navigator && 'sync' in window) {
+                navigator.serviceWorker.ready.then(reg => {
+                    return reg.sync.register('sync-data');
+                });
+            }
+            
+            setTimeout(() => {
+                icon.classList.remove('fa-spin');
+                showToast('Synced successfully', 'success');
+            }, 1500);
+        });
+
+        // ============================================
+        // INITIALIZATION
+        // ============================================
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize states
+            updateOnlineStatus();
+            renderCalendar();
+            renderEngagementChart();
+            
+            // Check notification permission
+            if ('Notification' in window) {
+                const perm = Notification.permission;
+                updatePushStatus(perm === 'granted' ? 'Allowed' : 
+                                perm === 'denied' ? 'Blocked' : 'Ask');
+            }
+            
+            // Update cache size estimate
+            if ('storage' in navigator && 'estimate' in navigator.storage) {
+                navigator.storage.estimate().then(estimate => {
+                    const usage = (estimate.usage / 1024 / 1024).toFixed(1);
+                    document.getElementById('cacheSize').textContent = `${usage} MB`;
+                });
+            }
+            
+            // Chart period buttons
+            document.querySelectorAll('.chart-period').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.chart-period').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    renderEngagementChart();
+                });
+            });
+            
+            // Check if install banner was dismissed
+            const dismissed = localStorage.getItem('installBannerDismissed');
+            if (dismissed && Date.now() - parseInt(dismissed) < 7 * 24 * 60 * 60 * 1000) {
+                // Don't show for 7 days after dismissal
+            }
+            
+            console.log('Mission Control v9.1 initialized');
+        });
+
+        // Visibility API - pause/resume animations
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                document.body.classList.add('paused');
+            } else {
+                document.body.classList.remove('paused');
+            }
+        });
+    </script>
+</body>
+</html>

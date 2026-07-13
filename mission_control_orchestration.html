@@ -1,0 +1,1448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@quentinvest1 | Advanced Orchestration v7.3</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg-primary: #050505;
+            --bg-secondary: #0a0a0a;
+            --bg-tertiary: #111111;
+            --bg-card: #141414;
+            --bg-hover: #1a1a1a;
+            --accent-cyan: #00d4ff;
+            --accent-green: #00ff88;
+            --accent-orange: #ff8800;
+            --accent-red: #ff3860;
+            --accent-purple: #bd34fe;
+            --accent-gold: #ffd700;
+            --accent-pink: #ff2d55;
+            --accent-teal: #00d4aa;
+            --accent-blue: #0a84ff;
+            --accent-indigo: #6366f1;
+            --accent-amber: #ffaa00;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-tertiary: #6e6e6e;
+            --text-dim: #404040;
+            --border-color: #1f1f1f;
+            --glass-bg: rgba(20, 20, 20, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.08);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(0, 212, 255, 0.06) 0%, transparent 40%),
+                radial-gradient(ellipse at 80% 80%, rgba(255, 170, 0, 0.04) 0%, transparent 40%),
+                radial-gradient(ellipse at 50% 50%, rgba(189, 52, 254, 0.03) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .ambient-grid {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 212, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Navigation */
+        .top-nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 64px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(24px) saturate(180%);
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 1.5rem;
+            z-index: 100;
+        }
+
+        .nav-left { display: flex; align-items: center; gap: 1rem; }
+        .logo { display: flex; align-items: center; gap: 0.5rem; font-weight: 600; font-size: 1.1rem; }
+        .version-tag { 
+            font-size: 0.7rem; 
+            padding: 0.2rem 0.5rem; 
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-indigo)); 
+            border-radius: 4px; 
+            color: #fff; 
+            font-weight: 700; 
+        }
+
+        .nav-links { display: flex; gap: 0.25rem; }
+        .nav-link {
+            padding: 0.5rem 0.75rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.8rem;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .nav-link:hover { color: var(--text-primary); background: var(--bg-tertiary); }
+        .nav-link.active { color: var(--accent-purple); background: rgba(189, 52, 254, 0.1); }
+
+        .nav-right { display: flex; align-items: center; gap: 1rem; }
+        .orchestration-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-indigo));
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .orchestration-toggle:hover { transform: scale(1.02); box-shadow: 0 4px 20px rgba(189, 52, 254, 0.4); }
+        .orchestration-toggle.orchestrating { animation: orchestration-pulse 2s infinite; }
+        
+        @keyframes orchestration-pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(189, 52, 254, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(189, 52, 254, 0); }
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: calc(64px + 1.5rem) 1.5rem 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Workflow Builder */
+        .workflow-builder {
+            display: grid;
+            grid-template-columns: 280px 1fr 300px;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .component-palette {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1rem;
+        }
+
+        .palette-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .palette-section {
+            margin-bottom: 1rem;
+        }
+
+        .palette-section-title {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .palette-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 0.75rem;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            margin-bottom: 0.4rem;
+            cursor: grab;
+            transition: all 0.2s ease;
+            font-size: 0.8rem;
+        }
+        .palette-item:hover {
+            background: var(--bg-hover);
+            transform: translateX(4px);
+        }
+        .palette-item .icon { font-size: 1rem; }
+
+        /* Workflow Canvas */
+        .workflow-canvas {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            min-height: 500px;
+        }
+
+        .canvas-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .canvas-title {
+            font-size: 1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .canvas-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .canvas-btn {
+            padding: 0.4rem 0.8rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .canvas-btn:hover {
+            background: var(--bg-hover);
+            color: var(--text-primary);
+        }
+        .canvas-btn.primary {
+            background: var(--accent-purple);
+            color: #fff;
+            border-color: var(--accent-purple);
+        }
+        .canvas-btn.primary:hover {
+            background: var(--accent-indigo);
+            box-shadow: 0 0 15px rgba(189, 52, 254, 0.4);
+        }
+
+        /* Workflow Steps */
+        .workflow-container {
+            position: relative;
+            padding: 1rem 0;
+        }
+
+        .workflow-step {
+            display: flex;
+            align-items: stretch;
+            margin-bottom: 0.75rem;
+            position: relative;
+        }
+
+        .step-connector {
+            width: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            z-index: 2;
+        }
+        .step-number.completed { 
+            background: var(--accent-green); 
+            border-color: var(--accent-green);
+            color: var(--bg-primary);
+        }
+        .step-number.running { 
+            background: var(--accent-purple); 
+            border-color: var(--accent-purple);
+            color: #fff;
+            animation: step-pulse 1.5s infinite;
+        }
+        .step-number.failed { 
+            background: var(--accent-red); 
+            border-color: var(--accent-red);
+            color: #fff;
+        }
+        .step-number.rollback { 
+            background: var(--accent-orange); 
+            border-color: var(--accent-orange);
+            color: #fff;
+        }
+
+        @keyframes step-pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(189, 52, 254, 0.4); }
+            50% { box-shadow: 0 0 0 8px rgba(189, 52, 254, 0); }
+        }
+
+        .step-line {
+            width: 2px;
+            flex: 1;
+            background: var(--border-color);
+            margin-top: -2px;
+        }
+        .step-line.completed { background: var(--accent-green); }
+        .step-line.running { 
+            background: linear-gradient(180deg, var(--accent-purple), var(--accent-indigo));
+        }
+
+        .step-card {
+            flex: 1;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 0.875rem 1rem;
+            margin-left: 0.75rem;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .step-card:hover {
+            border-color: var(--accent-purple);
+            box-shadow: 0 4px 20px rgba(189, 52, 254, 0.15);
+        }
+        .step-card.running {
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 30px rgba(189, 52, 254, 0.2);
+        }
+        .step-card.failed {
+            border-color: var(--accent-red);
+            background: rgba(255, 56, 96, 0.05);
+        }
+        .step-card.rollback {
+            border-color: var(--accent-orange);
+            background: rgba(255, 136, 0, 0.05);
+        }
+
+        .step-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .step-type {
+            font-size: 0.7rem;
+            padding: 0.15rem 0.4rem;
+            background: rgba(189, 52, 254, 0.15);
+            color: var(--accent-purple);
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        .step-type.trigger { background: rgba(0, 212, 255, 0.15); color: var(--accent-cyan); }
+        .step-type.action { background: rgba(0, 255, 136, 0.15); color: var(--accent-green); }
+        .step-type.condition { background: rgba(255, 170, 0, 0.15); color: var(--accent-amber); }
+        .step-type.ai { background: rgba(189, 52, 254, 0.15); color: var(--accent-purple); }
+        .step-type.data { background: rgba(99, 102, 241, 0.15); color: var(--accent-indigo); }
+
+        .step-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+        }
+
+        .step-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .step-actions {
+            display: flex;
+            gap: 0.3rem;
+            margin-top: 0.5rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .step-action-btn {
+            padding: 0.25rem 0.5rem;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            color: var(--text-tertiary);
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .step-action-btn:hover {
+            background: var(--bg-hover);
+            color: var(--text-primary);
+        }
+        .step-action-btn.retry { color: var(--accent-green); border-color: var(--accent-green); }
+        .step-action-btn.rollback { color: var(--accent-orange); border-color: var(--accent-orange); }
+        .step-action-btn.skip { color: var(--text-secondary); }
+
+        /* Properties Panel */
+        .properties-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1rem;
+        }
+
+        .panel-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .prop-group {
+            margin-bottom: 1rem;
+        }
+
+        .prop-label {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            margin-bottom: 0.35rem;
+        }
+
+        .prop-input {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-size: 0.8rem;
+            transition: all 0.2s ease;
+        }
+        .prop-input:focus {
+            outline: none;
+            border-color: var(--accent-purple);
+        }
+
+        .prop-select {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        .prop-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            background: var(--bg-tertiary);
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .toggle-switch {
+            width: 36px;
+            height: 20px;
+            background: var(--text-dim);
+            border-radius: 10px;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+        .toggle-switch.active { background: var(--accent-green); }
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 16px;
+            height: 16px;
+            background: #fff;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+        .toggle-switch.active::after { left: 18px; }
+
+        /* Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .metric-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.25rem;
+            transition: all 0.2s ease;
+        }
+        .metric-card:hover {
+            border-color: var(--accent-purple);
+            transform: translateY(-2px);
+        }
+
+        .metric-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .metric-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+        .metric-icon.purple { background: rgba(189, 52, 254, 0.15); }
+        .metric-icon.green { background: rgba(0, 255, 136, 0.15); }
+        .metric-icon.cyan { background: rgba(0, 212, 255, 0.15); }
+        .metric-icon.orange { background: rgba(255, 136, 0, 0.15); }
+
+        .metric-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .metric-change {
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        .metric-change.positive { color: var(--accent-green); }
+        .metric-change.negative { color: var(--accent-red); }
+
+        /* Active Workflows */
+        .workflows-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.25rem;
+        }
+
+        .workflows-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .workflow-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.875rem 1rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            transition: all 0.2s ease;
+        }
+        .workflow-item:hover {
+            border-color: var(--accent-purple);
+        }
+
+        .workflow-status {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .workflow-status.running { 
+            background: var(--accent-purple);
+            animation: status-pulse 1.5s infinite;
+        }
+        .workflow-status.completed { background: var(--accent-green); }
+        .workflow-status.failed { background: var(--accent-red); }
+        .workflow-status.paused { background: var(--accent-amber); }
+
+        @keyframes status-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .workflow-info {
+            flex: 1;
+        }
+
+        .workflow-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .workflow-meta {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+        }
+
+        .workflow-progress {
+            width: 120px;
+            height: 6px;
+            background: var(--bg-secondary);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .workflow-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-indigo));
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+
+        .workflow-actions {
+            display: flex;
+            gap: 0.3rem;
+        }
+
+        .wf-action-btn {
+            padding: 0.35rem 0.6rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            color: var(--text-secondary);
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .wf-action-btn:hover { background: var(--bg-hover); color: var(--text-primary); }
+
+        /* Reinforcement Learning Panel */
+        .rl-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-top: 1rem;
+        }
+
+        .rl-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .rl-title {
+            font-size: 1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .rl-badge {
+            padding: 0.2rem 0.5rem;
+            background: rgba(0, 255, 136, 0.15);
+            color: var(--accent-green);
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .rl-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .rl-stat {
+            text-align: center;
+            padding: 0.75rem;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+        }
+
+        .rl-stat-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.2rem;
+        }
+        .rl-stat-value.positive { color: var(--accent-green); }
+
+        .rl-stat-label {
+            font-size: 0.7rem;
+            color: var(--text-tertiary);
+        }
+
+        .experiment-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .experiment-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.6rem 0.75rem;
+            background: var(--bg-tertiary);
+            border-radius: 6px;
+            font-size: 0.8rem;
+        }
+
+        .experiment-variant {
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        .experiment-variant.a { background: rgba(0, 212, 255, 0.15); color: var(--accent-cyan); }
+        .experiment-variant.b { background: rgba(189, 52, 254, 0.15); color: var(--accent-purple); }
+
+        .experiment-name { flex: 1; }
+        .experiment-winrate { color: var(--accent-green); font-weight: 600; }
+
+        /* Toast Notifications */
+        .toast-container {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .toast {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            padding: 1rem 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            min-width: 320px;
+            animation: slide-in 0.3s ease;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        @keyframes slide-in {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .toast-icon { font-size: 1.25rem; }
+        .toast-content { flex: 1; }
+        .toast-title { font-weight: 600; font-size: 0.9rem; margin-bottom: 0.2rem; }
+        .toast-message { font-size: 0.8rem; color: var(--text-secondary); }
+        .toast-close { opacity: 0.5; cursor: pointer; transition: opacity 0.2s; }
+        .toast-close:hover { opacity: 1; }
+
+        /* Responsive */
+        @media (max-width: 1400px) {
+            .workflow-builder { grid-template-columns: 240px 1fr 260px; }
+        }
+
+        @media (max-width: 1100px) {
+            .workflow-builder { grid-template-columns: 1fr; }
+            .component-palette, .properties-panel { display: none; }
+            .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .metrics-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            .rl-stats { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="ambient-grid"></div>
+    
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <div class="nav-left">
+            <div class="logo">
+                <span>🎯</span>
+                <span>Mission Control</span>
+                <span class="version-tag">v7.3</span>
+            </div>
+            <div class="nav-links">
+                <a href="mission_control_command_center.html" class="nav-link">Overview</a>
+                <a href="mission_control_engagement_live.html" class="nav-link">Live</a>
+                <a href="mission_control_predictive_intelligence.html" class="nav-link">Predict</a>
+                <a href="mission_control_strategic.html" class="nav-link">Strategy</a>
+                <a href="mission_control_voice.html" class="nav-link">Voice</a>
+                <a href="mission_control_agents.html" class="nav-link">Agents</a>
+                <a href="mission_control_autonomous.html" class="nav-link">Auto</a>
+                <a href="mission_control_federated.html" class="nav-link">Network</a>
+                <a href="mission_control_external.html" class="nav-link">Data</a>
+                <a href="mission_control_orchestration.html" class="nav-link active">Flow</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <button class="orchestration-toggle orchestrating" id="orchestrationToggle">
+                <span>⚡</span>
+                <span>Orchestrating</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Metrics Grid -->
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-header">
+                    <span class="metric-label">Active Workflows</span>
+                    <div class="metric-icon purple">🔄</div>
+                </div>
+                <div class="metric-value" id="activeWorkflows">12</div>
+                <div class="metric-change positive">
+                    <span>↑</span>
+                    <span>+3 this hour</span>
+                </div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-header">
+                    <span class="metric-label">Success Rate</span>
+                    <div class="metric-icon green">✅</div>
+                </div>
+                <div class="metric-value" id="successRate">94.2%</div>
+                <div class="metric-change positive">
+                    <span>↑</span>
+                    <span>+2.1% vs baseline</span>
+                </div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-header">
+                    <span class="metric-label">Avg Completion</span>
+                    <div class="metric-icon cyan">⏱️</div>
+                </div>
+                <div class="metric-value" id="avgCompletion">2m 34s</div>
+                <div class="metric-change positive">
+                    <span>↓</span>
+                    <span>-18s optimized</span>
+                </div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-header">
+                    <span class="metric-label">Auto-Rollbacks</span>
+                    <div class="metric-icon orange">↩️</div>
+                </div>
+                <div class="metric-value" id="autoRollbacks">3</div>
+                <div class="metric-change positive">
+                    <span>↑</span>
+                    <span>100% recovery</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Workflow Builder -->
+        <div class="workflow-builder">
+            <!-- Component Palette -->
+            <div class="component-palette">
+                <div class="palette-title">Components</div>
+                
+                <div class="palette-section">
+                    <div class="palette-section-title">▶️ Triggers</div>
+                    <div class="palette-item" draggable="true" data-type="trigger">
+                        <span class="icon">🔔</span>
+                        <span>Alert Trigger</span>
+                    </div>
+                    <div class="palette-item" draggable="true" data-type="trigger">
+                        <span class="icon">⏰</span>
+                        <span>Scheduled</span>
+                    </div>
+                    <div class="palette-item" draggable="true" data-type="trigger">
+                        <span class="icon">📊</span>
+                        <span>Threshold</span>
+                    </div>
+                    <div class="palette-item" draggable="true" data-type="trigger">
+                        <span class="icon">🌐</span>
+                        <span>External Event</span>
+                    </div>
+                </div>
+
+                <div class="palette-section">
+                    <div class="palette-section-title">🤖 AI Actions</div>
+                    <div class="palette-item" draggable="true" data-type="ai">
+                        <span class="icon">🧠</span>
+                        <span>Analyze Content</span>
+                    </div>
+                    <div class="palette-item" draggable="true" data-type="ai">
+                        <span class="icon">✍️</span>
+                        <span>Generate Reply</span>
+                    </div>
+                    <div class="palette-item" draggable="true" data-type="ai">
+                        <span class="icon">📈</span>
+                        <span>Predict Trend</span>
+                    </div>
+                    <div class="palette-item" draggable="true" data-type="ai">
+                        <span class="icon">🔍</span>
+                        <span>Sentiment Check</span>
+                    </div>
+                </div>
+
+                <div class="palette-section">
+                    <div class="palette-section-title">📡 Operations</div>
+                    <div class="palette-item" draggable="true" data-type="action">
+                        <span class="icon">📤</span>
+                        <span>Post Content</span>
+                    </div>
+                    <div class="palette-item" draggable="true" data-type="action">
+                        <span class="icon">💬</span>
+                        <span>Send Reply</span>
+                    </div>
+                    <div class="palette-item" draggable="true" data-type="data">
+                        <span class="icon">💾</span>
+                        <span>Save Data</span>
+                    </div>
+                    <div class="palette-item" draggable="true" data-type="action">
+                        <span class="icon">📧</span>
+                        <span>Notify</span>
+                    </div>
+                </div>
+
+                <div class="palette-section">
+                    <div class="palette-section-title">❓ Logic</div>
+                    <div class="palette-item" draggable="true" data-type="condition">
+                        <span class="icon">🎯</span>
+                        <span>Condition</span>
+                    </div>
+                    <div class="palette-item" draggable="true" data-type="condition">
+                        <span class="icon">🔀</span>
+                        <span>Branch</span>
+                    </div>
+                    <div class="palette-item" draggable="true" data-type="condition">
+                        <span class="icon">🔄</span>
+                        <span>Loop</span>
+                    </div>
+                    <div class="palette-item" draggable="true" data-type="condition">
+                        <span class="icon">⏸️</span>
+                        <span>Wait</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Workflow Canvas -->
+            <div class="workflow-canvas">
+                <div class="canvas-header">
+                    <div class="canvas-title">
+                        <span>⚡</span>
+                        <span>Viral Content Response</span>
+                    </div>
+                    <div class="canvas-actions">
+                        <button class="canvas-btn" onclick="showToast('Workflow saved', 'Viral Content Response saved successfully')">💾 Save</button>
+                        <button class="canvas-btn" onclick="showToast('Test mode', 'Running workflow simulation...')">▶️ Test</button>
+                        <button class="canvas-btn primary" onclick="showToast('Deployed', 'Workflow is now live and monitoring')">🚀 Deploy</button>
+                    </div>
+                </div>
+                
+                <div class="workflow-container">
+                    <!-- Step 1: Trigger -->
+                    <div class="workflow-step">
+                        <div class="step-connector">
+                            <div class="step-number completed">1</div>
+                            <div class="step-line completed"></div>
+                        </div>
+                        <div class="step-card">
+                            <div class="step-header">
+                                <div class="step-name">
+                                    <span>🔔</span>
+                                    <span>Engagement Spike Detected</span>
+                                </div>
+                                <span class="step-type trigger">TRIGGER</span>
+                            </div>
+                            <div class="step-meta">
+                                <div class="step-meta-item">
+                                    <span>⚡</span>
+                                    <span>Threshold: +50% above baseline</span>
+                                </div>
+                                <div class="step-meta-item">
+                                    <span>⏱️</span>
+                                    <span>Completed: 06:42:15</span>
+                                </div>
+                            </div>
+                            <div class="step-actions">
+                                <button class="step-action-btn">Edit</button>
+                                <button class="step-action-btn">Duplicate</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: AI Analysis -->
+                    <div class="workflow-step">
+                        <div class="step-connector">
+                            <div class="step-number completed">2</div>
+                            <div class="step-line completed"></div>
+                        </div>
+                        <div class="step-card">
+                            <div class="step-header">
+                                <div class="step-name">
+                                    <span>🧠</span>
+                                    <span>Analyze Viral Potential</span>
+                                </div>
+                                <span class="step-type ai">AI</span>
+                            </div>
+                            <div class="step-meta">
+                                <div class="step-meta-item">
+                                    <span>🎯</span>
+                                    <span>Score: 94/100</span>
+                                </div>
+                                <div class="step-meta-item">
+                                    <span>⏱️</span>
+                                    <span>Duration: 1.2s</span>
+                                </div>
+                            </div>
+                            <div class="step-actions">
+                                <button class="step-action-btn">View Output</button>
+                                <button class="step-action-btn">Edit</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Condition -->
+                    <div class="workflow-step">
+                        <div class="step-connector">
+                            <div class="step-number running">3</div>
+                            <div class="step-line running"></div>
+                        </div>
+                        <div class="step-card running">
+                            <div class="step-header">
+                                <div class="step-name">
+                                    <span>🎯</span>
+                                    <span>Score Threshold Check</span>
+                                </div>
+                                <span class="step-type condition">CONDITION</span>
+                            </div>
+                            <div class="step-meta">
+                                <div class="step-meta-item">
+                                    <span>✅</span>
+                                    <span>Condition: score >= 90</span>
+                                </div>
+                                <div class="step-meta-item">
+                                    <span>🔄</span>
+                                    <span>Status: Evaluating...</span>
+                                </div>
+                            </div>
+                            <div class="step-actions">
+                                <button class="step-action-btn">View Logic</button>
+                                <button class="step-action-btn skip">Force Continue</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: AI Action -->
+                    <div class="workflow-step">
+                        <div class="step-connector">
+                            <div class="step-number">4</div>
+                            <div class="step-line"></div>
+                        </div>
+                        <div class="step-card">
+                            <div class="step-header">
+                                <div class="step-name">
+                                    <span>✍️</span>
+                                    <span>Generate Engagement Reply</span>
+                                </div>
+                                <span class="step-type ai">AI</span>
+                            </div>
+                            <div class="step-meta">
+                                <div class="step-meta-item">
+                                    <span>🤖</span>
+                                    <span>Agent: Brain</span>
+                                </div>
+                                <div class="step-meta-item">
+                                    <span>⏳</span>
+                                    <span>Pending condition</span>
+                                </div>
+                            </div>
+                            <div class="step-actions">
+                                <button class="step-action-btn">Configure</button>
+                                <button class="step-action-btn">Preview</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 5: Condition with Branch -->
+                    <div class="workflow-step">
+                        <div class="step-connector">
+                            <div class="step-number">5</div>
+                            <div class="step-line"></div>
+                        </div>
+                        <div class="step-card">
+                            <div class="step-header">
+                                <div class="step-name">
+                                    <span>🔀</span>
+                                    <span>Auto-Approve Decision</span>
+                                </div>
+                                <span class="step-type condition">BRANCH</span>
+                            </div>
+                            <div class="step-meta">
+                                <div class="step-meta-item">
+                                    <span>✅</span>
+                                    <span>If: confidence >= 95% → Auto-send</span>
+                                </div>
+                                <div class="step-meta-item">
+                                    <span>⏸️</span>
+                                    <span>Else: Await approval</span>
+                                </div>
+                            </div>
+                            <div class="step-actions">
+                                <button class="step-action-btn">Edit Logic</button>
+                                <button class="step-action-btn">View Branches</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 6: Final Action -->
+                    <div class="workflow-step">
+                        <div class="step-connector">
+                            <div class="step-number">6</div>
+                            <div class="step-line" style="background: transparent;"></div>
+                        </div>
+                        <div class="step-card">
+                            <div class="step-header">
+                                <div class="step-name">
+                                    <span>💬</span>
+                                    <span>Send Reply</span>
+                                </div>
+                                <span class="step-type action">ACTION</span>
+                            </div>
+                            <div class="step-meta">
+                                <div class="step-meta-item">
+                                    <span>📤</span>
+                                    <span>Platform: X/Twitter</span>
+                                </div>
+                                <div class="step-meta-item">
+                                    <span>⏳</span>
+                                    <span>Pending previous steps</span>
+                                </div>
+                            </div>
+                            <div class="step-actions">
+                                <button class="step-action-btn rollback" onclick="showToast('Rollback initiated', 'Reverting to step 3...')">↩️ Rollback To</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Properties Panel -->
+            <div class="properties-panel">
+                <div class="panel-title">Properties</div>
+                
+                <div class="prop-group">
+                    <div class="prop-label">Workflow Name</div>
+                    <input type="text" class="prop-input" value="Viral Content Response">
+                </div>
+
+                <div class="prop-group">
+                    <div class="prop-label">Execution Mode</div>
+                    <select class="prop-select">
+                        <option>Parallel (fast)</option>
+                        <option selected>Sequential (safe)</option>
+                        <option>Hybrid</option>
+                    </select>
+                </div>
+
+                <div class="prop-group">
+                    <div class="prop-label">Auto-Rollback</div>
+                    <div class="prop-toggle" onclick="this.querySelector('.toggle-switch').classList.toggle('active')">
+                        <div class="toggle-switch active"></div>
+                        <span style="font-size: 0.8rem;">Enabled</span>
+                    </div>
+                </div>
+
+                <div class="prop-group">
+                    <div class="prop-label">Max Retries</div>
+                    <input type="number" class="prop-input" value="3">
+                </div>
+
+                <div class="prop-group">
+                    <div class="prop-label">Timeout (seconds)</div>
+                    <input type="number" class="prop-input" value="60">
+                </div>
+
+                <div class="prop-group">
+                    <div class="prop-label">Notify on Complete</div>
+                    <div class="prop-toggle" onclick="this.querySelector('.toggle-switch').classList.toggle('active')">
+                        <div class="toggle-switch active"></div>
+                        <span style="font-size: 0.8rem;">Enabled</span>
+                    </div>
+                </div>
+
+                <div class="prop-group">
+                    <div class="prop-label">AI Model</div>
+                    <select class="prop-select">
+                        <option selected>kimi-k2.5 (fast)</option>
+                        <option>gemma4:31b (balanced)</option>
+                        <option>gpt-4o (powerful)</option>
+                    </select>
+                </div>
+
+                <div class="prop-group">
+                    <div class="prop-label">Confidence Threshold</div>
+                    <input type="range" class="prop-input" min="0" max="100" value="95" style="padding: 0;">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--text-tertiary); margin-top: 0.3rem;">
+                        <span>Lenient</span>
+                        <span>95%</span>
+                        <span>Strict</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Section: Active Workflows + RL -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <!-- Active Workflows -->
+            <div class="workflows-section">
+                <div class="section-header">
+                    <div class="section-title">
+                        <span>🔄</span>
+                        <span>Active Workflows</span>
+                    </div>
+                </div>
+                <div class="workflows-list">
+                    <div class="workflow-item">
+                        <div class="workflow-status running"></div>
+                        <div class="workflow-info">
+                            <div class="workflow-name">Viral Content Response</div>
+                            <div class="workflow-meta">Running • Step 3/6 • Started 2m ago</div>
+                        </div>
+                        <div class="workflow-progress">
+                            <div class="workflow-progress-bar" style="width: 50%"></div>
+                        </div>
+                        <div class="workflow-actions">
+                            <button class="wf-action-btn">Pause</button>
+                            <button class="wf-action-btn">Stop</button>
+                        </div>
+                    </div>
+                    <div class="workflow-item">
+                        <div class="workflow-status running"></div>
+                        <div class="workflow-info">
+                            <div class="workflow-name">Daily Market Summary</div>
+                            <div class="workflow-meta">Running • Step 2/4 • Started 5m ago</div>
+                        </div>
+                        <div class="workflow-progress">
+                            <div class="workflow-progress-bar" style="width: 50%"></div>
+                        </div>
+                        <div class="workflow-actions">
+                            <button class="wf-action-btn">Pause</button>
+                            <button class="wf-action-btn">Stop</button>
+                        </div>
+                    </div>
+                    <div class="workflow-item">
+                        <div class="workflow-status completed"></div>
+                        <div class="workflow-info">
+                            <div class="workflow-name">Sentiment Analysis Batch</div>
+                            <div class="workflow-meta">Completed • 12 posts analyzed • 3m ago</div>
+                        </div>
+                        <div class="workflow-progress">
+                            <div class="workflow-progress-bar" style="width: 100%; background: var(--accent-green);"></div>
+                        </div>
+                        <div class="workflow-actions">
+                            <button class="wf-action-btn">Rerun</button>
+                            <button class="wf-action-btn">Log</button>
+                        </div>
+                    </div>
+                    <div class="workflow-item">
+                        <div class="workflow-status completed"></div>
+                        <div class="workflow-info">
+                            <div class="workflow-name">Competitor Monitor</div>
+                            <div class="workflow-meta">Completed • 4 accounts tracked • 15m ago</div>
+                        </div>
+                        <div class="workflow-progress">
+                            <div class="workflow-progress-bar" style="width: 100%; background: var(--accent-green);"></div>
+                        </div>
+                        <div class="workflow-actions">
+                            <button class="wf-action-btn">Rerun</button>
+                            <button class="wf-action-btn">Log</button>
+                        </div>
+                    </div>
+                    <div class="workflow-item">
+                        <div class="workflow-status paused"></div>
+                        <div class="workflow-info">
+                            <div class="workflow-name">Auto-Reply Template Update</div>
+                            <div class="workflow-meta">Paused • Awaiting approval • 1h ago</div>
+                        </div>
+                        <div class="workflow-progress">
+                            <div class="workflow-progress-bar" style="width: 75%; background: var(--accent-amber);"></div>
+                        </div>
+                        <div class="workflow-actions">
+                            <button class="wf-action-btn">Resume</button>
+                            <button class="wf-action-btn">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reinforcement Learning Panel -->
+            <div class="rl-panel">
+                <div class="rl-header">
+                    <div class="rl-title">
+                        <span>🧬</span>
+                        <span>Reinforcement Learning</span>
+                    </div>
+                    <span class="rl-badge">Active</span>
+                </div>
+                
+                <div class="rl-stats">
+                    <div class="rl-stat">
+                        <div class="rl-stat-value positive">+24%</div>
+                        <div class="rl-stat-label">Win Rate</div>
+                    </div>
+                    <div class="rl-stat">
+                        <div class="rl-stat-value">156</div>
+                        <div class="rl-stat-label">Experiments</div>
+                    </div>
+                    <div class="rl-stat">
+                        <div class="rl-stat-value">89%</div>
+                        <div class="rl-stat-label">Convergence</div>
+                    </div>
+                </div>
+
+                <div class="panel-title" style="margin-top: 1rem;">Active Experiments</div>
+                <div class="experiment-list">
+                    <div class="experiment-item">
+                        <span class="experiment-variant a">A</span>
+                        <span class="experiment-name">Timing Strategy</span>
+                        <span style="color: var(--text-tertiary);">42% better</span>
+                    </div>
+                    <div class="experiment-item">
+                        <span class="experiment-variant b">B</span>
+                        <span class="experiment-name">Reply Tone</span>
+                        <span class="experiment-winrate">Winning</span>
+                    </div>
+                    <div class="experiment-item">
+                        <span class="experiment-variant a">A</span>
+                        <span class="experiment-name">Hook Length</span>
+                        <span style="color: var(--text-tertiary);">15% better</span>
+                    </div>
+                    <div class="experiment-item">
+                        <span class="experiment-variant b">B</span>
+                        <span class="experiment-name">Emoji Usage</span>
+                        <span style="color: var(--text-tertiary);">8% better</span>
+                    </div>
+                </div>
+
+                <div style="margin-top: 1rem; padding: 0.75rem; background: var(--bg-tertiary); border-radius: 8px; font-size: 0.8rem; color: var(--text-secondary);">
+                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.3rem;">
+                        <span>💡</span>
+                        <span style="font-weight: 600;">AI Insight</span>
+                    </div>
+                    <span>Workflows with 3-5 steps show 34% higher completion rates. Consider splitting complex workflows.</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        // Toast notification system
+        function showToast(title, message) {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = `
+                <span class="toast-icon">✅</span>
+                <div class="toast-content">
+                    <div class="toast-title">${title}</div>
+                    <div class="toast-message">${message}</div>
+                </div>
+                <span class="toast-close" onclick="this.parentElement.remove()">✕</span>
+            `;
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 4000);
+        }
+
+        // Simulate workflow progress
+        setInterval(() => {
+            const progressBar = document.querySelector('.workflow-progress-bar');
+            if (progressBar) {
+                const currentWidth = parseInt(progressBar.style.width) || 50;
+                if (currentWidth < 100) {
+                    progressBar.style.width = Math.min(currentWidth + 2, 100) + '%';
+                }
+            }
+        }, 3000);
+
+        // Animate metrics on load
+        document.addEventListener('DOMContentLoaded', () => {
+            const metrics = ['activeWorkflows', 'successRate'];
+            metrics.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.style.opacity = '0';
+                    el.style.transform = 'translateY(10px)';
+                    setTimeout(() => {
+                        el.style.transition = 'all 0.5s ease';
+                        el.style.opacity = '1';
+                        el.style.transform = 'translateY(0)';
+                    }, 100);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

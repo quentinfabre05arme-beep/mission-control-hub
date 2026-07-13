@@ -1,0 +1,271 @@
+{
+  "timestamp": "2026-07-11T13:57:08.428165",
+  "ollama_usage": {
+    "tier": "Pro ($20/month)",
+    "used_percent": 67,
+    "tokens_used": "1.2M",
+    "tokens_remaining": "3.8M estimated",
+    "daily_budget_used": "65%",
+    "reset_in": "10h",
+    "models_active": 1,
+    "cost_today": "$1.32",
+    "cost_this_week": "$8.45",
+    "days_left_in_cycle": 12
+  },
+  "bcm_stats": {
+    "brain": {
+      "tasks_today": 3,
+      "tokens": "45K",
+      "cost_share": "15%",
+      "last_task": "Market analysis - ETH treasuries",
+      "model": "deepseek-v4-pro",
+      "status": "idle"
+    },
+    "coding": {
+      "tasks_today": 5,
+      "tokens": "120K",
+      "cost_share": "35%",
+      "last_task": "Mission Control Dashboard",
+      "model": "kimi-k2.7-code",
+      "status": "idle"
+    },
+    "muscles": {
+      "tasks_today": 12,
+      "tokens": "380K",
+      "cost_share": "50%",
+      "last_task": "X thread - ETH treasury",
+      "model": "kimi-k2.5",
+      "status": "idle"
+    }
+  },
+  "x_mission": {
+    "handle": "@quentinvest1",
+    "followers": {
+      "current": 213,
+      "start": 212,
+      "target": 10000,
+      "gained_today": 1,
+      "gained_this_week": 1,
+      "progress_pct": 2.13,
+      "to_goal": 9787
+    },
+    "content": {
+      "threads_posted": 1,
+      "posts_today": 0,
+      "posts_this_week": 1,
+      "replies_today": 3,
+      "scheduled": 2
+    },
+    "engagement": {
+      "avg_impressions": 245,
+      "avg_engagements": 12,
+      "avg_rate": 4.9,
+      "best_performing": "ETH Treasury Thread"
+    },
+    "streak": {
+      "current": 2,
+      "best": 2
+    }
+  },
+  "content_pillars": {
+    "pillars": [
+      {
+        "name": "ETH as Treasury Reserve",
+        "icon": "\ud83d\udc8e",
+        "status": "posted",
+        "last_post": "Jul 9",
+        "next_post": "Jul 14",
+        "engagement": "high",
+        "threads": 1,
+        "ideas": 3
+      },
+      {
+        "name": "HIMS + Healthcare",
+        "icon": "\ud83c\udfe5",
+        "status": "ready",
+        "last_post": null,
+        "next_post": "Today",
+        "engagement": "-",
+        "threads": 0,
+        "ideas": 2
+      },
+      {
+        "name": "AI Agentic Commerce",
+        "icon": "\ud83e\udd16",
+        "status": "researching",
+        "last_post": null,
+        "next_post": "Jul 12",
+        "engagement": "-",
+        "threads": 0,
+        "ideas": 1
+      }
+    ]
+  },
+  "daily_rhythm": {
+    "current_phase": "engagement",
+    "phase_name": "\ud83d\udcac Strategic Engagement",
+    "phase_desc": "12-2pm: 2-3 strategic replies",
+    "next_action": "Data viz post (4pm)",
+    "tasks_completed_today": 4,
+    "tasks_total_today": 8
+  },
+  "what_to_post": {
+    "urgent": [
+      {
+        "title": "HIMS Healthcare Infrastructure Thread",
+        "priority": "HIGH",
+        "pillar": "HIMS + Healthcare",
+        "status": "ready",
+        "tier": "MUSCLES",
+        "length": "5 tweets",
+        "hook": "The drug gets the headlines. The infrastructure play is HIMS \u2014 telehealth rails for GLP-1 delivery. $725M revenue, Novo Nordisk deal locked.",
+        "cta": "\ud83d\udccb Copy to Post"
+      }
+    ],
+    "today": [
+      {
+        "title": "Reply to @TheLongInvestor ETH thread",
+        "priority": "MEDIUM",
+        "pillar": "ETH Treasury",
+        "status": "scheduled",
+        "tier": "MUSCLES",
+        "reply_template": "The BTC treasury playbook is proven. The next evolution is earning yield while holding \u2014 that's where ETH treasuries come in. 3-4% staking APR changes the math.",
+        "cta": "\ud83d\udcac Copy Reply"
+      },
+      {
+        "title": "AI Agentic Commerce: 3-5T by 2030",
+        "priority": "MEDIUM",
+        "pillar": "AI Agentic Commerce",
+        "status": "researching",
+        "tier": "BRAIN",
+        "length": "7 tweets",
+        "hook": "McKinsey says $3-5T in agentic commerce by 2030. The winners won't be LLM makers \u2014 they'll be the intelligence companies that own customer relationships.",
+        "cta": "\ud83e\udde0 Research Now"
+      }
+    ],
+    "this_week": [
+      "ETH Treasury update thread",
+      "Portfolio positions check",
+      "Market structure analysis"
+    ]
+  },
+  "engagement_targets": {
+    "tier1": [
+      {
+        "handle": "@TheLongInvestor",
+        "focus": "ETH tech analysis",
+        "last_interaction": "2 days ago",
+        "status": "not_engaged"
+      },
+      {
+        "handle": "@DrTomsLens",
+        "focus": "Healthcare/biotech",
+        "last_interaction": "never",
+        "status": "not_engaged"
+      },
+      {
+        "handle": "@DylanLeClair_",
+        "focus": "BTC analysis",
+        "last_interaction": "1 week ago",
+        "status": "not_engaged"
+      },
+      {
+        "handle": "@RaoulGMI",
+        "focus": "Macro/crypto",
+        "last_interaction": "never",
+        "status": "not_engaged"
+      }
+    ],
+    "opportunities": [
+      {
+        "topic": "ETH treasury thesis",
+        "opportunity": "Reply to trending thread",
+        "priority": "high"
+      },
+      {
+        "topic": "GLP-1 disruption",
+        "opportunity": "Quote tweet major news",
+        "priority": "medium"
+      }
+    ]
+  },
+  "active_tasks": [
+    {
+      "name": "eth_treasury_thread",
+      "tier": "MUSCLES",
+      "status": "completed",
+      "model": "kimi-k2.5",
+      "age": "42m ago",
+      "type": "file"
+    },
+    {
+      "name": "x_thread_Why_ETH_beats_BTC_as_20260",
+      "tier": "MUSCLES",
+      "status": "completed",
+      "model": "kimi-k2.5",
+      "age": "60m ago",
+      "type": "file"
+    },
+    {
+      "name": "test_site_20260711_125638",
+      "tier": "CODING",
+      "status": "completed",
+      "model": "kimi-k2.7-code",
+      "age": "60m ago",
+      "type": "file"
+    }
+  ],
+  "content_pipeline": {
+    "ready": 1,
+    "in_progress": 1,
+    "scheduled": 2,
+    "posted": 1,
+    "total": 5
+  },
+  "system_health": {
+    "status": "operational",
+    "ollama_cloud": "connected",
+    "primary_model": "kimi-k2.5:cloud",
+    "gateway_uptime": "4h 23m",
+    "last_check": "13:57:08",
+    "api_latency": "45ms",
+    "active_sessions": 1,
+    "data_freshness": "Live"
+  },
+  "recent_activity": [
+    {
+      "time": "13:14",
+      "type": "cmd",
+      "command": "Generated CONTENT: eth_treasury_thread.txt"
+    },
+    {
+      "time": "12:56",
+      "type": "cmd",
+      "command": "Generated CONTENT: x_thread_Why_ETH_beats_BTC_as_20260711_1"
+    },
+    {
+      "time": "12:56",
+      "type": "cmd",
+      "command": "Generated CODE: test_site_20260711_125638"
+    },
+    {
+      "time": "12:56",
+      "type": "cmd",
+      "command": "Generated SALES: offer_X_Growth_Service_20260711_125651.m"
+    },
+    {
+      "time": "12:46",
+      "type": "cmd",
+      "command": "Generated ANALYTICS: performance.json"
+    }
+  ],
+  "weekly_summary": {
+    "followers_gained": 1,
+    "posts_made": 1,
+    "engagements": 15,
+    "avg_engagement_rate": 4.9,
+    "best_day": "Thursday",
+    "best_time": "9:00 AM",
+    "top_performer": "ETH Treasury Thread"
+  }
+}

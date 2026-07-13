@@ -1,0 +1,150 @@
+{
+  "date": "2026-07-12",
+  "generated": "2026-07-12T16:29:39.150804",
+  "instructions": "\nWEB SEARCH CONTENT ENHANCER - DAILY RESEARCH TASKS\n================================================\n\nThis template provides structured web search queries for enhanced content generation.\n\nHOW TO USE:\n1. Review the search queries for each topic\n2. Run web_search for each query (or delegate to sub-agent)\n3. Extract key data points from results\n4. Analyze sentiment and trends\n5. Generate content angles based on findings\n\nINTEGRATION:\n- Results feed into agentic_content_pipeline_v4.py\n- Enhances content with real-time data\n- Improves engagement scores with fresh information\n            ",
+  "tasks": [
+    {
+      "topic": "eth_treasury",
+      "search_queries": [
+        "ETH treasury institutional adoption July 2026",
+        "Ethereum corporate treasury holdings latest",
+        "Bitmine ETH accumulation update 2026",
+        "Ethereum staking yield institutional"
+      ],
+      "instructions": "To complete this briefing, run web_search for each query above",
+      "data_to_extract": [
+        "Key metrics and dollar amounts",
+        "Percentage changes",
+        "Recent dates and timelines",
+        "Stock/crypto tickers mentioned",
+        "Large numerical values"
+      ],
+      "analysis_required": [
+        "Sentiment of recent developments",
+        "Key trends emerging",
+        "Notable changes from previous period",
+        "Actionable insights for content"
+      ],
+      "output_format": {
+        "key_findings": "Bullet points with specific data",
+        "sentiment_summary": "Overall tone of coverage",
+        "content_angles": "3-5 angles based on findings",
+        "engagement_potential": "High/Medium/Low with reasoning"
+      }
+    },
+    {
+      "topic": "hims",
+      "search_queries": [
+        "HIMS stock news July 2026",
+        "Hims Hers Health GLP-1 expansion",
+        "HIMS healthcare infrastructure scaling",
+        "telehealth GLP-1 market 2026"
+      ],
+      "instructions": "To complete this briefing, run web_search for each query above",
+      "data_to_extract": [
+        "Key metrics and dollar amounts",
+        "Percentage changes",
+        "Recent dates and timelines",
+        "Stock/crypto tickers mentioned",
+        "Large numerical values"
+      ],
+      "analysis_required": [
+        "Sentiment of recent developments",
+        "Key trends emerging",
+        "Notable changes from previous period",
+        "Actionable insights for content"
+      ],
+      "output_format": {
+        "key_findings": "Bullet points with specific data",
+        "sentiment_summary": "Overall tone of coverage",
+        "content_angles": "3-5 angles based on findings",
+        "engagement_potential": "High/Medium/Low with reasoning"
+      }
+    },
+    {
+      "topic": "ai_commerce",
+      "search_queries": [
+        "agentic commerce McKinsey 2026",
+        "autonomous agents infrastructure protocols",
+        "AI commerce MCP A2A protocols 2026",
+        "agentic automation market size"
+      ],
+      "instructions": "To complete this briefing, run web_search for each query above",
+      "data_to_extract": [
+        "Key metrics and dollar amounts",
+        "Percentage changes",
+        "Recent dates and timelines",
+        "Stock/crypto tickers mentioned",
+        "Large numerical values"
+      ],
+      "analysis_required": [
+        "Sentiment of recent developments",
+        "Key trends emerging",
+        "Notable changes from previous period",
+        "Actionable insights for content"
+      ],
+      "output_format": {
+        "key_findings": "Bullet points with specific data",
+        "sentiment_summary": "Overall tone of coverage",
+        "content_angles": "3-5 angles based on findings",
+        "engagement_potential": "High/Medium/Low with reasoning"
+      }
+    },
+    {
+      "topic": "crypto_markets",
+      "search_queries": [
+        "Bitcoin ETF flows July 2026",
+        "crypto institutional adoption 2026",
+        "Ethereum price analysis July 2026"
+      ],
+      "instructions": "To complete this briefing, run web_search for each query above",
+      "data_to_extract": [
+        "Key metrics and dollar amounts",
+        "Percentage changes",
+        "Recent dates and timelines",
+        "Stock/crypto tickers mentioned",
+        "Large numerical values"
+      ],
+      "analysis_required": [
+        "Sentiment of recent developments",
+        "Key trends emerging",
+        "Notable changes from previous period",
+        "Actionable insights for content"
+      ],
+      "output_format": {
+        "key_findings": "Bullet points with specific data",
+        "sentiment_summary": "Overall tone of coverage",
+        "content_angles": "3-5 angles based on findings",
+        "engagement_potential": "High/Medium/Low with reasoning"
+      }
+    },
+    {
+      "topic": "biotech",
+      "search_queries": [
+        "GLP-1 market growth 2026",
+        "telehealth stocks performance 2026",
+        "healthcare infrastructure investment"
+      ],
+      "instructions": "To complete this briefing, run web_search for each query above",
+      "data_to_extract": [
+        "Key metrics and dollar amounts",
+        "Percentage changes",
+        "Recent dates and timelines",
+        "Stock/crypto tickers mentioned",
+        "Large numerical values"
+      ],
+      "analysis_required": [
+        "Sentiment of recent developments",
+        "Key trends emerging",
+        "Notable changes from previous period",
+        "Actionable insights for content"
+      ],
+      "output_format": {
+        "key_findings": "Bullet points with specific data",
+        "sentiment_summary": "Overall tone of coverage",
+        "content_angles": "3-5 angles based on findings",
+        "engagement_potential": "High/Medium/Low with reasoning"
+      }
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+MANUAL ADMIN SETUP - X Automation
+==================================
+
+Since auto-elevation failed, do these steps manually:
+
+STEP 1: Open Admin Command Prompt
+---------------------------------
+- Press Windows key
+- Type "cmd"
+- Right-click "Command Prompt"
+- Select "Run as administrator"
+- Click YES on UAC
+
+STEP 2: Navigate to workspace
+----------------------------
+cd C:\Users\quent\.openclaw\workspace
+
+STEP 3: Run Chrome with CDP
+---------------------------
+"C:\Program Files\Google\Chrome\Application\chrome.exe" --remote-debugging-port=9222
+
+STEP 4: Verify CDP working
+--------------------------
+Open NEW Command Prompt (regular, not admin):
+curl http://127.0.0.1:9222/json/version
+
+If you see JSON with Chrome version, SUCCESS!
+
+STEP 5: Run automation
+----------------------
+python x_automation_cdp.py test
+
+==================================
+This will work - manual admin execution
+==================================

@@ -1,0 +1,17 @@
+Everyone's telling you to install as
+many Claude Code plugins and MCP servers
+as you possibly can. More tools, more
+power, right? More things we can build.
+Well, here's the problem. Once Claude
+can see more than about 50 tools at
+once, it starts picking the wrong ones.
+And your agent actually gets worse, not
+better. So, I went through the entire
+plug-in marketplace and kind of the
+wider MCP ecosystem to find the tools
+that genuinely earn their spot here and
+that you'd want to install. Now, these
+are the Cloud Code plugins that I would
+keep installed, including ones that
+completely change how Cloud works,
+specifically with tools like databases.

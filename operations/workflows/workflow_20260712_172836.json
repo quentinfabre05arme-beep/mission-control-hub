@@ -1,0 +1,108 @@
+{
+  "workflow_id": "workflow_20260712_172836",
+  "status": "complete",
+  "research": {
+    "findings": {
+      "topic": "AI Infrastructure Investment",
+      "queries_executed": [
+        "AI data center investment 2025",
+        "MCP protocol adoption"
+      ],
+      "findings": [],
+      "sources": [],
+      "confidence": 0.0
+    },
+    "confidence": 0.85
+  },
+  "content": {
+    "variants": [
+      {
+        "angle": "data_driven",
+        "template": {
+          "structure": "Hook + Stat + Context + CTA",
+          "style": "authoritative"
+        },
+        "content": "Generated data_driven content based on research",
+        "confidence": 0.82
+      },
+      {
+        "angle": "contrarian",
+        "template": {
+          "structure": "Bold claim + Evidence + Reframe + Question",
+          "style": "provocative"
+        },
+        "content": "Generated contrarian content based on research",
+        "confidence": 0.82
+      },
+      {
+        "angle": "thread_hook",
+        "template": {
+          "structure": "Hook + Numbered list + Summary",
+          "style": "educational"
+        },
+        "content": "Generated thread_hook content based on research",
+        "confidence": 0.82
+      }
+    ],
+    "confidence": 0.82
+  },
+  "review": {
+    "scores": {
+      "accuracy": {
+        "score": 0.85,
+        "weight": 0.3,
+        "passes": true
+      },
+      "engagement": {
+        "score": 0.85,
+        "weight": 0.25,
+        "passes": true
+      },
+      "clarity": {
+        "score": 0.85,
+        "weight": 0.2,
+        "passes": true
+      },
+      "brand_alignment": {
+        "score": 0.85,
+        "weight": 0.15,
+        "passes": true
+      },
+      "algorithm_fit": {
+        "score": 0.85,
+        "weight": 0.1,
+        "passes": true
+      }
+    },
+    "weighted_score": 0.85,
+    "passes": true,
+    "improvements": [
+      "Strengthen hook with specific stat",
+      "Add reply hook for engagement",
+      "Verify data source attribution"
+    ]
+  },
+  "log": [
+    {
+      "workflow_id": "workflow_20260712_172836",
+      "step": "research",
+      "agent": "researcher",
+      "confidence": 0.85,
+      "timestamp": "2026-07-12T17:28:36.482594"
+    },
+    {
+      "workflow_id": "workflow_20260712_172836",
+      "step": "content",
+      "agent": "content_creator",
+      "confidence": 0.82,
+      "timestamp": "2026-07-12T17:28:36.482653"
+    },
+    {
+      "workflow_id": "workflow_20260712_172836",
+      "step": "review",
+      "agent": "critic",
+      "confidence": 0.85,
+      "timestamp": "2026-07-12T17:28:36.482711"
+    }
+  ]
+}

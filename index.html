@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <script>
+    // Detect mobile and redirect immediately
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    const timestamp = Date.now(); // Cache bust
+    if (isMobile) {
+      window.location.href = 'mission_control/mobile_dashboard.html?v=' + timestamp;
+    } else {
+      window.location.href = 'mission_control/index.html?v=' + timestamp;
+    }
+  </script>
+  <title>Mission Control Redirect</title>
+  <style>
+    body { background:#0a0a0a; color:#fff; font-family:sans-serif; text-align:center; padding:40px; }
+    a { color:#00d4ff; text-decoration:none; }
+    .loading { font-size:18px; margin:20px 0; }
+  </style>
+</head>
+<body>
+  <p class="loading">Redirecting...</p>
+  <p><a href="mission_control/index.html">Desktop Dashboard</a> |
+     <a href="mission_control/mobile_dashboard.html">Mobile Version</a></p>
+</body>
+</html>

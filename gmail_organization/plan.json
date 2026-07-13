@@ -1,0 +1,24 @@
+{
+  "labels_to_create": [
+    "Work/Active",
+    "Work/Archive",
+    "Personal/Family",
+    "Personal/Finance",
+    "Newsletters/Finance",
+    "Newsletters/Tech",
+    "Social/X",
+    "Shopping/Orders"
+  ],
+  "actions": [
+    "Archive emails older than 30 days",
+    "Label newsletters by sender",
+    "Unsubscribe from low-value lists",
+    "Star important ongoing threads",
+    "Create filters for auto-labeling"
+  ],
+  "target_metrics": {
+    "inbox_count": 50,
+    "unread_count": 10,
+    "archive_older_than_days": 30
+  }
+}

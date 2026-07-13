@@ -1,0 +1,35 @@
+{
+  "version": "1.0",
+  "description": "Cron jobs for X automation system",
+  "timezone": "Europe/Paris",
+  "jobs": [
+    {
+      "name": "morning_digest",
+      "schedule": "0 8 * * *",
+      "description": "Send daily digest at 8am",
+      "action": "generate_digest",
+      "target": "telegram:-1004420281135"
+    },
+    {
+      "name": "engagement_check",
+      "schedule": "0 9,13,19 * * *",
+      "description": "Check engagement opportunities 3x daily",
+      "action": "find_engagement_targets",
+      "target": "telegram:-1004420281135"
+    },
+    {
+      "name": "metrics_daily",
+      "schedule": "0 22 * * *",
+      "description": "Track daily metrics at 10pm",
+      "action": "track_metrics",
+      "target": "log"
+    },
+    {
+      "name": "weekly_report",
+      "schedule": "0 9 * * 1",
+      "description": "Weekly performance report every Monday 9am",
+      "action": "weekly_report",
+      "target": "telegram:-1004420281135"
+    }
+  ]
+}

@@ -1,0 +1,601 @@
+In this video, we're going to break down
+the danger of the anthropic profit
+projections,
+why there is a risk inside of the
+anthropic projections, and what it means
+for other stocks, including one very
+large name that is a ridiculously
+cheap one that we talked about this
+morning in the course member live
+stream. We're going to touch on it here
+to see why this stock is so ridiculously
+inexpensive and it's one of the biggest
+artificial intelligence names, but
+there's also a bakedin red flag. Let's
+cover it all as quickly as we can and
+efficiently. First, these are
+projections that people are coming up
+with for anthropics profit and loss. And
+everything has to do with the tit, the
+earnings before tit. This is a new
+metric people are coming up with and
+they're basically saying, hey, uh rather
+than assume that the cost to train our
+artificial intelligence models are part
+of costs of goods sold, let's just
+adjust that out and then say, hey, look,
+we're actually a gross profitable
+company if we just ignore what it took
+to get here. This is a little loony
+because you kind of have to keep
+training in order to stay at the
+frontier. Otherwise, you are no longer a
+frontier lab. So, in my opinion, your
+training costs for artificial
+intelligence are absolutely part of your
+ongoing
+costs of goods sold because without
+such, you would simply fall behind and
+other companies would take over. This
+creates some really big problems in my
+opinion for the anthropic numbers. But
+first, let's evidence why this training
+is so important. Let's go back to this
+from Mark Zuckerberg. Mark Zuckerberg
+over at Meta told us that we have uh our
+next set of more advanced models and
+training right now. And this is where
+he's asked about capex. And that work
+will, I think, just continue. I mean,
+that's a loop. I don't think we're going
+to be done with that anytime soon.
+you're just consistently focused on
+training more intelligent and more
+capable models. That is a really big
+lesson there. And let's try to break
+that down simply. So if Mark Zuckerberg
+says, "Hey, we're going to keep training
+models because we in the case of Meta,
+we want to get ahead, then that means in
+the case of Anthropic, to stay ahead,
+you kind of need to keep training
+models, right?" So really, as part of
+these larger AI companies, we're really
+going to expect that training continues.
+So they could stay at the forefront
+because there's something they want.
+Okay? So training uh as a costs of goods
+sold. We'll just put cogs here, right?
+Costs of goods sold, like cogs in a
+machine. training as part of COGS in my
+opinion continues. Even as you go into
+potentially, I'm not saying this is
+going to happen, but even if you go into
+a hardware bare market or you go into
+some kind of AI bare market, you're very
+likely going to have companies across
+the world continue to train and train
+and train because they're going to want
+to use that dip in the market as an
+opportunity to gain market share
+themselves. Remember, not every AI
+company is public. If public stocks go
+down and AI goes into a bare market,
+there are going to be plenty of startups
+that see that as an opportunity to grow
+and they'll keep training. I also think
+that companies like Meta that are
+massive and that's not the big company
+we're going to talk about in just a
+moment are going to keep spending money
+on trading because they will again even
+though they're public and they'll see
+their stock values probably go down in
+an AI bare market, they'll want to gain
+share because what do people want? What
+do these companies want? they want API
+uh habit. So, I'm going to call this the
+habit
+uh of API. The reason I say the habit of
+API is because what you're really trying
+to do as an AI model like an LLM these
+days is you're trying to get people to
+use your model by default. Whether it's
+through Palunteer, whether it's through
+Perplexity, whether it's through
+Microsoft, you know, Copilot or
+whatever, it doesn't really matter what
+sort of platform you use. When you go to
+select your model, Enthropic wants it to
+be Enthropic, Meta wants it to be Spark,
+uh, you know, OpenAI wants it to be GPT
+5.6, which we have some updates on that
+just a moment. But this is where the
+money is. How do we know that's where
+the money is? Well, because take a look
+at these projections right here. If you
+look at the left side, you can see
+consumer subscriptions, business
+subscriptions, enterprise subscriptions,
+and API revenue. Basically, where
+developers are incorporating models,
+right? You can see on the Q1 2026
+numbers, all of the other sectors
+combined, business, consumer,
+enterprise, all of that combined was
+worth about $742
+million of revenue, but API was worth
+over 4 billion, which means about 80% of
+the revenue is coming from API. And if
+we look over here, let's see how the uh
+numbers blend together on uh the
+projection for the end of the year. At
+the end of the year, 26863, we're at
+about 87.7%
+of the revenue projected to come from
+API. API or the habit of using these
+models in your software, whatever,
+that's where the big money is. And these
+projections assume that Anthropic takes
+their explosive quarter 1 growth and
+keeps going without competition. And
+this is where things get a little funny
+because if you actually look at what the
+competition is doing, they realize
+that's where the money is. And there you
+have it. Just today, Meta debuts Muse
+Spark 1.1 with preview open to
+developers. Thursday, Meta released
+long- aaited developer access to its
+Muse Spark AI model alongside an
+upgraded version pitting it directly
+against Anthropic and OpenAI. This is
+part of their goal of releasing super
+intelligence. And Meta says the upgraded
+model can write code, debug code, use
+software, external tools, understand
+text, images, carry out multi-step tasks
+with less human interaction, more
+agentic. Right? This is literally what
+Anthropic has been doing with Claude,
+Claude Co-work, the Claude desktop, uh,
+Chrome extension. It's pretty good.
+Claude won because they were first, but
+that doesn't mean they will continue to
+win forever. And competition from
+OpenAI, uh, Google, and, uh, of course,
+Meta
+is coming. Open AAI this morning told us
+the following. Sam Alman was on CNBC and
+the notes I have written down are that
+the cost of compute and memory the costs
+of those going up for training and
+inference is a headwind for
+profitability that's going to be true of
+all companies. Uh but they mentioned
+that their current and latest model is
+54%
+more token efficient on a gentic coding.
+The more efficient these models get, the
+typically via that good old Javon's
+paradox, the more people want to use
+them. The question is how much longer or
+how much at all can those LLM companies
+actually extract profit? And in my
+opinion, the way the only way you could
+pretend to extract profit at these LLMs
+is by assuming that this API growth
+right here goes on forever. And I think
+that is somewhat of a mistake in the
+face of competition. I think that is a
+red flag here. See, the Wall Street
+Journal supports a revenue increase from
+4 billion to about 10 billion from Q1 to
+Q2. The person who wrote this chart then
+extrapolated that to basically another
+double and a triple.
+And what they do is they then break out
+the training costs for what it will
+actually take to stay in the lead. And
+they suggest that training costs will
+actually fall from about 50% of the
+costs that it took in Q1 over here for
+their API costs. And those costs will go
+down from 50% to about 40% over here. So
+they think things will get more
+efficient over time and that these costs
+will slowly increase. They just
+basically added a bill per quarter over
+here of sort of your u uh what do we
+have this labeled as? other operating
+costs. So your SGNA expenses over here
+and then your inference costs are really
+the only costs of goods sold that they
+list over here which they have scaling
+up uh roughly in line with the same
+percentage of uh the um uh the API
+revenue growth. Point of all of that
+together is in order to show this
+company as being EBIT uh so you know
+before training profitable right here or
+gap profitable we have to assume that
+this API lead at enthropic goes on
+forever and I think that's a risk
+because I think with whether it's meta
+or gemini or open AI whatever I think
+the risk is those API revenues will not
+grow vertically
+If anything, companies are going to have
+an appetite to spend less money on
+artificial intelligence, and they're
+going to weaponize competition to do
+that. Companies don't want to blow money
+infinitely on their developers with
+endless token spend. Now, that's where
+things get really interesting because
+remember, if the goal is to get that
+profitable API compute
+and in order to get API compute, you
+must be at the leading edge. Then what
+gets really interesting is continuing to
+invest in training, especially if the
+market is starting to get a little
+bearish on training. And that's where
+there's this small little $5 trillion
+company called Nvidia that has a 75%
+gross profit margin, which is fantastic,
+and a 71% net margin, which is just
+absolutely insane. They print money.
+This is the example of a money tree.
+Every $100 of chips that they sell, they
+literally put $71 into their pocket, and
+they don't even know what to do with it.
+It's so much freaking money. It just
+seems like they don't even know what to
+do with it. It's incredible.
+But there's an issue interesting issue
+here. Some are going to look at this and
+say it's a red flag. Others are going to
+say no. You know what? Nvidia could
+actually be really interesting relative
+to AMD who's gotten a little expensive
+now. In part, well,
+because Nvidia is so freaking big. But
+look at these projections for uh Nvidia.
+I'm going to write them out for you so
+you could see them. Nvidia right now is
+projected by 2030 by Wall Street. This
+is an average of Wall Street consensus
+estimates. And mind you, Nvidia's
+valuation right now on sort of a
+trailing PE basis is at the lowest it's
+been since 2019. But if you actually
+look at a forecast for growth, we're
+going to take $8.99 of EPS for the end
+of the year, 43.9% growth next year, 26
+thereafter, 81.6 thereafter. It swings
+up and down like crazy because of
+analyst projections being all over the
+place. Then you actually have your first
+average negative year in 2030, which is
+their fiscal 2030 or 2031. 5266 divided
+by 4 equals Oh, all right. No problem.
+We'll get this math over here. This is
+the average uh growth rate. Uh 43.9.
+Let's actually do this correctly. Sorry,
+folks. Uh okay, there we go. So, those
+are the growth rates. 43% 26% 81% and
+negative - 20%. If I add those together,
+I get 131.5.
+131.5 divided by 4 is an average growth
+rate of 32.8ish
+87, right? That's the average growth
+rate right now. Nvidia is selling for
+about $200. At a forward PE ratio,
+they're selling for 22.25.
+22.25 divided by 32.88 88 puts this
+company at exactly a PEG ratio
+uh forward a forward end of the year peg
+ratio of 0.6767.
+We mentioned this morning that is like a
+meme in the course member liveream. That
+is very very very cheap. It means that
+Nvidia based on that average growth rate
+could actually justify a current price
+uh by the end of the year. Uh this this
+gets a little crazy. Okay, you ready for
+this? Uh but they could potentially
+justify a price of $795.
+$795.
+How crazy is that? Let me just uh double
+check I did my math right.
+And times the current price of two. Yep,
+790. There it is. So $795. How do we
+arrive at that? We arrive at that at
+assuming the growth rate for Nvidia will
+stay at about 32%. Here's the problem
+though. This is why I think Nvidia is
+getting discounted.
+I don't think that Nvidia
+can maintain a 32% growth rate if indeed
+it starts going negative over here.
+Because if the growth rate goes negative
+here and then what if the next 3 or 4
+years are negative then Wall Street is
+starting to just like with Micron who
+also has a PEG ratio of about one. Wall
+Street is starting to price in that
+these numbers are going to roll over and
+that does create risk factors for the
+market. However, the market is still
+propped up under the belief that API
+spend is going to go to the freaking
+moon, which is
+yes, probable, but it's probably going
+to get spread out by other models, not
+just anthropic. Now, how does this
+compare to AMD? And then let's do a
+bottom line because we're throwing we're
+dishing a lot out and it's time to do
+some bottom lines. And know that doesn't
+mean we need to pitch another coupon
+code over at meetke.com. What it means
+is we got to say that AMD is somewhere
+around $520.
+Uh it has a projected EPS of about 720
+which means we're trading for about 72
+on a PE basis right now. The forecast
+growth for AMD is better than Nvidia's
+which makes sense. 81.5 34.8 14.9 and
+27.6 divided by 4 puts me at about 39.7.
+7222 divided by 39.7
+equals 1.89.
+That gives me an upside for AMD of about
+42%
+times 520 on the share price. AMD uh
+fair price of about $740 right now.
+Now, why why
+could these be right? Why could they be
+wrong? Okay, this is where you have to
+understand
+a PEG ratio is assuming that growth will
+continue into the future. We use four
+years of growth, but if markets expect,
+and I think this is important, if
+markets expect that the next four years
+of growth are going to kind of look like
+this, right? Well, maybe let's draw that
+a little bit more like so you had your
+your initial crazy boom, which is what
+you're seeing on memory right now, and
+then you have growth like this. Okay,
+let's say markets assume that's the
+4-year snapshot we have here. But then
+markets think growth rates are going to
+tank. If this is what markets assume,
+then a PEG ratio is going to look really
+cheap for both of these companies. And
+this is going to absolutely make them
+look insanely expensive when you go over
+to let's say the green over here and you
+take a snapshot of these four years
+because it'll be just negative and your
+PE ratios will or your PEG ratios will
+look infinite and you'll be screwed.
+Right? That is the problem with a PEG
+ratio. So,
+why are chip companies so risky? Chip
+companies, even though they look cheap
+today, including memory stocks, are
+risky because we don't really know what
+the growth rates are going to be over
+here.
+My opinion, my take is that I actually
+believe that recession or not, training
+expenses are going to keep going whether
+they're startups, whether they're other
+companies, because people are going to
+see that for a very long time as gaining
+market share. So, let's bottom line that
+a little bit. That in my opinion
+maintains bullishness for custom chips
+and chips that can basically train.
+Okay. So, bottom line,
+uh these
+uh training, the bet on training, we'll
+say the bet on training continuing is
+bullish custom chips, whether those are
+AS6 at Marll, Broadcom, uh or Nvidia,
+AMD, right? Those are your these are
+like your big ASIC producers. You got
+CPO over here at Marll over as well.
+Broadcom prefers copper for the intra
+rack. This is really a topic for a
+different video. Uh although Broadcom's
+also got some uh fiber optic uh work.
+And then of course you have your
+traditionals uh Nvidia, AMD. If the bet
+on training continuing even in a
+recession, then growth could continue at
+these companies. The issue is
+what are those growth rates going to
+look like? because those dictate the
+valuation. Now, my take on how to invest
+in this. Uh number one, you want to
+avoid what's going to get commoditized.
+Uh that's memory at this point. Like I I
+you know, I think there's probably
+another leg up for a lot of hardware and
+memory, but I would avoid the
+commoditized sector. two, uh, I'd have
+some exposure to hardware, but, uh, on a
+10-year commitment. So, basically, I'd
+be committing to, hey, I'm I'm going to
+I'll have some exposure to hardware, but
+I, you know, if we go through a
+recession, I know it's going to tank.
+I'm going to have the balls to hold it.
+The other thing to potentially consider
+is money uh into the software
+layer slashprovider
+of the commoditized LLMs. The LLMs,
+whether it's Spark, OpenAI, uh
+Anthropic, or the Cursor product, XAI,
+whatever, they're all going to be
+commoditized in my opinion. They're all
+relatively get to the same level and
+we're just going to be trying to eek
+each other out by more and more training
+money getting spent. The company that
+wins
+or the companies that win are the
+companies that have the users on their
+platform. Those are companies like them
+or not. Those are companies like
+Palunteer,
+Meta, uh Microsoft,
+maybe Apple if they actually catch up.
+Those are the companies that actually
+have the users on them. So, even though
+I'm a really big fan of where Nvidia's
+valuation is right now, I recognize that
+we could be misled by these PEG ratios.
+And therefore, it's more desirable for
+me to think about over the next 10
+years, where does the money really,
+really flow. I mean, frankly, companies
+that have users, whether I like them or
+not. Now, uh Salesforce, uh would be
+another example. Uh UiPath deserves a
+mention over here as well. They've got
+plenty of enterprise customers. they the
+cool thing about path is you're really
+combining uh agentic LLM with robotic
+process automation which is algorithmic
+so you've got algorithmic and agentic
+and when you marry them together you
+kind of get a product like a palunteer
+right and not everybody can use
+palunteer so you get stuck with path
+it's not supposed to be a dish path I
+know it sounds like though but it's the
+companies with where the users are uh
+that could even be those software stocks
+that are in the toilet like into it.
+That's where the users are. That's
+probably the layer where you have
+pricing power. Pricing power exists
+where users are.
+Users don't like to leave. They don't
+want to pack up and change everything.
+People don't want to go from Android to
+iPhone. Uh, you know, some people do,
+but I'm just saying once you're in it,
+you don't want to go from iPhone to
+Android. Once you're in Palunteer, it's
+really hard to pick up all your crap and
+start over somewhere. Once you've got
+your Salesforce crap set up, it's really
+hard to start it all over somewhere
+else. Same for Path. Same for your
+Quickbooks, right? Smaller people who
+have like one W2 when nothing to do,
+yeah, they're going to leave into it cuz
+you don't need it. But that's okay.
+That's not where the money is anyway.
+You want to invest where the enterprises
+are. So, we're talking about enterprise
+mobility. Enterprise mobility.
+uh or even you know mobile phones
+because the Android Apple switch is a
+switch but enterprise mobility uh
+provides uh the lack of lack of
+provides pricing power or for consumers
+we'll call it mobile right that that's
+what we'll call that so trying to
+reconcile all of this video because
+there's there's a lot that we talked
+about here the numbers at anthropic here
+these projections in my opinion are kind
+of insane. They could happen, but they
+do not consider how much competition is
+coming to API tokens.
+This kind of just draws a straight line
+and says, "All right, the S-curve is
+here. It's going up forever and the tit
+the EBIT is doing great."
+That is a risk. I don't like the LLMs. I
+also think the LLMs will continue to be
+unprofitable because I think the
+training costs at these companies will
+have to keep rising. Training will just
+keep going. Like Mark Zuckerberg says,
+it's a loop. We're going to keep pushing
+and pushing and pushing. Even in a
+recession, we want market share because
+a recession is not going to kill AI. A
+recession is going to kill the stock
+market. That's it. Recessions kill
+valuations,
+not innovation. Oh, that's a line. By
+the way, Max uh would love it if you
+commented on this duck we wanted at the
+claw machine at Dave and Busters. And so
+he was really happy about this. Uh but
+anyway, so yes, Nvidia makes a crapload
+of money and this company's not going to
+go bankrupt. They have so much freaking
+money. They'd have to do something
+stupid to go bankrupt.
+But but but
+its valuation while it looks cheap today
+could very rapidly turn expensive and
+that's why I personally don't have
+exposure to the biggest hardware names
+anymore. I made a lot of money on
+Nvidia. I've made money on a lot of
+hardware stocks, but I am moving from
+the big hardware stocks to really a
+couple small names. We have a couple
+small names in hardware that I really
+like. Uh we added one recently and one a
+few months ago and I really like them. I
+still think they have legs. I think they
+have legs over the next decade. I'm very
+excited about what they're doing. But my
+exposure to hardware is much more
+limited than it is to where I think the
+pricing power remains. And that pricing
+power, even if the market doesn't price
+it in now, is where those customers are.
+Even though all the hype right now is
+around the LLM model, that'll get
+commoditized or around memory that'll
+get commoditized. And the big
+profitability, that's where the momentum
+should be at Nvidia. And it's not
+because the market is sucking on the
+booby of hype.
+But that'll all U-turn. Uh, and so you
+want to think about positioning for that
+now. So that way I'm saying that clearly
+so I don't get comments from people
+going, "Oh, well, but Kevin, why didn't
+you tell us this before it happened?"
+And then I'm like, "Where were you?"
+That's okay. That's that's the butt
+cabins are only like the one in a
+thousand. And a lot of you that I think
+uh really enjoy this content. Hopefully
+you like this video. We'll see you in
+the next one. Goodbye and good luck.
+>> Why not advertise these things that you
+told us here? I feel like nobody else
+knows about this.
+>> We'll we'll try a little advertising and
+see how it goes. Congratulations, man.
+You have done so much. People love you.
+People look up to you.
+>> Kevin Papra there, financial analyst and
+YouTuber. Meet Kevin. Always great to
+get your take.

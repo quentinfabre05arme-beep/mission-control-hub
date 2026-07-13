@@ -1,0 +1,1443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@quentinvest1 | Cross-Platform Campaign Manager v8.2</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg-primary: #050505;
+            --bg-secondary: #0a0a0a;
+            --bg-tertiary: #111111;
+            --bg-card: #141414;
+            --bg-hover: #1a1a1a;
+            --accent-cyan: #00d4ff;
+            --accent-green: #00ff88;
+            --accent-orange: #ff8800;
+            --accent-red: #ff3860;
+            --accent-purple: #bd34fe;
+            --accent-gold: #ffd700;
+            --accent-pink: #ff2d55;
+            --accent-teal: #00d4aa;
+            --accent-blue: #0a84ff;
+            --accent-indigo: #6366f1;
+            --accent-amber: #ffaa00;
+            --x-blue: #1DA1F2;
+            --linkedin-blue: #0A66C2;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-tertiary: #6e6e6e;
+            --text-dim: #404040;
+            --border-color: #1f1f1f;
+            --glass-bg: rgba(20, 20, 20, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.08);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(0, 212, 255, 0.06) 0%, transparent 40%),
+                radial-gradient(ellipse at 80% 80%, rgba(255, 170, 0, 0.04) 0%, transparent 40%),
+                radial-gradient(ellipse at 50% 50%, rgba(189, 52, 254, 0.03) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .ambient-grid {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 212, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .top-nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 64px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(24px) saturate(180%);
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 1.5rem;
+            z-index: 100;
+        }
+
+        .nav-left { display: flex; align-items: center; gap: 1rem; }
+        .logo { display: flex; align-items: center; gap: 0.5rem; font-weight: 600; font-size: 1.1rem; }
+        .version-tag { 
+            font-size: 0.7rem; 
+            padding: 0.2rem 0.5rem; 
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue)); 
+            border-radius: 4px; 
+            color: #fff; 
+            font-weight: 700; 
+        }
+
+        .nav-links { display: flex; gap: 0.25rem; }
+        .nav-link {
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .nav-link:hover { color: var(--text-primary); background: var(--bg-hover); }
+
+        .nav-right { display: flex; align-items: center; gap: 0.75rem; }
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.35rem 0.75rem;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: var(--accent-green);
+        }
+        .status-dot { width: 6px; height: 6px; background: var(--accent-green); border-radius: 50%; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+        .main-container {
+            padding: 84px 1.5rem 1.5rem;
+            max-width: 1600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-header {
+            margin-bottom: 1.5rem;
+        }
+        .page-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+            background: linear-gradient(135deg, var(--text-primary), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .page-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Platform Tabs */
+        .platform-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            padding: 0.5rem;
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+        .platform-tab {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+        .platform-tab:hover { background: var(--bg-hover); }
+        .platform-tab.active {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+        .platform-tab.x.active { border-color: var(--x-blue); box-shadow: 0 0 20px rgba(29, 161, 242, 0.2); }
+        .platform-tab.linkedin.active { border-color: var(--linkedin-blue); box-shadow: 0 0 20px rgba(10, 102, 194, 0.2); }
+        .platform-tab.unified.active { border-color: var(--accent-purple); box-shadow: 0 0 20px rgba(189, 52, 254, 0.2); }
+        .platform-icon { font-size: 1.1rem; }
+        .platform-icon.x { color: var(--x-blue); }
+        .platform-icon.linkedin { color: var(--linkedin-blue); }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.25rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
+        }
+        .stat-card.x::before { background: linear-gradient(90deg, var(--x-blue), #0ea5e9); }
+        .stat-card.linkedin::before { background: linear-gradient(90deg, var(--linkedin-blue), #3b82f6); }
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
+        }
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .stat-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+        .stat-icon.x { background: rgba(29, 161, 242, 0.15); color: var(--x-blue); }
+        .stat-icon.linkedin { background: rgba(10, 102, 194, 0.15); color: var(--linkedin-blue); }
+        .stat-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+        .stat-change {
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        .stat-change.positive { color: var(--accent-green); }
+        .stat-change.negative { color: var(--accent-red); }
+
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        @media (max-width: 1200px) { .dashboard-grid { grid-template-columns: 1fr; } }
+
+        .panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .panel-header {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .panel-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .panel-actions { display: flex; gap: 0.5rem; }
+        .panel-btn {
+            padding: 0.4rem 0.75rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .panel-btn:hover { background: var(--bg-hover); color: var(--text-primary); }
+
+        /* Cross-Platform Comparison */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .comparison-table th,
+        .comparison-table td {
+            padding: 0.875rem 1.25rem;
+            text-align: left;
+            font-size: 0.85rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .comparison-table th {
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+        }
+        .comparison-table tr:last-child td { border-bottom: none; }
+        .comparison-table tr:hover { background: var(--bg-hover); }
+        .platform-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        .platform-badge.x { background: rgba(29, 161, 242, 0.15); color: var(--x-blue); }
+        .platform-badge.linkedin { background: rgba(10, 102, 194, 0.15); color: var(--linkedin-blue); }
+        .metric-bar {
+            width: 100px;
+            height: 4px;
+            background: var(--bg-tertiary);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .metric-bar-fill {
+            height: 100%;
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+        .metric-bar-fill.x { background: var(--x-blue); }
+        .metric-bar-fill.linkedin { background: var(--linkedin-blue); }
+
+        /* Campaign Cards */
+        .campaigns-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1rem;
+            padding: 1rem;
+        }
+        .campaign-card {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1rem;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .campaign-card:hover {
+            border-color: var(--accent-cyan);
+            transform: translateY(-2px);
+        }
+        .campaign-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
+        }
+        .campaign-title {
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
+        }
+        .campaign-type {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+        }
+        .campaign-platforms {
+            display: flex;
+            gap: 0.25rem;
+        }
+        .campaign-platform-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+        }
+        .campaign-platform-icon.x { background: rgba(29, 161, 242, 0.15); color: var(--x-blue); }
+        .campaign-platform-icon.linkedin { background: rgba(10, 102, 194, 0.15); color: var(--linkedin-blue); }
+        .campaign-progress {
+            margin-bottom: 0.75rem;
+        }
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            margin-bottom: 0.4rem;
+        }
+        .progress-bar {
+            height: 4px;
+            background: var(--bg-card);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
+            border-radius: 2px;
+            transition: width 0.3s;
+        }
+        .campaign-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--border-color);
+        }
+        .campaign-stat {
+            text-align: center;
+        }
+        .campaign-stat-value {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.1rem;
+        }
+        .campaign-stat-label {
+            font-size: 0.7rem;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+        .status-badge.running { background: rgba(0, 255, 136, 0.15); color: var(--accent-green); }
+        .status-badge.active { background: rgba(10, 132, 255, 0.15); color: var(--accent-blue); }
+        .status-badge.draft { background: rgba(255, 170, 0, 0.15); color: var(--accent-amber); }
+
+        /* Chart Container */
+        .chart-container {
+            padding: 1rem;
+            height: 300px;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+        .quick-action-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .quick-action-btn:hover {
+            background: var(--bg-hover);
+            border-color: var(--accent-cyan);
+            color: var(--text-primary);
+        }
+        .quick-action-btn i { font-size: 0.9rem; }
+
+        /* Content Preview */
+        .content-preview {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .content-preview:last-child { border-bottom: none; }
+        .content-platform {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .content-platform.x { background: rgba(29, 161, 242, 0.15); color: var(--x-blue); }
+        .content-platform.linkedin { background: rgba(10, 102, 194, 0.15); color: var(--linkedin-blue); }
+        .content-body { flex: 1; }
+        .content-text {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+        .content-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+        }
+        .content-metrics {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 0.5rem;
+        }
+        .content-metric {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* Toast Notifications */
+        .toast-container {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .toast {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            min-width: 300px;
+            animation: slideIn 0.3s ease;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        .toast-icon { font-size: 1.1rem; }
+        .toast-icon.success { color: var(--accent-green); }
+        .toast-icon.info { color: var(--accent-cyan); }
+        .toast-content { flex: 1; }
+        .toast-title { font-weight: 600; font-size: 0.9rem; margin-bottom: 0.15rem; }
+        .toast-message { font-size: 0.8rem; color: var(--text-secondary); }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 200;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 85vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .modal-header {
+            padding: 1.25rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .modal-title { font-size: 1.1rem; font-weight: 600; }
+        .modal-close {
+            width: 32px; height: 32px;
+            border-radius: 6px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .modal-close:hover { background: var(--bg-hover); color: var(--text-primary); }
+        .modal-body {
+            padding: 1.25rem;
+            overflow-y: auto;
+            flex: 1;
+        }
+        .form-group { margin-bottom: 1rem; }
+        .form-label {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.4rem;
+        }
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            font-family: inherit;
+        }
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--accent-cyan);
+        }
+        .form-textarea { min-height: 100px; resize: vertical; }
+        .platform-checkbox-group {
+            display: flex;
+            gap: 1rem;
+        }
+        .platform-checkbox {
+            flex: 1;
+            padding: 1rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+        }
+        .platform-checkbox:hover { border-color: var(--text-secondary); }
+        .platform-checkbox.selected.x { border-color: var(--x-blue); background: rgba(29, 161, 242, 0.1); }
+        .platform-checkbox.selected.linkedin { border-color: var(--linkedin-blue); background: rgba(10, 102, 194, 0.1); }
+        .platform-checkbox-icon { font-size: 1.5rem; }
+        .platform-checkbox-label { font-size: 0.8rem; }
+        .modal-footer {
+            padding: 1.25rem;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.75rem;
+        }
+        .btn {
+            padding: 0.6rem 1.25rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+        .btn-secondary {
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+        }
+        .btn-secondary:hover { background: var(--bg-hover); color: var(--text-primary); }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            color: #fff;
+        }
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+        }
+
+        /* ROI Comparison Cards */
+        .roi-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            padding: 1rem;
+        }
+        .roi-card {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1rem;
+        }
+        .roi-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        .roi-platform-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+        .roi-platform-icon.x { background: rgba(29, 161, 242, 0.15); color: var(--x-blue); }
+        .roi-platform-icon.linkedin { background: rgba(10, 102, 194, 0.15); color: var(--linkedin-blue); }
+        .roi-platform-info { flex: 1; }
+        .roi-platform-name { font-weight: 600; font-size: 0.95rem; }
+        .roi-platform-handle { font-size: 0.75rem; color: var(--text-tertiary); }
+        .roi-metrics {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+        .roi-metric {
+            text-align: center;
+            padding: 0.75rem;
+            background: var(--bg-card);
+            border-radius: 6px;
+        }
+        .roi-metric-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.15rem;
+        }
+        .roi-metric-value.positive { color: var(--accent-green); }
+        .roi-metric-label {
+            font-size: 0.7rem;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+    <div class="ambient-grid"></div>
+    
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <div class="nav-left">
+            <div class="logo">
+                <i class="fas fa-rocket" style="color: var(--accent-cyan);"></i>
+                <span>Mission Control</span>
+                <span class="version-tag">v8.2</span>
+            </div>
+            <div class="nav-links">
+                <a href="mission_control_campaigns.html" class="nav-link"><i class="fas fa-bullhorn"></i> Campaigns</a>
+                <a href="mission_control_scheduler.html" class="nav-link"><i class="fas fa-calendar"></i> Scheduler</a>
+                <a href="mission_control_content_intelligence.html" class="nav-link"><i class="fas fa-brain"></i> Content</a>
+                <a href="mission_control_orchestration.html" class="nav-link"><i class="fas fa-cogs"></i> Orchestration</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <div class="status-indicator">
+                <span class="status-dot"></span>
+                <span>Multi-Platform Active</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1 class="page-title">Cross-Platform Campaign Manager</h1>
+            <p class="page-subtitle">Unified X & LinkedIn campaign orchestration with cross-platform analytics</p>
+        </div>
+
+        <!-- Platform Tabs -->
+        <div class="platform-tabs">
+            <div class="platform-tab unified active" onclick="switchPlatform('unified')">
+                <i class="fas fa-layer-group platform-icon"></i>
+                <span>Unified View</span>
+            </div>
+            <div class="platform-tab x" onclick="switchPlatform('x')">
+                <i class="fab fa-x-twitter platform-icon x"></i>
+                <span>X (Twitter)</span>
+            </div>
+            <div class="platform-tab linkedin" onclick="switchPlatform('linkedin')">
+                <i class="fab fa-linkedin platform-icon linkedin"></i>
+                <span>LinkedIn</span>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <button class="quick-action-btn" onclick="openModal()">
+                <i class="fas fa-plus"></i>
+                New Cross-Platform Campaign
+            </button>
+            <button class="quick-action-btn" onclick="showToast('Syncing data from both platforms...', 'info')">
+                <i class="fas fa-sync"></i>
+                Sync Platforms
+            </button>
+            <button class="quick-action-btn" onclick="showToast('Cross-platform analytics report generated', 'success')">
+                <i class="fas fa-chart-line"></i>
+                Generate Report
+            </button>
+            <button class="quick-action-btn">
+                <i class="fas fa-magic"></i>
+                Optimize Distribution
+            </button>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid" id="statsGrid">
+            <div class="stat-card x">
+                <div class="stat-header">
+                    <div>
+                        <div class="stat-label">X Followers</div>
+                        <div class="stat-value">219</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i> +7 this week
+                        </div>
+                    </div>
+                    <div class="stat-icon x"><i class="fab fa-x-twitter"></i></div>
+                </div>
+            </div>
+            <div class="stat-card linkedin">
+                <div class="stat-header">
+                    <div>
+                        <div class="stat-label">LinkedIn Connections</div>
+                        <div class="stat-value">347</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i> +12 this week
+                        </div>
+                    </div>
+                    <div class="stat-icon linkedin"><i class="fab fa-linkedin-in"></i></div>
+                </div>
+            </div>
+            <div class="stat-card x">
+                <div class="stat-header">
+                    <div>
+                        <div class="stat-label">X Engagement Rate</div>
+                        <div class="stat-value">6.3%</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i> +0.4%
+                        </div>
+                    </div>
+                    <div class="stat-icon x"><i class="fas fa-heart"></i></div>
+                </div>
+            </div>
+            <div class="stat-card linkedin">
+                <div class="stat-header">
+                    <div>
+                        <div class="stat-label">LinkedIn Engagement</div>
+                        <div class="stat-value">4.8%</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i> +0.6%
+                        </div>
+                    </div>
+                    <div class="stat-icon linkedin"><i class="fas fa-thumbs-up"></i></div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div>
+                        <div class="stat-label">Cross-Platform Reach</div>
+                        <div class="stat-value">12.4K</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i> +18%
+                        </div>
+                    </div>
+                    <div class="stat-icon" style="background: rgba(189, 52, 254, 0.15); color: var(--accent-purple);"><i class="fas fa-globe"></i></div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div>
+                        <div class="stat-label">Combined ROI</div>
+                        <div class="stat-value">247%</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i> +23%
+                        </div>
+                    </div>
+                    <div class="stat-icon" style="background: rgba(0, 255, 136, 0.15); color: var(--accent-green);"><i class="fas fa-chart-line"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Grid -->
+        <div class="dashboard-grid">
+            <!-- Cross-Platform Comparison -->
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title"><i class="fas fa-scale-balanced"></i> Platform Performance Comparison</div>
+                    <div class="panel-actions">
+                        <button class="panel-btn">Last 7 Days</button>
+                        <button class="panel-btn"><i class="fas fa-download"></i></button>
+                    </div>
+                </div>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>X (Twitter)</th>
+                            <th>LinkedIn</th>
+                            <th>Winner</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Impressions</td>
+                            <td>
+                                <span style="color: var(--x-blue); font-weight: 600;">8,421</span>
+                                <div class="metric-bar"><div class="metric-bar-fill x" style="width: 85%"></div></div>
+                            </td>
+                            <td>
+                                <span style="color: var(--linkedin-blue); font-weight: 600;">3,982</span>
+                                <div class="metric-bar"><div class="metric-bar-fill linkedin" style="width: 45%"></div></div>
+                            </td>
+                            <td><span class="platform-badge x"><i class="fab fa-x-twitter"></i> X</span></td>
+                        </tr>
+                        <tr>
+                            <td>Engagement Rate</td>
+                            <td>
+                                <span style="color: var(--x-blue); font-weight: 600;">6.3%</span>
+                                <div class="metric-bar"><div class="metric-bar-fill x" style="width: 75%"></div></div>
+                            </td>
+                            <td>
+                                <span style="color: var(--linkedin-blue); font-weight: 600;">4.8%</span>
+                                <div class="metric-bar"><div class="metric-bar-fill linkedin" style="width: 60%"></div></div>
+                            </td>
+                            <td><span class="platform-badge x"><i class="fab fa-x-twitter"></i> X</span></td>
+                        </tr>
+                        <tr>
+                            <td>Click-Through Rate</td>
+                            <td>
+                                <span style="color: var(--x-blue); font-weight: 600;">2.1%</span>
+                                <div class="metric-bar"><div class="metric-bar-fill x" style="width: 55%"></div></div>
+                            </td>
+                            <td>
+                                <span style="color: var(--linkedin-blue); font-weight: 600;">3.4%</span>
+                                <div class="metric-bar"><div class="metric-bar-fill linkedin" style="width: 80%"></div></div>
+                            </td>
+                            <td><span class="platform-badge linkedin"><i class="fab fa-linkedin-in"></i> LinkedIn</span></td>
+                        </tr>
+                        <tr>
+                            <td>Avg. Post Performance</td>
+                            <td>
+                                <span style="color: var(--x-blue); font-weight: 600;">78/100</span>
+                                <div class="metric-bar"><div class="metric-bar-fill x" style="width: 78%"></div></div>
+                            </td>
+                            <td>
+                                <span style="color: var(--linkedin-blue); font-weight: 600;">82/100</span>
+                                <div class="metric-bar"><div class="metric-bar-fill linkedin" style="width: 82%"></div></div>
+                            </td>
+                            <td><span class="platform-badge linkedin"><i class="fab fa-linkedin-in"></i> LinkedIn</span></td>
+                        </tr>
+                        <tr>
+                            <td>Content Longevity</td>
+                            <td>
+                                <span style="color: var(--x-blue); font-weight: 600;">24 hours</span>
+                                <div class="metric-bar"><div class="metric-bar-fill x" style="width: 35%"></div></div>
+                            </td>
+                            <td>
+                                <span style="color: var(--linkedin-blue); font-weight: 600;">72 hours</span>
+                                <div class="metric-bar"><div class="metric-bar-fill linkedin" style="width: 90%"></div></div>
+                            </td>
+                            <td><span class="platform-badge linkedin"><i class="fab fa-linkedin-in"></i> LinkedIn</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Engagement Trends Chart -->
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title"><i class="fas fa-chart-line"></i> Cross-Platform Engagement Trends</div>
+                    <div class="panel-actions">
+                        <button class="panel-btn">Impressions</button>
+                        <button class="panel-btn">Engagement</button>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="engagementChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Active Cross-Platform Campaigns -->
+        <div class="panel" style="margin-bottom: 1.5rem;">
+            <div class="panel-header">
+                <div class="panel-title"><i class="fas fa-rocket"></i> Active Cross-Platform Campaigns</div>
+                <div class="panel-actions">
+                    <button class="panel-btn" onclick="openModal()">
+                        <i class="fas fa-plus"></i> New Campaign
+                    </button>
+                </div>
+            </div>
+            <div class="campaigns-grid">
+                <div class="campaign-card">
+                    <div class="campaign-header">
+                        <div>
+                            <div class="campaign-title">Healthcare Innovation Series</div>
+                            <div class="campaign-type">Thought Leadership</div>
+                        </div>
+                        <div class="campaign-platforms">
+                            <div class="campaign-platform-icon x" title="X"><i class="fab fa-x-twitter"></i></div>
+                            <div class="campaign-platform-icon linkedin" title="LinkedIn"><i class="fab fa-linkedin-in"></i></div>
+                        </div>
+                    </div>
+                    <div class="campaign-progress">
+                        <div class="progress-header">
+                            <span>Progress</span>
+                            <span>8/12 posts</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 67%"></div>
+                        </div>
+                    </div>
+                    <div class="campaign-stats">
+                        <div class="campaign-stat">
+                            <div class="campaign-stat-value">4.2K</div>
+                            <div class="campaign-stat-label">Reach</div>
+                        </div>
+                        <div class="campaign-stat">
+                            <div class="campaign-stat-value">6.8%</div>
+                            <div class="campaign-stat-label">Engagement</div>
+                        </div>
+                        <div class="campaign-stat">
+                            <div class="campaign-stat-value" style="color: var(--accent-green);">287%</div>
+                            <div class="campaign-stat-label">ROI</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="campaign-card">
+                    <div class="campaign-header">
+                        <div>
+                            <div class="campaign-title">ETH Treasury Deep Dive</div>
+                            <div class="campaign-type">Educational</div>
+                        </div>
+                        <div class="campaign-platforms">
+                            <div class="campaign-platform-icon x" title="X"><i class="fab fa-x-twitter"></i></div>
+                        </div>
+                    </div>
+                    <div class="campaign-progress">
+                        <div class="progress-header">
+                            <span>Progress</span>
+                            <span>3/5 posts</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 60%"></div>
+                        </div>
+                    </div>
+                    <div class="campaign-stats">
+                        <div class="campaign-stat">
+                            <div class="campaign-stat-value">8.1K</div>
+                            <div class="campaign-stat-label">Reach</div>
+                        </div>
+                        <div class="campaign-stat">
+                            <div class="campaign-stat-value">8.3%</div>
+                            <div class="campaign-stat-label">Engagement</div>
+                        </div>
+                        <div class="campaign-stat">
+                            <div class="campaign-stat-value" style="color: var(--accent-green);">412%</div>
+                            <div class="campaign-stat-label">ROI</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="campaign-card">
+                    <div class="campaign-header">
+                        <div>
+                            <div class="campaign-title">GLP-1 Market Analysis</div>
+                            <div class="campaign-type">Market Research</div>
+                        </div>
+                        <div class="campaign-platforms">
+                            <div class="campaign-platform-icon x" title="X"><i class="fab fa-x-twitter"></i></div>
+                            <div class="campaign-platform-icon linkedin" title="LinkedIn"><i class="fab fa-linkedin-in"></i></div>
+                        </div>
+                    </div>
+                    <div class="campaign-progress">
+                        <div class="progress-header">
+                            <span>Progress</span>
+                            <span>2/8 posts</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 25%"></div>
+                        </div>
+                    </div>
+                    <div class="campaign-stats">
+                        <div class="campaign-stat">
+                            <div class="campaign-stat-value">1.2K</div>
+                            <div class="campaign-stat-label">Reach</div>
+                        </div>
+                        <div class="campaign-stat">
+                            <div class="campaign-stat-value">5.1%</div>
+                            <div class="campaign-stat-label">Engagement</div>
+                        </div>
+                        <div class="campaign-stat">
+                            <div class="campaign-stat-value" style="color: var(--accent-amber);">Draft</div>
+                            <div class="campaign-stat-label">Status</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="campaign-card">
+                    <div class="campaign-header">
+                        <div>
+                            <div class="campaign-title">Longevity Economy Report</div>
+                            <div class="campaign-type">Research</div>
+                        </div>
+                        <div class="campaign-platforms">
+                            <div class="campaign-platform-icon linkedin" title="LinkedIn"><i class="fab fa-linkedin-in"></i></div>
+                        </div>
+                    </div>
+                    <div class="campaign-progress">
+                        <div class="progress-header">
+                            <span>Progress</span>
+                            <span>0/4 posts</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div class="campaign-stats">
+                        <div class="campaign-stat">
+                            <div class="campaign-stat-value">-</div>
+                            <div class="campaign-stat-label">Reach</div>
+                        </div>
+                        <div class="campaign-stat">
+                            <div class="campaign-stat-value">-</div>
+                            <div class="campaign-stat-label">Engagement</div>
+                        </div>
+                        <div class="campaign-stat">
+                            <div class="campaign-stat-value" style="color: var(--accent-amber);">Planning</div>
+                            <div class="campaign-stat-label">Status</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Platform ROI Comparison -->
+        <div class="panel" style="margin-bottom: 1.5rem;">
+            <div class="panel-header">
+                <div class="panel-title"><i class="fas fa-coins"></i> Platform ROI Analysis</div>
+                <div class="panel-actions">
+                    <button class="panel-btn">This Month</button>
+                    <button class="panel-btn"><i class="fas fa-ellipsis-h"></i></button>
+                </div>
+            </div>
+            <div class="roi-grid">
+                <div class="roi-card">
+                    <div class="roi-header">
+                        <div class="roi-platform-icon x"><i class="fab fa-x-twitter"></i></div>
+                        <div class="roi-platform-info">
+                            <div class="roi-platform-name">X (Twitter)</div>
+                            <div class="roi-platform-handle">@quentinvest1</div>
+                        </div>
+                    </div>
+                    <div class="roi-metrics">
+                        <div class="roi-metric">
+                            <div class="roi-metric-value">247%</div>
+                            <div class="roi-metric-label">Campaign ROI</div>
+                        </div>
+                        <div class="roi-metric">
+                            <div class="roi-metric-value">$0.12</div>
+                            <div class="roi-metric-label">Cost/Engagement</div>
+                        </div>
+                        <div class="roi-metric">
+                            <div class="roi-metric-value positive">+18%</div>
+                            <div class="roi-metric-label">vs Last Month</div>
+                        </div>
+                        <div class="roi-metric">
+                            <div class="roi-metric-value">12.4K</div>
+                            <div class="roi-metric-label">Total Reach</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="roi-card">
+                    <div class="roi-header">
+                        <div class="roi-platform-icon linkedin"><i class="fab fa-linkedin-in"></i></div>
+                        <div class="roi-platform-info">
+                            <div class="roi-platform-name">LinkedIn</div>
+                            <div class="roi-platform-handle">Quentin /quenfr</div>
+                        </div>
+                    </div>
+                    <div class="roi-metrics">
+                        <div class="roi-metric">
+                            <div class="roi-metric-value">312%</div>
+                            <div class="roi-metric-label">Campaign ROI</div>
+                        </div>
+                        <div class="roi-metric">
+                            <div class="roi-metric-value">$0.08</div>
+                            <div class="roi-metric-label">Cost/Engagement</div>
+                        </div>
+                        <div class="roi-metric">
+                            <div class="roi-metric-value positive">+24%</div>
+                            <div class="roi-metric-label">vs Last Month</div>
+                        </div>
+                        <div class="roi-metric">
+                            <div class="roi-metric-value">8.7K</div>
+                            <div class="roi-metric-label">Total Reach</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Cross-Platform Content -->
+        <div class="panel">
+            <div class="panel-header">
+                <div class="panel-title"><i class="fas fa-list"></i> Recent Cross-Platform Content</div>
+                <div class="panel-actions">
+                    <button class="panel-btn">View All</button>
+                </div>
+            </div>
+            <div class="content-preview">
+                <div class="content-platform x"><i class="fab fa-x-twitter"></i></div>
+                <div class="content-body">
+                    <div class="content-text">The ETH Treasury strategy is reshaping how companies think about balance sheet diversification. Here's what most investors miss about the treasury revolution...</div>
+                    <div class="content-meta">
+                        <span><i class="fas fa-clock"></i> 2 hours ago</span>
+                        <span><i class="fas fa-hashtag"></i> ETH, Treasury</span>
+                        <span class="status-badge running">Published</span>
+                    </div>
+                    <div class="content-metrics">
+                        <div class="content-metric"><i class="fas fa-eye"></i> 1,247</div>
+                        <div class="content-metric"><i class="fas fa-heart"></i> 89</div>
+                        <div class="content-metric"><i class="fas fa-retweet"></i> 23</div>
+                        <div class="content-metric"><i class="fas fa-comment"></i> 12</div>
+                    </div>
+                </div>
+            </div>
+            <div class="content-preview">
+                <div class="content-platform linkedin"><i class="fab fa-linkedin-in"></i></div>
+                <div class="content-body">
+                    <div class="content-text">Healthcare innovation isn't just about new drugs—it's about reimagining patient journeys. GLP-1 therapies are just the beginning of a fundamental shift in how we approach chronic disease management.</div>
+                    <div class="content-meta">
+                        <span><i class="fas fa-clock"></i> 5 hours ago</span>
+                        <span><i class="fas fa-hashtag"></i> Healthcare, Innovation</span>
+                        <span class="status-badge running">Published</span>
+                    </div>
+                    <div class="content-metrics">
+                        <div class="content-metric"><i class="fas fa-eye"></i> 892</div>
+                        <div class="content-metric"><i class="fas fa-thumbs-up"></i> 67</div>
+                        <div class="content-metric"><i class="fas fa-share"></i> 18</div>
+                        <div class="content-metric"><i class="fas fa-comment"></i> 9</div>
+                    </div>
+                </div>
+            </div>
+            <div class="content-preview">
+                <div class="content-platform x"><i class="fab fa-x-twitter"></i></div>
+                <div class="content-body">
+                    <div class="content-text">Thread: 5 metrics every growth investor should track that aren't P/E ratios. The market rewards clarity. Here are the numbers that actually matter...</div>
+                    <div class="content-meta">
+                        <span><i class="fas fa-clock"></i> Yesterday</span>
+                        <span><i class="fas fa-hashtag"></i> Growth, Investing</span>
+                        <span class="status-badge running">Published</span>
+                    </div>
+                    <div class="content-metrics">
+                        <div class="content-metric"><i class="fas fa-eye"></i> 3,456</div>
+                        <div class="content-metric"><i class="fas fa-heart"></i> 234</div>
+                        <div class="content-metric"><i class="fas fa-retweet"></i> 89</div>
+                        <div class="content-metric"><i class="fas fa-comment"></i> 45</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="campaignModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title"><i class="fas fa-plus-circle"></i> Create Cross-Platform Campaign</div>
+                <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Campaign Name</label>
+                    <input type="text" class="form-input" placeholder="e.g., Q3 Healthcare Innovation Series">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Campaign Type</label>
+                    <select class="form-select">
+                        <option>Thought Leadership</option>
+                        <option>Educational</option>
+                        <option>Market Research</option>
+                        <option>Product Launch</option>
+                        <option>Event Promotion</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Target Platforms</label>
+                    <div class="platform-checkbox-group">
+                        <div class="platform-checkbox selected x" onclick="togglePlatform(this, 'x')">
+                            <i class="fab fa-x-twitter platform-checkbox-icon" style="color: var(--x-blue);"></i>
+                            <span class="platform-checkbox-label">X (Twitter)</span>
+                        </div>
+                        <div class="platform-checkbox selected linkedin" onclick="togglePlatform(this, 'linkedin')">
+                            <i class="fab fa-linkedin-in platform-checkbox-icon" style="color: var(--linkedin-blue);"></i>
+                            <span class="platform-checkbox-label">LinkedIn</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Content Pillar</label>
+                    <select class="form-select">
+                        <option>Healthcare</option>
+                        <option>Crypto</option>
+                        <option>Macro</option>
+                        <option>Longevity</option>
+                        <option>Growth</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Campaign Goals</label>
+                    <textarea class="form-textarea" placeholder="e.g., Establish thought leadership in GLP-1 space, drive engagement on healthcare content"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="createCampaign()">
+                    <i class="fas fa-rocket"></i> Create Campaign
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Chart
+        const ctx = document.getElementById('engagementChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                datasets: [
+                    {
+                        label: 'X (Twitter)',
+                        data: [1200, 1900, 1500, 2200, 2800, 2400, 3100],
+                        borderColor: '#1DA1F2',
+                        backgroundColor: 'rgba(29, 161, 242, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    },
+                    {
+                        label: 'LinkedIn',
+                        data: [800, 1200, 1100, 1400, 1800, 1600, 2100],
+                        borderColor: '#0A66C2',
+                        backgroundColor: 'rgba(10, 102, 194, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    },
+                    {
+                        label: 'Combined',
+                        data: [2000, 3100, 2600, 3600, 4600, 4000, 5200],
+                        borderColor: '#00d4ff',
+                        borderDash: [5, 5],
+                        tension: 0.4,
+                        fill: false
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: { color: '#a0a0a0', usePointStyle: true }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                        ticks: { color: '#6e6e6e' }
+                    },
+                    y: {
+                        grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                        ticks: { color: '#6e6e6e' }
+                    }
+                }
+            }
+        });
+
+        // Platform Switching
+        function switchPlatform(platform) {
+            document.querySelectorAll('.platform-tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelector(`.platform-tab.${platform}`).classList.add('active');
+            
+            // In a real implementation, this would filter the dashboard data
+            showToast(`Switched to ${platform === 'unified' ? 'Unified' : platform === 'x' ? 'X (Twitter)' : 'LinkedIn'} view`, 'info');
+        }
+
+        // Modal Functions
+        function openModal() {
+            document.getElementById('campaignModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('campaignModal').classList.remove('active');
+        }
+
+        function togglePlatform(element, platform) {
+            element.classList.toggle('selected');
+            element.classList.toggle(platform);
+        }
+
+        function createCampaign() {
+            closeModal();
+            showToast('Cross-platform campaign created successfully!', 'success');
+        }
+
+        // Toast Notifications
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : 'info-circle'} toast-icon ${type}"></i>
+                <div class="toast-content">
+                    <div class="toast-title">${type === 'success' ? 'Success' : 'Info'}</div>
+                    <div class="toast-message">${message}</div>
+                </div>
+            `;
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.animation = 'slideIn 0.3s ease reverse';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Close modal on overlay click
+        document.getElementById('campaignModal').addEventListener('click', (e) => {
+            if (e.target.id === 'campaignModal') closeModal();
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "eth_treasury": {
+    "volumes": [
+      3
+    ],
+    "avg_volume": 3.0
+  },
+  "hims_healthcare": {
+    "volumes": [
+      3
+    ],
+    "avg_volume": 3.0
+  },
+  "ai_commerce": {
+    "volumes": [
+      3
+    ],
+    "avg_volume": 3.0
+  }
+}

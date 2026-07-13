@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@quentinvest1 | Content Intelligence v7.4</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg-primary: #050505;
+            --bg-secondary: #0a0a0a;
+            --bg-tertiary: #111111;
+            --bg-card: #141414;
+            --bg-hover: #1a1a1a;
+            --accent-cyan: #00d4ff;
+            --accent-green: #00ff88;
+            --accent-orange: #ff8800;
+            --accent-red: #ff3860;
+            --accent-purple: #bd34fe;
+            --accent-gold: #ffd700;
+            --accent-pink: #ff2d55;
+            --accent-teal: #00d4aa;
+            --accent-blue: #0a84ff;
+            --accent-indigo: #6366f1;
+            --accent-amber: #ffaa00;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-tertiary: #6e6e6e;
+            --text-dim: #404040;
+            --border-color: #1f1f1f;
+            --glass-bg: rgba(20, 20, 20, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.08);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(0, 212, 255, 0.06) 0%, transparent 40%),
+                radial-gradient(ellipse at 80% 80%, rgba(255, 170, 0, 0.04) 0%, transparent 40%),
+                radial-gradient(ellipse at 50% 50%, rgba(189, 52, 254, 0.03) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .ambient-grid {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 212, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .top-nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 64px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(24px) saturate(180%);
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 1.5rem;
+            z-index: 100;
+        }
+
+        .nav-left { display: flex; align-items: center; gap: 1rem; }
+        .logo { display: flex; align-items: center; gap: 0.5rem; font-weight: 600; font-size: 1.1rem; }
+        .version-tag { 
+            font-size: 0.7rem; 
+            padding: 0.2rem 0.5rem; 
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-indigo)); 
+            border-radius: 4px; 
+            color: #fff; 
+            font-weight: 700; 
+        }
+
+        .nav-links { display: flex; gap: 0.25rem; }
+        
+        /* Home Button */
+        .home-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.5rem 0.75rem;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 6px;
+            color: var(--accent-cyan);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+            transition: all 0.2s;
+        }
+        .home-btn:hover {
+            background: rgba(0, 212, 255, 0.2);
+            border-color: var(--accent-cyan);
+        }
+        
+        .nav-link {
+            padding: 0.5rem 0.75rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.8rem;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+        .nav-link:hover, .nav-link.active { 
+            background: var(--bg-hover); 
+            color: var(--text-primary); 
+        }
+
+        .nav-right { display: flex; align-items: center; gap: 0.75rem; }
+        .status-indicator { 
+            display: flex; 
+            align-items: center; 
+            gap: 0.4rem; 
+            font-size: 0.75rem; 
+            color: var(--text-secondary); 
+        }
+        .status-dot { 
+            width: 8px; 
+            height: 8px; 
+            border-radius: 50%; 
+            background: var(--accent-green); 
+            animation: pulse-dot 2s ease-in-out infinite; 
+        }
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(0.9); }
+        }
+
+        .main-container { 
+            padding: 84px 1.5rem 1.5rem; 
+            max-width: 1600px; 
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-header {
+            margin-bottom: 1.5rem;
+        }
+        .page-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .page-title .icon { color: var(--accent-purple); }
+        .page-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Grid Layout */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 320px 1fr 340px;
+            gap: 1rem;
+            height: calc(100vh - 180px);
+        }
+
+        /* Left Panel - Generation Controls */
+        .generation-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            overflow-y: auto;
+            padding-right: 0.5rem;
+        }
+        .generation-panel::-webkit-scrollbar { width: 4px; }
+        .generation-panel::-webkit-scrollbar-thumb { 
+            background: var(--text-dim); 
+            border-radius: 2px; 
+        }
+
+        .panel-section {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 1rem;
+        }
+        .panel-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.75rem;
+        }
+        .panel-header i { color: var(--accent-cyan); }
+
+        .content-type-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+        }
+        .content-type-btn {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+        .content-type-btn:hover {
+            border-color: var(--accent-cyan);
+            background: var(--bg-hover);
+        }
+        .content-type-btn.active {
+            border-color: var(--accent-cyan);
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), transparent);
+        }
+        .content-type-btn i {
+            display: block;
+            font-size: 1.25rem;
+            margin-bottom: 0.25rem;
+            color: var(--accent-cyan);
+        }
+        .content-type-btn span {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+        }
+
+        .input-group {
+            margin-bottom: 0.75rem;
+        }
+        .input-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.35rem;
+            display: block;
+        }
+        .text-input {
+            width: 100%;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.75rem;
+            color: var(--text-primary);
+            font-size: 0.85rem;
+            resize: none;
+            font-family: inherit;
+        }
+        .text-input:focus {
+            outline: none;
+            border-color: var(--accent-cyan);
+        }
+
+        .pillar-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+        .pillar-tag {
+            padding: 0.4rem 0.75rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .pillar-tag:hover { border-color: var(--accent-cyan); }
+        .pillar-tag.active {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            border-color: transparent;
+            color: #000;
+            font-weight: 600;
+        }
+
+        .tone-slider {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        .tone-slider span {
+            font-size: 0.7rem;
+            color: var(--text-tertiary);
+        }
+        input[type="range"] {
+            flex: 1;
+            -webkit-appearance: none;
+            height: 4px;
+            background: var(--bg-tertiary);
+            border-radius: 2px;
+            outline: none;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 14px;
+            height: 14px;
+            background: var(--accent-cyan);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .generate-btn {
+            width: 100%;
+            padding: 0.875rem;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            border: none;
+            border-radius: 8px;
+            color: #000;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.2s ease;
+        }
+        .generate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 212, 255, 0.3);
+        }
+        .generate-btn.generating {
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-indigo));
+        }
+
+        /* Center Panel - Content Editor */
+        .editor-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .editor-container {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .editor-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+        }
+        .toolbar-left { display: flex; gap: 0.25rem; }
+        .toolbar-btn {
+            width: 32px;
+            height: 32px;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+        .toolbar-btn:hover {
+            border-color: var(--accent-cyan);
+            color: var(--text-primary);
+        }
+
+        .editor-content {
+            flex: 1;
+            padding: 1.25rem;
+            overflow-y: auto;
+        }
+        .editor-content::-webkit-scrollbar { width: 6px; }
+        .editor-content::-webkit-scrollbar-thumb { 
+            background: var(--text-dim); 
+            border-radius: 3px; 
+        }
+
+        .content-preview {
+            font-size: 1rem;
+            line-height: 1.6;
+            min-height: 200px;
+            outline: none;
+        }
+        .content-preview:empty::before {
+            content: 'Your generated content will appear here...';
+            color: var(--text-dim);
+        }
+
+        .char-count {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+        }
+        .char-count.warning { color: var(--accent-orange); }
+        .char-count.danger { color: var(--accent-red); }
+
+        .ai-suggestions {
+            padding: 0.75rem 1rem;
+            border-top: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+        }
+        .suggestions-header {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+        .suggestions-header i { color: var(--accent-purple); }
+        .suggestion-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+        .suggestion-chip {
+            padding: 0.35rem 0.65rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .suggestion-chip:hover {
+            border-color: var(--accent-purple);
+            color: var(--text-primary);
+        }
+
+        /* Right Panel - Analytics & Preview */
+        .analytics-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            overflow-y: auto;
+            padding-right: 0.5rem;
+        }
+        .analytics-panel::-webkit-scrollbar { width: 4px; }
+        .analytics-panel::-webkit-scrollbar-thumb { 
+            background: var(--text-dim); 
+            border-radius: 2px; 
+        }
+
+        .score-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 1.25rem;
+            text-align: center;
+        }
+        .score-value {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent-green), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .score-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+        }
+        .score-change {
+            font-size: 0.75rem;
+            color: var(--accent-green);
+            margin-top: 0.35rem;
+        }
+
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+        .metric-card {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 0.875rem;
+        }
+        .metric-label {
+            font-size: 0.7rem;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.35rem;
+        }
+        .metric-value {
+            font-size: 1.35rem;
+            font-weight: 700;
+        }
+        .metric-value.good { color: var(--accent-green); }
+        .metric-value.warning { color: var(--accent-orange); }
+        .metric-bar {
+            height: 4px;
+            background: var(--bg-card);
+            border-radius: 2px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+        .metric-bar-fill {
+            height: 100%;
+            border-radius: 2px;
+            transition: width 0.5s ease;
+        }
+        .metric-bar-fill.good { background: var(--accent-green); }
+        .metric-bar-fill.warning { background: var(--accent-orange); }
+        .metric-bar-fill.danger { background: var(--accent-red); }
+
+        .x-preview {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1rem;
+        }
+        .preview-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+        .preview-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #000;
+        }
+        .preview-user {
+            flex: 1;
+        }
+        .preview-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        .preview-handle {
+            font-size: 0.8rem;
+            color: var(--text-tertiary);
+        }
+        .preview-time {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+        }
+        .preview-content {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 0.75rem;
+        }
+        .preview-actions {
+            display: flex;
+            gap: 1.5rem;
+            color: var(--text-tertiary);
+            font-size: 0.85rem;
+        }
+        .preview-action {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .history-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .history-item:hover {
+            border-color: var(--accent-cyan);
+            background: var(--bg-hover);
+        }
+        .history-score {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.75rem;
+        }
+        .history-score.high { background: rgba(0, 255, 136, 0.15); color: var(--accent-green); }
+        .history-score.med { background: rgba(255, 170, 0, 0.15); color: var(--accent-orange); }
+        .history-score.low { background: rgba(255, 56, 96, 0.15); color: var(--accent-red); }
+        .history-info { flex: 1; }
+        .history-title {
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        .history-meta {
+            font-size: 0.7rem;
+            color: var(--text-tertiary);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .dashboard-grid {
+                grid-template-columns: 280px 1fr;
+            }
+            .analytics-panel { display: none; }
+        }
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+            .generation-panel { order: 2; }
+            .editor-panel { order: 1; }
+        }
+
+        /* Toast */
+        .toast-container {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            z-index: 200;
+        }
+        .toast {
+            padding: 0.875rem 1.25rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            animation: slideIn 0.3s ease;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        .toast.success { border-left: 3px solid var(--accent-green); }
+        .toast.error { border-left: 3px solid var(--accent-red); }
+        .toast.info { border-left: 3px solid var(--accent-cyan); }
+
+        /* Loading Animation */
+        .generating-dots {
+            display: flex;
+            gap: 4px;
+        }
+        .generating-dots span {
+            width: 6px;
+            height: 6px;
+            background: currentColor;
+            border-radius: 50%;
+            animation: bounce 1.4s ease-in-out infinite both;
+        }
+        .generating-dots span:nth-child(1) { animation-delay: -0.32s; }
+        .generating-dots span:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="ambient-grid"></div>
+
+    <nav class="top-nav">
+        <div class="nav-left">
+            <a href="mission_control_unified.html" class="home-btn">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <div class="logo">
+                <i class="fas fa-rocket" style="color: var(--accent-cyan);"></i>
+                <span>Mission Control</span>
+                <span class="version-tag">v7.4</span>
+            </div>
+            <div class="nav-links">
+                <a href="mission_control_projects.html" class="nav-link">📁 Projects</a>
+                <a href="mission_control_scheduler.html" class="nav-link">📅 Scheduler</a>
+                <a href="#" class="nav-link active">📝 Content</a>
+                <a href="mission_control_analytics.html" class="nav-link">📊 Analytics</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <div class="status-indicator">
+                <span class="status-dot"></span>
+                <span>AI Ready</span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-container">
+        <div class="page-header">
+            <h1 class="page-title">
+                <i class="fas fa-brain icon"></i>
+                Content Intelligence
+            </h1>
+            <p class="page-subtitle">AI-powered content generation with real-time optimization and performance prediction</p>
+        </div>
+
+        <div class="dashboard-grid">
+            <!-- Left Panel: Generation Controls -->
+            <div class="generation-panel">
+                <div class="panel-section">
+                    <div class="panel-header">
+                        <i class="fas fa-layer-group"></i>
+                        Content Type
+                    </div>
+                    <div class="content-type-grid">
+                        <div class="content-type-btn active" data-type="post">
+                            <i class="fas fa-comment-alt"></i>
+                            <span>Post</span>
+                        </div>
+                        <div class="content-type-btn" data-type="thread">
+                            <i class="fas fa-stream"></i>
+                            <span>Thread</span>
+                        </div>
+                        <div class="content-type-btn" data-type="reply">
+                            <i class="fas fa-reply"></i>
+                            <span>Reply</span>
+                        </div>
+                        <div class="content-type-btn" data-type="quote">
+                            <i class="fas fa-quote-right"></i>
+                            <span>Quote</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-section">
+                    <div class="panel-header">
+                        <i class="fas fa-lightbulb"></i>
+                        Topic / Prompt
+                    </div>
+                    <div class="input-group">
+                        <textarea class="text-input" id="topicInput" rows="3" placeholder="Enter your topic, idea, or prompt..."></textarea>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-label">Key Points (optional)</span>
+                        <input type="text" class="text-input" id="keyPoints" placeholder="Enter key points separated by commas">
+                    </div>
+                </div>
+
+                <div class="panel-section">
+                    <div class="panel-header">
+                        <i class="fas fa-bullseye"></i>
+                        Content Pillar
+                    </div>
+                    <div class="pillar-selector">
+                        <span class="pillar-tag active">Healthcare</span>
+                        <span class="pillar-tag">Crypto</span>
+                        <span class="pillar-tag">Macro</span>
+                        <span class="pillar-tag">Longevity</span>
+                        <span class="pillar-tag">Growth</span>
+                    </div>
+                </div>
+
+                <div class="panel-section">
+                    <div class="panel-header">
+                        <i class="fas fa-sliders-h"></i>
+                        Tone & Style
+                    </div>
+                    <div class="tone-slider">
+                        <span>Data</span>
+                        <input type="range" id="toneSlider" min="0" max="100" value="50">
+                        <span>Story</span>
+                    </div>
+                    <div class="tone-slider" style="margin-top: 0.75rem;">
+                        <span>Formal</span>
+                        <input type="range" id="styleSlider" min="0" max="100" value="60">
+                        <span>Casual</span>
+                    </div>
+                </div>
+
+                <button class="generate-btn" id="generateBtn">
+                    <i class="fas fa-sparkles"></i>
+                    Generate Content
+                </button>
+            </div>
+
+            <!-- Center Panel: Content Editor -->
+            <div class="editor-panel">
+                <div class="editor-container">
+                    <div class="editor-toolbar">
+                        <div class="toolbar-left">
+                            <button class="toolbar-btn" title="Bold"><i class="fas fa-bold"></i></button>
+                            <button class="toolbar-btn" title="Italic"><i class="fas fa-italic"></i></button>
+                            <button class="toolbar-btn" title="Add Link"><i class="fas fa-link"></i></button>
+                            <button class="toolbar-btn" title="Add Emoji"><i class="far fa-smile"></i></button>
+                            <button class="toolbar-btn" title="AI Rewrite"><i class="fas fa-magic"></i></button>
+                        </div>
+                        <div class="char-count" id="charCount">0 / 280</div>
+                    </div>
+                    <div class="editor-content">
+                        <div class="content-preview" id="contentPreview" contenteditable="true"></div>
+                    </div>
+                    <div class="ai-suggestions">
+                        <div class="suggestions-header">
+                            <i class="fas fa-wand-magic-sparkles"></i>
+                            AI Suggestions
+                        </div>
+                        <div class="suggestion-chips" id="suggestionChips">
+                            <span class="suggestion-chip">Add hook</span>
+                            <span class="suggestion-chip">Make more concise</span>
+                            <span class="suggestion-chip">Add data point</span>
+                            <span class="suggestion-chip">Stronger CTA</span>
+                            <span class="suggestion-chip">Add emoji</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel: Analytics & Preview -->
+            <div class="analytics-panel">
+                <div class="score-card">
+                    <div class="score-value" id="predictedScore">--</div>
+                    <div class="score-label">Predicted Engagement Score</div>
+                    <div class="score-change" id="scoreChange">Generate content to see score</div>
+                </div>
+
+                <div class="panel-section">
+                    <div class="panel-header">
+                        <i class="fas fa-chart-bar"></i>
+                        Content Metrics
+                    </div>
+                    <div class="metric-grid">
+                        <div class="metric-card">
+                            <div class="metric-label">Readability</div>
+                            <div class="metric-value good" id="readabilityScore">--</div>
+                            <div class="metric-bar">
+                                <div class="metric-bar-fill good" id="readabilityBar" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Hook Strength</div>
+                            <div class="metric-value good" id="hookScore">--</div>
+                            <div class="metric-bar">
+                                <div class="metric-bar-fill good" id="hookBar" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Viral Potential</div>
+                            <div class="metric-value warning" id="viralScore">--</div>
+                            <div class="metric-bar">
+                                <div class="metric-bar-fill warning" id="viralBar" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">SEO Score</div>
+                            <div class="metric-value good" id="seoScore">--</div>
+                            <div class="metric-bar">
+                                <div class="metric-bar-fill good" id="seoBar" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-section">
+                    <div class="panel-header">
+                        <i class="fab fa-x-twitter"></i>
+                        Preview
+                    </div>
+                    <div class="x-preview" id="xPreview">
+                        <div class="preview-header">
+                            <div class="preview-avatar">Q</div>
+                            <div class="preview-user">
+                                <div class="preview-name">Quentin</div>
+                                <div class="preview-handle">@quentinvest1</div>
+                            </div>
+                            <div class="preview-time">Now</div>
+                        </div>
+                        <div class="preview-content" id="previewContent">
+                            Your content will appear here...
+                        </div>
+                        <div class="preview-actions">
+                            <div class="preview-action"><i class="far fa-comment"></i> 0</div>
+                            <div class="preview-action"><i class="fas fa-retweet"></i> 0</div>
+                            <div class="preview-action"><i class="far fa-heart"></i> 0</div>
+                            <div class="preview-action"><i class="far fa-eye"></i> 0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-section">
+                    <div class="panel-header">
+                        <i class="fas fa-history"></i>
+                        Recent Generations
+                    </div>
+                    <div class="history-list" id="historyList">
+                        <div class="history-item">
+                            <div class="history-score high">94</div>
+                            <div class="history-info">
+                                <div class="history-title">Healthcare innovation thread</div>
+                                <div class="history-meta">2 min ago • Healthcare</div>
+                            </div>
+                        </div>
+                        <div class="history-item">
+                            <div class="history-score med">78</div>
+                            <div class="history-info">
+                                <div class="history-title">ETH Treasury analysis</div>
+                                <div class="history-meta">15 min ago • Crypto</div>
+                            </div>
+                        </div>
+                        <div class="history-item">
+                            <div class="history-score high">91</div>
+                            <div class="history-info">
+                                <div class="history-title">GLP-1 market trends</div>
+                                <div class="history-meta">1 hr ago • Healthcare</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        // State
+        const state = {
+            contentType: 'post',
+            pillar: 'Healthcare',
+            tone: 50,
+            style: 60,
+            content: '',
+            isGenerating: false,
+            generationHistory: [
+                { title: 'Healthcare innovation thread', score: 94, pillar: 'Healthcare', time: '2 min ago' },
+                { title: 'ETH Treasury analysis', score: 78, pillar: 'Crypto', time: '15 min ago' },
+                { title: 'GLP-1 market trends', score: 91, pillar: 'Healthcare', time: '1 hr ago' }
+            ]
+        };
+
+        // Sample content templates
+        const contentTemplates = {
+            Healthcare: [
+                "The GLP-1 revolution is just getting started.\n\nWhile everyone focuses on weight loss, the real disruption is in:\n\n• Cardiovascular outcomes\n• Alzheimer's prevention\n• NAFLD treatment\n• Addiction management\n\nWe're looking at a $200B+ market by 2030. The players who understand the full therapeutic potential will dominate.\n\nWho's positioned best?",
+                "Hims & Hers reported Q2 earnings:\n\n📈 Revenue up 46% YoY\n📈 Subscribers: 2.1M (+41%)\n📈 Net income: $15.2M (first profitable quarter)\n\nThe thesis is playing out. Digital health + personalized care + GLP-1s = massive TAM expansion\n\nStill undervalued relative to the opportunity."
+            ],
+            Crypto: [
+                "MicroStrategy now holds 226,500 BTC.\n\nCost basis: ~$36,700 per coin\nCurrent value: ~$14.2B\nUnrealized gain: $5.8B\n\nLove it or hate it, Saylor created the playbook for corporate treasury management in the Bitcoin era.\n\nEvery CFO watching this experiment.",
+                "Ethereum ETFs see $2.1B inflows in first month.\n\nThe institutions are here.\n\nWhat happens when the world realizes ETH is productive capital, not just digital gold?\n\nStaking yields + deflationary supply + network effects = asymmetric upside."
+            ],
+            Macro: [
+                "The Fed's problem isn't inflation.\n\nIt's the trillions in unrealized losses sitting on bank balance sheets from the rate shock.\n\nThe longer rates stay elevated, the bigger the duration risk.\n\nSomething breaks, or they cut.\n\nTimeline: Q4 2025.",
+                "Dollar strength is masking a lot of rot.\n\nEmerging markets getting crushed.\nSovereign debt unsustainable.\nTrade imbalances widening.\n\nWhen the DXY turns, it's going to be violent.\n\nPosition accordingly."
+            ],
+            Longevity: [
+                "Longevity medicine is going mainstream:\n\n• Rapamycin trials expanding\n• NAD+ precursor uptake accelerating\n• Senolytics hitting Phase 2\n• AI drug discovery shortening timelines\n\nWe're not adding years to life. We're adding life to years.\n\nThe quantified self meets clinical medicine.",
+                "Metformin for aging: the evidence stacks up.\n\nTAME trial results incoming.\nMechanism: mTOR/AMPK pathway\nEffect: ~2-3 year lifespan extension in diabetics\n\nThe first true anti-aging drug might already be here.\n\nQuestion is: do you wait for FDA or start n=1?"
+            ],
+            Growth: [
+                "The best growth investments right now:\n\n• AI infrastructure (the picks and shovels)\n• Biotech platforms (not single drugs)\n• Fintech in emerging markets\n• Climate tech with unit economics\n\nCommon theme: network effects + compounding moats\n\nWhat am I missing?",
+                "Compounding isn't just for money.\n\nKnowledge compounds.\nRelationships compound.\nReputation compounds.\nHealth compounds.\n\nThe richest people I know optimized for compounding early.\n\nWhat are you compounding today?"
+            ]
+        };
+
+        // DOM Elements
+        const generateBtn = document.getElementById('generateBtn');
+        const contentPreview = document.getElementById('contentPreview');
+        const previewContent = document.getElementById('previewContent');
+        const charCount = document.getElementById('charCount');
+        const predictedScore = document.getElementById('predictedScore');
+        const scoreChange = document.getElementById('scoreChange');
+        const topicInput = document.getElementById('topicInput');
+        const toastContainer = document.getElementById('toastContainer');
+
+        // Content type selection
+        document.querySelectorAll('.content-type-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.content-type-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                state.contentType = btn.dataset.type;
+            });
+        });
+
+        // Pillar selection
+        document.querySelectorAll('.pillar-tag').forEach(tag => {
+            tag.addEventListener('click', () => {
+                document.querySelectorAll('.pillar-tag').forEach(t => t.classList.remove('active'));
+                tag.classList.add('active');
+                state.pillar = tag.textContent;
+            });
+        });
+
+        // Sliders
+        document.getElementById('toneSlider').addEventListener('input', (e) => {
+            state.tone = e.target.value;
+        });
+        document.getElementById('styleSlider').addEventListener('input', (e) => {
+            state.style = e.target.value;
+        });
+
+        // Generate content
+        generateBtn.addEventListener('click', async () => {
+            if (state.isGenerating) return;
+            
+            state.isGenerating = true;
+            generateBtn.classList.add('generating');
+            generateBtn.innerHTML = `
+                <div class="generating-dots">
+                    <span></span><span></span><span></span>
+                </div>
+                Generating...
+            `;
+
+            // Simulate generation delay
+            await new Promise(r => setTimeout(r, 1500));
+
+            // Generate content based on pillar
+            const templates = contentTemplates[state.pillar] || contentTemplates.Healthcare;
+            const randomContent = templates[Math.floor(Math.random() * templates.length)];
+            
+            // Add topic if provided
+            const topic = topicInput.value.trim();
+            const finalContent = topic ? `${topic}\n\n${randomContent}` : randomContent;
+
+            state.content = finalContent;
+            contentPreview.textContent = finalContent;
+            previewContent.textContent = finalContent;
+            
+            // Update character count
+            updateCharCount();
+            
+            // Calculate scores
+            calculateScores(finalContent);
+            
+            // Add to history
+            addToHistory(finalContent);
+            
+            // Show toast
+            showToast('Content generated successfully!', 'success');
+
+            // Reset button
+            state.isGenerating = false;
+            generateBtn.classList.remove('generating');
+            generateBtn.innerHTML = '<i class="fas fa-sparkles"></i>Generate Content';
+        });
+
+        // Character count
+        contentPreview.addEventListener('input', () => {
+            state.content = contentPreview.textContent;
+            updateCharCount();
+            previewContent.textContent = state.content;
+        });
+
+        function updateCharCount() {
+            const count = state.content.length;
+            const max = 280;
+            charCount.textContent = `${count} / ${max}`;
+            
+            charCount.classList.remove('warning', 'danger');
+            if (count > max) {
+                charCount.classList.add('danger');
+            } else if (count > max * 0.9) {
+                charCount.classList.add('warning');
+            }
+        }
+
+        // Calculate content scores
+        function calculateScores(content) {
+            const length = content.length;
+            const words = content.split(/\s+/).length;
+            const hasData = /\d|%|\$|↑|↓|📈|📉/.test(content);
+            const hasHook = content.split('\n')[0].length < 80;
+            const hasCTA = content.includes('?') || /share|follow|comment|what do you think/i.test(content);
+            const lines = content.split('\n').length;
+            
+            // Readability (based on structure)
+            const readability = Math.min(100, 70 + (lines > 3 ? 15 : 0) + (words < 50 ? 10 : 0));
+            
+            // Hook strength
+            const hookStrength = hasHook ? 85 + Math.random() * 10 : 60 + Math.random() * 15;
+            
+            // Viral potential
+            const viral = hasData && hasHook ? 80 + Math.random() * 15 : 50 + Math.random() * 20;
+            
+            // SEO score
+            const seo = hasData && content.split('\n').length > 3 ? 75 + Math.random() * 15 : 60 + Math.random() * 15;
+            
+            // Overall engagement score
+            const overall = Math.round((readability + hookStrength + viral + seo) / 4);
+            
+            // Update UI
+            predictedScore.textContent = overall;
+            scoreChange.textContent = overall > 85 ? '🚀 High viral potential detected' : 
+                                     overall > 70 ? '✨ Good engagement expected' : 
+                                     '💡 Try adding more data points';
+            
+            document.getElementById('readabilityScore').textContent = Math.round(readability);
+            document.getElementById('readabilityBar').style.width = `${readability}%`;
+            
+            document.getElementById('hookScore').textContent = Math.round(hookStrength);
+            document.getElementById('hookBar').style.width = `${hookStrength}%`;
+            
+            document.getElementById('viralScore').textContent = Math.round(viral);
+            document.getElementById('viralBar').style.width = `${viral}%`;
+            document.getElementById('viralBar').className = `metric-bar-fill ${viral > 80 ? 'good' : viral > 60 ? 'warning' : 'danger'}`;
+            
+            document.getElementById('seoScore').textContent = Math.round(seo);
+            document.getElementById('seoBar').style.width = `${seo}%`;
+        }
+
+        // Add to history
+        function addToHistory(content) {
+            const score = parseInt(predictedScore.textContent) || 75;
+            const title = content.split('\n')[0].substring(0, 30) + '...';
+            
+            state.generationHistory.unshift({
+                title,
+                score,
+                pillar: state.pillar,
+                time: 'Just now'
+            });
+            
+            if (state.generationHistory.length > 3) {
+                state.generationHistory.pop();
+            }
+            
+            updateHistoryList();
+        }
+
+        function updateHistoryList() {
+            const historyList = document.getElementById('historyList');
+            historyList.innerHTML = state.generationHistory.map(item => `
+                <div class="history-item">
+                    <div class="history-score ${item.score > 85 ? 'high' : item.score > 70 ? 'med' : 'low'}">${item.score}</div>
+                    <div class="history-info">
+                        <div class="history-title">${item.title}</div>
+                        <div class="history-meta">${item.time} • ${item.pillar}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Suggestion chips
+        document.querySelectorAll('.suggestion-chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                const action = chip.textContent;
+                showToast(`Applied: ${action}`, 'info');
+                
+                // Simulate enhancement
+                if (state.content) {
+                    calculateScores(state.content);
+                }
+            });
+        });
+
+        // Toast notifications
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                <span>${message}</span>
+            `;
+            toastContainer.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+
+        // Toolbar buttons
+        document.querySelectorAll('.toolbar-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const title = btn.getAttribute('title');
+                showToast(`${title} feature activated`, 'info');
+            });
+        });
+
+        // Initialize
+        updateHistoryList();
+        showToast('Content Intelligence v7.4 ready', 'success');
+    </script>
+</body>
+</html>

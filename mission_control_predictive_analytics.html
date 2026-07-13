@@ -1,0 +1,1423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission Control v9.5 | Predictive Analytics & Anomaly Detection</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg: #050505;
+            --bg-card: #0a0a0a;
+            --bg-hover: #111111;
+            --bg-elevated: #141414;
+            --accent: #00d4ff;
+            --accent-green: #00ff88;
+            --accent-orange: #ff8800;
+            --accent-purple: #bd34fe;
+            --accent-pink: #ff2d55;
+            --accent-gold: #ffd700;
+            --accent-red: #ff4444;
+            --accent-teal: #00d4aa;
+            --accent-indigo: #6366f1;
+            --text: #ffffff;
+            --text-dim: #666666;
+            --text-secondary: #aaaaaa;
+            --border: #1a1a1a;
+            --online: #00ff88;
+            --away: #ffaa00;
+            --offline: #666666;
+            --ai-glow: rgba(0, 212, 255, 0.15);
+            --gradient-ai: linear-gradient(135deg, #00d4ff, #bd34fe);
+            --gradient-warn: linear-gradient(135deg, #ff8800, #ff4444);
+            --gradient-success: linear-gradient(135deg, #00ff88, #00d4aa);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Ambient Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(0, 212, 255, 0.03) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(189, 52, 254, 0.02) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(0, 255, 136, 0.02) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .neural-grid {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+                linear-gradient(rgba(0, 212, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Header */
+        .header {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-card);
+        }
+        .logo {
+            font-size: 1.1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .version-badge {
+            font-size: 0.7rem;
+            background: var(--gradient-ai);
+            padding: 0.15rem 0.5rem;
+            border-radius: 10px;
+            margin-left: 0.5rem;
+            color: #fff;
+        }
+        .predictive-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.75rem;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            color: var(--accent);
+        }
+        .predictive-badge i { animation: pulse 2s infinite; }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
+        }
+        .stat-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-box::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: var(--gradient-ai);
+        }
+        .stat-label {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+        .stat-change {
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .stat-change.positive { color: var(--accent-green); }
+        .stat-change.negative { color: var(--accent-red); }
+        .stat-change.warning { color: var(--accent-orange); }
+
+        /* Main Layout */
+        .main {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            height: calc(100vh - 200px);
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+        }
+
+        /* Left Panel */
+        .left-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            overflow-y: auto;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+        .section-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .section-title i { color: var(--accent); }
+
+        /* Prediction Cards */
+        .prediction-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .prediction-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.25rem;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .prediction-card:hover {
+            border-color: rgba(0, 212, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        .prediction-card.at-risk {
+            border-color: rgba(255, 68, 68, 0.3);
+            background: linear-gradient(135deg, var(--bg-card), rgba(255, 68, 68, 0.05));
+        }
+        .prediction-card.warning {
+            border-color: rgba(255, 136, 0, 0.3);
+            background: linear-gradient(135deg, var(--bg-card), rgba(255, 136, 0, 0.05));
+        }
+        .prediction-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
+        }
+        .prediction-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .prediction-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+        .prediction-icon.success { background: rgba(0, 255, 136, 0.15); color: var(--accent-green); }
+        .prediction-icon.warning { background: rgba(255, 136, 0, 0.15); color: var(--accent-orange); }
+        .prediction-icon.danger { background: rgba(255, 68, 68, 0.15); color: var(--accent-red); }
+        .prediction-icon.info { background: rgba(0, 212, 255, 0.15); color: var(--accent); }
+
+        .prediction-confidence {
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 10px;
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--accent);
+        }
+        .prediction-confidence.high { background: rgba(0, 255, 136, 0.1); color: var(--accent-green); }
+        .prediction-confidence.medium { background: rgba(255, 136, 0, 0.1); color: var(--accent-orange); }
+        .prediction-confidence.low { background: rgba(255, 68, 68, 0.1); color: var(--accent-red); }
+
+        .prediction-desc {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+            line-height: 1.4;
+        }
+        .prediction-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+        .prediction-bar {
+            width: 100%;
+            height: 4px;
+            background: var(--bg-hover);
+            border-radius: 2px;
+            margin-top: 0.75rem;
+            overflow: hidden;
+        }
+        .prediction-bar-fill {
+            height: 100%;
+            border-radius: 2px;
+            transition: width 1s ease;
+        }
+        .prediction-bar-fill.success { background: var(--accent-green); }
+        .prediction-bar-fill.warning { background: var(--accent-orange); }
+        .prediction-bar-fill.danger { background: var(--accent-red); }
+        .prediction-bar-fill.info { background: var(--accent); }
+
+        /* Anomaly Feed */
+        .anomaly-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .anomaly-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 0.875rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .anomaly-item:hover {
+            border-color: rgba(0, 212, 255, 0.3);
+            background: var(--bg-hover);
+        }
+        .anomaly-item.critical {
+            border-color: rgba(255, 68, 68, 0.3);
+            background: linear-gradient(90deg, var(--bg-card), rgba(255, 68, 68, 0.05));
+        }
+        .anomaly-item.warning {
+            border-color: rgba(255, 136, 0, 0.3);
+            background: linear-gradient(90deg, var(--bg-card), rgba(255, 136, 0, 0.05));
+        }
+        .anomaly-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .anomaly-icon.critical { background: rgba(255, 68, 68, 0.15); color: var(--accent-red); }
+        .anomaly-icon.warning { background: rgba(255, 136, 0, 0.15); color: var(--accent-orange); }
+        .anomaly-icon.info { background: rgba(0, 212, 255, 0.15); color: var(--accent); }
+        .anomaly-content {
+            flex: 1;
+            min-width: 0;
+        }
+        .anomaly-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.15rem;
+        }
+        .anomaly-desc {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+        .anomaly-time {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            white-space: nowrap;
+        }
+        .anomaly-severity {
+            font-size: 0.65rem;
+            padding: 0.15rem 0.4rem;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 700;
+        }
+        .anomaly-severity.critical { background: rgba(255, 68, 68, 0.15); color: var(--accent-red); }
+        .anomaly-severity.warning { background: rgba(255, 136, 0, 0.15); color: var(--accent-orange); }
+        .anomaly-severity.info { background: rgba(0, 212, 255, 0.15); color: var(--accent); }
+
+        /* Chart Container */
+        .chart-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+        }
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .chart-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .chart-title i { color: var(--accent); }
+        .chart-legend {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.75rem;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .legend-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        /* Forecast Section */
+        .forecast-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+        }
+        .forecast-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .forecast-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+        .forecast-item {
+            text-align: center;
+            padding: 1rem;
+            background: var(--bg-hover);
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+        .forecast-day {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            margin-bottom: 0.5rem;
+        }
+        .forecast-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+        .forecast-value.positive { color: var(--accent-green); }
+        .forecast-value.negative { color: var(--accent-red); }
+        .forecast-probability {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+        }
+        .forecast-bar-container {
+            margin-top: 0.5rem;
+        }
+        .forecast-bar {
+            height: 4px;
+            background: var(--bg-elevated);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .forecast-bar-fill {
+            height: 100%;
+            border-radius: 2px;
+            transition: width 1s ease;
+        }
+
+        /* Velocity Chart */
+        .velocity-chart {
+            width: 100%;
+            height: 220px;
+        }
+
+        /* Right Panel */
+        .right-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            overflow-y: auto;
+        }
+
+        /* Insight Cards */
+        .insight-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.25rem;
+        }
+        .insight-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .insight-header i { color: var(--accent); }
+
+        /* Team Velocity */
+        .velocity-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .velocity-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .velocity-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .velocity-info {
+            flex: 1;
+            min-width: 0;
+        }
+        .velocity-name {
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.1rem;
+        }
+        .velocity-role {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+        }
+        .velocity-bar-container {
+            width: 80px;
+            height: 6px;
+            background: var(--bg-hover);
+            border-radius: 3px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .velocity-bar-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 1s ease;
+        }
+        .velocity-score {
+            font-size: 0.8rem;
+            font-weight: 700;
+            width: 40px;
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        /* Risk Meter */
+        .risk-meter {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .risk-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .risk-item:last-child { border-bottom: none; }
+        .risk-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .risk-indicator.high { background: var(--accent-red); box-shadow: 0 0 8px rgba(255, 68, 68, 0.5); }
+        .risk-indicator.medium { background: var(--accent-orange); box-shadow: 0 0 8px rgba(255, 136, 0, 0.5); }
+        .risk-indicator.low { background: var(--accent-green); }
+        .risk-label {
+            flex: 1;
+            font-size: 0.8rem;
+        }
+        .risk-value {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+
+        /* Auto-Escalation */
+        .escalation-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .escalation-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: var(--bg-hover);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        .escalation-item.escalated {
+            border-color: rgba(255, 68, 68, 0.3);
+            background: linear-gradient(90deg, var(--bg-hover), rgba(255, 68, 68, 0.05));
+        }
+        .escalation-status {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .escalation-status.pending { background: var(--accent-orange); animation: pulse 1.5s infinite; }
+        .escalation-status.resolved { background: var(--accent-green); }
+        .escalation-status.auto { background: var(--accent-purple); }
+        .escalation-content {
+            flex: 1;
+            min-width: 0;
+        }
+        .escalation-title {
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .escalation-meta {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+        }
+        .escalation-action {
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--accent);
+            white-space: nowrap;
+        }
+
+        /* Activity Stream */
+        .activity-stream {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .activity-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.8rem;
+        }
+        .activity-item:last-child { border-bottom: none; }
+        .activity-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            flex-shrink: 0;
+        }
+        .activity-icon.predict { background: rgba(0, 212, 255, 0.15); color: var(--accent); }
+        .activity-icon.anomaly { background: rgba(255, 136, 0, 0.15); color: var(--accent-orange); }
+        .activity-icon.escalate { background: rgba(255, 68, 68, 0.15); color: var(--accent-red); }
+        .activity-icon.resolve { background: rgba(0, 255, 136, 0.15); color: var(--accent-green); }
+        .activity-content {
+            flex: 1;
+            line-height: 1.4;
+        }
+        .activity-time {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            white-space: nowrap;
+        }
+
+        /* Standup Report */
+        .standup-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.25rem;
+        }
+        .standup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .standup-toggle {
+            font-size: 0.75rem;
+            padding: 0.3rem 0.75rem;
+            border-radius: 6px;
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--accent);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .standup-toggle:hover {
+            background: rgba(0, 212, 255, 0.2);
+        }
+        .standup-content {
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+        .standup-content h4 {
+            color: var(--text);
+            margin: 0.75rem 0 0.25rem;
+            font-size: 0.8rem;
+        }
+        .standup-content ul {
+            margin: 0.25rem 0 0.5rem 1.25rem;
+        }
+        .standup-content li {
+            margin-bottom: 0.25rem;
+        }
+        .standup-content .highlight {
+            color: var(--accent);
+            font-weight: 600;
+        }
+        .standup-content .risk {
+            color: var(--accent-red);
+        }
+        .standup-content .success {
+            color: var(--accent-green);
+        }
+
+        /* Toast */
+        .toast-container {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .toast {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 0.875rem 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.85rem;
+            animation: slideIn 0.3s ease;
+            max-width: 400px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+        }
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        .toast.success { border-color: rgba(0, 255, 136, 0.3); }
+        .toast.warning { border-color: rgba(255, 136, 0, 0.3); }
+        .toast.error { border-color: rgba(255, 68, 68, 0.3); }
+        .toast.info { border-color: rgba(0, 212, 255, 0.3); }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-dim); }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .main { grid-template-columns: 1fr; }
+            .right-panel { display: none; }
+            .stats-bar { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .stats-bar { grid-template-columns: repeat(2, 1fr); }
+            .prediction-grid { grid-template-columns: 1fr; }
+            .forecast-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <div class="neural-grid"></div>
+
+    <!-- Header -->
+    <div class="header">
+        <div class="logo">
+            <i class="fas fa-brain" style="color: var(--accent);"></i>
+            Mission Control
+            <span class="version-badge">v9.5</span>
+        </div>
+        <div class="predictive-badge">
+            <i class="fas fa-crystal-ball"></i>
+            Predictive Analytics Active
+        </div>
+    </div>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+        <div class="stat-box">
+            <div class="stat-label">Prediction Accuracy</div>
+            <div class="stat-value" style="color: var(--accent-green);">94%</div>
+            <div class="stat-change positive">
+                <i class="fas fa-arrow-up"></i> +3% vs last week
+            </div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-label">Anomalies Detected</div>
+            <div class="stat-value" style="color: var(--accent-orange);">7</div>
+            <div class="stat-change warning">
+                <i class="fas fa-exclamation-triangle"></i> 2 critical
+            </div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-label">At-Risk Tasks</div>
+            <div class="stat-value" style="color: var(--accent-red);">3</div>
+            <div class="stat-change negative">
+                <i class="fas fa-arrow-up"></i> +1 since yesterday
+            </div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-label">Auto-Escalations</div>
+            <div class="stat-value" style="color: var(--accent-purple);">5</div>
+            <div class="stat-change positive">
+                <i class="fas fa-check"></i> 4 resolved auto
+            </div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-label">Time Saved</div>
+            <div class="stat-value" style="color: var(--accent);">6.8h</div>
+            <div class="stat-change positive">
+                <i class="fas fa-arrow-up"></i> +2.6h today
+            </div>
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="main">
+        <div class="left-panel">
+            <!-- Predictions -->
+            <div class="section-header">
+                <div class="section-title">
+                    <i class="fas fa-crystal-ball"></i>
+                    AI Predictions
+                </div>
+            </div>
+            <div class="prediction-grid">
+                <div class="prediction-card">
+                    <div class="prediction-header">
+                        <div class="prediction-title">
+                            <div class="prediction-icon success"><i class="fas fa-check-circle"></i></div>
+                            Task Completion Forecast
+                        </div>
+                        <span class="prediction-confidence high">94% confidence</span>
+                    </div>
+                    <div class="prediction-desc">
+                        78% of active tasks on track for on-time completion. Fed policy analysis has 89% probability of finishing by Thursday.
+                    </div>
+                    <div class="prediction-meta">
+                        <span><i class="fas fa-tasks"></i> 14 tasks analyzed</span>
+                        <span><i class="fas fa-clock"></i> Updated 3m ago</span>
+                    </div>
+                    <div class="prediction-bar">
+                        <div class="prediction-bar-fill success" style="width: 78%;"></div>
+                    </div>
+                </div>
+
+                <div class="prediction-card at-risk">
+                    <div class="prediction-header">
+                        <div class="prediction-title">
+                            <div class="prediction-icon danger"><i class="fas fa-exclamation-triangle"></i></div>
+                            Content Performance Decay
+                        </div>
+                        <span class="prediction-confidence medium">87% confidence</span>
+                    </div>
+                    <div class="prediction-desc">
+                        Healthcare thread engagement predicted to drop 34% in next 48h without follow-up content. Recommend scheduling supplementary post.
+                    </div>
+                    <div class="prediction-meta">
+                        <span><i class="fas fa-chart-line"></i> -34% predicted</span>
+                        <span><i class="fas fa-clock"></i> Updated 5m ago</span>
+                    </div>
+                    <div class="prediction-bar">
+                        <div class="prediction-bar-fill danger" style="width: 34%;"></div>
+                    </div>
+                </div>
+
+                <div class="prediction-card warning">
+                    <div class="prediction-header">
+                        <div class="prediction-title">
+                            <div class="prediction-icon warning"><i class="fas fa-user-clock"></i></div>
+                            Workload Imbalance Alert
+                        </div>
+                        <span class="prediction-confidence high">91% confidence</span>
+                    </div>
+                    <div class="prediction-desc">
+                        Research Agent approaching overload (85% capacity). 3 new tasks incoming. Recommend redistribution to Content Agent (30% load).
+                    </div>
+                    <div class="prediction-meta">
+                        <span><i class="fas fa-users"></i> Research Agent: 85%</span>
+                        <span><i class="fas fa-clock"></i> Updated 1m ago</span>
+                    </div>
+                    <div class="prediction-bar">
+                        <div class="prediction-bar-fill warning" style="width: 85%;"></div>
+                    </div>
+                </div>
+
+                <div class="prediction-card">
+                    <div class="prediction-header">
+                        <div class="prediction-title">
+                            <div class="prediction-icon info"><i class="fas fa-bolt"></i></div>
+                            Viral Opportunity Window
+                        </div>
+                        <span class="prediction-confidence high">92% confidence</span>
+                    </div>
+                    <div class="prediction-desc">
+                        GLP-1 trending topic spike detected. Optimal posting window: Today 14:00-15:30 CEST. Estimated reach multiplier: 3.2x baseline.
+                    </div>
+                    <div class="prediction-meta">
+                        <span><i class="fas fa-fire"></i> 3.2x reach potential</span>
+                        <span><i class="fas fa-clock"></i> Window closes in 47m</span>
+                    </div>
+                    <div class="prediction-bar">
+                        <div class="prediction-bar-fill info" style="width: 92%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Velocity Chart -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <div class="chart-title">
+                        <i class="fas fa-chart-area"></i>
+                        Team Velocity & Burn-Down Trend
+                    </div>
+                    <div class="chart-legend">
+                        <div class="legend-item">
+                            <div class="legend-dot" style="background: var(--accent);"></div>
+                            <span>Completed</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-dot" style="background: var(--accent-orange);"></div>
+                            <span>Forecast</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-dot" style="background: var(--accent-red);"></div>
+                            <span>Risk Zone</span>
+                        </div>
+                    </div>
+                </div>
+                <canvas id="velocityChart" class="velocity-chart"></canvas>
+            </div>
+
+            <!-- Forecast Section -->
+            <div class="forecast-section">
+                <div class="forecast-header">
+                    <div class="section-title">
+                        <i class="fas fa-calendar-alt"></i>
+                        7-Day Performance Forecast
+                    </div>
+                </div>
+                <div class="forecast-grid">
+                    <div class="forecast-item">
+                        <div class="forecast-day">Today</div>
+                        <div class="forecast-value positive">+12%</div>
+                        <div class="forecast-probability">89% probability</div>
+                        <div class="forecast-bar-container">
+                            <div class="forecast-bar-fill" style="width: 89%; background: var(--accent-green);"></div>
+                        </div>
+                    </div>
+                    <div class="forecast-item">
+                        <div class="forecast-day">Tue</div>
+                        <div class="forecast-value positive">+8%</div>
+                        <div class="forecast-probability">84% probability</div>
+                        <div class="forecast-bar-container">
+                            <div class="forecast-bar-fill" style="width: 84%; background: var(--accent-green);"></div>
+                        </div>
+                    </div>
+                    <div class="forecast-item">
+                        <div class="forecast-day">Wed</div>
+                        <div class="forecast-value negative">-5%</div>
+                        <div class="forecast-probability">72% probability</div>
+                        <div class="forecast-bar-container">
+                            <div class="forecast-bar-fill" style="width: 72%; background: var(--accent-orange);"></div>
+                        </div>
+                    </div>
+                    <div class="forecast-item">
+                        <div class="forecast-day">Thu</div>
+                        <div class="forecast-value positive">+15%</div>
+                        <div class="forecast-probability">91% probability</div>
+                        <div class="forecast-bar-container">
+                            <div class="forecast-bar-fill" style="width: 91%; background: var(--accent-green);"></div>
+                        </div>
+                    </div>
+                    <div class="forecast-item">
+                        <div class="forecast-day">Fri</div>
+                        <div class="forecast-value positive">+6%</div>
+                        <div class="forecast-probability">78% probability</div>
+                        <div class="forecast-bar-container">
+                            <div class="forecast-bar-fill" style="width: 78%; background: var(--accent-green);"></div>
+                        </div>
+                    </div>
+                    <div class="forecast-item">
+                        <div class="forecast-day">Sat</div>
+                        <div class="forecast-value negative">-12%</div>
+                        <div class="forecast-probability">65% probability</div>
+                        <div class="forecast-bar-container">
+                            <div class="forecast-bar-fill" style="width: 65%; background: var(--accent-red);"></div>
+                        </div>
+                    </div>
+                    <div class="forecast-item">
+                        <div class="forecast-day">Sun</div>
+                        <div class="forecast-value positive">+3%</div>
+                        <div class="forecast-probability">68% probability</div>
+                        <div class="forecast-bar-container">
+                            <div class="forecast-bar-fill" style="width: 68%; background: var(--accent-green);"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Anomaly Detection Feed -->
+            <div class="section-header">
+                <div class="section-title">
+                    <i class="fas fa-radar"></i>
+                    Live Anomaly Detection
+                </div>
+            </div>
+            <div class="anomaly-list">
+                <div class="anomaly-item critical">
+                    <div class="anomaly-icon critical"><i class="fas fa-exclamation"></i></div>
+                    <div class="anomaly-content">
+                        <div class="anomaly-title">Engagement Rate Spike Anomaly</div>
+                        <div class="anomaly-desc">Engagement rate dropped 45% in last 2h — outside 3-sigma threshold. Possible shadowban or algorithm change.</div>
+                    </div>
+                    <span class="anomaly-severity critical">Critical</span>
+                    <span class="anomaly-time">12m ago</span>
+                </div>
+                <div class="anomaly-item warning">
+                    <div class="anomaly-icon warning"><i class="fas fa-bell"></i></div>
+                    <div class="anomaly-content">
+                        <div class="anomaly-title">Task Velocity Deviation</div>
+                        <div class="anomaly-desc">Task completion rate 23% below 7-day average. Research Agent bottleneck detected.</div>
+                    </div>
+                    <span class="anomaly-severity warning">Warning</span>
+                    <span class="anomaly-time">28m ago</span>
+                </div>
+                <div class="anomaly-item">
+                    <div class="anomaly-icon info"><i class="fas fa-lightbulb"></i></div>
+                    <div class="anomaly-content">
+                        <div class="anomaly-title">Unusual Content Pattern</div>
+                        <div class="anomaly-desc">Crypto content getting 2.3x normal engagement. Trend correlation: BTC breaking $95K.</div>
+                    </div>
+                    <span class="anomaly-severity info">Insight</span>
+                    <span class="anomaly-time">45m ago</span>
+                </div>
+                <div class="anomaly-item warning">
+                    <div class="anomaly-icon warning"><i class="fas fa-clock"></i></div>
+                    <div class="anomaly-content">
+                        <div class="anomaly-title">Schedule Conflict Detected</div>
+                        <div class="anomaly-desc">3 posts scheduled within 30min window on Thursday. Recommend staggering for optimal reach.</div>
+                    </div>
+                    <span class="anomaly-severity warning">Warning</span>
+                    <span class="anomaly-time">1h ago</span>
+                </div>
+                <div class="anomaly-item">
+                    <div class="anomaly-icon info"><i class="fas fa-chart-line"></i></div>
+                    <div class="anomaly-content">
+                        <div class="anomaly-title">Positive Sentiment Anomaly</div>
+                        <div class="anomaly-desc">Healthcare pillar sentiment +18% above baseline. GLP-1 news driving unusual positive momentum.</div>
+                    </div>
+                    <span class="anomaly-severity info">Insight</span>
+                    <span class="anomaly-time">1h 20m ago</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-panel">
+            <!-- Team Velocity -->
+            <div class="insight-card">
+                <div class="insight-header">
+                    <i class="fas fa-tachometer-alt"></i>
+                    Team Velocity Tracker
+                </div>
+                <div class="velocity-list">
+                    <div class="velocity-row">
+                        <div class="velocity-avatar" style="background: linear-gradient(135deg, #00d4ff, #0066ff); color: white;">C</div>
+                        <div class="velocity-info">
+                            <div class="velocity-name">Claw</div>
+                            <div class="velocity-role">Admin • 6 tasks</div>
+                        </div>
+                        <div class="velocity-bar-container">
+                            <div class="velocity-bar-fill" style="width: 72%; background: var(--accent-green);"></div>
+                        </div>
+                        <div class="velocity-score">72</div>
+                    </div>
+                    <div class="velocity-row">
+                        <div class="velocity-avatar" style="background: linear-gradient(135deg, #bd34fe, #ff0066); color: white;">R</div>
+                        <div class="velocity-info">
+                            <div class="velocity-name">Research Agent</div>
+                            <div class="velocity-role">Editor • 9 tasks</div>
+                        </div>
+                        <div class="velocity-bar-container">
+                            <div class="velocity-bar-fill" style="width: 45%; background: var(--accent-red);"></div>
+                        </div>
+                        <div class="velocity-score" style="color: var(--accent-red);">45</div>
+                    </div>
+                    <div class="velocity-row">
+                        <div class="velocity-avatar" style="background: linear-gradient(135deg, #00ff88, #00d4aa); color: #000;">Co</div>
+                        <div class="velocity-info">
+                            <div class="velocity-name">Content Agent</div>
+                            <div class="velocity-role">Editor • 3 tasks</div>
+                        </div>
+                        <div class="velocity-bar-container">
+                            <div class="velocity-bar-fill" style="width: 88%; background: var(--accent-green);"></div>
+                        </div>
+                        <div class="velocity-score">88</div>
+                    </div>
+                    <div class="velocity-row">
+                        <div class="velocity-avatar" style="background: linear-gradient(135deg, #ff8800, #ff5500); color: white;">A</div>
+                        <div class="velocity-info">
+                            <div class="velocity-name">Analytics Agent</div>
+                            <div class="velocity-role">Viewer • 2 tasks</div>
+                        </div>
+                        <div class="velocity-bar-container">
+                            <div class="velocity-bar-fill" style="width: 95%; background: var(--accent-green);"></div>
+                        </div>
+                        <div class="velocity-score">95</div>
+                    </div>
+                    <div class="velocity-row">
+                        <div class="velocity-avatar" style="background: linear-gradient(135deg, #ffd700, #ff8800); color: #000;">Q</div>
+                        <div class="velocity-info">
+                            <div class="velocity-name">Quentin</div>
+                            <div class="velocity-role">Owner • 4 tasks</div>
+                        </div>
+                        <div class="velocity-bar-container">
+                            <div class="velocity-bar-fill" style="width: 68%; background: var(--accent-green);"></div>
+                        </div>
+                        <div class="velocity-score">68</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Risk Assessment -->
+            <div class="insight-card">
+                <div class="insight-header">
+                    <i class="fas fa-shield-alt"></i>
+                    Risk Assessment Matrix
+                </div>
+                <div class="risk-meter">
+                    <div class="risk-item">
+                        <div class="risk-indicator high"></div>
+                        <div class="risk-label">Research Agent Overload</div>
+                        <div class="risk-value">85% capacity</div>
+                    </div>
+                    <div class="risk-item">
+                        <div class="risk-indicator medium"></div>
+                        <div class="risk-label">Content Decay (Healthcare)</div>
+                        <div class="risk-value">-34% in 48h</div>
+                    </div>
+                    <div class="risk-item">
+                        <div class="risk-indicator medium"></div>
+                        <div class="risk-label">Schedule Conflict Thu</div>
+                        <div class="risk-value">3 posts/30min</div>
+                    </div>
+                    <div class="risk-item">
+                        <div class="risk-indicator low"></div>
+                        <div class="risk-label">API Latency Degradation</div>
+                        <div class="risk-value">+12ms avg</div>
+                    </div>
+                    <div class="risk-item">
+                        <div class="risk-indicator low"></div>
+                        <div class="risk-label">Token Usage</div>
+                        <div class="risk-value">74% consumed</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Auto-Escalation -->
+            <div class="insight-card">
+                <div class="insight-header">
+                    <i class="fas fa-rocket"></i>
+                    Auto-Escalation Queue
+                </div>
+                <div class="escalation-list">
+                    <div class="escalation-item escalated">
+                        <div class="escalation-status pending"></div>
+                        <div class="escalation-content">
+                            <div class="escalation-title">Redistribute Research Tasks</div>
+                            <div class="escalation-meta">3 tasks → Content Agent | Trigger: 85% load</div>
+                        </div>
+                        <span class="escalation-action">Pending</span>
+                    </div>
+                    <div class="escalation-item">
+                        <div class="escalation-status auto"></div>
+                        <div class="escalation-content">
+                            <div class="escalation-title">Schedule GLP-1 Follow-up</div>
+                            <div class="escalation-meta">Auto-post at 14:30 | Trigger: viral window</div>
+                        </div>
+                        <span class="escalation-action">Auto</span>
+                    </div>
+                    <div class="escalation-item">
+                        <div class="escalation-status resolved"></div>
+                        <div class="escalation-content">
+                            <div class="escalation-title">Stagger Thursday Posts</div>
+                            <div class="escalation-meta">Rescheduled +2h apart | Trigger: conflict</div>
+                        </div>
+                        <span class="escalation-action" style="background: rgba(0,255,136,0.1); color: var(--accent-green);">Resolved</span>
+                    </div>
+                    <div class="escalation-item escalated">
+                        <div class="escalation-status pending"></div>
+                        <div class="escalation-content">
+                            <div class="escalation-title">Alert: Engagement Drop</div>
+                            <div class="escalation-meta">Investigate shadowban | Trigger: -45% spike</div>
+                        </div>
+                        <span class="escalation-action">Pending</span>
+                    </div>
+                    <div class="escalation-item">
+                        <div class="escalation-status resolved"></div>
+                        <div class="escalation-content">
+                            <div class="escalation-title">Extend Content Lifespan</div>
+                            <div class="escalation-meta">LinkedIn cross-post | Trigger: decay prediction</div>
+                        </div>
+                        <span class="escalation-action" style="background: rgba(0,255,136,0.1); color: var(--accent-green);">Resolved</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Standup Report -->
+            <div class="standup-section">
+                <div class="standup-header">
+                    <div class="insight-header" style="margin: 0;">
+                        <i class="fas fa-clipboard-list"></i>
+                        AI Standup Report
+                    </div>
+                    <button class="standup-toggle" onclick="toggleStandup()">
+                        <i class="fas fa-sync"></i> Regenerate
+                    </button>
+                </div>
+                <div class="standup-content" id="standupContent">
+                    <h4>📊 Yesterday</h4>
+                    <ul>
+                        <li>Completed <span class="highlight">3 tasks</span> (Healthcare thread, ETH analysis, MSTR comparison)</li>
+                        <li>Auto-replies sent: <span class="success">4</span> (94% success rate)</li>
+                        <li>Content generated: <span class="highlight">2 drafts</span> (avg score 87/100)</li>
+                        <li>Anomalies detected: <span class="warning">2</span> (1 resolved auto, 1 pending)</li>
+                    </ul>
+                    <h4>🎯 Today</h4>
+                    <ul>
+                        <li>Active tasks: <span class="highlight">14</span> (7 on track, 3 at-risk, 4 blocked)</li>
+                        <li>GLP-1 viral window: <span class="success">14:00-15:30 CEST</span> (3.2x reach potential)</li>
+                        <li>Prediction accuracy trending <span class="success">+3%</span> to 94%</li>
+                        <li>Auto-escalations triggered: <span class="highlight">5</span> (4 resolved, 1 pending)</li>
+                    </ul>
+                    <h4>⚠️ Blockers & Risks</h4>
+                    <ul>
+                        <li><span class="risk">Research Agent at 85% capacity</span> — recommend redistribution</li>
+                        <li><span class="risk">Engagement drop -45%</span> — investigating possible shadowban</li>
+                        <li><span class="risk">Healthcare content decay -34%</span> — follow-up needed within 24h</li>
+                        <li>Token usage at <span class="warning">74%</span> — monitor for quota limits</li>
+                    </ul>
+                    <h4>🔮 Predictions</h4>
+                    <ul>
+                        <li>Thursday forecast: <span class="success">+15% engagement</span> (91% confidence)</li>
+                        <li>Weekend dip expected: <span class="warning">-12% Saturday</span> (65% confidence)</li>
+                        <li>Fed policy task: <span class="success">89% on-time</span> completion by Thursday</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Activity Stream -->
+            <div class="insight-card">
+                <div class="insight-header">
+                    <i class="fas fa-stream"></i>
+                    Prediction Activity Log
+                </div>
+                <div class="activity-stream">
+                    <div class="activity-item">
+                        <div class="activity-icon predict"><i class="fas fa-brain"></i></div>
+                        <div class="activity-content">
+                            <strong>AI Prediction:</strong> GLP-1 viral window detected — 92% confidence
+                        </div>
+                        <span class="activity-time">2m ago</span>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon anomaly"><i class="fas fa-exclamation-triangle"></i></div>
+                        <div class="activity-content">
+                            <strong>Anomaly:</strong> Engagement rate -45% drop flagged for investigation
+                        </div>
+                        <span class="activity-time">12m ago</span>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon escalate"><i class="fas fa-rocket"></i></div>
+                        <div class="activity-content">
+                            <strong>Auto-Escalated:</strong> Research Agent overload → redistribution recommended
+                        </div>
+                        <span class="activity-time">15m ago</span>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon resolve"><i class="fas fa-check"></i></div>
+                        <div class="activity-content">
+                            <strong>Resolved:</strong> Thursday schedule conflict auto-fixed (+2h stagger)
+                        </div>
+                        <span class="activity-time">22m ago</span>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon predict"><i class="fas fa-chart-line"></i></div>
+                        <div class="activity-content">
+                            <strong>Forecast:</strong> Content decay prediction updated for Healthcare pillar
+                        </div>
+                        <span class="activity-time">28m ago</span>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon anomaly"><i class="fas fa-lightbulb"></i></div>
+                        <div class="activity-content">
+                            <strong>Insight:</strong> Crypto content 2.3x engagement — BTC correlation detected
+                        </div>
+                        <span class="activity-time">45m ago</span>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon resolve"><i class="fas fa-check"></i></div>
+                        <div class="activity-content">
+                            <strong>Resolved:</strong> Auto-scheduled LinkedIn cross-post for content lifespan extension
+                        </div>
+                        <span class="activity-time">1h ago</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        // Velocity Chart
+        const ctx = document.getElementById('velocityChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+                datasets: [{
+                    label: 'Completed Tasks',
+                    data: [8, 12, 10, 14, 11, 6, 5, 9, 13, 11, 15, 7],
+                    borderColor: '#00d4ff',
+                    backgroundColor: 'rgba(0, 212, 255, 0.1)',
+                    fill: true,
+                    tension: 0.4,
+                    borderWidth: 2,
+                    pointRadius: 4,
+                    pointBackgroundColor: '#00d4ff'
+                }, {
+                    label: 'Forecast',
+                    data: [null, null, null, null, null, null, null, null, null, null, 15, 16, 14, 12, 18],
+                    borderColor: '#ff8800',
+                    backgroundColor: 'rgba(255, 136, 0, 0.1)',
+                    fill: true,
+                    tension: 0.4,
+                    borderWidth: 2,
+                    borderDash: [5, 5],
+                    pointRadius: 4,
+                    pointBackgroundColor: '#ff8800'
+                }, {
+                    label: 'Risk Threshold',
+                    data: [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
+                    borderColor: '#ff4444',
+                    backgroundColor: 'transparent',
+                    borderWidth: 1,
+                    borderDash: [3, 3],
+                    pointRadius: 0,
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    x: {
+                        grid: { color: 'rgba(255,255,255,0.05)' },
+                        ticks: { color: '#666', font: { size: 11 } }
+                    },
+                    y: {
+                        grid: { color: 'rgba(255,255,255,0.05)' },
+                        ticks: { color: '#666', font: { size: 11 } },
+                        beginAtZero: true
+                    }
+                },
+                interaction: {
+                    intersect: false,
+                    mode: 'index'
+                }
+            }
+        });
+
+        // Toast System
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            const icons = {
+                success: 'check-circle',
+                warning: 'exclamation-triangle',
+                error: 'times-circle',
+                info: 'info-circle'
+            };
+            toast.innerHTML = `<i class="fas fa-${icons[type]}" style="color: var(--accent-${type === 'success' ? 'green' : type === 'warning' ? 'orange' : type === 'error' ? 'red' : 'teal'});"></i> ${message}`;
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 4000);
+        }
+
+        // Toggle Standup
+        function toggleStandup() {
+            showToast('Regenerating AI Standup Report...', 'info');
+            setTimeout(() => {
+                showToast('Standup report updated with latest predictions', 'success');
+            }, 1500);
+        }
+
+        // Simulate live anomalies
+        setInterval(() => {
+            const anomalies = [
+                { msg: 'New anomaly: Reply rate spike detected (+67%)', type: 'info' },
+                { msg: 'Prediction updated: ETH post score +5pts', type: 'success' },
+                { msg: 'Warning: API latency approaching threshold', type: 'warning' }
+            ];
+            const pick = anomalies[Math.floor(Math.random() * anomalies.length)];
+            if (Math.random() > 0.85) showToast(pick.msg, pick.type);
+        }, 25000);
+
+        // Initial toast
+        setTimeout(() => {
+            showToast('v9.5 Predictive Analytics loaded — 7 anomalies monitored', 'success');
+        }, 1000);
+    </script>
+</body>
+</html>
