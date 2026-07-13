@@ -150,10 +150,20 @@
                 </div>
 
                 <!-- Live Market Data -->
-                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem;" id="market-cards">
+                <div class="section-header" style="margin-top: 0;">
+                    <span class="section-title">📊 Market Overview</span>
+                    <span class="live-indicator">
+                        <span class="live-dot"></span>
+                        Live
+                    </span>
+                </div>
+                <div class="market-grid" id="market-cards">
                     <div class="asset-card">
                         <div class="asset-header">
-                            <span class="asset-symbol" style="color: #ff9500;">₿ BTC/USD</span>
+                            <div class="asset-info">
+                                <span class="asset-symbol" style="color: #ff9500;">₿ BTC</span>
+                                <span class="asset-name">Bitcoin</span>
+                            </div>
                             <span class="asset-badge" style="background: rgba(255,149,0,0.12); color: #ff9500;">Crypto</span>
                         </div>
                         <div class="asset-price" id="btc-price">Loading...</div>
@@ -162,7 +172,10 @@
                     
                     <div class="asset-card">
                         <div class="asset-header">
-                            <span class="asset-symbol" style="color: #7c3aed;">Ξ ETH/USD</span>
+                            <div class="asset-info">
+                                <span class="asset-symbol" style="color: #7c3aed;">Ξ ETH</span>
+                                <span class="asset-name">Ethereum</span>
+                            </div>
                             <span class="asset-badge" style="background: rgba(124,58,237,0.12); color: #7c3aed;">Crypto</span>
                         </div>
                         <div class="asset-price" id="eth-price">Loading...</div>
@@ -171,7 +184,10 @@
                     
                     <div class="asset-card">
                         <div class="asset-header">
-                            <span class="asset-symbol" style="color: #00d4ff;">MSTR</span>
+                            <div class="asset-info">
+                                <span class="asset-symbol" style="color: #00d4ff;">MSTR</span>
+                                <span class="asset-name">MicroStrategy</span>
+                            </div>
                             <span class="asset-badge" style="background: rgba(0,212,255,0.12); color: #00d4ff;">Stock</span>
                         </div>
                         <div class="asset-price" id="mstr-price">Loading...</div>
@@ -180,7 +196,10 @@
                     
                     <div class="asset-card">
                         <div class="asset-header">
-                            <span class="asset-symbol" style="color: #ff2d92;">HIMS</span>
+                            <div class="asset-info">
+                                <span class="asset-symbol" style="color: #ff2d92;">HIMS</span>
+                                <span class="asset-name">Hims & Hers</span>
+                            </div>
                             <span class="asset-badge" style="background: rgba(255,45,146,0.12); color: #ff2d92;">Healthcare</span>
                         </div>
                         <div class="asset-price" id="hims-price">Loading...</div>
