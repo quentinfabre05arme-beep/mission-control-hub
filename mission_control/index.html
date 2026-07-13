@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@quentinvest1 | Mission Control v6.4</title>
+    <title>@quentinvest1 | Mission Control v7.0</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 
 </head>
@@ -15,7 +17,7 @@
             <div class="logo">
                 <span class="logo-icon">🐾</span>
                 <span>Mission Control</span>
-                <span class="version-tag">v6.4</span>
+                <span class="version-tag">v7.0</span>
             </div>
             <div class="status-badge">
                 <span class="status-dot"></span>
@@ -144,6 +146,45 @@
                     <div class="progress-stats">
                         <span>212 → 10,000 followers</span>
                         <span>7 gained • 9,781 to go</span>
+                    </div>
+                </div>
+
+                <!-- Live Market Data -->
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem;" id="market-cards">
+                    <div class="asset-card">
+                        <div class="asset-header">
+                            <span class="asset-symbol" style="color: #ff9500;">₿ BTC/USD</span>
+                            <span class="asset-badge" style="background: rgba(255,149,0,0.12); color: #ff9500;">Crypto</span>
+                        </div>
+                        <div class="asset-price" id="btc-price">Loading...</div>
+                        <div class="asset-change" id="btc-change">--</div>
+                    </div>
+                    
+                    <div class="asset-card">
+                        <div class="asset-header">
+                            <span class="asset-symbol" style="color: #7c3aed;">Ξ ETH/USD</span>
+                            <span class="asset-badge" style="background: rgba(124,58,237,0.12); color: #7c3aed;">Crypto</span>
+                        </div>
+                        <div class="asset-price" id="eth-price">Loading...</div>
+                        <div class="asset-change" id="eth-change">--</div>
+                    </div>
+                    
+                    <div class="asset-card">
+                        <div class="asset-header">
+                            <span class="asset-symbol" style="color: #00d4ff;">MSTR</span>
+                            <span class="asset-badge" style="background: rgba(0,212,255,0.12); color: #00d4ff;">Stock</span>
+                        </div>
+                        <div class="asset-price" id="mstr-price">Loading...</div>
+                        <div class="asset-change" id="mstr-change">--</div>
+                    </div>
+                    
+                    <div class="asset-card">
+                        <div class="asset-header">
+                            <span class="asset-symbol" style="color: #ff2d92;">HIMS</span>
+                            <span class="asset-badge" style="background: rgba(255,45,146,0.12); color: #ff2d92;">Healthcare</span>
+                        </div>
+                        <div class="asset-price" id="hims-price">Loading...</div>
+                        <div class="asset-change" id="hims-change">--</div>
                     </div>
                 </div>
 
@@ -2885,6 +2926,50 @@ Errors: 0</div>
                 startMarketDataAutoRefresh();
             }
         });
+        // Live Market Data Fetcher
+        async function fetchMarketData() {
+            try {
+                const response = await fetch('market_data.json?t=' + Date.now());
+                const data = await response.json();
+                
+                const assets = {
+                    'BTC/USD': { el: 'btc', color: '#ff9500' },
+                    'ETH/USD': { el: 'eth', color: '#7c3aed' },
+                    'MSTR': { el: 'mstr', color: '#00d4ff' },
+                    'HIMS': { el: 'hims', color: '#ff2d92' }
+                };
+                
+                Object.entries(data).forEach(([symbol, info]) => {
+                    const asset = assets[symbol];
+                    if (!asset) return;
+                    
+                    const priceEl = document.getElementById(asset.el + '-price');
+                    const changeEl = document.getElementById(asset.el + '-change');
+                    
+                    if (priceEl) {
+                        priceEl.textContent = '$' + parseFloat(info.price).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                        priceEl.style.color = asset.color;
+                    }
+                    if (changeEl) {
+                        const change = parseFloat(info.percent_change);
+                        const isPositive = change >= 0;
+                        changeEl.innerHTML = `<span style="color: ${isPositive ? '#00ff88' : '#ff3860'}; font-weight: 600;">${isPositive ? '+' : ''}${change.toFixed(2)}%</span>`;
+                    }
+                });
+            } catch (e) {
+                console.log('Market data fetch failed:', e);
+            }
+        }
+        
+        // Fetch immediately and every 60 seconds
+        fetchMarketData();
+        setInterval(fetchMarketData, 60000);
+        
+        // Visibility API - pause when tab hidden
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) fetchMarketData();
+        });
+
     </script>
 </body>
 </html>
