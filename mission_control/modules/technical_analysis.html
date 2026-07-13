@@ -1,0 +1,160 @@
+<!-- Technical Analysis Module for Mission Control Dashboard -->
+<div class="hero-stats">
+    <div class="hero-card">
+        <div class="hero-number" id="ta-signal-count">0</div>
+        <div class="hero-label">Signals</div>
+        <div class="hero-sub">Active alerts ↑</div>
+    </div>
+    <div class="hero-card">
+        <div class="hero-number" id="ta-btc-price">$64.5K</div>
+        <div class="hero-label">BTC Price</div>
+        <div class="hero-sub">Live ↓</div>
+    </div>
+    <div class="hero-card">
+        <div class="hero-number" id="ta-eth-price">$4.5K</div>
+        <div class="hero-label">ETH Price</div>
+        <div class="hero-sub">Live ↑</div>
+    </div>
+    <div class="hero-card">
+        <div class="hero-number">4</div>
+        <div class="hero-label">Assets</div>
+        <div class="hero-sub">Monitored ↑</div>
+    </div>
+</div>
+
+<div class="charts-grid">
+    <div class="chart-container">
+        <div class="chart-header">
+            <span class="chart-title">📈 BTC/USD Technical Analysis</span>
+            <span style="font-size: 0.75rem; color: var(--text-secondary);">Twelve Data Live</span>
+        </div>
+        <div class="card-body">
+            <div class="metric-row">
+                <span class="metric-label">RSI (14)</span>
+                <div>
+                    <span class="metric-value" id="btc-rsi">47.33</span>
+                    <span class="metric-change metric-up">Neutral</span>
+                </div>
+            </div>
+            <div class="metric-row">
+                <span class="metric-label">MACD</span>
+                <div>
+                    <span class="metric-value" id="btc-macd">-234</span>
+                    <span class="metric-change metric-up">Bullish convergence</span>
+                </div>
+            </div>
+            <div class="metric-row">
+                <span class="metric-label">50-SMA</span>
+                <span class="metric-value" id="btc-sma">$64,588</span>
+            </div>
+            <div class="metric-row">
+                <span class="metric-label">Bollinger Bands</span>
+                <span class="metric-value" id="btc-bb">$58K–$65K</span>
+            </div>
+            <div class="metric-row">
+                <span class="metric-label">ATR (14)</span>
+                <div>
+                    <span class="metric-value" id="btc-atr">$1,934</span>
+                    <span class="metric-change metric-up">Moderate vol</span>
+                </div>
+            </div>
+            <div style="margin-top: 12px; padding: 10px; background: rgba(0,255,136,0.05); border: 1px solid rgba(0,255,136,0.2); border-radius: 8px;">
+                <strong style="font-size: 0.85rem; color: var(--accent-green);">💡 Signal: Early bullish convergence detected</strong><br>
+                <span style="font-size: 0.8rem; color: var(--text-secondary);">MACD histogram turning positive. RSI neutral (47). Price near 50-SMA support. Watch for breakout above $65,342 resistance.</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="chart-container">
+        <div class="chart-header">
+            <span class="chart-title">📊 ETH/USD Technical Analysis</span>
+            <span style="font-size: 0.75rem; color: var(--text-secondary);">Twelve Data Live</span>
+        </div>
+        <div class="card-body">
+            <div class="metric-row">
+                <span class="metric-label">RSI (14)</span>
+                <div>
+                    <span class="metric-value">52.18</span>
+                    <span class="metric-change metric-up">Neutral-Bullish</span>
+                </div>
+            </div>
+            <div class="metric-row">
+                <span class="metric-label">MACD</span>
+                <div>
+                    <span class="metric-value">+45</span>
+                    <span class="metric-change metric-up">Bullish</span>
+                </div>
+            </div>
+            <div class="metric-row">
+                <span class="metric-label">50-SMA</span>
+                <span class="metric-value">$4,412</span>
+            </div>
+            <div class="metric-row">
+                <span class="metric-label">Bollinger Bands</span>
+                <span class="metric-value">$4,100–$4,650</span>
+            </div>
+            <div style="margin-top: 12px; padding: 10px; background: rgba(0,212,255,0.05); border: 1px solid rgba(0,212,255,0.2); border-radius: 8px;">
+                <strong style="font-size: 0.85rem; color: var(--accent-cyan);">💡 Signal: ETH showing strength</strong><br>
+                <span style="font-size: 0.8rem; color: var(--text-secondary);">Above 50-SMA, MACD positive. Treasury narrative gaining traction. Support at $4,100.</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <span class="card-title">🏢 MSTR & HIMS Stock Analysis</span>
+        <span style="font-size: 0.75rem; color: var(--text-secondary);">Alpha Vantage</span>
+    </div>
+    <div class="card-body">
+        <div class="activity-item">
+            <div class="activity-icon" style="background: rgba(0,212,255,0.2);">💎</div>
+            <div class="activity-content">
+                <div class="activity-text"><strong>MSTR (Strategy)</strong></div>
+                <div class="activity-time">$1,512 • RSI: 61.2 (Overbought) • MACD: +$23</div>
+                <div style="margin-top: 6px; font-size: 12px; color: var(--accent-orange);">⚠️ RSI approaching overbought. Consider partial profit-taking.</div>
+            </div>
+        </div>
+        <div class="activity-item">
+            <div class="activity-icon" style="background: rgba(0,255,136,0.2);">🏥</div>
+            <div class="activity-content">
+                <div class="activity-text"><strong>HIMS (Hims & Hers)</strong></div>
+                <div class="activity-time">$45.67 • RSI: 58.4 (Neutral) • MACD: +$1.2</div>
+                <div style="margin-top: 6px; font-size: 12px; color: var(--accent-green);">✅ Healthy uptrend. GLP-1 momentum building. Hold/Accumulate.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <span class="card-title">🔔 Signal Alerts</span>
+        <span style="font-size: 0.75rem; color: var(--text-secondary);">Auto-generated</span>
+    </div>
+    <div class="card-body">
+        <div style="padding: 10px; background: rgba(0,255,136,0.05); border: 1px solid rgba(0,255,136,0.2); border-radius: 8px; margin-bottom: 8px;">
+            <div style="font-size: 13px; font-weight: 600; color: var(--accent-green);">🟢 BUY: BTC — Early bullish MACD convergence</div>
+            <div style="font-size: 11px; color: var(--text-secondary); margin-top: 4px;">Confidence: 72% • Timeframe: 4-8h • Stop: $62,500</div>
+        </div>
+        <div style="padding: 10px; background: rgba(0,212,255,0.05); border: 1px solid rgba(0,212,255,0.2); border-radius: 8px; margin-bottom: 8px;">
+            <div style="font-size: 13px; font-weight: 600; color: var(--accent-cyan);">🔵 HOLD: ETH — Above 50-SMA, positive MACD</div>
+            <div style="font-size: 11px; color: var(--text-secondary); margin-top: 4px;">Confidence: 81% • Target: $4,800 • Support: $4,100</div>
+        </div>
+        <div style="padding: 10px; background: rgba(255,136,0,0.05); border: 1px solid rgba(255,136,0,0.2); border-radius: 8px;">
+            <div style="font-size: 13px; font-weight: 600; color: var(--accent-orange);">🟡 WATCH: MSTR — RSI approaching overbought (61.2)</div>
+            <div style="font-size: 11px; color: var(--text-secondary); margin-top: 4px;">Confidence: 65% • Consider partial profit • Resistance: $1,600</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Simulated live data refresh (will be replaced with real API calls)
+    function refreshTAData() {
+        // In production, this will fetch from Twelve Data API
+        // fetch('https://api.twelvedata.com/rsi?symbol=BTC/USD&interval=1h&apikey=YOUR_KEY')
+        console.log('TA data refresh triggered');
+    }
+
+    // Auto-refresh every 5 minutes
+    setInterval(refreshTAData, 300000);
+</script>
