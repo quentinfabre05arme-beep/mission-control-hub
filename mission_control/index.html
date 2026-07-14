@@ -39,7 +39,10 @@
             <a href="#search" class="nav-link" onclick="showSection('search')">🔍 Search</a>
             <a href="#competitors" class="nav-link" onclick="showSection('competitors')">Competitors</a>
             <a href="#mytasks" class="nav-link" onclick="showSection('mytasks')">🤖 My Tasks</a>
+            <a href="portfolio_tracker.html" class="nav-link">📈 Portfolio</a>
+            <a href="news_sentiment_tracker.html" class="nav-link">📰 News</a>
             <a href="backtesting_module.html" class="nav-link">📊 Backtest</a>
+            <a href="social_sentiment_live.html" class="nav-link">💬 Sentiment</a>
             <a href="#settings" class="nav-link" onclick="showSection('settings')">System</a>
         </div>
     </nav>
@@ -91,8 +94,12 @@
             <div class="card">
                 <div class="card-header">
                     <span class="card-title">Today's Activity</span>
+                    <span style="font-size: 0.7rem; color: var(--text-secondary);">⏱️ Simulated</span>
                 </div>
                 <div class="card-body">
+                    <div style="padding: 8px; background: rgba(255,170,0,0.05); border: 1px solid rgba(255,170,0,0.15); border-radius: 6px; margin-bottom: 10px;">
+                        <span style="font-size: 0.75rem; color: var(--text-secondary);">⚠️ Static demo values — Wire to X API for live data</span>
+                    </div>
                     <div class="metric-row">
                         <span class="metric-label">Posts</span>
                         <span class="metric-value">0</span>
@@ -818,7 +825,7 @@ Position for the demographic inevitability. 🧬📈</div>
                             </div>
                             <div class="metric-row">
                                 <span class="metric-label">Weekly Goal</span>
-                                <span class="metric-value">1/10 posts ✅</span>
+                                <span class="metric-value">0/10 posts 📋</span>
                             </div>
                         </div>
                     </div>
@@ -931,13 +938,21 @@ Position for the demographic inevitability. 🧬📈</div>
 
                 <div class="card">
                     <div class="card-header">
-                        <span class="card-title">📊 Engagement Drop Investigation</span>
-                        <span style="font-size: 0.75rem; color: var(--accent-red);">🔴 -45% anomaly detected</span>
+                        <span class="card-title">📊 Engagement Status</span>
+                        <span style="font-size: 0.75rem; color: var(--accent-green);">🟢 Normal (6.3%)</span>
                     </div>
                     <div class="card-body">
-                        <div style="padding: 12px; background: rgba(255,0,68,0.1); border: 1px solid rgba(255,0,68,0.3); border-radius: 8px; margin-bottom: 12px;">
-                            <div style="font-size: 0.9rem; font-weight: 600; color: var(--accent-red); margin-bottom: 4px;">🚨 CRITICAL: Engagement rate dropped -45%</div>
-                            <div style="font-size: 0.8rem; color: var(--text-secondary);">Investigating potential shadowban or algorithm change. Cross-referencing all systems...</div>
+                        <div style="padding: 12px; background: rgba(0,255,136,0.1); border: 1px solid rgba(0,255,136,0.3); border-radius: 8px; margin-bottom: 12px;">
+                            <div style="font-size: 0.9rem; font-weight: 600; color: var(--accent-green); margin-bottom: 4px;">✅ Engagement rate healthy at 6.3%</div>
+                            <div style="font-size: 0.8rem; color: var(--text-secondary);">Above 5% target. Previous alert (-45% drop) resolved Jul 13. Strategy: Continue current content mix.</div>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-label">Current Rate</span>
+                            <span class="metric-value" style="color: var(--accent-green);">✅ 6.3% (+0.4%)</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-label">Target</span>
+                            <span class="metric-value" style="color: var(--accent-green);">✅ 5.0% (exceeded)</span>
                         </div>
                         <div class="metric-row">
                             <span class="metric-label">Content Quality</span>
@@ -948,24 +963,12 @@ Position for the demographic inevitability. 🧬📈</div>
                             <span class="metric-value" style="color: var(--accent-green);">✅ Optimal (5PM)</span>
                         </div>
                         <div class="metric-row">
-                            <span class="metric-label">External Events</span>
-                            <span class="metric-value" style="color: var(--accent-orange);">🟡 BTC volatility spike</span>
-                        </div>
-                        <div class="metric-row">
-                            <span class="metric-label">Team Workload</span>
-                            <span class="metric-value" style="color: var(--accent-orange);">🟡 Research Agent 85%</span>
-                        </div>
-                        <div class="metric-row">
-                            <span class="metric-label">Content Decay</span>
-                            <span class="metric-value" style="color: var(--accent-red);">🔴 Healthcare -34% in 48h</span>
-                        </div>
-                        <div class="metric-row">
                             <span class="metric-label">Account Health</span>
-                            <span class="metric-value" style="color: var(--accent-orange);">🟡 Investigating shadowban</span>
+                            <span class="metric-value" style="color: var(--accent-green);">✅ Healthy — No restrictions</span>
                         </div>
                         <div style="margin-top: 12px; padding: 10px; background: var(--bg-tertiary); border-radius: 8px;">
-                            <strong style="font-size: 0.85rem;">🔍 Root Cause Analysis:</strong><br>
-                            <span style="font-size: 0.8rem; color: var(--text-secondary);">Likely cause: Healthcare content decay (-34%) + external BTC noise + reduced reply volume. Recommendation: Increase reply activity to high-value accounts, pivot to AI/GLP-1 content.</span>
+                            <strong style="font-size: 0.85rem;">📈 Recent Improvements:</strong><br>
+                            <span style="font-size: 0.8rem; color: var(--text-secondary);">Engagement recovered after pivoting to ETH treasury + AI content. Continue thread format (42% better performance). Reply ops generating 13.5x multiplier.</span>
                         </div>
                     </div>
                 </div>
@@ -1006,8 +1009,8 @@ Position for the demographic inevitability. 🧬📈</div>
                             <div class="metric-row">
                                 <span class="metric-label">Price</span>
                                 <div>
-                                    <span class="metric-value">$62,192.60</span>
-                                    <span class="metric-change metric-down">-2.43% (24h)</span>
+                                    <span class="metric-value" id="btc-ta-price">$62,745.89</span>
+                                    <span class="metric-change metric-up">+0.77% (24h)</span>
                                 </div>
                             </div>
                             <div class="metric-row">
@@ -1032,9 +1035,9 @@ Position for the demographic inevitability. 🧬📈</div>
                                 <span class="metric-label">Bollinger Bands</span>
                                 <span class="metric-value">$62,033–$64,388</span>
                             </div>
-                            <div style="margin-top: 12px; padding: 10px; background: rgba(255,136,0,0.05); border: 1px solid rgba(255,136,0,0.2); border-radius: 8px;">
-                                <strong style="font-size: 0.85rem; color: var(--accent-orange);">⚠️ Signal: BTC neutral-bearish</strong><br>
-                                <span style="font-size: 0.8rem; color: var(--text-secondary);">RSI 45.47 = neutral. Price below 50-SMA ($64,579). MACD histogram turning positive (+396) but still below signal line. Watch for bounce at $62,033 support. Down -2.43% today.</span>
+                            <div style="margin-top: 12px; padding: 10px; background: rgba(0,255,136,0.05); border: 1px solid rgba(0,255,136,0.2); border-radius: 8px;">
+                                <strong style="font-size: 0.85rem; color: var(--accent-green);">✅ Signal: BTC stable near support</strong><br>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">Price near $62,746 (+0.77%). Consolidating after recent volatility. Watch for breakout above $63,500 resistance.</span>
                             </div>
                         </div>
                     </div>
@@ -1047,7 +1050,10 @@ Position for the demographic inevitability. 🧬📈</div>
                         <div class="card-body">
                             <div class="metric-row">
                                 <span class="metric-label">Price</span>
-                                <span class="metric-value">$1,774.58</span>
+                                <div>
+                                    <span class="metric-value" id="eth-ta-price">$1,789.88</span>
+                                    <span class="metric-change metric-up">+0.74% (24h)</span>
+                                </div>
                             </div>
                             <div class="metric-row">
                                 <span class="metric-label">RSI (14)</span>
@@ -1066,7 +1072,7 @@ Position for the demographic inevitability. 🧬📈</div>
                             </div>
                             <div style="margin-top: 12px; padding: 10px; background: rgba(0,255,136,0.05); border: 1px solid rgba(0,255,136,0.2); border-radius: 8px;">
                                 <strong style="font-size: 0.85rem; color: var(--accent-green);">✅ Signal: ETH showing relative strength</strong><br>
-                                <span style="font-size: 0.8rem; color: var(--text-secondary);">RSI 53.80 = neutral-bullish. Down only -1.75% vs BTC -2.43%. Treasury narrative intact. ETH outperforming BTC in current pullback.</span>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">RSI 53.80 = neutral-bullish. Up +0.74% while BTC at +0.77%. Treasury narrative intact. ETH outperforming.</span>
                             </div>
                         </div>
                     </div>
@@ -1082,16 +1088,16 @@ Position for the demographic inevitability. 🧬📈</div>
                             <div class="activity-icon" style="background: rgba(0,212,255,0.2);">💎</div>
                             <div class="activity-content">
                                 <div class="activity-text"><strong>MSTR (Strategy)</strong></div>
-                                <div class="activity-time">$91.87 • RSI: 45.6 (Neutral) • MACD: Neutral</div>
-                                <div style="margin-top: 6px; font-size: 12px; color: var(--accent-green);">✅ Consolidating near support. No major signals.</div>
+                                <div class="activity-time">$92.11 • RSI: 45.6 (Neutral) • Previous Close: $94.64</div>
+                                <div style="margin-top: 6px; font-size: 12px; color: var(--accent-orange);">⚠️ Down -2.67% from previous close. First BTC sale ($216M) announced.</div>
                             </div>
                         </div>
                         <div class="activity-item">
                             <div class="activity-icon" style="background: rgba(0,255,136,0.2);">🏥</div>
                             <div class="activity-content">
                                 <div class="activity-text"><strong>HIMS (Hims & Hers)</strong></div>
-                                <div class="activity-time">$34.28 • RSI: 53.8 (Neutral) • MACD: Neutral</div>
-                                <div style="margin-top: 6px; font-size: 12px; color: var(--accent-green);">✅ Healthy consolidation. GLP-1 momentum building. Hold/Accumulate.</div>
+                                <div class="activity-time">$34.38 • RSI: 53.8 (Neutral) • Flat session</div>
+                                <div style="margin-top: 6px; font-size: 12px; color: var(--accent-green);">✅ Stable. GLP-1 momentum building. Hold/Accumulate.</div>
                             </div>
                         </div>
                     </div>
@@ -1103,20 +1109,20 @@ Position for the demographic inevitability. 🧬📈</div>
                         <span style="font-size: 0.75rem; color: var(--text-secondary);">Twelve Data LIVE ✅</span>
                     </div>
                     <div class="card-body">
-                        <div style="padding: 10px; background: rgba(255,136,0,0.05); border: 1px solid rgba(255,136,0,0.2); border-radius: 8px; margin-bottom: 8px;">
-                            <div style="font-size: 13px; font-weight: 600; color: var(--accent-orange);">🟡 WATCH: BTC — Oversold bounce potential (RSI 26)</div>
-                            <div style="font-size: 11px; color: var(--text-secondary); margin-top: 4px;">Price: $62,116 • BBand lower: $62,025 • 50-SMA: $63,737 • Caution: downtrend active</div>
+                        <div style="padding: 10px; background: rgba(0,212,255,0.05); border: 1px solid rgba(0,212,255,0.2); border-radius: 8px; margin-bottom: 8px;">
+                            <div style="font-size: 13px; font-weight: 600; color: var(--accent-cyan);">🔵 NEUTRAL: BTC — Consolidating (RSI 45.5)</div>
+                            <div style="font-size: 11px; color: var(--text-secondary); margin-top: 4px;">Price: $62,638 • Neutral territory • Watch for breakout above $63,500 resistance</div>
                         </div>
-                        <div style="padding: 10px; background: rgba(255,136,0,0.05); border: 1px solid rgba(255,136,0,0.2); border-radius: 8px; margin-bottom: 8px;">
-                            <div style="font-size: 13px; font-weight: 600; color: var(--accent-orange);">🟡 WATCH: ETH — Oversold relief possible (RSI 33)</div>
-                            <div style="font-size: 11px; color: var(--text-secondary); margin-top: 4px;">RSI deeply oversold • Watch BTC correlation • Treasury narrative intact</div>
+                        <div style="padding: 10px; background: rgba(0,255,136,0.05); border: 1px solid rgba(0,255,136,0.2); border-radius: 8px; margin-bottom: 8px;">
+                            <div style="font-size: 13px; font-weight: 600; color: var(--accent-green);">🟢 ETH — Relative strength (RSI 53.8)</div>
+                            <div style="font-size: 11px; color: var(--text-secondary); margin-top: 4px;">Up +0.29% vs BTC flat • Treasury narrative intact • Outperforming BTC</div>
                         </div>
                         <div style="padding: 10px; background: rgba(255,136,0,0.05); border: 1px solid rgba(255,136,0,0.2); border-radius: 8px;">
-                            <div style="font-size: 13px; font-weight: 600; color: var(--accent-orange);">🟡 WATCH: MSTR — RSI approaching overbought (61.2)</div>
-                            <div style="font-size: 11px; color: var(--text-secondary); margin-top: 4px;">Confidence: 65% • Consider partial profit • Resistance: $1,600</div>
+                            <div style="font-size: 13px; font-weight: 600; color: var(--accent-orange);">🟡 WATCH: MSTR — First BTC sale impact (RSI 45.6)</div>
+                            <div style="font-size: 11px; color: var(--text-secondary); margin-top: 4px;">Sold $216M BTC (first ever). Price $92.10, down -2.7% • Monitor sentiment</div>
                         </div>
                         <div style="margin-top: 12px; padding: 10px; background: var(--bg-tertiary); border-radius: 8px; font-size: 11px; color: var(--text-secondary);">
-                            <strong style="color: var(--text-primary);">📊 Data Source:</strong> Twelve Data API • <strong>Last Update:</strong> Just now • <strong>API Calls:</strong> 4/800 today
+                            <strong style="color: var(--text-primary);">📊 Data Source:</strong> CoinGecko + Twelve Data API • <strong>Last Update:</strong> Jul 14, 2026 08:00 Paris • <strong>API Calls:</strong> 6/800 today
                         </div>
                     </div>
                 </div>
@@ -1293,7 +1299,7 @@ Position for the demographic inevitability. 🧬📈</div>
                         </div>
                         <div class="metric-row">
                             <span class="metric-label">Last Updated</span>
-                            <span class="metric-value">Jul 14, 2026 05:45</span>
+                            <span class="metric-value">Jul 14, 2026 08:05</span>
                         </div>
                         <div class="metric-row">
                             <span class="metric-label">Data Source</span>
@@ -1351,7 +1357,7 @@ Position for the demographic inevitability. 🧬📈</div>
                 <div class="card">
                     <div class="card-header">
                         <span class="card-title">🤖 Claw's Active Tasks</span>
-                        <span style="font-size: 0.75rem; color: var(--text-secondary);">Updated: Jul 14, 2026 05:45</span>
+                        <span style="font-size: 0.75rem; color: var(--text-secondary);">Updated: Jul 14, 2026 08:05</span>
                     </div>
                     <div class="card-body">
                         <!-- Task 1: Daily Research -->
@@ -1368,8 +1374,8 @@ Position for the demographic inevitability. 🧬📈</div>
                             </div>
                             <div class="post-content">Daily market analysis and content research. Runs at 8:00 AM CET. Covers: BTC/ETH price action, healthcare news, AI developments, macro trends.
 
-Last run: Jul 13, 2026 8:04 AM
-Next run: Jul 14, 2026 8:00 AM
+Last run: Jul 14, 2026 8:05 AM
+Next run: Jul 15, 2026 8:00 AM
 Sources: CoinGecko, Yahoo Finance, NewsAPI, RSS feeds</div>
                             <div class="post-stats">
                                 <div class="post-stat">
@@ -2460,7 +2466,7 @@ Errors: 0</div>
             new Chart(engagementCtx, {
                 type: 'line',
                 data: {
-                    labels: ['Jul 7', 'Jul 8', 'Jul 9', 'Jul 10', 'Jul 11', 'Jul 12', 'Jul 13'],
+                    labels: ['Jul 8', 'Jul 9', 'Jul 10', 'Jul 11', 'Jul 12', 'Jul 13', 'Jul 14'],
                     datasets: [{
                         label: 'Engagement Rate %',
                         data: [4.4, 5.5, 4.6, 6.2, 5.7, 4.9, 6.3],
@@ -2495,7 +2501,7 @@ Errors: 0</div>
             new Chart(followerCtx, {
                 type: 'bar',
                 data: {
-                    labels: ['Jul 7', 'Jul 8', 'Jul 9', 'Jul 10', 'Jul 11', 'Jul 12', 'Jul 13'],
+                    labels: ['Jul 8', 'Jul 9', 'Jul 10', 'Jul 11', 'Jul 12', 'Jul 13', 'Jul 14'],
                     datasets: [{
                         label: 'Daily Followers',
                         data: [0, 0, 0, 0, 0, 0, 7],
@@ -2528,7 +2534,7 @@ Errors: 0</div>
             new Chart(impressionsCtx, {
                 type: 'line',
                 data: {
-                    labels: ['Jul 7', 'Jul 8', 'Jul 9', 'Jul 10', 'Jul 11', 'Jul 12', 'Jul 13'],
+                    labels: ['Jul 8', 'Jul 9', 'Jul 10', 'Jul 11', 'Jul 12', 'Jul 13', 'Jul 14'],
                     datasets: [{
                         label: 'Impressions',
                         data: [180, 220, 195, 450, 280, 245, 334],

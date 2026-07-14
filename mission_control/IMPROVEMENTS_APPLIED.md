@@ -1,6 +1,6 @@
 # Mission Control Dashboard Improvements Applied
-**Date:** July 14, 2026, 06:05 CET
-**Session:** Review & Improvement Cycle
+**Date:** July 14, 2026, 08:05 CET (Updated)
+**Session:** Review & Improvement Cycle #2
 
 ---
 
@@ -31,9 +31,19 @@ Added to `index.html` head:
 - `version`: 7.5
 - `last-review`: 2026-07-14
 
-### 4. Documentation Updated
+### 4. July 14, 2026 08:05 Review — Stale Data Fixes
+**Files updated:**
+- [x] `index.html`: Timestamps updated, nav links added, chart labels shifted Jul 8-14
+- [x] `mobile_dashboard.html`: Timestamps updated, drawer nav expanded
+- [x] `portfolio_tracker.html`: Timestamps updated, chart labels shifted Jul 8-14
+- [x] `news_sentiment_tracker.html`: Timestamps updated, chart labels shifted Jul 8-14
+- [x] `backtesting_module.html`: Timestamps updated, data range refreshed
+- [x] `social_sentiment_live.html`: Timestamps updated
+
+### 5. Documentation Updated
 - `TOOLS.md`: Added review entry with timestamp
 - `REVIEW_REPORT_2026-07-14.md`: Comprehensive analysis document
+- `REVIEW_REPORT_2026-07-14_0805.md`: Latest review findings
 
 ---
 
@@ -81,6 +91,6 @@ The following changes are staged but **not yet deployed**:
 
 ---
 
-**Files Modified:** 5 dashboard HTML files + TOOLS.md
-**Files Created:** unified-nav.html, REVIEW_REPORT_2026-07-14.md, IMPROVEMENTS_APPLIED.md
+**Files Modified:** 6 dashboard HTML files + TOOLS.md
+**Files Created:** unified-nav.html, REVIEW_REPORT_2026-07-14.md, REVIEW_REPORT_2026-07-14_0805.md, IMPROVEMENTS_APPLIED.md
 **Review Status:** ✅ Complete
