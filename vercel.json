@@ -8,9 +8,37 @@
     {
       "src": "mission_control/index.html",
       "use": "@vercel/static"
+    },
+    {
+      "src": "mission_control/mobile_dashboard.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "mission_control/portfolio_tracker.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "mission_control/news_sentiment_tracker.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "mission_control/backtesting_module.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "mission_control/social_sentiment_live.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "mission_control_risk_management.html",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
+    {
+      "src": "/mission_control_risk_management.html",
+      "dest": "/mission_control_risk_management.html"
+    },
     {
       "src": "/mission_control/(.*)",
       "dest": "/mission_control/$1"
