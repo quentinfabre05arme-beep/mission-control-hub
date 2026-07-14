@@ -1,5 +1,5 @@
 {
-    "timestamp": "2026-07-14 09:15:00",
+    "timestamp": "2026-07-14 11:45:00",
     "assets": {
         "BTC/USD": {
             "high": "62800.00",
@@ -8,7 +8,7 @@
             "price": "62490.00",
             "previous_close": "62264.94",
             "is_market_open": true,
-            "timestamp": "2026-07-14 09:15:00",
+            "timestamp": "2026-07-14 11:45:00",
             "open": "62264.94",
             "status": "success",
             "low": "62190.40",
@@ -21,7 +21,7 @@
             "price": "1779.85",
             "previous_close": "1776.78",
             "is_market_open": true,
-            "timestamp": "2026-07-14 09:15:00",
+            "timestamp": "2026-07-14 11:45:00",
             "open": "1776.87",
             "status": "success",
             "low": "1773.45",
@@ -34,7 +34,7 @@
             "price": "34.38",
             "previous_close": "34.38",
             "is_market_open": false,
-            "timestamp": "2026-07-14 09:15:00",
+            "timestamp": "2026-07-14 11:45:00",
             "open": "34.30",
             "status": "success",
             "low": "33.55",
@@ -47,7 +47,7 @@
             "price": "92.11",
             "previous_close": "94.64",
             "is_market_open": false,
-            "timestamp": "2026-07-14 09:15:00",
+            "timestamp": "2026-07-14 11:45:00",
             "open": "91.49",
             "status": "success",
             "low": "90.02",
