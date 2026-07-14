@@ -42,6 +42,8 @@
 - Market data auto-updates every 60 seconds (BTC: $62,490 | ETH: $1,779.85 | MSTR: $92.11 | HIMS: $34.38) — UPDATED Jul 14, 09:15
 - **INVESTMENT TRACKING:** Portfolio position tracking with entry prices and P&L now visible in portfolio_tracker.html
 - **DEPLOYED:** vercel.json routing fix applied. All dashboards accessible.
+- **Jul 14, 2026 10:15:** CRON OPTIMIZATION — Reduced from 7 jobs to 3, saving ~350-600K tokens/day. Removed redundant heartbeat, stale research, duplicate mission-control jobs.
+- **Jul 14, 2026 10:45:** SELF-IMPROVEMENT PROTOCOL — Document every fix in TOOLS.md immediately. Never solve same problem twice. Created skills: onedrive-organizer, cron-optimizer, dashboard-auditor.
 - Current focus: Portfolio position tracking + next research cycle #40
 - Model routing: Manual switching preferred (ask before switching to qwen3-coder)
 
@@ -64,6 +66,13 @@
 - **Memory index:** Needs rebuild with `openclaw memory index --force` when embedding model changes
 - **Vercel Routing:** ✅ FIXED Jul 14, 07:15 — All /mission_control/* paths now serving correctly
 - **Version Sync:** All dashboard nav version tags now synced to v7.5 ✅
+- **French filenames / PowerShell encoding:** Files with accents (é, è, ï, ô) fail with `Move-Item` — use `robocopy /mov` via `cmd /c` for bulk moves instead
+- **Stale data in dashboards:** Hardcoded prices and timestamps accumulate silently — weekly audits needed
+- **Cron job bloat:** Token burn accumulates silently — review quarterly, merge duplicates, kill useless jobs
+- **Self-improvement loop:** Document every fix immediately in TOOLS.md — never solve same problem twice
+- **DOCX files:** Can extract via rename-to-.zip + Expand-Archive + XML parsing — PowerShell can't read directly
+- **X/Twitter automation:** XActions toolkit (nirholas/XActions on GitHub) — free, no API key, browser-based, MCP server available
+- **Browser session persistence:** Cookie-based login works for X automation — use browser profile, not fresh login each time
 
 ## Dashboard Links Verified 🔍 (Jul 14, 2026 09:00)
 | Dashboard | URL | Status | Version |

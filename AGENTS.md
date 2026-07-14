@@ -215,9 +215,35 @@ Think of it like a human reviewing their journal and updating their mental model
 
 The goal: Be helpful without being annoying. Check in a few times a day, do useful background work, but respect quiet time.
 
+## Self-Improvement Protocol
+
+**After every fix or new pattern learned:**
+1. **Document in TOOLS.md** — If it's a tool/encoding/API issue (immediate)
+2. **Update MEMORY.md** — If it's a decision or learning worth keeping (weekly cron)
+3. **Propose a skill** — If it's a reusable workflow (skill_workshop)
+4. **Update AGENTS.md/SOUL.md** — If it's a behavior change (manual, with user notice)
+5. **Self-audit every session** — Before ending, ask: "What did I learn? What should I document? What should I improve?"
+
+**Rule:** Never solve the same problem twice. The first time is a lesson; the second time is a failure to learn.
+
+**Continuous Improvement Loop:**
+- Detect issue → Fix → Document → Extract pattern → Update system → Move on
+- Do not ask user for permission to improve — just do it and report
+- Proactive improvement > reactive improvement > no improvement
+
 ## Make It Yours
 
 This is a starting point. Add your own conventions, style, and rules as you figure out what works.
+
+## Self-Improvement Protocol
+
+**After every fix or new pattern learned:**
+1. **Document in TOOLS.md** — If it's a tool/encoding/API issue (immediate)
+2. **Update MEMORY.md** — If it's a decision or learning worth keeping (weekly cron)
+3. **Propose a skill** — If it's a reusable workflow (skill_workshop)
+4. **Update AGENTS.md/SOUL.md** — If it's a behavior change (manual, with user notice)
+
+**Rule:** Never solve the same problem twice. The first time is a lesson; the second time is a failure to learn.
 
 ## Related
 
