@@ -1395,7 +1395,7 @@ Current X account (@quentinvest1):
 - Natural language interface tabled for later — data accuracy prioritized over conversational features
 - Model preference: Actionable data > conversational features
 
-### Key Learnings (July 13)
+### Key Learnings (July 13-14, 2026)
 1. **Browser Automation Reality Check:** OpenClaw CLI evaluate/type commands have parsing bugs (space splitting issues). Chrome CDP requires manual admin elevation on Windows. Playwright Python works as pure Python alternative. Semi-automated posting accepted: 30 seconds user action vs 10+ minutes manual.
 2. **PowerShell Emoji Display:** Emoji-prefixed folder names display as empty boxes in PowerShell — use file counts (`Get-ChildItem`) to verify contents, not visual inspection.
 3. **Dashboard Maintenance:** Hardcoded prices and localhost references accumulate silently — periodic audits needed.
@@ -1404,36 +1404,72 @@ Current X account (@quentinvest1):
 6. **Social Sentiment as Leading Indicator:** Social sentiment (X/Reddit/Discord/Telegram) leads news sentiment by 2-4 hours on average, providing early signals before price moves. Divergence between sentiment and price has 71-87% predictive accuracy for short-term reversals.
 7. **Sentiment Correlation Strength:** Asset-specific sentiment-price correlations vary significantly (BTC 0.76, ETH 0.71, MSTR 0.82, HIMS 0.84). Higher correlation = more reliable divergence signals.
 8. **Deployment Gap Detection:** Static files can miss Vercel deployment despite git push — periodic URL audits catch undeployed files early (found `portfolio_tracker.html` and `market_data.json` as 404s before fix).
+9. **Review Cadence Matters (July 14):** Daily cron reviews at 06:45, 08:00, 09:00, 09:15, 09:30, 09:45 caught stale data before it aged >24h. Hardcoded prices drift within hours of market opens — auto-refresh or frequent review required.
+10. **Version Tag Consistency:** Version references proliferate across files (nav bars, settings, meta tags, hero cards). Single source of truth needed — currently manual sync across 8+ files per version bump.
+11. **Simulation Labeling:** Any non-live data must be explicitly labeled "Simulated" or "Static demo" to avoid misleading users. Today's Activity sidebar, engagement metrics require disclaimers until wired to real APIs.
+12. **Engagement Alert Fatigue:** Stale negative alerts ("-45% Engagement Drop") persist in UI even when situation resolved. Alerts need auto-expiry or recency-based dismissal logic.
 
 ---
 
-## Current System Status (July 14, 2026 — 00:40 CET)
+## July 14, 2026 — Dashboard Review Marathon (06:45–09:45 CET)
+
+### Cron Review Cadence Established
+Six automated reviews executed throughout the morning, each catching different staleness issues:
+- **06:45:** Market data refresh, link audit (3/8 accessible → deployment needed)
+- **07:00:** Version sync to v7.5, vercel.json modernization
+- **07:15:** Deployment successful — all 8 dashboards accessible after vercel.json routing fix
+- **08:00:** Fixed stale engagement alerts, hardcoded TA values, added simulation disclaimers
+- **08:05:** Timestamp updates across 6 dashboards, chart labels shifted to Jul 8-14
+- **09:00:** Fixed stale version references (cycles 26→43, version 9.6→7.5), removed resolved deployment issues from active tasks
+- **09:15:** Full market data refresh, portfolio repricing, TA signals updated
+- **09:30:** Data consistency audit — cycle counts synced, weekly goal fixed, deployment timestamp refreshed
+- **09:45:** Portfolio tracker resynced (14 data points), mobile nav improved, day counter updated
+
+### Key Fixes Applied
+- **Stale engagement drop alert** → Removed from mobile + desktop (now shows "Engagement Normal")
+- **Hardcoded TA prices** → Updated BTC ($62,192→$62,638→$62,490), ETH ($1,774→$1,784.79→$1,779.85)
+- **Portfolio prices** → All 4 assets repriced, total recalculated ($46,891→$46,898)
+- **Version tags** → Unified to v7.5 across all nav bars, settings, hero cards
+- **Broken HTML tag** → `Recurring>/span` → `Recurring</span>`
+- **Simulation labeling** → Added "⏱️ Simulated" badges to Today's Activity sidebar
+
+### Learnings from July 14 Reviews
+- Reviews #40-#44 completed in 3 hours — diminishing returns after 09:15, most issues caught early
+- Average response time ~225ms — good Vercel performance
+- Risk Management (v10.0) at root level has different path structure — maintained separately
+- Portfolio position tracking with entry prices and P&L now visible in portfolio_tracker.html
+
+---
+
+## Current System Status (July 14, 2026 — 10:00 CET)
 
 | Component | Status | Version |
 |-----------|--------|---------|
-| Dashboard | ✅ Live | v6.1 Unified (index + mobile) |
+| Dashboard | ✅ Live | v7.5 Unified (index + mobile) |
 | Market Signals | ✅ Live | v9.8 (Twelve Data API) |
 | Portfolio Engine | ✅ Live | v9.9 |
-| Risk Management | ✅ Live | v10.0 |
+| Risk Management | ✅ Live | v10.0 (root level, separate path) |
 | Content Intelligence | ✅ Live | v7.4 |
-| Portfolio Tracker | ✅ Live | Cycle #36 (real-time P&L) |
+| Portfolio Tracker | ✅ Live | Cycle #36 (real-time P&L + entry prices) |
 | NLP Hub | ✅ Live | v9.6 (deployed evening Jul 13) |
 | News-Sentiment Tracker | ✅ Live | Cycle #37 v6.2 |
 | Social Sentiment Live | ✅ Live | Cycle #38 v6.3 |
-| **Backtesting Module** | **✅ Live** | **Cycle #39 v6.4 (NEWEST)** |
+| Backtesting Module | ✅ Live | Cycle #39 v6.4 |
 | X Automation | ✅ Active | 3 posts/day, original content only |
 | Research Engine | ✅ Active | Continuous monitoring |
 | OneDrive | ✅ Organized | 22,380 files, 51.3 GB |
-| Cron Jobs | ✅ 7 active | Morning digest, trend monitoring, engagement |
+| Cron Jobs | ✅ 7 active | Morning digest, trend monitoring, engagement, dashboard review |
 
 **X Account:**
 - Handle: @quentinvest1
 - Followers: 219
-- Engagement: 6.3%
+- Engagement: 6.3% (improving +0.4%)
 - Strategy: Original content only, 3 posts/day at 08:00/14:00/19:00 Paris time
+- Daily Streak: 2 days
+- Growth Mission: 219 → 10,000 followers (2.19% complete)
 
-**Research Cycles Completed:** 39
-**Next Planned:** #40+ (Live Trading Integration, ML Signal Enhancement)
+**Research Cycles Completed:** 43 (Reviews #40-#44 completed Jul 14 morning)
+**Next Planned:** #45+ (Live Trading Integration, ML Signal Enhancement)
 
 ### Model Routing Preference (Established 13:46 UTC, July 13)
 **User explicitly prefers manual model switching.** Do NOT automatically switch models.
@@ -1442,17 +1478,21 @@ Current X account (@quentinvest1):
 - Default Kimi 2.6 handles general tasks well
 - Respect user's preference for control over automation
 
-### Dashboard URLs (Verified 21:15 UTC, July 13)
-| Dashboard | URL | Status |
-|-----------|-----|--------|
-| Main Redirect | https://mission-control-hub-lovat.vercel.app | ✅ 200 |
-| Desktop Dashboard | https://mission-control-hub-lovat.vercel.app/mission_control/index.html | ✅ 200 |
-| Mobile Dashboard | https://mission-control-hub-lovat.vercel.app/mission_control/mobile_dashboard.html | ✅ 200 |
-| Portfolio Tracker | https://mission-control-hub-lovat.vercel.app/mission_control/portfolio_tracker.html | ✅ 200 |
-| News-Sentiment Tracker | https://mission-control-hub-lovat.vercel.app/mission_control/news_sentiment_tracker.html | ✅ 200 |
-| Risk Management | https://mission-control-hub-lovat.vercel.app/mission_control_risk_management.html | ✅ 200 |
-| Social Sentiment Live | https://mission-control-hub-lovat.vercel.app/mission_control/social_sentiment_live.html | ✅ 200 |
-| **Backtesting Module** | **https://mission-control-hub-lovat.vercel.app/mission_control/backtesting_module.html** | **✅ 200** |
+### Dashboard URLs (Verified 09:45 UTC, July 14)
+| Dashboard | URL | Status | Version |
+|-----------|-----|--------|---------|
+| Main Redirect | https://mission-control-hub-lovat.vercel.app | ✅ 200 | v7.5 |
+| Desktop Dashboard | https://mission-control-hub-lovat.vercel.app/mission_control/index.html | ✅ 200 | v7.5 |
+| Mobile Dashboard | https://mission-control-hub-lovat.vercel.app/mission_control/mobile_dashboard.html | ✅ 200 | v7.5 |
+| Portfolio Tracker | https://mission-control-hub-lovat.vercel.app/mission_control/portfolio_tracker.html | ✅ 200 | v7.5 |
+| News-Sentiment Tracker | https://mission-control-hub-lovat.vercel.app/mission_control/news_sentiment_tracker.html | ✅ 200 | v7.5 |
+| Risk Management | https://mission-control-hub-lovat.vercel.app/mission_control_risk_management.html | ✅ 200 | v10.0 |
+| Backtesting Module | https://mission-control-hub-lovat.vercel.app/mission_control/backtesting_module.html | ✅ 200 | v7.5 |
+| Social Sentiment Live | https://mission-control-hub-lovat.vercel.app/mission_control/social_sentiment_live.html | ✅ 200 | v7.5 |
+
+**Status:** All 8 dashboards deployed and verified ✅
+**Response Times:** Avg ~225ms — Good performance
+**Deployment:** https://mission-control-hub-lovat.vercel.app (aliased)
 
 **Known Issues:**
 - OpenClaw browser evaluate/type: Space splitting bug — use JavaScript injection workaround
@@ -1469,6 +1509,8 @@ Current X account (@quentinvest1):
 4. Add RSI/MACD indicators when rate limits allow (may need paid tier)
 5. Address API key security (currently embedded in client-side JS)
 6. Continue mobile UX refinement based on user feedback
+7. Create single source of truth for version tags (currently manual sync across 8+ files)
+8. Add auto-expiry logic for engagement alerts to prevent stale negative indicators
 
 ---
 
@@ -1544,13 +1586,9 @@ Current X account (@quentinvest1):
 
 ---
 
-*Research completed: July 12, 2026 - 16:26 UTC*  
-*Scripts created: agentic_orchestrator_v2.py, reflection_module_v2.py, x_native_optimizer.py, social_intelligence_engine.py, authenticity_scorer.py, mcp_tool_registry.py*  
-*Status: 2025-2026 research findings integrated, v7.0 architecture with MCP/A2A deployed*  
-*Memory maintenance: July 13, 2026 - 20:45 UTC — Cycle #38 documented, key learnings updated*
-*Memory maintenance: July 13, 2026 - 21:00 UTC — Mission Control Review (20:00) findings added, deployment gap detection lesson captured, URL audit lesson preserved*
-*Memory maintenance: July 13, 2026 - 21:00 UTC — Mission Control Review (20:00) findings added, deployment gap detection lesson captured*
-*Memory maintenance: July 14, 2026 - 00:40 UTC — Cycle #39 backtesting details added, July 14 session archived, vercel.json route fix documented*
+*Memory maintenance: July 14, 2026 — 10:00 CET*
+*Updates: July 14 review marathon documented (reviews #40-#44), key learnings expanded #9-#12, current system status refreshed to v7.5, dashboard URLs updated with version column, pending actions expanded*
+*Total additions: ~40 lines, 4 new learnings, 2 new pending actions*
 
 ---
 
