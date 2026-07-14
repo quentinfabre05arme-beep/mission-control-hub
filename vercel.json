@@ -4,36 +4,8 @@
   "github": {
     "enabled": false
   },
-  "builds": [
-    {
-      "src": "mission_control/index.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "mission_control/mobile_dashboard.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "mission_control/portfolio_tracker.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "mission_control/news_sentiment_tracker.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "mission_control/backtesting_module.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "mission_control/social_sentiment_live.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "mission_control_risk_management.html",
-      "use": "@vercel/static"
-    }
-  ],
+  "framework": null,
+  "outputDirectory": ".",
   "routes": [
     {
       "src": "/mission_control_risk_management.html",
@@ -44,8 +16,23 @@
       "dest": "/mission_control/$1"
     },
     {
+      "src": "/(.*\\.(html|css|js|json|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot))",
+      "dest": "/$1"
+    },
+    {
       "src": "/(.*)",
-      "dest": "/mission_control/index.html"
+      "dest": "/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }
+      ]
     }
   ]
 }

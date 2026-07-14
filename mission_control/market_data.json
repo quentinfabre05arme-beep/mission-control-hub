@@ -1,57 +1,57 @@
-﻿{
-    "timestamp":  "2026-07-14 05:03:04",
-    "assets":  {
-                   "ETH/USD":  {
-                                   "high":  "1794.23",
-                                   "change":  "6.68000",
-                                   "percent_change":  "0.37596101",
-                                   "price":  "1783.46",
-                                   "previous_close":  "1776.78",
-                                   "is_market_open":  true,
-                                   "timestamp":  "2026-07-14 05:03:04",
-                                   "open":  "1776.87",
-                                   "status":  "success",
-                                   "low":  "1773.45",
-                                   "volume":  null
-                               },
-                   "HIMS":  {
-                                "high":  "35.20000",
-                                "change":  "0",
-                                "percent_change":  "0",
-                                "price":  "34.38000",
-                                "previous_close":  "34.38000",
-                                "is_market_open":  false,
-                                "timestamp":  "2026-07-14 05:03:04",
-                                "open":  "34.30000",
-                                "status":  "success",
-                                "low":  "33.55000",
-                                "volume":  "9363499"
-                            },
-                   "BTC/USD":  {
-                                   "high":  "62592.71",
-                                   "change":  "247.16000",
-                                   "percent_change":  "0.39694891",
-                                   "price":  "62512.1",
-                                   "previous_close":  "62264.94",
-                                   "is_market_open":  true,
-                                   "timestamp":  "2026-07-14 05:03:04",
-                                   "open":  "62264.94",
-                                   "status":  "success",
-                                   "low":  "62190.4",
-                                   "volume":  null
-                               },
-                   "MSTR":  {
-                                "high":  "93.64000",
-                                "change":  "-2.54000",
-                                "percent_change":  "-2.68386",
-                                "price":  "92.099998",
-                                "previous_close":  "94.64000",
-                                "is_market_open":  false,
-                                "timestamp":  "2026-07-14 05:03:04",
-                                "open":  "91.49000",
-                                "status":  "success",
-                                "low":  "90.019997",
-                                "volume":  "12504949"
-                            }
-               }
+{
+    "timestamp": "2026-07-14 07:15:00",
+    "assets": {
+        "BTC/USD": {
+            "high": "62800.00",
+            "change": "480.95",
+            "percent_change": "0.77",
+            "price": "62745.89",
+            "previous_close": "62264.94",
+            "is_market_open": true,
+            "timestamp": "2026-07-14 07:15:00",
+            "open": "62264.94",
+            "status": "success",
+            "low": "62190.40",
+            "volume": null
+        },
+        "ETH/USD": {
+            "high": "1795.00",
+            "change": "13.10",
+            "percent_change": "0.74",
+            "price": "1789.88",
+            "previous_close": "1776.78",
+            "is_market_open": true,
+            "timestamp": "2026-07-14 07:15:00",
+            "open": "1776.87",
+            "status": "success",
+            "low": "1773.45",
+            "volume": null
+        },
+        "HIMS": {
+            "high": "35.20",
+            "change": "0",
+            "percent_change": "0",
+            "price": "34.38",
+            "previous_close": "34.38",
+            "is_market_open": false,
+            "timestamp": "2026-07-14 07:15:00",
+            "open": "34.30",
+            "status": "success",
+            "low": "33.55",
+            "volume": "9363499"
+        },
+        "MSTR": {
+            "high": "93.64",
+            "change": "-2.53",
+            "percent_change": "-2.67",
+            "price": "92.11",
+            "previous_close": "94.64",
+            "is_market_open": false,
+            "timestamp": "2026-07-14 07:15:00",
+            "open": "91.49",
+            "status": "success",
+            "low": "90.02",
+            "volume": "12504949"
+        }
+    }
 }

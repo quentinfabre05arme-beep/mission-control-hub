@@ -1,0 +1,161 @@
+<!-- Unified Navigation Component for Mission Control Dashboards -->
+<!-- Version: 7.5 -->
+<!-- Usage: Copy this nav block into each dashboard page -->
+
+<style>
+.unified-nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 56px;
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid #222;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1.5rem;
+    z-index: 1000;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #fff;
+    text-decoration: none;
+}
+
+.nav-logo-icon { font-size: 1.2rem; }
+
+.nav-version {
+    font-size: 0.7rem;
+    padding: 0.15rem 0.5rem;
+    background: #00d4ff;
+    border-radius: 4px;
+    color: #000;
+    font-weight: 700;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.nav-links::-webkit-scrollbar { display: none; }
+
+.nav-link {
+    color: #888;
+    text-decoration: none;
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    white-space: nowrap;
+    transition: all 0.2s;
+}
+
+.nav-link:hover {
+    color: #fff;
+    background: #1e1e1e;
+}
+
+.nav-link.active {
+    color: #fff;
+    background: #1e1e1e;
+}
+
+.nav-status {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.8rem;
+    color: #888;
+    margin-left: 1rem;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background: #00ff88;
+    border-radius: 50%;
+    animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* Mobile toggle */
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 56px;
+        left: 0;
+        right: 0;
+        background: rgba(10, 10, 10, 0.98);
+        flex-direction: column;
+        padding: 1rem;
+        gap: 0.5rem;
+    }
+    
+    .nav-links.open {
+        display: flex;
+    }
+    
+    .nav-toggle {
+        display: block;
+    }
+    
+    .nav-link {
+        padding: 0.6rem 1rem;
+    }
+}
+
+/* Page content offset */
+body {
+    padding-top: 56px;
+}
+</style>
+
+<nav class="unified-nav">
+    <div style="display: flex; align-items: center;">
+        <a href="index.html" class="nav-logo">
+            <span class="nav-logo-icon">🐾</span>
+            <span>Mission Control</span>
+            <span class="nav-version">v7.5</span>
+        </a>
+        <div class="nav-status">
+            <span class="status-dot"></span>
+            <span>Live</span>
+        </div>
+    </div>
+    
+    <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+    
+    <div class="nav-links">
+        <a href="index.html" class="nav-link">🏠 Home</a>
+        <a href="mobile_dashboard.html" class="nav-link">📱 Mobile</a>
+        <a href="portfolio_tracker.html" class="nav-link">💼 Portfolio</a>
+        <a href="news_sentiment_tracker.html" class="nav-link">📰 Sentiment</a>
+        <a href="backtesting_module.html" class="nav-link">📊 Backtest</a>
+        <a href="social_sentiment_live.html" class="nav-link">💬 Social</a>
+        <a href="../mission_control_risk_management.html" class="nav-link">⚠️ Risk</a>
+    </div>
+</nav>
