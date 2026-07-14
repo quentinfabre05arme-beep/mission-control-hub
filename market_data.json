@@ -1,0 +1,36 @@
+{
+    "timestamp": "2026-07-15T00:01:00+02:00",
+    "assets": {
+        "BTC": {
+            "price": "64621.02",
+            "source": "Twelve Data",
+            "change_24h": "+2.94",
+            "symbol": "BTC/USD",
+            "last_updated": "1752528060"
+        },
+        "ETH": {
+            "price": "1876.04",
+            "source": "Twelve Data",
+            "change_24h": "+4.30",
+            "symbol": "ETH/USD",
+            "last_updated": "1752528060"
+        },
+        "HIMS": {
+            "price": "35.14",
+            "source": "Twelve Data",
+            "change_24h": "+2.21",
+            "symbol": "HIMS"
+        },
+        "MSTR": {
+            "price": "97.54",
+            "source": "Twelve Data",
+            "change_24h": "+5.89",
+            "symbol": "MSTR"
+        }
+    },
+    "research_cycle": {
+        "number": 53,
+        "timestamp": "2026-07-15T00:01:00+02:00",
+        "type": "evening"
+    }
+}
