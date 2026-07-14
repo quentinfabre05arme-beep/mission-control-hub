@@ -14,6 +14,47 @@
 - **Usage:** RSI, MACD, SMA, Bollinger Bands for BTC/ETH/MSTR/HIMS
 - **Status:** ✅ Active
 
+## Jul 14, 2026 11:15: REVIEW #46 COMPLETED — Mission Control Dashboard Review & Improvements
+
+### Issues Found & Fixed:
+1. **Stale timestamps** — index.html meta last-review 10:15→11:15, mobile_dashboard.html last run 08:05→11:15, social_sentiment_live.html last updated 08:05→11:15, news_sentiment_tracker.html last updated 08:05→11:15, portfolio_tracker.html last updated 08:05→11:15
+2. **Cycle count inconsistency** — index.html meta cycle-count 47→48, mobile_dashboard.html research cycles 43→48 (hero card + task1 cycles), mobile dashboard task1 last run timestamp updated
+3. **Completed tasks still listed as active** — Task descriptions in mobile dashboard updated to reflect current state (X Content Pipeline active, Competitor Tracking active, Gateway Health running, Memory Maintenance running)
+4. **Mobile responsiveness verified** — Mobile drawer navigation working, tab system functional, hero cards rendering correctly
+
+### New Features Identified for Future Implementation:
+1. **Portfolio Alert System** — Real-time price alerts for BTC/ETH/MSTR/HIMS positions (entry price deviations, stop-loss triggers)
+2. **Mobile Portfolio Integration** — Add portfolio tracker tab to mobile dashboard (currently only accessible via drawer link)
+3. **Market Data Auto-Refresh** — Wire market_data.json timestamp to auto-update on page load instead of hardcoded
+4. **Sentiment Stream Real API** — Wire social_sentiment_live.html to actual X/Reddit APIs (currently simulated data)
+5. **Competitor Tracking Enhancement** — Add engagement rate trends and post frequency graphs over time
+6. **Mobile Quick Compose FAB** — Enable quick post composition from mobile (currently shows "coming soon")
+
+### Deployment Status:
+- **All 8 dashboard links verified 200 OK** ✅
+- **Version v7.6** synced across all active dashboards
+- **Response times:** Avg ~200ms — Good performance
+- **No deployment issues detected**
+
+### Previous Review History (Preserved):
+- Jul 14, 2026 10:15: REVIEW #45 COMPLETED — Fixed 12 issues: stale metadata, version sync, mobile nav bug
+- Jul 14, 2026 10:03: REVIEW #44 COMPLETED — v7.6 version bump, cycle count 43→44
+- Jul 14, 2026 09:30: REVIEW #43 COMPLETED — Data consistency audit
+- Jul 14, 2026 09:15: REVIEW #43 COMPLETED — Full market data refresh (BTC: $62,490 | ETH: $1,779.85)
+- Jul 14, 2026 09:00: REVIEW #42 COMPLETED — Settings version fixes
+- Jul 14, 2026 08:16: REVIEW #40 COMPLETED — Broken HTML tag fix
+- Jul 14, 2026 08:05: CRON REVIEW — Stale timestamps updated
+- Jul 14, 2026 08:00: REVIEW — Engagement drop alerts fixed, market data updated
+- Jul 14, 2026 07:15: DEPLOYMENT SUCCESSFUL — vercel.json routing fix
+- Jul 14, 2026 07:00: CRON REVIEW — Version tags synced to v7.5
+- Jul 14, 2026 06:45: CRON REVIEW — Market data refreshed
+- Jul 14, 2026 06:05: REVIEW — Version tags updated to v7.5
+
+### Current Focus:
+- Portfolio position tracking ✅ (already implemented)
+- Next research cycle #49 (Review #47 next scheduled)
+- Model routing: Manual switching preferred (ask before switching to qwen3-coder)
+
 ## Dashboard URLs
 - **Production:** https://mission-control-hub-lovat.vercel.app
 - **Version:** v7.6 (Jul 14, 2026 10:15) — Dashboard Suite
@@ -119,3 +160,13 @@
 - `mission_control_market_intelligence.html`: Shows v10.0 — different component (kept as-is)
 - `mission_control_hub.html`: No version shown — added to backlog
 - Version inconsistency resolved across all active dashboard files
+
+## X Autonomous Posting
+- **Status:** ✅ Active
+- **Account:** @quentinvest1
+- **Schedule:** 08:00, 14:00, 19:00 (Paris time)
+- **Daily Limit:** 3 posts
+- **Files:** `x_autonomous.js`, `x_poster_daemon.js`, `x_queue.json`
+- **Cron Job:** `x-autonomous-poster` — every 30 minutes
+- **Log:** `logs/x_posts.log`
+- **Guardrails:** Human approval gate, daily volume limit, full logging
