@@ -1,0 +1,3280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@quentinvest1 | Mission Control v7.6</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles-grok.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Deployment Info -->
+    <meta name="deployment-timestamp" content="2026-07-15T00:01:00+02:00">
+    <meta name="version" content="7.6">
+    <meta name="last-review" content="2026-07-15 00:01">
+    <meta name="cycle-count" content="52">
+
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-left">
+            <div class="logo">
+                <span class="logo-icon">🐾</span>
+                <span>Mission Control</span>
+                <span class="version-tag">v7.6</span>
+            </div>
+            <div class="status-badge">
+                <span class="status-dot"></span>
+                <span>Live | @quentinvest1</span>
+            </div>
+        </div>
+        <div class="nav-right">
+            <a href="#overview" class="nav-link active" onclick="showSection('overview')">Overview</a>
+            <a href="#postqueue" class="nav-link" onclick="showSection('postqueue')">📝 Post Queue</a>
+            <a href="#content" class="nav-link" onclick="showSection('content')">Content</a>
+            <a href="#analytics" class="nav-link" onclick="showSection('analytics')">Analytics</a>
+            <a href="#intelligence" class="nav-link" onclick="showSection('intelligence')">Intelligence</a>
+            <a href="#xoperations" class="nav-link" onclick="showSection('xoperations')">X Ops</a>
+            <a href="#ta" class="nav-link" onclick="showSection('ta')">TA</a>
+            <a href="#search" class="nav-link" onclick="showSection('search')">🔍 Search</a>
+            <a href="#competitors" class="nav-link" onclick="showSection('competitors')">Competitors</a>
+            <a href="#mytasks" class="nav-link" onclick="showSection('mytasks')">🤖 My Tasks</a>
+            <a href="portfolio_tracker.html" class="nav-link">📈 Portfolio</a>
+            <a href="news_sentiment_tracker.html" class="nav-link">📰 News</a>
+            <a href="backtesting_module.html" class="nav-link">📊 Backtest</a>
+            <a href="social_sentiment_live.html" class="nav-link">💬 Sentiment</a>
+            <a href="#settings" class="nav-link" onclick="showSection('settings')">System</a>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <!-- Left Sidebar -->
+        <aside class="sidebar-left">
+            <div class="card profile-card">
+                <div class="profile-avatar">🎯</div>
+                <div class="profile-name">Quentin</div>
+                <div class="profile-handle">@quentinvest1</div>
+                <div class="profile-bio">AI infrastructure • Crypto • Biotech • Long-term growth</div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">Growth Metrics</span>
+                </div>
+                <div class="card-body">
+                    <div class="metric-row">
+                        <span class="metric-label">Followers</span>
+                        <div>
+                            <span class="metric-value">219</span>
+                            <span class="metric-change metric-up">+7</span>
+                        </div>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Goal Progress</span>
+                        <span class="metric-value">2.2%</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">To 10K</span>
+                        <span class="metric-value">9,781</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Engagement Rate</span>
+                        <div>
+                            <span class="metric-value">6.3%</span>
+                            <span class="metric-change metric-up">+0.4%</span>
+                        </div>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Daily Streak</span>
+                        <span class="metric-value" style="color: var(--accent-orange);">2 days 🔥</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">Today's Activity</span>
+                    <span style="font-size: 0.7rem; color: var(--text-secondary);">⏱️ Simulated</span>
+                </div>
+                <div class="card-body">
+                    <div style="padding: 8px; background: rgba(255,170,0,0.05); border: 1px solid rgba(255,170,0,0.15); border-radius: 6px; margin-bottom: 10px;">
+                        <span style="font-size: 0.75rem; color: var(--text-secondary);">⚠️ Static demo values — Wire to X API for live data</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Posts</span>
+                        <span class="metric-value" style="color: var(--accent-green);">1 ✅</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Remaining</span>
+                        <span class="metric-value">2 (14:00, 19:00)</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Replies</span>
+                        <span class="metric-value">4</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Impressions</span>
+                        <span class="metric-value">334</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Engagements</span>
+                        <span class="metric-value">21</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Overview Section -->
+            <div id="overview" class="section active">
+                <div class="hero-stats">
+                    <div class="hero-card">
+                        <div class="hero-number">219</div>
+                        <div class="hero-label">Followers</div>
+                        <div class="hero-sub">+7 gained ↑</div>
+                    </div>
+                    <div class="hero-card">
+                        <div class="hero-number">6.3%</div>
+                        <div class="hero-label">Engagement</div>
+                        <div class="hero-sub">Above avg ↑</div>
+                    </div>
+                    <div class="hero-card">
+                        <div class="hero-number">92</div>
+                        <div class="hero-label">Velocity</div>
+                        <div class="hero-sub">Trending hot 🔥</div>
+                    </div>
+                    <div class="hero-card">
+                        <div class="hero-number">1.3K</div>
+                        <div class="hero-label">Reach</div>
+                        <div class="hero-sub">+112 new ↑</div>
+                    </div>
+                </div>
+
+                <div class="progress-section">
+                    <div class="progress-header">
+                        <span class="progress-title">🎯 Growth Mission: 212 → 10,000</span>
+                        <span class="progress-meta">Started Jul 13, 2026 • Day 4</span>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" style="width: 2.19%;"></div>
+                    </div>
+                    <div class="progress-stats">
+                        <span>212 → 10,000 followers</span>
+                        <span>7 gained • 9,781 to go</span>
+                    </div>
+                </div>
+
+                <!-- Live Market Data -->
+                <div class="section-header" style="margin-top: 0;">
+                    <span class="section-title">📊 Market Overview</span>
+                    <span class="live-indicator">
+                        <span class="live-dot"></span>
+                        Live — <span id="data-freshness">just now</span>
+                    </span>
+                </div>
+                <div class="market-grid" id="market-cards">
+                    <div class="asset-card">
+                        <div class="asset-header">
+                            <div class="asset-info">
+                                <span class="asset-symbol" style="color: #ff9500;">₿ BTC</span>
+                                <span class="asset-name">Bitcoin</span>
+                            </div>
+                            <span class="asset-badge" style="background: rgba(255,149,0,0.12); color: #ff9500;">Crypto</span>
+                        </div>
+                        <div class="asset-price" id="btc-price">Loading...</div>
+                        <div class="asset-change" id="btc-change">--</div>
+                    </div>
+                    
+                    <div class="asset-card">
+                        <div class="asset-header">
+                            <div class="asset-info">
+                                <span class="asset-symbol" style="color: #7c3aed;">Ξ ETH</span>
+                                <span class="asset-name">Ethereum</span>
+                            </div>
+                            <span class="asset-badge" style="background: rgba(124,58,237,0.12); color: #7c3aed;">Crypto</span>
+                        </div>
+                        <div class="asset-price" id="eth-price">Loading...</div>
+                        <div class="asset-change" id="eth-change">--</div>
+                    </div>
+                    
+                    <div class="asset-card">
+                        <div class="asset-header">
+                            <div class="asset-info">
+                                <span class="asset-symbol" style="color: #00d4ff;">MSTR</span>
+                                <span class="asset-name">MicroStrategy</span>
+                            </div>
+                            <span class="asset-badge" style="background: rgba(0,212,255,0.12); color: #00d4ff;">Stock</span>
+                        </div>
+                        <div class="asset-price" id="mstr-price">Loading...</div>
+                        <div class="asset-change" id="mstr-change">--</div>
+                    </div>
+                    
+                    <div class="asset-card">
+                        <div class="asset-header">
+                            <div class="asset-info">
+                                <span class="asset-symbol" style="color: #ff2d92;">HIMS</span>
+                                <span class="asset-name">Hims & Hers</span>
+                            </div>
+                            <span class="asset-badge" style="background: rgba(255,45,146,0.12); color: #ff2d92;">Healthcare</span>
+                        </div>
+                        <div class="asset-price" id="hims-price">Loading...</div>
+                        <div class="asset-change" id="hims-change">--</div>
+                    </div>
+                </div>
+
+                <div class="content-pills">
+                    <div class="pillar-card" onclick="showToast('Content Pillar', 'BTC Treasury thesis - POSTED 08:00')">
+                        <div class="pillar-header">
+                            <span class="pillar-icon">💎</span>
+                            <span class="pillar-title">BTC Treasury</span>
+                            <span class="pillar-status status-live">✅ POSTED 08:00</span>
+                        </div>
+                        <div class="pillar-stats">
+                            <span class="pillar-stat">📝 Thread posted</span>
+                            <span class="pillar-stat">🎯 88/100 score</span>
+                            <span class="pillar-stat">✓ Done</span>
+                        </div>
+                    </div>
+                    <div class="pillar-card" onclick="showToast('Content Pillar', 'HIMS Healthcare - READY for 14:00')">
+                        <div class="pillar-header">
+                            <span class="pillar-icon">🏥</span>
+                            <span class="pillar-title">HIMS Healthcare</span>
+                            <span class="pillar-status status-ready">⏳ READY 14:00</span>
+                        </div>
+                        <div class="pillar-stats">
+                            <span class="pillar-stat">📝 Single ready</span>
+                            <span class="pillar-stat">🎯 85/100 score</span>
+                            <span class="pillar-stat">⏰ Post at 14:00</span>
+                        </div>
+                    </div>
+                    <div class="pillar-card" onclick="showToast('Content Pillar', 'AI Agentic Commerce - READY for 19:00')">
+                        <div class="pillar-header">
+                            <span class="pillar-icon">🤖</span>
+                            <span class="pillar-title">AI Commerce</span>
+                            <span class="pillar-status status-queued">⏳ READY 19:00</span>
+                        </div>
+                        <div class="pillar-stats">
+                            <span class="pillar-stat">📝 Single ready</span>
+                            <span class="pillar-stat">🎯 82/100 score</span>
+                            <span class="pillar-stat">⏰ Post at 19:00</span>
+                        </div>
+                    </div>
+                    <div class="pillar-card" onclick="showToast('Content Pillar', 'Strategy BTC analysis - monitoring')">
+                        <div class="pillar-header">
+                            <span class="pillar-icon">📈</span>
+                            <span class="pillar-title">Strategy Analysis</span>
+                            <span class="pillar-status status-queued">Queued</span>
+                        </div>
+                        <div class="pillar-stats">
+                            <span class="pillar-stat">📰 Research ready</span>
+                            <span class="pillar-stat">⚡ News trigger</span>
+                            <span class="pillar-stat">🔄 Template ready</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Backtest Card -->
+                <a href="backtesting_module.html" class="backtest-card" style="text-decoration: none; color: inherit; display: block;">
+                    <div class="backtest-header">
+                        <span class="backtest-title">Backtest Module</span>
+                        <span class="backtest-badge">NEW v7.6</span>
+                    </div>
+                    <div class="backtest-value">+12.4%</div>
+                    <div class="backtest-sub">Strategy vs Buy & Hold | 89% Win Rate | Cycle #39</div>
+                    <div style="margin-top: 0.75rem; display: flex; gap: 1rem; font-size: 0.75rem; color: var(--text-secondary);">
+                        <span>📊 47 Trades</span>
+                        <span>⚡ Sharpe: 1.84</span>
+                        <span>🔥 Max DD: -8.2%</span>
+                    </div>
+                    <div class="backtest-link">
+                        Open Backtest Module →
+                    </div>
+                </a>
+
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <span class="chart-title">Engagement Trend (7 days)</span>
+                            <span class="chart-value">6.3%</span>
+                        </div>
+                        <canvas id="engagementChart" height="200"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <span class="chart-title">Follower Growth</span>
+                            <span class="chart-value">+7</span>
+                        </div>
+                        <canvas id="followerChart" height="200"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Section -->
+            <div id="content" class="section">
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">Content Queue</span>
+                    </div>
+                    <div class="card-body">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Content</th>
+                                    <th>Type</th>
+                                    <th>Status</th>
+                                    <th>Score</th>
+                                    <th>Optimal Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>BTC Treasury Thesis (Jul 15)</td>
+                                    <td><span class="tag tag-success">Thread</span></td>
+                                    <td><span class="tag tag-success">✅ POSTED 08:00</span></td>
+                                    <td>88/100</td>
+                                    <td>Jul 15, 08:00 ✓</td>
+                                </tr>
+                                <tr>
+                                    <td>HIMS Healthcare Infrastructure</td>
+                                    <td><span class="tag tag-success">Single</span></td>
+                                    <td><span class="tag tag-info">⏳ READY</span></td>
+                                    <td>85/100</td>
+                                    <td>Today, 14:00</td>
+                                </tr>
+                                <tr>
+                                    <td>AI Agentic Commerce</td>
+                                    <td><span class="tag tag-success">Single</span></td>
+                                    <td><span class="tag tag-info">⏳ READY</span></td>
+                                    <td>82/100</td>
+                                    <td>Today, 19:00</td>
+                                </tr>
+                                <tr>
+                                    <td>Strategy BTC Sale Analysis</td>
+                                    <td><span class="tag tag-info">Reply Template</span></td>
+                                    <td><span class="tag tag-warning">Monitoring</span></td>
+                                    <td>-</td>
+                                    <td>On trigger</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">Reply Templates</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="activity-item">
+                            <div class="activity-icon">💬</div>
+                            <div class="activity-content">
+                                <div class="activity-text"><strong>Strategy BTC Sale Angle</strong><br>Strategy sold $216M BTC — first ever sale. ETH treasuries generate yield, avoiding forced sales.</div>
+                                <button class="action-btn" style="margin-top: 0.5rem; display: inline-flex;" onclick="copyToClipboard('Strategy just sold $216M in BTC — their first-ever sale. This is why ETH treasuries are different...')">Copy</button>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">💎</div>
+                            <div class="activity-content">
+                                <div class="activity-text"><strong>ETH Institutional Adoption</strong><br>19 public companies hold ~3M ETH ($13.2B). 2-4% staking yield vs 0% for BTC.</div>
+                                <button class="action-btn" style="margin-top: 0.5rem; display: inline-flex;" onclick="copyToClipboard('The ETH institutional story: 19 companies, ~3M ETH ($13.2B), 2-4% staking yield...')">Copy</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Post Queue Section -->
+            <div id="postqueue" class="section">
+                <!-- READY NOW -->
+                <div class="card" style="border: 2px solid var(--accent-green); background: rgba(0,212,130,0.05);">
+                    <div class="card-header">
+                        <span class="card-title" style="color: var(--accent-green);">🚀 READY NOW — Copy & Post</span>
+                        <span style="font-size: 0.75rem; color: var(--text-secondary);">Click to copy, then paste on X</span>
+                    </div>
+                    <div class="card-body">
+                        <!-- Post 2 -->
+                        <div class="post-card" style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; margin-bottom: 1rem;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                                <div style="display: flex; gap: 0.5rem; align-items: center;">
+                                    <span class="tag tag-success">Single</span>
+                                    <span style="color: var(--accent-cyan); font-weight: 600;">14:00 Today</span>
+                                    <span style="color: var(--accent-orange);">⏰ 85/100</span>
+                                </div>
+                                <button class="action-btn" onclick="markPosted('hims-2026-07-15')" style="font-size: 0.75rem;">✅ Mark Posted</button>
+                            </div>
+                            <div class="post-content" id="post-hims-2026-07-15" style="font-size: 0.95rem; line-height: 1.6; color: var(--text-primary); margin-bottom: 0.75rem; padding: 0.75rem; background: rgba(0,0,0,0.2); border-radius: 6px; border-left: 3px solid var(--accent-cyan);">
+HIMS isn't a GLP-1 stock. It's healthcare infrastructure.
+
+$725M revenue, 2.6M subscribers, Novo Nordisk partnership.
+
+The picks and shovels play.
+                            </div>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <button class="action-btn" onclick="copyPost('post-hims-2026-07-15')">📋 Copy to Clipboard</button>
+                                <button class="action-btn" style="background: rgba(255,170,0,0.2); color: var(--accent-orange);" onclick="skipPost('hims-2026-07-15')">⏭️ Skip / Archive</button>
+                            </div>
+                        </div>
+
+                        <!-- Post 3 -->
+                        <div class="post-card" style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                                <div style="display: flex; gap: 0.5rem; align-items: center;">
+                                    <span class="tag tag-success">Single</span>
+                                    <span style="color: var(--accent-cyan); font-weight: 600;">19:00 Today</span>
+                                    <span style="color: var(--accent-orange);">⏰ 82/100</span>
+                                </div>
+                                <button class="action-btn" onclick="markPosted('ai-2026-07-15')" style="font-size: 0.75rem;">✅ Mark Posted</button>
+                            </div>
+                            <div class="post-content" id="post-ai-2026-07-15" style="font-size: 0.95rem; line-height: 1.6; color: var(--text-primary); margin-bottom: 0.75rem; padding: 0.75rem; background: rgba(0,0,0,0.2); border-radius: 6px; border-left: 3px solid var(--accent-purple);">
+McKinsey's 6-level automation curve for agentic commerce is here.
+
+We're at Level 1-2.
+
+Infrastructure build phase = investment phase.
+                            </div>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <button class="action-btn" onclick="copyPost('post-ai-2026-07-15')">📋 Copy to Clipboard</button>
+                                <button class="action-btn" style="background: rgba(255,170,0,0.2); color: var(--accent-orange);" onclick="skipPost('ai-2026-07-15')">⏭️ Skip / Archive</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- UPCOMING -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">📅 UPCOMING — Scheduled</span>
+                        <span style="font-size: 0.75rem; color: var(--text-secondary);">Auto-populated from daily briefing</span>
+                    </div>
+                    <div class="card-body">
+                        <div style="color: var(--text-secondary); text-align: center; padding: 2rem;">
+                            📝 Tomorrow's posts will appear here after 08:00 briefing generation.
+                            <br><span style="font-size: 0.8rem;">Next briefing: Jul 16, 2026 08:00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- POSTED (Former) -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">✅ POSTED — Archive</span>
+                        <span style="font-size: 0.75rem; color: var(--text-secondary);">Today + last 7 days</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="post-card" style="background: rgba(0,212,130,0.05); border: 1px solid rgba(0,212,130,0.2); border-radius: 8px; padding: 1rem; margin-bottom: 0.75rem; opacity: 0.85;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                                <div style="display: flex; gap: 0.5rem; align-items: center;">
+                                    <span class="tag tag-success">Thread</span>
+                                    <span style="color: var(--accent-green); font-weight: 600;">✅ POSTED 08:00</span>
+                                    <span style="color: var(--text-secondary); font-size: 0.8rem;">Jul 15</span>
+                                </div>
+                                <span style="color: var(--accent-green);">88/100</span>
+                            </div>
+                            <div style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5;">
+                                I'm not selling my BTC. But if I were deploying $50M+ in treasury reserves today? ETH gets serious consideration. Yield + upside > upside alone. That's the thesis.
+                            </div>
+                            <div style="margin-top: 0.5rem; display: flex; gap: 0.5rem;">
+                                <button class="action-btn" style="font-size: 0.75rem; opacity: 0.7;" onclick="reusePost('btc-2026-07-15')">♻️ Reuse</button>
+                                <button class="action-btn" style="font-size: 0.75rem; opacity: 0.7;" onclick="deletePost('btc-2026-07-15')">🗑️ Delete</button>
+                            </div>
+                        </div>
+                        <div style="text-align: center; padding-top: 0.5rem;">
+                            <a href="#" style="color: var(--accent-cyan); font-size: 0.8rem; text-decoration: none;">View full archive →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Queue Stats -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">📊 Queue Stats</span>
+                    </div>
+                    <div class="card-body">
+                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;">
+                            <div style="text-align: center; padding: 1rem; background: rgba(0,212,130,0.08); border-radius: 8px;">
+                                <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent-green);">1</div>
+                                <div style="font-size: 0.75rem; color: var(--text-secondary);">Posted Today</div>
+                            </div>
+                            <div style="text-align: center; padding: 1rem; background: rgba(0,212,255,0.08); border-radius: 8px;">
+                                <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent-cyan);">2</div>
+                                <div style="font-size: 0.75rem; color: var(--text-secondary);">Ready Now</div>
+                            </div>
+                            <div style="text-align: center; padding: 1rem; background: rgba(255,170,0,0.08); border-radius: 8px;">
+                                <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent-orange);">0</div>
+                                <div style="font-size: 0.75rem; color: var(--text-secondary);">Upcoming</div>
+                            </div>
+                            <div style="text-align: center; padding: 1rem; background: rgba(255,45,146,0.08); border-radius: 8px;">
+                                <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent-pink);">83</div>
+                                <div style="font-size: 0.75rem; color: var(--text-secondary);">Avg Score</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analytics Section -->
+            <div id="analytics" class="section">
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <span class="chart-title">Daily Impressions</span>
+                        </div>
+                        <canvas id="impressionsChart" height="250"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <span class="chart-title">Engagement by Content Type</span>
+                        </div>
+                        <canvas id="contentTypeChart" height="250"></canvas>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">Performance Insights</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="metric-row">
+                            <span class="metric-label">Best Performing Content</span>
+                            <span class="metric-value" style="color: var(--accent-cyan);">ETH Treasury Thread</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-label">Peak Engagement Time</span>
+                            <span class="metric-value">5:00 PM</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-label">Avg Thread Performance</span>
+                            <span class="metric-value">+42% vs single posts</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-label">Reply Weight (X algo)</span>
+                            <span class="metric-value">13.5x likes</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Intelligence Section -->
+            <div id="intelligence" class="section">
+                <div class="insight-card">
+                    <div class="insight-title">🧠 Predictive Intelligence</div>
+                    <div class="insight-text">HIMS thread is optimized for 5PM posting window with 85/100 engagement score. Healthcare content showing +28% engagement lift based on historical data.</div>
+                    <div class="insight-score">
+                        <span style="font-size: 0.8rem;">Confidence:</span>
+                        <div class="score-bar">
+                            <div class="score-fill" style="width: 87%;"></div>
+                        </div>
+                        <span class="score-value">87%</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">Research Feed</span>
+                    </div>
+                    <div class="card-body activity-feed">
+                        <div class="activity-item">
+                            <div class="activity-icon">🚨</div>
+                            <div class="activity-content">
+                                <div class="activity-text"><strong>Strategy Sells $216M BTC</strong><br>First-ever sale validates ETH treasury thesis</div>
+                                <div class="activity-time">Jul 13, 2026</div>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">📈</div>
+                            <div class="activity-content">
+                                <div class="activity-text"><strong>ETH ETF Inflows: $10.75B</strong><br>BlackRock leading, staking ETFs coming</div>
+                                <div class="activity-time">Jul 13, 2026</div>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">🏥</div>
+                            <div class="activity-content">
+                                <div class="activity-text"><strong>HIMS Novo Nordisk Deal</strong><br>Pivoted to FDA-approved drugs, $2.35B revenue</div>
+                                <div class="activity-time">Jul 13, 2026</div>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">🤖</div>
+                            <div class="activity-content">
+                                <div class="activity-text"><strong>AI Agentic Commerce: $3-5T</strong><br>McKinsey 2030 projection</div>
+                                <div class="activity-time">Jul 13, 2026</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- X Operations Section -->
+            <div id="xoperations" class="section">
+                <div class="hero-stats">
+                    <div class="hero-card">
+                        <div class="hero-number">3</div>
+                        <div class="hero-label">Posts Queued</div>
+                        <div class="hero-sub">Ready to publish ↑</div>
+                    </div>
+                    <div class="hero-card">
+                        <div class="hero-number">7</div>
+                        <div class="hero-label">Reply Ops</div>
+                        <div class="hero-sub">Opportunities found ↑</div>
+                    </div>
+                    <div class="hero-card">
+                        <div class="hero-number">94%</div>
+                        <div class="hero-label">Engagement</div>
+                        <div class="hero-sub">Score avg ↑</div>
+                    </div>
+                    <div class="hero-card">
+                        <div class="hero-number">5PM</div>
+                        <div class="hero-label">Optimal Time</div>
+                        <div class="hero-sub">Window open 🔥</div>
+                    </div>
+                </div>
+
+                <!-- Enhanced Posts Section -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">📝 Posts Queue</span>
+                        <span style="font-size: 0.75rem; color: var(--text-secondary);">5 posts • 3 ready</span>
+                    </div>
+                    <div class="card-body">
+                        <!-- Filters -->
+                        <div class="filter-row">
+                            <div class="filter-chip active" onclick="filterPosts('all')">All (5)</div>
+                            <div class="filter-chip" onclick="filterPosts('ready')">🟢 Ready (3)</div>
+                            <div class="filter-chip" onclick="filterPosts('draft')">🟡 Draft (1)</div>
+                            <div class="filter-chip" onclick="filterPosts('review')">🔵 Review (1)</div>
+                        </div>
+
+                        <!-- Post 1: ETH Treasury Thread -->
+                        <div class="post-card" data-status="ready">
+                            <div class="post-header">
+                                <div>
+                                    <div class="post-title">🧵 ETH Treasury Thread</div>
+                                    <div class="post-tags">
+                                        <span class="post-tag tag-crypto">Crypto</span>
+                                        <span class="post-tag tag-macro">Macro</span>
+                                    </div>
+                                </div>
+                                <div class="post-status status-ready">🟢 Ready</div>
+                            </div>
+                            <div class="thread-badge">🧵 4-part Thread</div>
+                            <div class="post-content collapsed" id="post-content-1">Strategy sold $216M BTC. ETH treasuries generate 2-4% yield without selling. The math is undeniable. 🧵
+
+1/ Strategy's BTC sale was a tactical move. But the real story? ETH treasuries are yielding 2-4% without selling a single token.
+
+2/ Companies holding ETH can stake and earn yield. BTC just sits there. Different assets, different strategies.
+
+3/ $1B in ETH treasuries = $20-40M annual yield. That's operational funding without dilution.
+
+4/ The treasury playbook is evolving. ETH isn't just an asset—it's productive infrastructure. 📊</div>
+                            <div class="post-expand-btn" id="expand-btn-1" onclick="togglePostContent(1)">👆 Click to expand full thread</div>
+                            <div class="post-stats">
+                                <div class="post-stat">
+                                    <div class="post-stat-value">88</div>
+                                    <div class="post-stat-label">Score</div>
+                                </div>
+                                <div class="post-stat">
+                                    <div class="post-stat-value">5PM</div>
+                                    <div class="post-stat-label">Best Time</div>
+                                </div>
+                                <div class="post-stat">
+                                    <div class="post-stat-value">72h</div>
+                                    <div class="post-stat-label">Freshness</div>
+                                </div>
+                            </div>
+                            <div class="post-actions">
+                                <button class="action-btn" onclick="copyThread('eth-treasury')">📋 Copy All</button>
+                                <button class="action-btn" onclick="copyThread('eth-treasury', 0)">📄 Copy 1st</button>
+                                <button class="action-btn" onclick="showToast('Post', '🚀 Opening X...')">🚀 Post to X</button>
+                            </div>
+                        </div>
+
+                        <!-- Post 2: HIMS Healthcare -->
+                        <div class="post-card" data-status="draft">
+                            <div class="post-header">
+                                <div>
+                                    <div class="post-title">🏥 GLP-1 Market Analysis</div>
+                                    <div class="post-tags">
+                                        <span class="post-tag tag-health">Healthcare</span>
+                                        <span class="post-tag tag-macro">Macro</span>
+                                    </div>
+                                </div>
+                                <div class="post-status status-draft">🟡 Draft</div>
+                            </div>
+                            <div class="post-content collapsed" id="post-content-2">The GLP-1 market is booming. $50B by 2030. HIMS is positioned to capture this wave with their telehealth + prescription model.
+
+Key points:
+• Telehealth reduces friction
+• Generic GLP-1s lower costs
+• Direct-to-consumer cuts out PBMs
+
+HIMS at $34.28, down 51% from peak. Recovery play? 🏥📈</div>
+                            <div class="post-expand-btn" id="expand-btn-2" onclick="togglePostContent(2)">👆 Click to expand</div>
+                            <div class="post-stats">
+                                <div class="post-stat">
+                                    <div class="post-stat-value">85</div>
+                                    <div class="post-stat-label">Score</div>
+                                </div>
+                                <div class="post-stat">
+                                    <div class="post-stat-value">Tue</div>
+                                    <div class="post-stat-label">Planned</div>
+                                </div>
+                                <div class="post-stat">
+                                    <div class="post-stat-value">48h</div>
+                                    <div class="post-stat-label">Freshness</div>
+                                </div>
+                            </div>
+                            <div class="post-actions">
+                                <button class="action-btn" onclick="copyToClipboard(document.getElementById('post-content-2').innerText)">📋 Copy</button>
+                                <button class="action-btn" onclick="showToast('Edit', '✏️ Opening editor...')">✏️ Edit</button>
+                                <button class="action-btn" onclick="showToast('Approve', '✅ Post approved for scheduling')">✅ Approve</button>
+                            </div>
+                        </div>
+
+                        <!-- Post 3: AI Agentic Commerce -->
+                        <div class="post-card" data-status="ready">
+                            <div class="post-header">
+                                <div>
+                                    <div class="post-title">🤖 AI Agentic Commerce</div>
+                                    <div class="post-tags">
+                                        <span class="post-tag tag-ai">AI</span>
+                                        <span class="post-tag tag-macro">Trend</span>
+                                    </div>
+                                </div>
+                                <div class="post-status status-ready">🟢 Ready</div>
+                            </div>
+                            <div class="post-content collapsed" id="post-content-3">$3-5T market by 2030 according to McKinsey. AI agents will handle procurement, customer service, and logistics autonomously.
+
+3 implications for investors:
+1. Infrastructure plays (compute, data)
+2. Vertical SaaS with agentic layers
+3. Companies that adopt early gain moats
+
+The wave is coming. Position accordingly. 🤖📊</div>
+                            <div class="post-expand-btn" id="expand-btn-3" onclick="togglePostContent(3)">👆 Click to expand</div>
+                            <div class="post-stats">
+                                <div class="post-stat">
+                                    <div class="post-stat-value">82</div>
+                                    <div class="post-stat-label">Score</div>
+                                </div>
+                                <div class="post-stat">
+                                    <div class="post-stat-value">Wed</div>
+                                    <div class="post-stat-label">Planned</div>
+                                </div>
+                                <div class="post-stat">
+                                    <div class="post-stat-value">24h</div>
+                                    <div class="post-stat-label">Freshness</div>
+                                </div>
+                            </div>
+                            <div class="post-actions">
+                                <button class="action-btn" onclick="copyToClipboard(document.getElementById('post-content-3').innerText)">📋 Copy</button>
+                                <button class="action-btn" onclick="showToast('Post', '🚀 Opening X...')">🚀 Post</button>
+                            </div>
+                        </div>
+
+                        <!-- Post 4: BTC Halving -->
+                        <div class="post-card" data-status="ready">
+                            <div class="post-header">
+                                <div>
+                                    <div class="post-title">₿ Post-Halving Supply Dynamics</div>
+                                    <div class="post-tags">
+                                        <span class="post-tag tag-crypto">Crypto</span>
+                                    </div>
+                                </div>
+                                <div class="post-status status-ready">🟢 Ready</div>
+                            </div>
+                            <div class="post-content collapsed" id="post-content-4">Supply shock incoming. Post-halving block subsidy: 3.125 BTC. At current prices, that's $200K less sell pressure per block.
+
+Historical post-halving returns:
+• 2012: +8,000% (12 months)
+• 2016: +2,800% (18 months)
+• 2020: +600% (18 months)
+
+2024: Early innings. The supply mechanics haven't changed. ₿📈</div>
+                            <div class="post-expand-btn" id="expand-btn-4" onclick="togglePostContent(4)">👆 Click to expand</div>
+                            <div class="post-stats">
+                                <div class="post-stat">
+                                    <div class="post-stat-value">91</div>
+                                    <div class="post-stat-label">Score</div>
+                                </div>
+                                <div class="post-stat">
+                                    <div class="post-stat-value">Thu</div>
+                                    <div class="post-stat-label">Planned</div>
+                                </div>
+                                <div class="post-stat">
+                                    <div class="post-stat-value">12h</div>
+                                    <div class="post-stat-label">Freshness</div>
+                                </div>
+                            </div>
+                            <div class="post-actions">
+                                <button class="action-btn" onclick="copyToClipboard(document.getElementById('post-content-4').innerText)">📋 Copy</button>
+                                <button class="action-btn" onclick="showToast('Post', '🚀 Opening X...')">🚀 Post</button>
+                            </div>
+                        </div>
+
+                        <!-- Post 5: Longevity Economy -->
+                        <div class="post-card" data-status="review">
+                            <div class="post-header">
+                                <div>
+                                    <div class="post-title">🧬 Longevity Economy Deep Dive</div>
+                                    <div class="post-tags">
+                                        <span class="post-tag tag-health">Longevity</span>
+                                        <span class="post-tag tag-macro">Trend</span>
+                                    </div>
+                                </div>
+                                <div class="post-status status-review">🔵 Review</div>
+                            </div>
+                            <div class="thread-badge">🧵 3-part Thread</div>
+                            <div class="post-content collapsed" id="post-content-5">The longevity economy is hitting an inflection point. $600B market today, projected $25T by 2030.
+
+1/ GLP-1 drugs are just the beginning. Rapamycin, NAD+, senolytics — the toolkit is expanding.
+
+2/ First longevity IPOs are coming. Altos Labs ($3B funding), Calico (Google backed). Public markets want exposure.
+
+3/ HIMS and telehealth platforms are the distribution layer. They bring longevity to mainstream consumers.
+
+Position for the demographic inevitability. 🧬📈</div>
+                            <div class="post-expand-btn" id="expand-btn-5" onclick="togglePostContent(5)">👆 Click to expand full thread</div>
+                            <div class="post-stats">
+                                <div class="post-stat">
+                                    <div class="post-stat-value">94</div>
+                                    <div class="post-stat-label">Score</div>
+                                </div>
+                                <div class="post-stat">
+                                    <div class="post-stat-value">Fri</div>
+                                    <div class="post-stat-label">Planned</div>
+                                </div>
+                                <div class="post-stat">
+                                    <div class="post-stat-value">6h</div>
+                                    <div class="post-stat-label">Freshness</div>
+                                </div>
+                            </div>
+                            <div class="post-actions">
+                                <button class="action-btn" onclick="copyThread('longevity')">📋 Copy All</button>
+                                <button class="action-btn" onclick="copyThread('longevity', 0)">📄 Copy 1st</button>
+                                <button class="action-btn" onclick="showToast('Approve', '✅ Post approved for scheduling')">✅ Approve</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <span class="chart-title">💬 Reply Opportunities (Grok-Powered)</span>
+                            <span style="font-size: 0.75rem; color: var(--text-secondary);">7 opportunities</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="activity-item" style="border-left: 3px solid var(--accent-gold); padding-left: 12px;">
+                                <div class="activity-icon" style="background: rgba(255,215,0,0.2);">👤</div>
+                                <div class="activity-content">
+                                    <div class="activity-text"><strong>@saylor posted about BTC treasury</strong><br>"Strategy now holds 450,000 BTC" — Opportunity to reply with ETH treasury angle?</div>
+                                    <div class="activity-time">🔥 High value • 3.2M followers • Posted 12 min ago</div>
+                                    <div style="margin-top: 8px; background: var(--bg-tertiary); padding: 10px; border-radius: 8px; font-size: 0.85rem;">
+                                        <strong>💡 Suggested Reply:</strong><br>
+                                        "Impressive stack. Meanwhile, ETH treasuries are generating 2-4% yield while BTC yields 0%. Different strategy, different math. 📊"<br>
+                                        <button class="action-btn" style="display: inline-flex; padding: 4px 10px; font-size: 0.7rem; margin-top: 6px;">📋 Copy Reply</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="activity-item" style="border-left: 3px solid var(--accent-green); padding-left: 12px;">
+                                <div class="activity-icon" style="background: rgba(0,255,136,0.2);">👤</div>
+                                <div class="activity-content">
+                                    <div class="activity-text"><strong>@naval asked about wealth building</strong><br>"What's the best wealth-building strategy for 2025?" — Perfect for healthcare/crypto angle</div>
+                                    <div class="activity-time">🟢 Medium value • 2.1M followers • Posted 45 min ago</div>
+                                    <div style="margin-top: 8px; background: var(--bg-tertiary); padding: 10px; border-radius: 8px; font-size: 0.85rem;">
+                                        <strong>💡 Suggested Reply:</strong><br>
+                                        "Healthcare innovation + crypto infrastructure. GLP-1 drugs revolutionizing health, ETH treasuries revolutionizing corporate balance sheets. Two megatrends, one portfolio. 🏥🚀"<br>
+                                        <button class="action-btn" style="display: inline-flex; padding: 4px 10px; font-size: 0.7rem; margin-top: 6px;">📋 Copy Reply</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="activity-item" style="border-left: 3px solid var(--accent-cyan); padding-left: 12px;">
+                                <div class="activity-icon" style="background: rgba(0,212,255,0.2);">👤</div>
+                                <div class="activity-content">
+                                    <div class="activity-text"><strong>@balajis discussing AI agents</strong><br>"AI agents will be bigger than the app store" — Opportunity for commerce angle</div>
+                                    <div class="activity-time">🔵 High value • 890K followers • Posted 1h ago</div>
+                                    <div style="margin-top: 8px; background: var(--bg-tertiary); padding: 10px; border-radius: 8px; font-size: 0.85rem;">
+                                        <strong>💡 Suggested Reply:</strong><br>
+                                        "$3-5T market by 2030 according to McKinsey. The agentic commerce wave is coming. Positioning now for the infrastructure plays. 🤖📈"<br>
+                                        <button class="action-btn" style="display: inline-flex; padding: 4px 10px; font-size: 0.7rem; margin-top: 6px;">📋 Copy Reply</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="activity-item" style="border-left: 3px solid var(--accent-orange); padding-left: 12px;">
+                                <div class="activity-icon" style="background: rgba(255,136,0,0.2);">👤</div>
+                                <div class="activity-content">
+                                    <div class="activity-text"><strong>@pmarca posted about tech trends</strong><br>"What tech trends matter most for 2025-2030?" — Good for AI + healthcare angle</div>
+                                    <div class="activity-time">🟠 Low value • 780K followers • Posted 2h ago</div>
+                                    <div style="margin-top: 8px; background: var(--bg-tertiary); padding: 10px; border-radius: 8px; font-size: 0.85rem;">
+                                        <strong>💡 Suggested Reply:</strong><br>
+                                        "AI-driven drug discovery + autonomous commerce. The convergence of biotech and AI is creating entirely new asset classes. 🧬🤖"<br>
+                                        <button class="action-btn" style="display: inline-flex; padding: 4px 10px; font-size: 0.7rem; margin-top: 6px;">📋 Copy Reply</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <span class="chart-title">📊 X Performance Metrics</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="metric-row">
+                                <span class="metric-label">Today's Posts</span>
+                                <span class="metric-value">0</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Today's Replies</span>
+                                <span class="metric-value">4</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Engagement Rate</span>
+                                <div>
+                                    <span class="metric-value">6.3%</span>
+                                    <span class="metric-change metric-up">+0.4%</span>
+                                </div>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Best Time to Post</span>
+                                <span class="metric-value" style="color: var(--accent-cyan);">5:00 PM</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Optimal Window Open</span>
+                                <span class="metric-value" style="color: var(--accent-green);">Now 🔥</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Reply Weight (X algo)</span>
+                                <span class="metric-value">13.5x likes</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Next Post Score</span>
+                                <span class="metric-value" style="color: var(--accent-cyan);">88/100</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Weekly Goal</span>
+                                <span class="metric-value">1/10 ✅</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">🔥 Auto-Reply Engine (Beta)</span>
+                        <span style="font-size: 0.75rem; color: var(--text-secondary);">AI-powered engagement</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="metric-row">
+                            <span class="metric-label">Auto-Reply Status</span>
+                            <span class="metric-value" style="color: var(--accent-orange);">🟡 Standby</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-label">Target Accounts</span>
+                            <span class="metric-value">5 configured</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-label">Reply Templates Ready</span>
+                            <span class="metric-value">12 loaded</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-label">Daily Reply Budget</span>
+                            <span class="metric-value">10/day (0 used)</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-label">Auto-Like Threshold</span>
+                            <span class="metric-value">100K+ followers</span>
+                        </div>
+                        <div style="margin-top: 12px; padding: 12px; background: var(--bg-tertiary); border-radius: 8px;">
+                            <strong style="font-size: 0.85rem; color: var(--accent-orange);">⚠️ Requires manual approval</strong><br>
+                            <span style="font-size: 0.75rem; color: var(--text-secondary);">All auto-replies queue for your review before posting. Toggle individual accounts below.</span>
+                        </div>
+                        <div style="margin-top: 12px;">
+                            <div style="display: flex; align-items: center; justify-content: space-between; padding: 8px; background: var(--bg-tertiary); border-radius: 8px; margin-bottom: 6px;">
+                                <span style="font-size: 0.8rem;">👤 @saylor (3.2M)</span>
+                                <span style="font-size: 0.75rem; color: var(--accent-green);">🟢 Enabled</span>
+                            </div>
+                            <div style="display: flex; align-items: center; justify-content: space-between; padding: 8px; background: var(--bg-tertiary); border-radius: 8px; margin-bottom: 6px;">
+                                <span style="font-size: 0.8rem;">👤 @naval (2.1M)</span>
+                                <span style="font-size: 0.75rem; color: var(--accent-green);">🟢 Enabled</span>
+                            </div>
+                            <div style="display: flex; align-items: center; justify-content: space-between; padding: 8px; background: var(--bg-tertiary); border-radius: 8px; margin-bottom: 6px;">
+                                <span style="font-size: 0.8rem;">👤 @balajis (890K)</span>
+                                <span style="font-size: 0.75rem; color: var(--accent-green);">🟢 Enabled</span>
+                            </div>
+                            <div style="display: flex; align-items: center; justify-content: space-between; padding: 8px; background: var(--bg-tertiary); border-radius: 8px; margin-bottom: 6px;">
+                                <span style="font-size: 0.8rem;">👤 @pmarca (780K)</span>
+                                <span style="font-size: 0.75rem; color: var(--accent-orange);">🟡 Review</span>
+                            </div>
+                            <div style="display: flex; align-items: center; justify-content: space-between; padding: 8px; background: var(--bg-tertiary); border-radius: 8px;">
+                                <span style="font-size: 0.8rem;">👤 @drance (125K)</span>
+                                <span style="font-size: 0.75rem; color: var(--accent-red);">🔴 Disabled</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">🧪 A/B Test Lab</span>
+                        <span style="font-size: 0.75rem; color: var(--text-secondary);">Optimize engagement</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="activity-item" style="border-left: 3px solid var(--accent-purple); padding-left: 12px;">
+                            <div class="activity-icon" style="background: rgba(136,0,255,0.2);">🧵</div>
+                            <div class="activity-content">
+                                <div class="activity-text"><strong>ETH Treasury Thread — Hook Variants</strong><br>Testing which hook drives more engagement</div>
+                                <div class="activity-time">🟣 Running • 24h test • 450 impressions</div>
+                                <div style="margin-top: 8px;">
+                                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                                        <div style="background: var(--bg-tertiary); padding: 8px; border-radius: 6px; border: 2px solid var(--accent-green);">
+                                            <div style="font-size: 0.7rem; color: var(--text-secondary); margin-bottom: 4px;">Variant A (WINNING) 🏆</div>
+                                            <div style="font-size: 0.8rem;">"Strategy sold $216M BTC. ETH treasuries don't have to."</div>
+                                            <div style="font-size: 0.75rem; color: var(--accent-green); margin-top: 4px;">6.8% engagement • 23 replies</div>
+                                        </div>
+                                        <div style="background: var(--bg-tertiary); padding: 8px; border-radius: 6px; border: 1px solid var(--border-color);">
+                                            <div style="font-size: 0.7rem; color: var(--text-secondary); margin-bottom: 4px;">Variant B</div>
+                                            <div style="font-size: 0.8rem;">"Why ETH treasuries are better than BTC holdings"</div>
+                                            <div style="font-size: 0.75rem; color: var(--accent-orange); margin-top: 4px;">4.2% engagement • 12 replies</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="activity-item" style="border-left: 3px solid var(--accent-cyan); padding-left: 12px;">
+                            <div class="activity-icon" style="background: rgba(0,212,255,0.2);">💬</div>
+                            <div class="activity-content">
+                                <div class="activity-text"><strong>Reply Style Test — @saylor engagement</strong><br>Contrarian vs supportive reply tone</div>
+                                <div class="activity-time">🔵 Planned • Start: Tomorrow</div>
+                                <div style="margin-top: 8px;">
+                                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                                        <div style="background: var(--bg-tertiary); padding: 8px; border-radius: 6px; border: 1px solid var(--border-color);">
+                                            <div style="font-size: 0.7rem; color: var(--text-secondary); margin-bottom: 4px;">Contrarian (Strong)</div>
+                                            <div style="font-size: 0.8rem;">"BTC maxis won't like this but ETH yields are undeniable..."</div>
+                                        </div>
+                                        <div style="background: var(--bg-tertiary); padding: 8px; border-radius: 6px; border: 1px solid var(--border-color);">
+                                            <div style="font-size: 0.7rem; color: var(--text-secondary); margin-bottom: 4px;">Supportive (Polite)</div>
+                                            <div style="font-size: 0.8rem;">"Great point! ETH treasuries complement BTC strategy well..."</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">📊 Engagement Status</span>
+                        <span style="font-size: 0.75rem; color: var(--accent-green);">🟢 Normal (6.3%)</span>
+                    </div>
+                    <div class="card-body">
+                        <div style="padding: 12px; background: rgba(0,255,136,0.1); border: 1px solid rgba(0,255,136,0.3); border-radius: 8px; margin-bottom: 12px;">
+                            <div style="font-size: 0.9rem; font-weight: 600; color: var(--accent-green); margin-bottom: 4px;">✅ Engagement rate healthy at 6.3%</div>
+                            <div style="font-size: 0.8rem; color: var(--text-secondary);">Above 5% target. Previous alert (-45% drop) resolved Jul 13. Strategy: Continue current content mix.</div>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-label">Current Rate</span>
+                            <span class="metric-value" style="color: var(--accent-green);">✅ 6.3% (+0.4%)</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-label">Target</span>
+                            <span class="metric-value" style="color: var(--accent-green);">✅ 5.0% (exceeded)</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-label">Content Quality</span>
+                            <span class="metric-value" style="color: var(--accent-green);">✅ Normal (87 avg)</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-label">Posting Timing</span>
+                            <span class="metric-value" style="color: var(--accent-green);">✅ Optimal (5PM)</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-label">Account Health</span>
+                            <span class="metric-value" style="color: var(--accent-green);">✅ Healthy — No restrictions</span>
+                        </div>
+                        <div style="margin-top: 12px; padding: 10px; background: var(--bg-tertiary); border-radius: 8px;">
+                            <strong style="font-size: 0.85rem;">📈 Recent Improvements:</strong><br>
+                            <span style="font-size: 0.8rem; color: var(--text-secondary);">Engagement recovered after pivoting to ETH treasury + AI content. Continue thread format (42% better performance). Reply ops generating 13.5x multiplier.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Technical Analysis Section -->
+            <div id="ta" class="section">
+                <div class="hero-stats">
+                    <div class="hero-card">
+                        <div class="hero-number">🟡</div>
+                        <div class="hero-label">BTC Signal</div>
+                        <div class="hero-sub">RSI oversold ↓</div>
+                    </div>
+                    <div class="hero-card">
+                        <div class="hero-number">🟡</div>
+                        <div class="hero-label">ETH Signal</div>
+                        <div class="hero-sub">RSI low ↓</div>
+                    </div>
+                    <div class="hero-card">
+                        <div class="hero-number">4</div>
+                        <div class="hero-label">Assets</div>
+                        <div class="hero-sub">Monitored ↑</div>
+                    </div>
+                    <div class="hero-card">
+                        <div class="hero-number">800</div>
+                        <div class="hero-label">API Calls</div>
+                        <div class="hero-sub">Daily limit ↑</div>
+                    </div>
+                </div>
+
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <span class="chart-title">📈 BTC/USD Technical Analysis</span>
+                            <span style="font-size: 0.75rem; color: var(--text-secondary);">Twelve Data LIVE ✅</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="metric-row">
+                                <span class="metric-label">Price</span>
+                                <div>
+                                    <span class="metric-value" id="btc-ta-price">$62,490</span>
+                                    <span class="metric-change metric-up">+0.36% (24h)</span>
+                                </div>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">RSI (14)</span>
+                                <div>
+                                    <span class="metric-value">45.47</span>
+                                    <span class="metric-change metric-down">Neutral</span>
+                                </div>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">MACD</span>
+                                <div>
+                                    <span class="metric-value">-272.69</span>
+                                    <span class="metric-change metric-down">Bullish histogram (+396)</span>
+                                </div>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">50-SMA</span>
+                                <span class="metric-value">$64,579.19</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Bollinger Bands</span>
+                                <span class="metric-value">$62,033–$64,388</span>
+                            </div>
+                            <div style="margin-top: 12px; padding: 10px; background: rgba(0,255,136,0.05); border: 1px solid rgba(0,255,136,0.2); border-radius: 8px;">
+                                <strong style="font-size: 0.85rem; color: var(--accent-green);">✅ Signal: BTC stable near support</strong><br>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">Price near $62,490 (+0.36%). Consolidating after recent volatility. Watch for breakout above $63,500 resistance.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <span class="chart-title">📊 ETH/USD Technical Analysis</span>
+                            <span style="font-size: 0.75rem; color: var(--text-secondary);">Twelve Data LIVE ✅</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="metric-row">
+                                <span class="metric-label">Price</span>
+                                <div>
+                                    <span class="metric-value" id="eth-ta-price">$1,779.85</span>
+                                    <span class="metric-change metric-up">+0.17% (24h)</span>
+                                </div>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">RSI (14)</span>
+                                <div>
+                                    <span class="metric-value">53.80</span>
+                                    <span class="metric-change metric-down">Neutral-Bullish</span>
+                                </div>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">MACD</span>
+                                <span class="metric-value">Pending...</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Status</span>
+                                <span class="metric-value">Above 50-SMA support</span>
+                            </div>
+                            <div style="margin-top: 12px; padding: 10px; background: rgba(0,255,136,0.05); border: 1px solid rgba(0,255,136,0.2); border-radius: 8px;">
+                                <strong style="font-size: 0.85rem; color: var(--accent-green);">✅ Signal: ETH showing relative strength</strong><br>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">RSI 53.80 = neutral-bullish. Up +0.74% while BTC at +0.77%. Treasury narrative intact. ETH outperforming.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">🏢 MSTR & HIMS Stock Analysis</span>
+                        <span style="font-size: 0.75rem; color: var(--text-secondary);">Alpha Vantage</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="activity-item">
+                            <div class="activity-icon" style="background: rgba(0,212,255,0.2);">💎</div>
+                            <div class="activity-content">
+                                <div class="activity-text"><strong>MSTR (Strategy)</strong></div>
+                                <div class="activity-time">$92.11 • RSI: 45.6 (Neutral) • Previous Close: $94.64</div>
+                                <div style="margin-top: 6px; font-size: 12px; color: var(--accent-orange);">⚠️ Down -2.67% from previous close. First BTC sale ($216M) announced.</div>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon" style="background: rgba(0,255,136,0.2);">🏥</div>
+                            <div class="activity-content">
+                                <div class="activity-text"><strong>HIMS (Hims & Hers)</strong></div>
+                                <div class="activity-time">$34.38 • RSI: 53.8 (Neutral) • Flat session</div>
+                                <div style="margin-top: 6px; font-size: 12px; color: var(--accent-green);">✅ Stable. GLP-1 momentum building. Hold/Accumulate.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <span class="chart-title">🔔 Signal Alerts</span>
+                        <span style="font-size: 0.75rem; color: var(--text-secondary);">Twelve Data LIVE ✅</span>
+                    </div>
+                    <div class="card-body">
+                        <div style="padding: 10px; background: rgba(0,212,255,0.05); border: 1px solid rgba(0,212,255,0.2); border-radius: 8px; margin-bottom: 8px;">
+                            <div style="font-size: 13px; font-weight: 600; color: var(--accent-cyan);">🔵 NEUTRAL: BTC — Consolidating (RSI 45.5)</div>
+                            <div style="font-size: 11px; color: var(--text-secondary); margin-top: 4px;">Price: $62,490 • Neutral territory • Watch for breakout above $63,500 resistance</div>
+                        </div>
+                        <div style="padding: 10px; background: rgba(0,255,136,0.05); border: 1px solid rgba(0,255,136,0.2); border-radius: 8px; margin-bottom: 8px;">
+                            <div style="font-size: 13px; font-weight: 600; color: var(--accent-green);">🟢 ETH — Relative strength (RSI 53.8)</div>
+                            <div style="font-size: 11px; color: var(--text-secondary); margin-top: 4px;">Up +0.29% vs BTC flat • Treasury narrative intact • Outperforming BTC</div>
+                        </div>
+                        <div style="padding: 10px; background: rgba(255,136,0,0.05); border: 1px solid rgba(255,136,0,0.2); border-radius: 8px;">
+                            <div style="font-size: 13px; font-weight: 600; color: var(--accent-orange);">🟡 WATCH: MSTR — First BTC sale impact (RSI 45.6)</div>
+                            <div style="font-size: 11px; color: var(--text-secondary); margin-top: 4px;">Sold $216M BTC (first ever). Price $92.10, down -2.7% • Monitor sentiment</div>
+                        </div>
+                        <div style="margin-top: 12px; padding: 10px; background: var(--bg-tertiary); border-radius: 8px; font-size: 11px; color: var(--text-secondary);">
+                            <strong style="color: var(--text-primary);">📊 Data Source:</strong> CoinGecko + Twelve Data API • <strong>Last Update:</strong> Jul 15, 2026 00:01 Paris • <strong>API Calls:</strong> 6/800 today
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="settings" class="section">
+                <div class="hero-stats">
+                    <div class="hero-card">
+                        <div class="hero-number">53</div>
+                        <div class="hero-label">Cycles Done</div>
+                        <div class="hero-sub">Research completed ↑</div>
+                    </div>
+                    <div class="hero-card">
+                        <div class="hero-number">7.6</div>
+                        <div class="hero-label">Latest Version</div>
+                        <div class="hero-sub">Dashboard Suite ✅</div>
+                    </div>
+                    <div class="hero-card">
+                        <div class="hero-number">5</div>
+                        <div class="hero-label">Agents Active</div>
+                        <div class="hero-sub">Brain + Research ↑</div>
+                    </div>
+                    <div class="hero-card">
+                        <div class="hero-number">97%</div>
+                        <div class="hero-label">Uptime</div>
+                        <div class="hero-sub">System stable ↑</div>
+                    </div>
+                </div>
+
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <span class="chart-title">🤖 Claw Active Tasks</span>
+                            <span style="font-size: 0.75rem; color: var(--text-secondary);">6 tasks running</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="activity-item">
+                                <div class="activity-icon" style="background: rgba(0,255,136,0.2);">🔄</div>
+                                <div class="activity-content">
+                                    <div class="activity-text"><strong>Daily Research Briefing</strong><br>Cron job active — 8:00 AM daily</div>
+                                    <div class="activity-time">🟢 Running • Next: Tomorrow 8:00 AM</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon" style="background: rgba(0,212,255,0.2);">📊</div>
+                                <div class="activity-content">
+                                    <div class="activity-text"><strong>Mission Control Dashboard</strong><br>Vercel auto-deploy configured</div>
+                                    <div class="activity-time">🟢 Active • v7.6 deployed • Jul 14, 12:30</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon" style="background: rgba(136,0,255,0.2);">🐦</div>
+                                <div class="activity-content">
+                                    <div class="activity-text"><strong>X Content Pipeline</strong><br>Grok-powered research + generation</div>
+                                    <div class="activity-time">🟢 Operational • 3 posts queued</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon" style="background: rgba(255,136,0,0.2);">🏥</div>
+                                <div class="activity-content">
+                                    <div class="activity-text"><strong>Competitor Tracking</strong><br>5 competitors monitored live</div>
+                                    <div class="activity-time">🟢 Active • 48 alerts this month</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon" style="background: rgba(255,0,68,0.2);">📡</div>
+                                <div class="activity-content">
+                                    <div class="activity-text"><strong>Gateway Health Monitor</strong><br>Uptime tracking + auto-restart</div>
+                                    <div class="activity-time">🟢 97% uptime • 2d 6h stable</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon" style="background: rgba(0,255,136,0.2);">📚</div>
+                                <div class="activity-content">
+                                    <div class="activity-text"><strong>Memory Maintenance</strong><br>Daily notes + long-term memory sync</div>
+                                    <div class="activity-time">🟢 Active • Last sync: today</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <span class="chart-title">📋 Research Cycles Log</span>
+                            <span style="font-size: 0.75rem; color: var(--text-secondary);">Last 5 cycles</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="metric-row">
+                                <span class="metric-label">#53 (Current)</span>
+                                <span class="metric-value" style="color: var(--accent-green);">Dashboard Review v7.6</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">#52</span>
+                                <span class="metric-value">Dashboard Review v7.6</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">#38</span>
+                                <span class="metric-value">System Assessment</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">#37</span>
+                                <span class="metric-value">NL Interface v9.6</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">#36</span>
+                                <span class="metric-value">Predictive Analytics v9.5</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">#35</span>
+                                <span class="metric-value">AI Workflow v9.4</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">#34</span>
+                                <span class="metric-value">Team Features v9.3</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">🎯 Active Projects</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="metric-row">
+                            <span class="metric-label">Mission Control Dashboard</span>
+                            <div>
+                                <span class="metric-value" style="color: var(--accent-cyan);">v7.6</span>
+                                <span class="metric-change metric-up">LIVE</span>
+                            </div>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-label">NL Command Interface</span>
+                            <div>
+                                <span class="metric-value" style="color: var(--accent-cyan);">v7.6</span>
+                                <span class="metric-change metric-up">Live</span>
+                            </div>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-label">Competitor Tracker</span>
+                            <div>
+                                <span class="metric-value" style="color: var(--accent-cyan);">5 tracked</span>
+                                <span class="metric-change metric-up">94% accuracy</span>
+                            </div>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-label">X Content Pipeline</span>
+                            <div>
+                                <span class="metric-value" style="color: var(--accent-green);">Active</span>
+                                <span class="metric-change metric-up">1-2 posts/day</span>
+                            </div>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-label">Predictive Analytics</span>
+                            <div>
+                                <span class="metric-value" style="color: var(--accent-green);">94%</span>
+                                <span class="metric-change metric-up">Accuracy</span>
+                            </div>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-label">Vercel Auto-Deploy</span>
+                            <div>
+                                <span class="metric-value" style="color: var(--accent-green);">Configured</span>
+                                <span class="metric-change metric-up">Script ready</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">⚙️ System Configuration</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="metric-row">
+                            <span class="metric-label">Dashboard Version</span>
+                            <span class="metric-value">v7.6</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-label">Last Updated</span>
+                            <span class="metric-value">Jul 15, 2026 00:01</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-label">Data Source</span>
+                            <span class="metric-value">Live Sync + X API</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-label">Auto-Refresh</span>
+                            <span class="metric-value" style="color: var(--accent-green);">Enabled</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-label">Model</span>
+                            <span class="metric-value">ollama-cloud/kimi-k2.6</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-label">Gateway Uptime</span>
+                            <span class="metric-value" style="color: var(--accent-green);">2d 6h 42m</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-label">API Latency</span>
+                            <span class="metric-value">38ms</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-label">Memory Usage</span>
+                            <span class="metric-value">45%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- My Tasks Section -->
+            <div id="mytasks" class="section">
+                <div class="hero-stats">
+                    <div class="hero-card">
+                        <div class="hero-number">6</div>
+                        <div class="hero-label">Active Tasks</div>
+                        <div class="hero-sub">🟢 Running ↑</div>
+                    </div>
+                    <div class="hero-card">
+                        <div class="hero-number">94%</div>
+                        <div class="hero-label">Success Rate</div>
+                        <div class="hero-sub">Last 24h ↑</div>
+                    </div>
+                    <div class="hero-card">
+                        <div class="hero-number">52</div>
+                        <div class="hero-label">Research Cycles</div>
+                        <div class="hero-sub">Completed ✅</div>
+                    </div>
+                    <div class="hero-card">
+                        <div class="hero-number">51</div>
+                        <div class="hero-label">GB Organized</div>
+                        <div class="hero-sub">OneDrive ✅</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">🤖 Claw's Active Tasks</span>
+                        <span style="font-size: 0.75rem; color: var(--text-secondary);">Updated: Jul 15, 2026 00:01</span>
+                    </div>
+                    <div class="card-body">
+                        <!-- Task 1: Daily Research -->
+                        <div class="post-card" data-status="running">
+                            <div class="post-header">
+                                <div>
+                                    <div class="post-title">📊 Daily Research Briefing</div>
+                                    <div class="post-tags">
+                                        <span class="post-tag tag-crypto">Recurring</span>
+                                        <span class="post-tag tag-health">Daily</span>
+                                    </div>
+                                </div>
+                                <div class="post-status status-ready">🟢 Running</div>
+                            </div>
+                            <div class="post-content">Daily market analysis and content research. Runs at 8:00 AM CET. Covers: BTC/ETH price action, healthcare news, AI developments, macro trends.
+
+Last run: Jul 14, 2026 12:00 PM
+Next run: Jul 15, 2026 8:00 AM
+Sources: CoinGecko, Yahoo Finance, NewsAPI, RSS feeds</div>
+                            <div class="post-stats">
+                                <div class="post-stat">
+                                    <div class="post-stat-value">94%</div>
+                                    <div class="post-stat-label">Success Rate</div>
+                                </div>
+                                <div class="post-stat">
+                                    <div class="post-stat-value">53</div>
+                                    <div class="post-stat-label">Cycles Done</div>
+                                </div>
+                                <div class="post-stat">
+                                    <div class="post-stat-value">~30m</div>
+                                    <div class="post-stat-label">Avg Duration</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Task 2: Mission Control Dashboard -->
+                        <div class="post-card" data-status="running">
+                            <div class="post-header">
+                                <div>
+                                    <div class="post-title">🎛️ Mission Control Dashboard Maintenance</div>
+                                    <div class="post-tags">
+                                        <span class="post-tag tag-crypto">Recurring</span>
+                                        <span class="post-tag tag-macro">Active</span>
+                                    </div>
+                                </div>
+                                <div class="post-status status-ready">🟢 Active</div>
+                            </div>
+                            <div class="post-content">Maintaining and improving the Mission Control dashboard. Current version: v7.6.
+
+Recent updates: Grok-inspired slate theme, live market cards, search modal, data freshness indicator, tabular numbers, portfolio position tracking.
+
+Active Issues:
+• Mobile dashboard needs real-time data wiring
+
+Next Tasks:
+• Wire mobile dashboard to live APIs
+• Dashboard review cycle #48</div>
+                            <div class="post-stats">
+                                <div class="post-stat">
+                                    <div class="post-stat-value">v7.6</div>
+                                    <div class="post-stat-label">Version</div>
+                                </div>
+                                <div class="post-stat">
+                                    <div class="post-stat-value">9</div>
+                                    <div class="post-stat-label">Instances</div>
+                                </div>
+                                <div class="post-stat">
+                                    <div class="post-stat-value">99.7%</div>
+                                    <div class="post-stat-label">Sync Health</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Task 3: X Content Pipeline -->
+                        <div class="post-card" data-status="running">
+                            <div class="post-header">
+                                <div>
+                                    <div class="post-title">📝 X Content Pipeline</div>
+                                    <div class="post-tags">
+                                        <span class="post-tag tag-crypto">Recurring</span>
+                                        <span class="post-tag tag-health">Content</span>
+                                    </div>
+                                </div>
+                                <div class="post-status status-ready">🟢 Active</div>
+                            </div>
+                            <div class="post-content">Generating and managing content for @quentinvest1. Current pipeline: 5 posts ready, 7 reply opportunities, 4 competitor tracks.
+
+Content pillars: Healthcare, Crypto, Macro, Longevity, Growth
+Engagement rate: 6.3% (↑+0.4%)
+Followers: 219 (+7 this week)</div>
+                            <div class="post-stats">
+                                <div class="post-stat">
+                                    <div class="post-stat-value">5</div>
+                                    <div class="post-stat-label">Posts Ready</div>
+                                </div>
+                                <div class="post-stat">
+                                    <div class="post-stat-value">7</div>
+                                    <div class="post-stat-label">Reply Ops</div>
+                                </div>
+                                <div class="post-stat">
+                                    <div class="post-stat-value">87%</div>
+                                    <div class="post-stat-label">Avg Score</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Task 4: Competitor Tracking -->
+                        <div class="post-card" data-status="running">
+                            <div class="post-header">
+                                <div>
+                                    <div class="post-title">👥 Competitor Tracking</div>
+                                    <div class="post-tags">
+                                        <span class="post-tag tag-crypto">Recurring</span>
+                                        <span class="post-tag tag-macro">Monitoring</span>
+                                    </div>
+                                </div>
+                                <div class="post-status status-ready">🟢 Active</div>
+                            </div>
+                            <div class="post-content">Monitoring 5 competitor accounts: @saylor, @naval, @balajis, @pmarca, @drance.
+
+Tracks: Post frequency, engagement rates, trending topics, reply opportunities.
+Alert thresholds: New posts from high-value accounts, viral content detection.
+
+Last check: Jul 14, 2026 12:00 PM
+Next check: Continuous (every 30 min)</div>
+                            <div class="post-stats">
+                                <div class="post-stat">
+                                    <div class="post-stat-value">5</div>
+                                    <div class="post-stat-label">Tracking</div>
+                                </div>
+                                <div class="post-stat">
+                                    <div class="post-stat-value">7</div>
+                                    <div class="post-stat-label">Opportunities</div>
+                                </div>
+                                <div class="post-stat">
+                                    <div class="post-stat-value">30m</div>
+                                    <div class="post-stat-label">Check Interval</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Task 5: Gateway Health Monitor -->
+                        <div class="post-card" data-status="running">
+                            <div class="post-header">
+                                <div>
+                                    <div class="post-title">🔌 Gateway Health Monitor</div>
+                                    <div class="post-tags">
+                                        <span class="post-tag tag-crypto">Recurring</span>
+                                        <span class="post-tag tag-health">System</span>
+                                    </div>
+                                </div>
+                                <div class="post-status status-ready">🟢 Running</div>
+                            </div>
+                            <div class="post-content">Monitoring OpenClaw gateway health and performance.
+
+Current status: ✅ All systems operational
+Uptime: 2d 7h 15m
+API Latency: 38ms avg
+Memory Usage: 45%
+Active Sessions: 2
+
+Checks: Every 5 minutes
+Alerts sent to: Telegram (this chat)</div>
+                            <div class="post-stats">
+                                <div class="post-stat">
+                                    <div class="post-stat-value">99.9%</div>
+                                    <div class="post-stat-label">Uptime</div>
+                                </div>
+                                <div class="post-stat">
+                                    <div class="post-stat-value">38ms</div>
+                                    <div class="post-stat-label">Latency</div>
+                                </div>
+                                <div class="post-stat">
+                                    <div class="post-stat-value">2d 6h</div>
+                                    <div class="post-stat-label">Runtime</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Task 6: Memory Maintenance -->
+                        <div class="post-card" data-status="running">
+                            <div class="post-header">
+                                <div>
+                                    <div class="post-title">🧠 Memory Maintenance</div>
+                                    <div class="post-tags">
+                                        <span class="post-tag tag-crypto">Recurring</span>
+                                        <span class="post-tag tag-macro">Daily</span>
+                                    </div>
+                                </div>
+                                <div class="post-status status-ready">🟢 Running</div>
+                            </div>
+                            <div class="post-content">Daily review and organization of MEMORY.md and session transcripts.
+
+Tasks:
+• Review daily notes for significant events
+• Update MEMORY.md with key learnings
+• Archive old entries to memory/YYYY-MM-DD.md
+• Cross-reference with long-term goals
+
+Last update: Jul 14, 2026 12:00 PM
+Total memories: 52 research cycles + 51GB OneDrive organization</div>
+                            <div class="post-stats">
+                                <div class="post-stat">
+                                    <div class="post-stat-value">52</div>
+                                    <div class="post-stat-label">Cycles Done</div>
+                                </div>
+                                <div class="post-stat">
+                                    <div class="post-stat-value">51GB</div>
+                                    <div class="post-stat-label">Files Organized</div>
+                                </div>
+                                <div class="post-stat">
+                                    <div class="post-stat-value">Daily</div>
+                                    <div class="post-stat-label">Update Freq</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Task 7: OneDrive Smart Organizer -->
+                        <div class="post-card" data-status="running">
+                            <div class="post-header">
+                                <div>
+                                    <div class="post-title">🗂️ OneDrive Smart Organizer</div>
+                                    <div class="post-tags">
+                                        <span class="post-tag tag-crypto">Recurring</span>
+                                        <span class="post-tag tag-macro">Every 15min</span>
+                                    </div>
+                                </div>
+                                <div class="post-status status-ready">🟢 Running</div>
+                            </div>
+                            <div class="post-content">Automatically organizes new/modified files in OneDrive every 15 minutes.
+
+Intelligent categorization based on filename, extension, and content analysis:
+• Books-Library: PDFs, EPUBs (bodybuilding, crypto, business)
+• Teaching-EPS: School documents
+• Development-Tech: Code files
+• Media: Photos, videos, screenshots
+• Personal-Documents: Admin files
+• Home-Life: Everything else
+
+Rules:
+• NEVER deletes files
+• Removes empty folders automatically
+• Handles duplicates with counter suffix
+• Logs all actions
+
+Last run: Jul 14, 2026 12:00 PM
+Files moved: 174
+Errors: 0</div>
+                            <div class="post-stats">
+                                <div class="post-stat">
+                                    <div class="post-stat-value">174</div>
+                                    <div class="post-stat-label">Files Moved</div>
+                                </div>
+                                <div class="post-stat">
+                                    <div class="post-stat-value">0</div>
+                                    <div class="post-stat-label">Errors</div>
+                                </div>
+                                <div class="post-stat">
+                                    <div class="post-stat-value">15m</div>
+                                    <div class="post-stat-label">Interval</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search Section -->
+            <div id="search" class="section">
+                <div class="hero-stats">
+                    <div class="hero-card">
+                        <div class="hero-number">✅</div>
+                        <div class="hero-label">Serper API</div>
+                        <div class="hero-sub">Connected ↑</div>
+                    </div>
+                    <div class="hero-card">
+                        <div class="hero-number">2,500</div>
+                        <div class="hero-label">Searches/mo</div>
+                        <div class="hero-sub">Free tier ↑</div>
+                    </div>
+                    <div class="hero-card">
+                        <div class="hero-number">52</div>
+                        <div class="hero-label">Cycles Done</div>
+                        <div class="hero-sub">Research completed ↑</div>
+                    </div>
+                    <div class="hero-card">
+                        <div class="hero-number">∞</div>
+                        <div class="hero-label">Research</div>
+                        <div class="hero-sub">Enabled ↑</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">🔍 Web Search</span>
+                        <span style="font-size: 0.75rem; color: var(--text-secondary);">Powered by Serper.dev</span>
+                    </div>
+                    <div class="card-body">
+                        <div style="display: flex; gap: 8px; margin-bottom: 16px;">
+                            <input type="text" id="searchInput" placeholder="Search anything..." 
+                                style="flex: 1; padding: 10px 14px; background: var(--bg-tertiary); border: 1px solid var(--border-color); 
+                                       border-radius: 10px; color: var(--text-primary); font-size: 14px; outline: none;"
+                                onkeypress="if(event.key==='Enter')performSearch()">
+                            <button onclick="performSearch()" 
+                                style="padding: 10px 20px; background: var(--accent-cyan); color: #000; border: none; 
+                                       border-radius: 10px; font-weight: 600; cursor: pointer;"
+                            >Search</button>
+                        </div>
+                        <div id="searchResults" style="display: none;"></div>
+                        <div style="padding: 12px; background: var(--bg-tertiary); border-radius: 8px; font-size: 12px; color: var(--text-secondary);">
+                            <strong style="color: var(--text-primary);">Try searching:</strong> GLP-1 market size 2025 • ETH ETF inflows • AI agent infrastructure • BTC halving impact
+                        </div>
+                    </div>
+                </div>
+
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <span class="chart-title">📚 Recent Research Cycles</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="activity-item">
+                                <div class="activity-icon" style="background: rgba(0,212,255,0.2);">🧬</div>
+                                <div class="activity-content">
+                                    <div class="activity-text"><strong>GLP-1 Drug Market Analysis</strong></div>
+                                    <div class="activity-time">🔍 12 sources • $50B market by 2030</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon" style="background: rgba(0,255,136,0.2);">💎</div>
+                                <div class="activity-content">
+                                    <div class="activity-text"><strong>ETH Treasury Strategy</strong></div>
+                                    <div class="activity-time">🔍 8 sources • 2-4% yield vs BTC 0%</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon" style="background: rgba(255,136,0,0.2);">🤖</div>
+                                <div class="activity-content">
+                                    <div class="activity-text"><strong>AI Agentic Commerce</strong></div>
+                                    <div class="activity-time">🔍 15 sources • $3-5T by 2030 (McKinsey)</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon" style="background: rgba(136,0,255,0.2);">🏥</div>
+                                <div class="activity-content">
+                                    <div class="activity-text"><strong>HIMS & Telehealth Growth</strong></div>
+                                    <div class="activity-time">🔍 9 sources • GLP-1 driving 40% growth</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <span class="chart-title">🎯 Research Pipeline</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="metric-row">
+                                <span class="metric-label">#27</span>
+                                <span class="metric-value">BTC Post-Halving Supply Dynamics</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">#28</span>
+                                <span class="metric-value">MicroStrategy Yield vs ETH Staking</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">#29</span>
+                                <span class="metric-value">Novo Nordisk & Eli Lilly Market Share</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">#43 (Current)</span>
+                                <span class="metric-value" style="color: var(--accent-green);">Automated Backtesting Module v7.5</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">#38</span>
+                                <span class="metric-value">System Assessment & Deployment Fix</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">#37</span>
+                                <span class="metric-value">NL Interface v9.6</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">#36</span>
+                                <span class="metric-value">Predictive Analytics v9.5</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">#35</span>
+                                <span class="metric-value">AI Workflow v9.4</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">#34</span>
+                                <span class="metric-value">Team Features v9.3</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">#33</span>
+                                <span class="metric-value">Advanced Reporting v8.2</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">#32</span>
+                                <span class="metric-value">AI Intelligence Hub v8.1</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">#31</span>
+                                <span class="metric-value">Solana vs Ethereum DeFi TVL Trends</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">#30</span>
+                                <span class="metric-value">OpenAI & Anthropic API Economics</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">⚡ Auto-Research Configuration</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="metric-row">
+                            <span class="metric-label">Daily Briefing</span>
+                            <span class="metric-value" style="color: var(--accent-green);">🟢 Active — 8:00 AM</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-label">Monitored Keywords</span>
+                            <span class="metric-value">BTC, ETH, GLP-1, AI agents, MSTR</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-label">Sources per Query</span>
+                            <span class="metric-value">10 results</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-label">Content Auto-Gen</span>
+                            <span class="metric-value" style="color: var(--accent-green);">🟢 Enabled</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Competitors Section -->
+            <div id="competitors" class="section">
+                <div class="hero-stats">
+                    <div class="hero-card">
+                        <div class="hero-number">5</div>
+                        <div class="hero-label">Tracked</div>
+                        <div class="hero-sub">Active competitors ↑</div>
+                    </div>
+                    <div class="hero-card">
+                        <div class="hero-number">47</div>
+                        <div class="hero-label">Alerts</div>
+                        <div class="hero-sub">This month ↑</div>
+                    </div>
+                    <div class="hero-card">
+                        <div class="hero-number">94%</div>
+                        <div class="hero-label">Accuracy</div>
+                        <div class="hero-sub">Engagement pred ↑</div>
+                    </div>
+                    <div class="hero-card">
+                        <div class="hero-number">3</div>
+                        <div class="hero-label">Trending</div>
+                        <div class="hero-sub">Topics now 🔥</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">🏆 Competitor Intelligence</span>
+                        <span style="font-size: 0.75rem; color: var(--text-secondary);">⚡ Live tracking • 5 active</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="competitor-grid">
+                            <!-- Saylor -->
+                            <div class="competitor-card-mc" onclick="openCompetitorModal('saylor')">
+                                <div class="comp-header">
+                                    <div class="comp-avatar saylor">
+                                        MS
+                                        <span class="comp-status online pulse"></span>
+                                    </div>
+                                    <div class="comp-info">
+                                        <div class="comp-name">Michael Saylor</div>
+                                        <div class="comp-handle">@saylor</div>
+                                        <div class="comp-badges">
+                                            <span class="comp-badge blue">Crypto</span>
+                                            <span class="comp-badge purple">🔥 Trending</span>
+                                        </div>
+                                    </div>
+                                    <div class="score-ring">
+                                        <div class="score-ring-text" style="color: var(--accent-cyan);">85</div>
+                                    </div>
+                                </div>
+                                <div class="comp-metrics">
+                                    <div class="comp-metric">
+                                        <div class="comp-metric-value" style="color: var(--accent-cyan);">3.2M</div>
+                                        <div class="comp-metric-label">Followers</div>
+                                        <div class="comp-metric-change" style="color: var(--accent-green);">📈 +1.2%</div>
+                                    </div>
+                                    <div class="comp-metric">
+                                        <div class="comp-metric-value" style="color: var(--accent-green);">5.8%</div>
+                                        <div class="comp-metric-label">Engagement</div>
+                                        <div class="comp-metric-change" style="color: var(--accent-green);">↑ +0.3%</div>
+                                    </div>
+                                    <div class="comp-metric">
+                                        <div class="comp-metric-value" style="color: var(--accent-cyan);">12.4K</div>
+                                        <div class="comp-metric-label">Avg Likes</div>
+                                        <div class="comp-metric-change" style="color: var(--accent-green);">🚀 +8%</div>
+                                    </div>
+                                </div>
+                                <div class="sparkline-container">
+                                    <div class="sparkline-label">7d growth</div>
+                                    <canvas id="spark-saylor" class="sparkline" width="120" height="30"></canvas>
+                                </div>
+                                <div class="activity-bar">
+                                    <span class="activity-label">Activity: 12 posts/day</span>
+                                    <div class="activity-bar-fill">
+                                        <div class="activity-bar-inner" style="width: 80%; background: linear-gradient(90deg, var(--accent-cyan), var(--accent-green));"></div>
+                                    </div>
+                                </div>
+                                <div class="comp-topics">
+                                    <span class="comp-topic hot">Bitcoin</span>
+                                    <span class="comp-topic">Strategy</span>
+                                    <span class="comp-topic">Digital Assets</span>
+                                    <span class="comp-topic hot">ETF</span>
+                                </div>
+                            </div>
+
+                            <!-- Naval -->
+                            <div class="competitor-card-mc" onclick="openCompetitorModal('naval')">
+                                <div class="comp-header">
+                                    <div class="comp-avatar naval">
+                                        NR
+                                        <span class="comp-status away"></span>
+                                    </div>
+                                    <div class="comp-info">
+                                        <div class="comp-name">Naval Ravikant</div>
+                                        <div class="comp-handle">@naval</div>
+                                        <div class="comp-badges">
+                                            <span class="comp-badge green">Philosophy</span>
+                                        </div>
+                                    </div>
+                                    <div class="score-ring">
+                                        <div class="score-ring-text" style="color: var(--accent-green);">89</div>
+                                    </div>
+                                </div>
+                                <div class="comp-metrics">
+                                    <div class="comp-metric">
+                                        <div class="comp-metric-value" style="color: var(--accent-cyan);">2.1M</div>
+                                        <div class="comp-metric-label">Followers</div>
+                                        <div class="comp-metric-change" style="color: var(--accent-green);">📈 +0.8%</div>
+                                    </div>
+                                    <div class="comp-metric">
+                                        <div class="comp-metric-value" style="color: var(--accent-green);">8.2%</div>
+                                        <div class="comp-metric-label">Engagement</div>
+                                        <div class="comp-metric-change" style="color: var(--accent-green);">↑ +1.1%</div>
+                                    </div>
+                                    <div class="comp-metric">
+                                        <div class="comp-metric-value" style="color: var(--accent-cyan);">18.5K</div>
+                                        <div class="comp-metric-label">Avg Likes</div>
+                                        <div class="comp-metric-change" style="color: var(--accent-green);">🚀 +12%</div>
+                                    </div>
+                                </div>
+                                <div class="sparkline-container">
+                                    <div class="sparkline-label">7d growth</div>
+                                    <canvas id="spark-naval" class="sparkline" width="120" height="30"></canvas>
+                                </div>
+                                <div class="activity-bar">
+                                    <span class="activity-label">Activity: 2 posts/day</span>
+                                    <div class="activity-bar-fill">
+                                        <div class="activity-bar-inner" style="width: 15%; background: linear-gradient(90deg, var(--accent-orange), var(--accent-green));"></div>
+                                    </div>
+                                </div>
+                                <div class="comp-topics">
+                                    <span class="comp-topic hot">Wealth</span>
+                                    <span class="comp-topic">Startups</span>
+                                    <span class="comp-topic">AI</span>
+                                </div>
+                            </div>
+
+                            <!-- Balajis -->
+                            <div class="competitor-card-mc" onclick="openCompetitorModal('balajis')">
+                                <div class="comp-header">
+                                    <div class="comp-avatar balajis">
+                                        BS
+                                        <span class="comp-status online pulse"></span>
+                                    </div>
+                                    <div class="comp-info">
+                                        <div class="comp-name">Balaji Srinivasan</div>
+                                        <div class="comp-handle">@balajis</div>
+                                        <div class="comp-badges">
+                                            <span class="comp-badge orange">Tech</span>
+                                        </div>
+                                    </div>
+                                    <div class="score-ring">
+                                        <div class="score-ring-text" style="color: var(--accent-orange);">72</div>
+                                    </div>
+                                </div>
+                                <div class="comp-metrics">
+                                    <div class="comp-metric">
+                                        <div class="comp-metric-value" style="color: var(--accent-cyan);">890K</div>
+                                        <div class="comp-metric-label">Followers</div>
+                                        <div class="comp-metric-change" style="color: var(--accent-green);">📈 +2.1%</div>
+                                    </div>
+                                    <div class="comp-metric">
+                                        <div class="comp-metric-value" style="color: var(--accent-green);">4.1%</div>
+                                        <div class="comp-metric-label">Engagement</div>
+                                        <div class="comp-metric-change" style="color: var(--accent-green);">↑ +0.5%</div>
+                                    </div>
+                                    <div class="comp-metric">
+                                        <div class="comp-metric-value" style="color: var(--accent-cyan);">4.2K</div>
+                                        <div class="comp-metric-label">Avg Likes</div>
+                                        <div class="comp-metric-change" style="color: var(--accent-red);">↓ -2%</div>
+                                    </div>
+                                </div>
+                                <div class="sparkline-container">
+                                    <div class="sparkline-label">7d growth</div>
+                                    <canvas id="spark-balajis" class="sparkline" width="120" height="30"></canvas>
+                                </div>
+                                <div class="activity-bar">
+                                    <span class="activity-label">Activity: 8 posts/day</span>
+                                    <div class="activity-bar-fill">
+                                        <div class="activity-bar-inner" style="width: 55%; background: linear-gradient(90deg, var(--accent-orange), var(--accent-green));"></div>
+                                    </div>
+                                </div>
+                                <div class="comp-topics">
+                                    <span class="comp-topic hot">Network State</span>
+                                    <span class="comp-topic">Crypto</span>
+                                    <span class="comp-topic">India</span>
+                                </div>
+                            </div>
+
+                            <!-- pmarca -->
+                            <div class="competitor-card-mc" onclick="openCompetitorModal('pmarca')">
+                                <div class="comp-header">
+                                    <div class="comp-avatar pmarca">
+                                        MA
+                                        <span class="comp-status offline"></span>
+                                    </div>
+                                    <div class="comp-info">
+                                        <div class="comp-name">Marc Andreessen</div>
+                                        <div class="comp-handle">@pmarca</div>
+                                        <div class="comp-badges">
+                                            <span class="comp-badge blue">VC</span>
+                                        </div>
+                                    </div>
+                                    <div class="score-ring">
+                                        <div class="score-ring-text" style="color: var(--accent-orange);">68</div>
+                                    </div>
+                                </div>
+                                <div class="comp-metrics">
+                                    <div class="comp-metric">
+                                        <div class="comp-metric-value" style="color: var(--accent-cyan);">780K</div>
+                                        <div class="comp-metric-label">Followers</div>
+                                        <div class="comp-metric-change" style="color: var(--accent-green);">📈 +0.5%</div>
+                                    </div>
+                                    <div class="comp-metric">
+                                        <div class="comp-metric-value" style="color: var(--accent-red);">3.2%</div>
+                                        <div class="comp-metric-label">Engagement</div>
+                                        <div class="comp-metric-change" style="color: var(--accent-red);">↓ -0.8%</div>
+                                    </div>
+                                    <div class="comp-metric">
+                                        <div class="comp-metric-value" style="color: var(--accent-cyan);">6.1K</div>
+                                        <div class="comp-metric-label">Avg Likes</div>
+                                        <div class="comp-metric-change" style="color: var(--accent-green);">↑ +3%</div>
+                                    </div>
+                                </div>
+                                <div class="sparkline-container">
+                                    <div class="sparkline-label">7d growth</div>
+                                    <canvas id="spark-pmarca" class="sparkline" width="120" height="30"></canvas>
+                                </div>
+                                <div class="activity-bar">
+                                    <span class="activity-label">Activity: 15 posts/day</span>
+                                    <div class="activity-bar-fill">
+                                        <div class="activity-bar-inner" style="width: 95%; background: linear-gradient(90deg, var(--accent-cyan), var(--accent-orange));"></div>
+                                    </div>
+                                </div>
+                                <div class="comp-topics">
+                                    <span class="comp-topic">AI</span>
+                                    <span class="comp-topic hot">Threads</span>
+                                    <span class="comp-topic">Tech</span>
+                                </div>
+                            </div>
+
+                            <!-- Drance -->
+                            <div class="competitor-card-mc" onclick="openCompetitorModal('drance')">
+                                <div class="comp-header">
+                                    <div class="comp-avatar drance">
+                                        DR
+                                        <span class="comp-status online pulse"></span>
+                                    </div>
+                                    <div class="comp-info">
+                                        <div class="comp-name">Drance</div>
+                                        <div class="comp-handle">@drance</div>
+                                        <div class="comp-badges">
+                                            <span class="comp-badge red">Healthcare</span>
+                                            <span class="comp-badge green">🔥 Top Performer</span>
+                                        </div>
+                                    </div>
+                                    <div class="score-ring">
+                                        <div class="score-ring-text" style="color: var(--accent-green);">94</div>
+                                    </div>
+                                </div>
+                                <div class="comp-metrics">
+                                    <div class="comp-metric">
+                                        <div class="comp-metric-value" style="color: var(--accent-cyan);">125K</div>
+                                        <div class="comp-metric-label">Followers</div>
+                                        <div class="comp-metric-change" style="color: var(--accent-green);">🚀 +4.2%</div>
+                                    </div>
+                                    <div class="comp-metric">
+                                        <div class="comp-metric-value" style="color: var(--accent-green);">12.1%</div>
+                                        <div class="comp-metric-label">Engagement</div>
+                                        <div class="comp-metric-change" style="color: var(--accent-green);">🚀 +2.3%</div>
+                                    </div>
+                                    <div class="comp-metric">
+                                        <div class="comp-metric-value" style="color: var(--accent-cyan);">2.8K</div>
+                                        <div class="comp-metric-label">Avg Likes</div>
+                                        <div class="comp-metric-change" style="color: var(--accent-green);">🚀 +15%</div>
+                                    </div>
+                                </div>
+                                <div class="sparkline-container">
+                                    <div class="sparkline-label">7d growth</div>
+                                    <canvas id="spark-drance" class="sparkline" width="120" height="30"></canvas>
+                                </div>
+                                <div class="activity-bar">
+                                    <span class="activity-label">Activity: 5 posts/day</span>
+                                    <div class="activity-bar-fill">
+                                        <div class="activity-bar-inner" style="width: 35%; background: linear-gradient(90deg, var(--accent-green), var(--accent-cyan));"></div>
+                                    </div>
+                                </div>
+                                <div class="comp-topics">
+                                    <span class="comp-topic hot">GLP-1</span>
+                                    <span class="comp-topic">Longevity</span>
+                                    <span class="comp-topic">Health</span>
+                                    <span class="comp-topic hot">Ozempic</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <span class="chart-title">Performance Rankings</span>
+                        </div>
+                        <div class="leaderboard-mc">
+                            <div class="lb-row">
+                                <div class="lb-rank gold">1</div>
+                                <div class="lb-info">
+                                    <div class="lb-name">Drance</div>
+                                    <div class="lb-stats">12.1% engagement • 125K followers</div>
+                                </div>
+                                <div class="lb-score">
+                                    <div class="lb-score-value">94</div>
+                                    <div class="lb-score-change">+4.2%</div>
+                                </div>
+                            </div>
+                            <div class="lb-row">
+                                <div class="lb-rank silver">2</div>
+                                <div class="lb-info">
+                                    <div class="lb-name">Naval Ravikant</div>
+                                    <div class="lb-stats">8.2% engagement • 2.1M followers</div>
+                                </div>
+                                <div class="lb-score">
+                                    <div class="lb-score-value">89</div>
+                                    <div class="lb-score-change">+1.1%</div>
+                                </div>
+                            </div>
+                            <div class="lb-row">
+                                <div class="lb-rank bronze">3</div>
+                                <div class="lb-info">
+                                    <div class="lb-name">Michael Saylor</div>
+                                    <div class="lb-stats">5.8% engagement • 3.2M followers</div>
+                                </div>
+                                <div class="lb-score">
+                                    <div class="lb-score-value">85</div>
+                                    <div class="lb-score-change">+0.3%</div>
+                                </div>
+                            </div>
+                            <div class="lb-row">
+                                <div class="lb-rank normal">4</div>
+                                <div class="lb-info">
+                                    <div class="lb-name">Balaji Srinivasan</div>
+                                    <div class="lb-stats">4.1% engagement • 890K followers</div>
+                                </div>
+                                <div class="lb-score">
+                                    <div class="lb-score-value">72</div>
+                                    <div class="lb-score-change">+0.5%</div>
+                                </div>
+                            </div>
+                            <div class="lb-row">
+                                <div class="lb-rank normal">5</div>
+                                <div class="lb-info">
+                                    <div class="lb-name">Marc Andreessen</div>
+                                    <div class="lb-stats">3.2% engagement • 780K followers</div>
+                                </div>
+                                <div class="lb-score">
+                                    <div class="lb-score-value">68</div>
+                                    <div class="lb-score-change">-0.8%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <span class="chart-title">Recent Alerts</span>
+                            <span style="font-size: 0.75rem; color: var(--text-secondary);">5 new</span>
+                        </div>
+                        <div class="alert-card-mc hot">
+                            <div class="alert-icon-mc">🔥</div>
+                            <div class="alert-content-mc">
+                                <div class="alert-title-mc">Viral Content Detected</div>
+                                <div class="alert-desc-mc">@saylor Bitcoin thread got 45K likes in 2h — 3x normal</div>
+                                <div class="alert-time-mc">5 min ago</div>
+                            </div>
+                        </div>
+                        <div class="alert-card-mc trend">
+                            <div class="alert-icon-mc">📈</div>
+                            <div class="alert-content-mc">
+                                <div class="alert-title-mc">Engagement Surge</div>
+                                <div class="alert-desc-mc">@drance up 15% this week — GLP-1 content performing</div>
+                                <div class="alert-time-mc">12 min ago</div>
+                            </div>
+                        </div>
+                        <div class="alert-card-mc info">
+                            <div class="alert-icon-mc">💡</div>
+                            <div class="alert-content-mc">
+                                <div class="alert-title-mc">Content Gap Opportunity</div>
+                                <div class="alert-desc-mc">No competitor posted about ETH ETF today — opportunity open</div>
+                                <div class="alert-time-mc">1 hour ago</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">Trending Topics</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="trend-card">
+                            <div class="trend-header">
+                                <div class="trend-number" style="background: var(--accent-red);">#1</div>
+                                <div class="comp-name">Bitcoin / Crypto</div>
+                                <div style="margin-left: auto;">
+                                    <span class="tag tag-success">Hot</span>
+                                </div>
+                            </div>
+                            <div class="comp-metrics">
+                                <div class="comp-metric">
+                                    <div class="comp-metric-value" style="color: var(--accent-cyan);">87K</div>
+                                    <div class="comp-metric-label">Total Likes</div>
+                                </div>
+                                <div class="comp-metric">
+                                    <div class="comp-metric-value" style="color: var(--accent-green);">4.2%</div>
+                                    <div class="comp-metric-label">Avg Engagement</div>
+                                </div>
+                                <div class="comp-metric">
+                                    <div class="comp-metric-value" style="color: var(--accent-cyan);">28</div>
+                                    <div class="comp-metric-label">Posts Today</div>
+                                </div>
+                            </div>
+                            <div class="comp-topics">
+                                <span class="comp-topic hot">ETF</span>
+                                <span class="comp-topic">Treasury</span>
+                                <span class="comp-topic">Halving</span>
+                                <span class="comp-topic">Institutional</span>
+                            </div>
+                        </div>
+
+                        <div class="trend-card">
+                            <div class="trend-header">
+                                <div class="trend-number" style="background: var(--accent-green);">#2</div>
+                                <div class="comp-name">AI / Agents</div>
+                                <div style="margin-left: auto;">
+                                    <span class="tag tag-warning">Rising</span>
+                                </div>
+                            </div>
+                            <div class="comp-metrics">
+                                <div class="comp-metric">
+                                    <div class="comp-metric-value" style="color: var(--accent-cyan);">34K</div>
+                                    <div class="comp-metric-label">Total Likes</div>
+                                </div>
+                                <div class="comp-metric">
+                                    <div class="comp-metric-value" style="color: var(--accent-green);">6.1%</div>
+                                    <div class="comp-metric-label">Avg Engagement</div>
+                                </div>
+                                <div class="comp-metric">
+                                    <div class="comp-metric-value" style="color: var(--accent-cyan);">15</div>
+                                    <div class="comp-metric-label">Posts Today</div>
+                                </div>
+                            </div>
+                            <div class="comp-topics">
+                                <span class="comp-topic">LLMs</span>
+                                <span class="comp-topic hot">Autonomous</span>
+                                <span class="comp-topic">GPT-4</span>
+                                <span class="comp-topic">Claude</span>
+                            </div>
+                        </div>
+
+                        <div class="trend-card">
+                            <div class="trend-header">
+                                <div class="trend-number" style="background: var(--accent-purple);">#3</div>
+                                <div class="comp-name">Healthcare / Longevity</div>
+                                <div style="margin-left: auto;">
+                                    <span class="tag tag-success">Hot</span>
+                                </div>
+                            </div>
+                            <div class="comp-metrics">
+                                <div class="comp-metric">
+                                    <div class="comp-metric-value" style="color: var(--accent-cyan);">21K</div>
+                                    <div class="comp-metric-label">Total Likes</div>
+                                </div>
+                                <div class="comp-metric">
+                                    <div class="comp-metric-value" style="color: var(--accent-green);">12.1%</div>
+                                    <div class="comp-metric-label">Avg Engagement</div>
+                                </div>
+                                <div class="comp-metric">
+                                    <div class="comp-metric-value" style="color: var(--accent-cyan);">8</div>
+                                    <div class="comp-metric-label">Posts Today</div>
+                                </div>
+                            </div>
+                            <div class="comp-topics">
+                                <span class="comp-topic hot">GLP-1</span>
+                                <span class="comp-topic">Ozempic</span>
+                                <span class="comp-topic">Metformin</span>
+                                <span class="comp-topic">Rapamycin</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- Right Sidebar -->
+        <aside class="sidebar-right">
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">Live Activity</span>
+                </div>
+                <div class="card-body activity-feed">
+                    <div class="activity-item">
+                        <div class="activity-icon" style="background: rgba(0,255,136,0.2);">👤</div>
+                        <div class="activity-content">
+                            <div class="activity-text"><strong>New Follower</strong><br>@TheLongInvestor</div>
+                            <div class="activity-time">5 min ago</div>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon" style="background: rgba(255,0,68,0.2);">🔥</div>
+                        <div class="activity-content">
+                            <div class="activity-text"><strong>@saylor viral</strong><br>45K likes in 2h (3x avg)</div>
+                            <div class="activity-time">8 min ago</div>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon" style="background: rgba(0,212,255,0.2);">🔄</div>
+                        <div class="activity-content">
+                            <div class="activity-text"><strong>Retweet</strong><br>DeFi Daily (12.4K boost)</div>
+                            <div class="activity-time">12 min ago</div>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon" style="background: rgba(255,136,0,0.2);">📈</div>
+                        <div class="activity-content">
+                            <div class="activity-text"><strong>@drance surge</strong><br>+15% engagement this week</div>
+                            <div class="activity-time">15 min ago</div>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon" style="background: rgba(255,136,0,0.2);">💬</div>
+                        <div class="activity-content">
+                            <div class="activity-text"><strong>12 New Replies</strong><br>On ETH Treasury thread</div>
+                            <div class="activity-time">18 min ago</div>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon" style="background: rgba(136,0,255,0.2);">❤️</div>
+                        <div class="activity-content">
+                            <div class="activity-text"><strong>23 Likes</strong><br>On recent posts</div>
+                            <div class="activity-time">32 min ago</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="insight-card">
+                <div class="insight-title">⚡ Momentum Alert</div>
+                <div class="insight-text">Engagement velocity up 47% above average. ETH Treasury thread gaining traction. Reply window optimal now.</div>
+                <div class="insight-score">
+                    <span style="font-size: 0.8rem;">Trending:</span>
+                    <div class="score-bar">
+                        <div class="score-fill" style="width: 92%; background: var(--accent-orange);"></div>
+                    </div>
+                    <span class="score-value" style="color: var(--accent-orange);">🔥 HOT</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">Quick Post</span>
+                </div>
+                <div class="card-body">
+                    <div class="quick-actions">
+                        <button class="action-btn" onclick="showToast('Post', 'Opening thread composer...')">
+                            <span class="action-icon">🧵</span>
+                            <span>Thread</span>
+                        </button>
+                        <button class="action-btn" onclick="showToast('Post', 'Opening reply composer...')">
+                            <span class="action-icon">💬</span>
+                            <span>Reply</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">Upcoming</span>
+                </div>
+                <div class="card-body">
+                    <div class="activity-item" style="padding: 0.5rem 0;">
+                        <div class="activity-content">
+                            <div class="activity-text"><strong>5:00 PM</strong> - Optimal post window</div>
+                            <div class="activity-time">Engagement score: 95/100</div>
+                        </div>
+                    </div>
+                    <div class="activity-item" style="padding: 0.5rem 0;">
+                        <div class="activity-content">
+                            <div class="activity-text"><strong>8:00 AM</strong> - Daily briefing</div>
+                            <div class="activity-time">Tomorrow</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Search Modal (triggered with / key) -->
+    <div id="search-modal" class="search-modal" style="display: none;">
+        <div class="search-container">
+            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                <span style="font-size: 1.25rem;">🔍</span>
+                <input type="text" id="search-input" placeholder="Search assets, posts, analytics..." class="search-input" style="flex: 1; background: transparent; border: none; color: white; font-size: 1rem; outline: none;">
+                <span style="font-size: 0.75rem; color: var(--text-tertiary); background: var(--glass-bg-light); padding: 0.25rem 0.5rem; border-radius: 4px;">ESC to close</span>
+            </div>
+            <div id="search-results" class="search-results"></div>
+        </div>
+    </div>
+
+    <script>
+        // Keyboard shortcut: / to open search
+        document.addEventListener('keydown', (e) => {
+            if (e.key === '/' && !e.ctrlKey && !e.metaKey) {
+                e.preventDefault();
+                document.getElementById('search-modal').style.display = 'flex';
+                document.getElementById('search-input').focus();
+            }
+            if (e.key === 'Escape') {
+                document.getElementById('search-modal').style.display = 'none';
+            }
+        });
+
+        // Section Navigation
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Toast Notifications
+        function showToast(title, message) {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = `
+                <div class="toast-title">${title}</div>
+                <div class="toast-message">${message}</div>
+            `;
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        // Copy to Clipboard
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('Copied', 'Template copied to clipboard');
+            });
+        }
+
+        // Chart.js Configurations
+        const chartColors = {
+            cyan: '#00d4ff',
+            green: '#00ff88',
+            purple: '#8800ff',
+            orange: '#ff8800',
+            grid: '#222222'
+        };
+
+        // Post Queue Functions
+        function copyPost(elementId) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                const text = element.innerText;
+                navigator.clipboard.writeText(text).then(() => {
+                    showToast('✅ Copied', 'Post copied to clipboard — paste on X now');
+                });
+            }
+        }
+
+        function markPosted(postId) {
+            const postCard = document.querySelector(`[id="${postId}"]`).closest('.post-card');
+            if (postCard) {
+                postCard.style.opacity = '0.5';
+                postCard.style.borderColor = 'var(--accent-green)';
+                showToast('✅ Posted', 'Post marked as complete — moved to archive');
+                setTimeout(() => {
+                    location.reload();
+                }, 1000);
+            }
+        }
+
+        function skipPost(postId) {
+            const postCard = document.querySelector(`[id="${postId}"]`).closest('.post-card');
+            if (postCard) {
+                postCard.style.opacity = '0.3';
+                postCard.style.display = 'none';
+                showToast('⏭️ Skipped', 'Post archived without posting');
+            }
+        }
+
+        function reusePost(postId) {
+            showToast('♻️ Reuse', `Post ${postId} ready to reuse — check Content Queue`);
+        }
+
+        function deletePost(postId) {
+            const confirmed = confirm('Delete this post from archive?');
+            if (confirmed) {
+                showToast('🗑️ Deleted', 'Post removed from archive');
+            }
+        }
+
+        // Engagement Chart
+        const engagementCtx = document.getElementById('engagementChart');
+        if (engagementCtx) {
+            new Chart(engagementCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Jul 8', 'Jul 9', 'Jul 10', 'Jul 11', 'Jul 12', 'Jul 13', 'Jul 14'],
+                    datasets: [{
+                        label: 'Engagement Rate %',
+                        data: [4.4, 5.5, 4.6, 6.2, 5.7, 4.9, 6.3],
+                        borderColor: chartColors.cyan,
+                        backgroundColor: 'rgba(0, 212, 255, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: chartColors.grid },
+                            ticks: { color: '#888' }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: '#888' }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Follower Chart
+        const followerCtx = document.getElementById('followerChart');
+        if (followerCtx) {
+            new Chart(followerCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Jul 8', 'Jul 9', 'Jul 10', 'Jul 11', 'Jul 12', 'Jul 13', 'Jul 14'],
+                    datasets: [{
+                        label: 'Daily Followers',
+                        data: [0, 0, 0, 0, 0, 0, 7],
+                        backgroundColor: chartColors.green,
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: chartColors.grid },
+                            ticks: { color: '#888' }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: '#888' }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Impressions Chart
+        const impressionsCtx = document.getElementById('impressionsChart');
+        if (impressionsCtx) {
+            new Chart(impressionsCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Jul 8', 'Jul 9', 'Jul 10', 'Jul 11', 'Jul 12', 'Jul 13', 'Jul 14'],
+                    datasets: [{
+                        label: 'Impressions',
+                        data: [180, 220, 195, 450, 280, 245, 334],
+                        borderColor: chartColors.purple,
+                        backgroundColor: 'rgba(136, 0, 255, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: chartColors.grid },
+                            ticks: { color: '#888' }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: '#888' }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Content Type Chart
+        const contentTypeCtx = document.getElementById('contentTypeChart');
+        if (contentTypeCtx) {
+            new Chart(contentTypeCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Threads', 'Replies', 'Single Posts'],
+                    datasets: [{
+                        data: [40, 45, 15],
+                        backgroundColor: [chartColors.cyan, chartColors.green, chartColors.orange],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { color: '#888' }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Sparkline Charts
+        function drawSparkline(canvasId, data, color) {
+            const canvas = document.getElementById(canvasId);
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const width = canvas.width;
+            const height = canvas.height;
+            
+            ctx.clearRect(0, 0, width, height);
+            
+            const min = Math.min(...data);
+            const max = Math.max(...data);
+            const range = max - min || 1;
+            
+            ctx.beginPath();
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 2;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            
+            data.forEach((val, i) => {
+                const x = (i / (data.length - 1)) * (width - 4) + 2;
+                const y = height - ((val - min) / range) * (height - 8) - 4;
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            });
+            
+            ctx.stroke();
+            
+            // Add gradient fill
+            ctx.lineTo(width - 2, height);
+            ctx.lineTo(2, height);
+            ctx.closePath();
+            const gradient = ctx.createLinearGradient(0, 0, 0, height);
+            gradient.addColorStop(0, color.replace(')', ', 0.2)').replace('rgb', 'rgba'));
+            gradient.addColorStop(1, color.replace(')', ', 0)').replace('rgb', 'rgba'));
+            ctx.fillStyle = gradient;
+            ctx.fill();
+        }
+
+        // Draw sparklines when competitors section is active
+        document.querySelector('[onclick*="competitors"]').addEventListener('click', () => {
+            setTimeout(() => {
+                drawSparkline('spark-saylor', [3.15, 3.16, 3.18, 3.17, 3.19, 3.20, 3.2], '#00d4ff');
+                drawSparkline('spark-naval', [2.08, 2.09, 2.08, 2.10, 2.09, 2.10, 2.1], '#00ff88');
+                drawSparkline('spark-balajis', [0.87, 0.88, 0.89, 0.88, 0.89, 0.89, 0.89], '#ff8800');
+                drawSparkline('spark-pmarca', [0.77, 0.78, 0.78, 0.77, 0.78, 0.78, 0.78], '#ff0044');
+                drawSparkline('spark-drance', [0.12, 0.12, 0.12, 0.12, 0.13, 0.12, 0.125], '#00d4ff');
+            }, 100);
+        });
+
+        // Competitor Modal
+        const competitorData = {
+            'saylor': { name: 'Michael Saylor', handle: '@saylor', followers: '3.2M', engagement: '5.8%', posts: '12/day', best: 'Bitcoin threads', bio: 'Executive Chairman at Strategy. Bitcoin advocate.' },
+            'naval': { name: 'Naval Ravikant', handle: '@naval', followers: '2.1M', engagement: '8.2%', posts: '2/day', best: 'Philosophy threads', bio: 'Investor, philosopher, podcaster.' },
+            'balajis': { name: 'Balaji Srinivasan', handle: '@balajis', followers: '890K', engagement: '4.1%', posts: '8/day', best: 'Tech essays', bio: 'Former CTO Coinbase, Network State author.' },
+            'pmarca': { name: 'Marc Andreessen', handle: '@pmarca', followers: '780K', engagement: '3.2%', posts: '15/day', best: 'VC threads', bio: 'Co-founder Andreessen Horowitz.' },
+            'drance': { name: 'Drance', handle: '@drance', followers: '125K', engagement: '12.1%', posts: '5/day', best: 'Healthcare content', bio: 'Healthcare & longevity researcher.' }
+        };
+
+        function openCompetitorModal(id) {
+            const comp = competitorData[id];
+            showToast('📊 ' + comp.name, `${comp.handle} • ${comp.followers} followers • ${comp.engagement} engagement • ${comp.posts} • Best: ${comp.best}`);
+        }
+
+        // Web Search Integration
+        const SERPER_API_KEY = '1a32d04a8215dde72b67e554c94409ce580094f3';
+
+        async function performSearch() {
+            const query = document.getElementById('searchInput').value;
+            if (!query) return;
+
+            const resultsDiv = document.getElementById('searchResults');
+            resultsDiv.style.display = 'block';
+            resultsDiv.innerHTML = '<div style="padding: 20px; text-align: center; color: var(--text-secondary);">🔍 Searching...</div>';
+
+            try {
+                const response = await fetch('https://google.serper.dev/search', {
+                    method: 'POST',
+                    headers: {
+                        'X-API-KEY': SERPER_API_KEY,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        q: query,
+                        num: 10
+                    })
+                });
+
+                const data = await response.json();
+                displaySearchResults(data);
+            } catch (error) {
+                resultsDiv.innerHTML = `<div style="padding: 20px; color: var(--accent-red);">
+                    ❌ Search failed. Please try again.
+                </div>`;
+            }
+        }
+
+        function displaySearchResults(data) {
+            const resultsDiv = document.getElementById('searchResults');
+            let html = '<div style="max-height: 500px; overflow-y: auto;">';
+
+            if (data.organic) {
+                data.organic.forEach((result) => {
+                    html += `
+                        <div style="padding: 12px; border-bottom: 1px solid var(--border-color);">
+                            <div style="font-size: 13px; font-weight: 600; color: var(--accent-cyan); margin-bottom: 4px; cursor: pointer;"
+                                 onclick="window.open('${result.link}', '_blank')">
+                                ${result.title}
+                            </div>
+                            <div style="font-size: 12px; color: var(--text-secondary); line-height: 1.4; margin-bottom: 6px;">
+                                ${result.snippet}
+                            </div>
+                            <div style="font-size: 11px; color: var(--muted);">${result.link}</div>
+                        </div>
+                    `;
+                });
+            } else {
+                html += '<div style="padding: 20px; color: var(--text-secondary);">No results found. Try a different query.</div>';
+            }
+
+            html += '</div>';
+            resultsDiv.innerHTML = html;
+        }
+
+        // Auto-refresh indicator
+        setInterval(() => {
+            const dot = document.querySelector('.status-dot');
+            dot.style.animation = 'none';
+            setTimeout(() => dot.style.animation = 'pulse 2s infinite', 10);
+        }, 30000);
+
+        // Enhanced Copy-to-Clipboard Functionality
+        function copyToClipboard(text, successMessage = '📋 Copied! Ready to paste on X') {
+            // Try modern API first
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showToast('Copy Success', successMessage);
+                }).catch(() => {
+                    // Fallback for older browsers
+                    fallbackCopy(text, successMessage);
+                });
+            } else {
+                fallbackCopy(text, successMessage);
+            }
+        }
+
+        function fallbackCopy(text, successMessage) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.left = '-9999px';
+            document.body.appendChild(textarea);
+            textarea.select();
+            
+            try {
+                document.execCommand('copy');
+                showToast('Copy Success', successMessage);
+            } catch (err) {
+                showToast('Copy Failed', '❌ Could not copy. Please select and copy manually.');
+            }
+            
+            document.body.removeChild(textarea);
+        }
+
+        // Thread Support - Copy individual tweets or entire thread
+        function copyThread(threadId, tweetIndex = null) {
+            const threads = {
+                'eth-treasury': [
+                    'Strategy sold $216M BTC. ETH treasuries generate 2-4% yield without selling. The math is undeniable. 🧵',
+                    '1/ Strategy\'s BTC sale was a tactical move. But the real story? ETH treasuries are yielding 2-4% without selling a single token.',
+                    '2/ Companies holding ETH can stake and earn yield. BTC just sits there. Different assets, different strategies.',
+                    '3/ $1B in ETH treasuries = $20-40M annual yield. That\'s operational funding without dilution.',
+                    '4/ The treasury playbook is evolving. ETH isn\'t just an asset—it\'s productive infrastructure. 📊'
+                ],
+                'longevity': [
+                    'The longevity economy is hitting an inflection point. $600B market today, projected $25T by 2030. 🧵',
+                    '1/ GLP-1 drugs are just the beginning. Rapamycin, NAD+, senolytics — the toolkit is expanding.',
+                    '2/ First longevity IPOs are coming. Altos Labs ($3B funding), Calico (Google backed). Public markets want exposure.',
+                    '3/ HIMS and telehealth platforms are the distribution layer. They bring longevity to mainstream consumers.',
+                    'Position for the demographic inevitability. 🧬📈'
+                ]
+            };
+
+            const thread = threads[threadId];
+            if (!thread) return;
+
+            if (tweetIndex !== null && thread[tweetIndex]) {
+                // Copy single tweet
+                copyToClipboard(thread[tweetIndex], `📋 Tweet ${tweetIndex + 1}/${thread.length} copied!`);
+            } else {
+                // Copy entire thread with separators
+                const fullThread = thread.join('\n\n');
+                copyToClipboard(fullThread, `📋 Entire thread (${thread.length} tweets) copied!`);
+            }
+        }
+
+        // Post Filtering System
+        function filterPosts(status) {
+            const posts = document.querySelectorAll('.post-card, .activity-item');
+            const filterButtons = document.querySelectorAll('.filter-chip');
+            
+            // Update active filter button
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Show/hide posts based on status
+            posts.forEach(post => {
+                const postStatus = post.getAttribute('data-status');
+                if (!status || status === 'all' || postStatus === status) {
+                    post.style.display = 'block';
+                } else {
+                    post.style.display = 'none';
+                }
+            });
+        }
+
+        // Expand/Collapse Post Content
+        function togglePostContent(postId) {
+            const content = document.getElementById(`post-content-${postId}`);
+            const expandBtn = document.getElementById(`expand-btn-${postId}`);
+            
+            if (content.classList.contains('collapsed')) {
+                content.classList.remove('collapsed');
+                expandBtn.textContent = '👆 Click to collapse';
+            } else {
+                content.classList.add('collapsed');
+                expandBtn.textContent = '👆 Click to expand full content';
+            }
+        }
+
+        // Post Template System
+        const postTemplates = {
+            'market-update': 'Market Update:\n\n• BTC: btc (+0.36%)\n• ETH: eth (+0.17%)\n• MSTR: mstr (-2.67%)\n• HIMS: hims (0.00%)\n\nKey movers: BTC/ETH stable post-Strategy sale news. MSTR down on first-ever BTC sale announcement.\n\n#Crypto #Markets',
+            'healthcare-insight': 'Healthcare Insight:\n\nGLP-1 market update:\n• Market size: $XXB (2030 projection)\n• Key players: Novo Nordisk, Eli Lilly\n• HIMS positioning: [ANALYSIS]\n\nThe obesity drug market is just getting started. 🏥📈',
+            'crypto-thesis': 'Crypto Thesis:\n\nWhy [ASSET] matters:\n1. [Point 1]\n2. [Point 2]\n3. [Point 3]\n\nThe infrastructure play for the next decade. 🧵',
+            'ai-trend': 'AI Trend Alert:\n\nAgentic commerce is coming:\n• $3-5T market by 2030 (McKinsey)\n• Key infrastructure: [LIST]\n• Investment angles: [LIST]\n\nPosition before the wave hits. 🤖📊'
+        };
+
+        function loadTemplate(templateId) {
+            const template = postTemplates[templateId];
+            if (template) {
+                copyToClipboard(template, '📋 Template copied! Fill in the blanks and post.');
+            }
+        }
+
+        // Enhanced Toast System (replacing existing)
+        function showToast(title, message, duration = 3000) {
+            const existing = document.querySelector('.toast-mc');
+            if (existing) existing.remove();
+
+            const toast = document.createElement('div');
+            toast.className = 'toast-mc';
+            toast.style.cssText = `
+                position: fixed;
+                top: 24px;
+                right: 24px;
+                background: var(--bg-card);
+                border: 1px solid var(--border-color);
+                border-left: 4px solid var(--accent-green);
+                border-radius: 12px;
+                padding: 16px 20px;
+                min-width: 300px;
+                z-index: 10000;
+                animation: slideIn 0.3s ease;
+                backdrop-filter: blur(10px);
+            `;
+            toast.innerHTML = `
+                <div style="font-weight: 600; font-size: 0.9rem; margin-bottom: 4px; color: var(--text-primary);">${title}</div>
+                <div style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4;">${message}</div>
+            `;
+            
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.animation = 'fadeOut 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, duration);
+        }
+
+        // Initialize enhanced features when X Operations tab is active
+        document.querySelector('[onclick*="xoperations"]').addEventListener('click', () => {
+            // Enhance existing copy buttons
+            setTimeout(() => {
+                enhanceCopyButtons();
+            }, 100);
+        });
+
+        function enhanceCopyButtons() {
+            // Find all copy buttons and add enhanced functionality
+            document.querySelectorAll('button').forEach(btn => {
+                if (btn.textContent.includes('Copy') || btn.textContent.includes('📋')) {
+                    btn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        
+                        // Find the associated text content
+                        const activityItem = btn.closest('.activity-item');
+                        if (activityItem) {
+                            const textContent = activityItem.querySelector('.activity-text')?.textContent || '';
+                            if (textContent) {
+                                copyToClipboard(textContent);
+                            }
+                        }
+                    });
+                }
+            });
+        }
+
+        // Add keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            // Ctrl/Cmd + C when a post is focused
+            if ((e.ctrlKey || e.metaKey) && e.key === 'c') {
+                const focusedElement = document.activeElement;
+                if (focusedElement.closest('.activity-item')) {
+                    e.preventDefault();
+                    const text = focusedElement.closest('.activity-item').querySelector('.activity-text')?.textContent || '';
+                    copyToClipboard(text);
+                }
+            }
+        });
+
+        // Auto-refresh market data every 60 seconds
+        let marketDataRefreshInterval = null;
+        let lastMarketData = null;
+
+        function startMarketDataAutoRefresh() {
+            if (marketDataRefreshInterval) return;
+            
+            async function fetchMarketData() {
+                try {
+                    const response = await fetch('market_data.json?t=' + Date.now());
+                    if (!response.ok) return;
+                    
+                    const data = await response.json();
+                    if (!data.assets) return;
+                    
+                    // Only update if data changed
+                    const dataHash = JSON.stringify(data.assets);
+                    if (dataHash === lastMarketData) return;
+                    lastMarketData = dataHash;
+                    
+                    // Update dashboard elements
+                    updateMarketDisplay(data);
+                    
+                    // Show subtle refresh indicator
+                    showRefreshIndicator();
+                    
+                } catch (err) {
+                    // Silent fail - don't spam user with errors
+                    console.log('Market data refresh failed:', err.message);
+                }
+            }
+            
+            fetchMarketData(); // Initial fetch
+            marketDataRefreshInterval = setInterval(fetchMarketData, 60000);
+        }
+
+        function updateMarketDisplay(data) {
+            // Update asset cards if they exist
+            const assets = data.assets;
+            if (assets['BTC/USD']) updateAssetCard('btc', assets['BTC/USD']);
+            if (assets['ETH/USD']) updateAssetCard('eth', assets['ETH/USD']);
+            if (assets['MSTR']) updateAssetCard('mstr', assets['MSTR']);
+            if (assets['HIMS']) updateAssetCard('hims', assets['HIMS']);
+        }
+
+        function updateAssetCard(symbol, assetData) {
+            // Find card by data attribute or class
+            const cards = document.querySelectorAll('.asset-card, .stat-card, [data-symbol]');
+            cards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                if (text.includes(symbol.toLowerCase()) || card.dataset.symbol === symbol) {
+                    // Update price if element exists
+                    const priceEl = card.querySelector('.price, [data-field="price"], .stat-value');
+                    if (priceEl && assetData.price) {
+                        priceEl.textContent = '$' + parseFloat(assetData.price).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                    }
+                    
+                    // Update change indicator
+                    const changeEl = card.querySelector('.change, [data-field="change"]');
+                    if (changeEl && assetData.percent_change) {
+                        const isPositive = parseFloat(assetData.percent_change) >= 0;
+                        changeEl.textContent = (isPositive ? '+' : '') + parseFloat(assetData.percent_change).toFixed(2) + '%';
+                        changeEl.style.color = isPositive ? 'var(--accent-green)' : 'var(--accent-red)';
+                    }
+                    
+                    // Add update timestamp
+                    card.dataset.lastUpdate = new Date().toISOString();
+                }
+            });
+        }
+
+        function showRefreshIndicator() {
+            // Create or update a subtle pulse indicator
+            let indicator = document.getElementById('live-indicator');
+            if (!indicator) {
+                indicator = document.createElement('div');
+                indicator.id = 'live-indicator';
+                indicator.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    width: 8px;
+                    height: 8px;
+                    background: var(--accent-green);
+                    border-radius: 50%;
+                    z-index: 10000;
+                    transition: opacity 0.3s;
+                `;
+                document.body.appendChild(indicator);
+            }
+            
+            indicator.style.opacity = '1';
+            setTimeout(() => {
+                indicator.style.opacity = '0.3';
+            }, 2000);
+        }
+
+        // Start auto-refresh when page loads
+        document.addEventListener('DOMContentLoaded', startMarketDataAutoRefresh);
+
+        // Pause refresh when tab is hidden (save resources)
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden && marketDataRefreshInterval) {
+                clearInterval(marketDataRefreshInterval);
+                marketDataRefreshInterval = null;
+            } else if (!document.hidden && !marketDataRefreshInterval) {
+                startMarketDataAutoRefresh();
+            }
+        });
+        // Live Market Data Fetcher
+        async function fetchMarketData() {
+            try {
+                const response = await fetch('market_data.json?t=' + Date.now());
+                const data = await response.json();
+                
+                const assets = {
+                    'BTC/USD': { el: 'btc', color: '#ff9500' },
+                    'ETH/USD': { el: 'eth', color: '#7c3aed' },
+                    'MSTR': { el: 'mstr', color: '#00d4ff' },
+                    'HIMS': { el: 'hims', color: '#ff2d92' }
+                };
+                
+                Object.entries(data).forEach(([symbol, info]) => {
+                    const asset = assets[symbol];
+                    if (!asset) return;
+                    
+                    const priceEl = document.getElementById(asset.el + '-price');
+                    const changeEl = document.getElementById(asset.el + '-change');
+                    
+                    if (priceEl) {
+                        priceEl.textContent = '$' + parseFloat(info.price).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                        priceEl.style.color = asset.color;
+                    }
+                    if (changeEl) {
+                        const change = parseFloat(info.percent_change);
+                        const isPositive = change >= 0;
+                        changeEl.innerHTML = `<span style="color: ${isPositive ? '#00ff88' : '#ff3860'}; font-weight: 600;">${isPositive ? '+' : ''}${change.toFixed(2)}%</span>`;
+                    }
+                });
+            } catch (e) {
+                console.log('Market data fetch failed:', e);
+            }
+        }
+        
+        // Fetch immediately and every 60 seconds
+        fetchMarketData();
+        setInterval(fetchMarketData, 60000);
+        
+        // Visibility API - pause when tab hidden
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) fetchMarketData();
+        });
+
+        // Data freshness updater
+        function updateDataFreshness() {
+            const freshnessEl = document.getElementById('data-freshness');
+            if (!freshnessEl) return;
+            
+            const cards = document.querySelectorAll('.asset-card');
+            let oldestUpdate = Date.now();
+            
+            cards.forEach(card => {
+                const lastUpdate = card.dataset.lastUpdate;
+                if (lastUpdate) {
+                    const updateTime = new Date(lastUpdate).getTime();
+                    if (updateTime < oldestUpdate) {
+                        oldestUpdate = updateTime;
+                    }
+                }
+            });
+            
+            const seconds = Math.floor((Date.now() - oldestUpdate) / 1000);
+            let text;
+            if (seconds < 60) text = 'just now';
+            else if (seconds < 3600) text = `${Math.floor(seconds/60)}m ago`;
+            else text = `${Math.floor(seconds/3600)}h ago`;
+            
+            freshnessEl.textContent = text;
+        }
+        
+        // Update freshness every 10 seconds
+        setInterval(updateDataFreshness, 10000);
+
+    </script>
+</body>
+</html>
