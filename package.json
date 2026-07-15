@@ -6,6 +6,10 @@
     "dev": "vercel dev",
     "deploy": "vercel --prod"
   },
-  "dependencies": {},
-  "devDependencies": {}
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "playwright": "^1.61.1",
+    "puppeteer": "^25.3.0",
+    "twitter-api-v2": "^1.29.0"
+  }
 }

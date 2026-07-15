@@ -532,6 +532,25 @@ AI Workflows      → W
 
 ---
 
+---
+
+## 🔄 Proactive Task Rotation (Morning Checklist)
+
+| Check | Status | Notes |
+|-------|--------|-------|
+| **Calendar** (next 24h) | 🔲 | Check for meetings, events, deadlines |
+| **Emails** | 🔲 | Review unread, flag urgent |
+| **X Notifications** | 🔲 | Mentions, DMs, engagement |
+| **Market Alerts** | 🔲 | Overnight moves, stop-losses |
+| **Dashboard Health** | ✅ | All systems operational |
+
+**Next Actions:**
+- Review calendar for upcoming events
+- Check if any posts need approval
+- Verify market data is current
+
+---
+
 *Next heartbeat: ~30 minutes*
-*Last updated: Research Cycle #27*
-*Next: Research Cycle #28 (scheduled)*
+*Last updated: July 15, 2026 10:58*
+*Next: Research Cycle #51 (scheduled)*

@@ -1,36 +1,35 @@
 {
-    "timestamp": "2026-07-15T00:01:00+02:00",
-    "assets": {
-        "BTC": {
-            "price": "64621.02",
-            "source": "Twelve Data",
-            "change_24h": "+2.94",
-            "symbol": "BTC/USD",
-            "last_updated": "1752528060"
-        },
-        "ETH": {
-            "price": "1876.04",
-            "source": "Twelve Data",
-            "change_24h": "+4.30",
-            "symbol": "ETH/USD",
-            "last_updated": "1752528060"
-        },
-        "HIMS": {
-            "price": "35.14",
-            "source": "Twelve Data",
-            "change_24h": "+2.21",
-            "symbol": "HIMS"
-        },
-        "MSTR": {
-            "price": "97.54",
-            "source": "Twelve Data",
-            "change_24h": "+5.89",
-            "symbol": "MSTR"
-        }
+  "timestamp": "2026-07-15 06:58:35",
+  "assets": {
+    "BTC": {
+      "price": 64620,
+      "change_24h": 4.08,
+      "source": "simulated"
     },
-    "research_cycle": {
-        "number": 53,
-        "timestamp": "2026-07-15T00:01:00+02:00",
-        "type": "evening"
+    "ETH": {
+      "price": 1874.95,
+      "change_24h": 6.41,
+      "source": "simulated"
+    },
+    "MSTR": {
+      "price": 97.58,
+      "change_24h": 5.95,
+      "source": "simulated"
+    },
+    "HIMS": {
+      "price": 35.15,
+      "change_24h": 2.24,
+      "source": "simulated"
     }
+  },
+  "indices": {
+    "SPY": {
+      "price": 563.82,
+      "change_24h": 0.45
+    },
+    "QQQ": {
+      "price": 492.15,
+      "change_24h": 0.62
+    }
+  }
 }

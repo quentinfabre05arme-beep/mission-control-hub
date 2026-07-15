@@ -1,0 +1,28 @@
+{
+  "id": "evening-2026-07-14",
+  "status": "ready_to_publish",
+  "scheduled_for": "19:00",
+  "theme": "BTC momentum + macro context",
+  "posts": [
+    {
+      "type": "main",
+      "text": "Bitcoin is up 3% today.\n\nETH holding above $1,870.\n\nThe market is pricing in something the headlines haven't caught yet.\n\nUsually how it works.",
+      "hashtags": "#BTC #ETH #crypto",
+      "engagement_prediction": "high",
+      "rationale": "Concise observation with data points. Market timing angle creates intrigue without claiming certainty."
+    },
+    {
+      "type": "follow_up",
+      "text": "While CT debates whether this is a dead cat bounce or the start of something bigger, I'm watching one thing:\n\nVolume.\n\nToday's move has legs if institutional flow confirms it tomorrow.",
+      "timing": "+30-60 minutes after main post",
+      "engagement_prediction": "medium-high"
+    }
+  ],
+  "market_data": {
+    "btc": "$64,794 (+3.2%)",
+    "eth": "$1,874 (+0.4%)",
+    "timestamp": "2026-07-14T18:36:00+02:00"
+  },
+  "publish_method": "manual (automation in progress)",
+  "action_required": "Copy main post text and publish at 19:00 CET"
+}
