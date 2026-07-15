@@ -32,6 +32,7 @@
         </div>
         <div class="nav-right">
             <a href="#overview" class="nav-link active" onclick="showSection('overview')">Overview</a>
+            <a href="#postqueue" class="nav-link" onclick="showSection('postqueue')">📝 Post Queue</a>
             <a href="#content" class="nav-link" onclick="showSection('content')">Content</a>
             <a href="#analytics" class="nav-link" onclick="showSection('analytics')">Analytics</a>
             <a href="#intelligence" class="nav-link" onclick="showSection('intelligence')">Intelligence</a>
@@ -379,6 +380,135 @@
                             <div class="activity-content">
                                 <div class="activity-text"><strong>ETH Institutional Adoption</strong><br>19 public companies hold ~3M ETH ($13.2B). 2-4% staking yield vs 0% for BTC.</div>
                                 <button class="action-btn" style="margin-top: 0.5rem; display: inline-flex;" onclick="copyToClipboard('The ETH institutional story: 19 companies, ~3M ETH ($13.2B), 2-4% staking yield...')">Copy</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Post Queue Section -->
+            <div id="postqueue" class="section">
+                <!-- READY NOW -->
+                <div class="card" style="border: 2px solid var(--accent-green); background: rgba(0,212,130,0.05);">
+                    <div class="card-header">
+                        <span class="card-title" style="color: var(--accent-green);">🚀 READY NOW — Copy & Post</span>
+                        <span style="font-size: 0.75rem; color: var(--text-secondary);">Click to copy, then paste on X</span>
+                    </div>
+                    <div class="card-body">
+                        <!-- Post 2 -->
+                        <div class="post-card" style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; margin-bottom: 1rem;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                                <div style="display: flex; gap: 0.5rem; align-items: center;">
+                                    <span class="tag tag-success">Single</span>
+                                    <span style="color: var(--accent-cyan); font-weight: 600;">14:00 Today</span>
+                                    <span style="color: var(--accent-orange);">⏰ 85/100</span>
+                                </div>
+                                <button class="action-btn" onclick="markPosted('hims-2026-07-15')" style="font-size: 0.75rem;">✅ Mark Posted</button>
+                            </div>
+                            <div class="post-content" id="post-hims-2026-07-15" style="font-size: 0.95rem; line-height: 1.6; color: var(--text-primary); margin-bottom: 0.75rem; padding: 0.75rem; background: rgba(0,0,0,0.2); border-radius: 6px; border-left: 3px solid var(--accent-cyan);">
+HIMS isn't a GLP-1 stock. It's healthcare infrastructure.
+
+$725M revenue, 2.6M subscribers, Novo Nordisk partnership.
+
+The picks and shovels play.
+                            </div>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <button class="action-btn" onclick="copyPost('post-hims-2026-07-15')">📋 Copy to Clipboard</button>
+                                <button class="action-btn" style="background: rgba(255,170,0,0.2); color: var(--accent-orange);" onclick="skipPost('hims-2026-07-15')">⏭️ Skip / Archive</button>
+                            </div>
+                        </div>
+
+                        <!-- Post 3 -->
+                        <div class="post-card" style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                                <div style="display: flex; gap: 0.5rem; align-items: center;">
+                                    <span class="tag tag-success">Single</span>
+                                    <span style="color: var(--accent-cyan); font-weight: 600;">19:00 Today</span>
+                                    <span style="color: var(--accent-orange);">⏰ 82/100</span>
+                                </div>
+                                <button class="action-btn" onclick="markPosted('ai-2026-07-15')" style="font-size: 0.75rem;">✅ Mark Posted</button>
+                            </div>
+                            <div class="post-content" id="post-ai-2026-07-15" style="font-size: 0.95rem; line-height: 1.6; color: var(--text-primary); margin-bottom: 0.75rem; padding: 0.75rem; background: rgba(0,0,0,0.2); border-radius: 6px; border-left: 3px solid var(--accent-purple);">
+McKinsey's 6-level automation curve for agentic commerce is here.
+
+We're at Level 1-2.
+
+Infrastructure build phase = investment phase.
+                            </div>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <button class="action-btn" onclick="copyPost('post-ai-2026-07-15')">📋 Copy to Clipboard</button>
+                                <button class="action-btn" style="background: rgba(255,170,0,0.2); color: var(--accent-orange);" onclick="skipPost('ai-2026-07-15')">⏭️ Skip / Archive</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- UPCOMING -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">📅 UPCOMING — Scheduled</span>
+                        <span style="font-size: 0.75rem; color: var(--text-secondary);">Auto-populated from daily briefing</span>
+                    </div>
+                    <div class="card-body">
+                        <div style="color: var(--text-secondary); text-align: center; padding: 2rem;">
+                            📝 Tomorrow's posts will appear here after 08:00 briefing generation.
+                            <br><span style="font-size: 0.8rem;">Next briefing: Jul 16, 2026 08:00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- POSTED (Former) -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">✅ POSTED — Archive</span>
+                        <span style="font-size: 0.75rem; color: var(--text-secondary);">Today + last 7 days</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="post-card" style="background: rgba(0,212,130,0.05); border: 1px solid rgba(0,212,130,0.2); border-radius: 8px; padding: 1rem; margin-bottom: 0.75rem; opacity: 0.85;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                                <div style="display: flex; gap: 0.5rem; align-items: center;">
+                                    <span class="tag tag-success">Thread</span>
+                                    <span style="color: var(--accent-green); font-weight: 600;">✅ POSTED 08:00</span>
+                                    <span style="color: var(--text-secondary); font-size: 0.8rem;">Jul 15</span>
+                                </div>
+                                <span style="color: var(--accent-green);">88/100</span>
+                            </div>
+                            <div style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5;">
+                                I'm not selling my BTC. But if I were deploying $50M+ in treasury reserves today? ETH gets serious consideration. Yield + upside > upside alone. That's the thesis.
+                            </div>
+                            <div style="margin-top: 0.5rem; display: flex; gap: 0.5rem;">
+                                <button class="action-btn" style="font-size: 0.75rem; opacity: 0.7;" onclick="reusePost('btc-2026-07-15')">♻️ Reuse</button>
+                                <button class="action-btn" style="font-size: 0.75rem; opacity: 0.7;" onclick="deletePost('btc-2026-07-15')">🗑️ Delete</button>
+                            </div>
+                        </div>
+                        <div style="text-align: center; padding-top: 0.5rem;">
+                            <a href="#" style="color: var(--accent-cyan); font-size: 0.8rem; text-decoration: none;">View full archive →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Queue Stats -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">📊 Queue Stats</span>
+                    </div>
+                    <div class="card-body">
+                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;">
+                            <div style="text-align: center; padding: 1rem; background: rgba(0,212,130,0.08); border-radius: 8px;">
+                                <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent-green);">1</div>
+                                <div style="font-size: 0.75rem; color: var(--text-secondary);">Posted Today</div>
+                            </div>
+                            <div style="text-align: center; padding: 1rem; background: rgba(0,212,255,0.08); border-radius: 8px;">
+                                <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent-cyan);">2</div>
+                                <div style="font-size: 0.75rem; color: var(--text-secondary);">Ready Now</div>
+                            </div>
+                            <div style="text-align: center; padding: 1rem; background: rgba(255,170,0,0.08); border-radius: 8px;">
+                                <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent-orange);">0</div>
+                                <div style="font-size: 0.75rem; color: var(--text-secondary);">Upcoming</div>
+                            </div>
+                            <div style="text-align: center; padding: 1rem; background: rgba(255,45,146,0.08); border-radius: 8px;">
+                                <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent-pink);">83</div>
+                                <div style="font-size: 0.75rem; color: var(--text-secondary);">Avg Score</div>
                             </div>
                         </div>
                     </div>
@@ -2467,6 +2597,49 @@ Errors: 0</div>
             orange: '#ff8800',
             grid: '#222222'
         };
+
+        // Post Queue Functions
+        function copyPost(elementId) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                const text = element.innerText;
+                navigator.clipboard.writeText(text).then(() => {
+                    showToast('✅ Copied', 'Post copied to clipboard — paste on X now');
+                });
+            }
+        }
+
+        function markPosted(postId) {
+            const postCard = document.querySelector(`[id="${postId}"]`).closest('.post-card');
+            if (postCard) {
+                postCard.style.opacity = '0.5';
+                postCard.style.borderColor = 'var(--accent-green)';
+                showToast('✅ Posted', 'Post marked as complete — moved to archive');
+                setTimeout(() => {
+                    location.reload();
+                }, 1000);
+            }
+        }
+
+        function skipPost(postId) {
+            const postCard = document.querySelector(`[id="${postId}"]`).closest('.post-card');
+            if (postCard) {
+                postCard.style.opacity = '0.3';
+                postCard.style.display = 'none';
+                showToast('⏭️ Skipped', 'Post archived without posting');
+            }
+        }
+
+        function reusePost(postId) {
+            showToast('♻️ Reuse', `Post ${postId} ready to reuse — check Content Queue`);
+        }
+
+        function deletePost(postId) {
+            const confirmed = confirm('Delete this post from archive?');
+            if (confirmed) {
+                showToast('🗑️ Deleted', 'Post removed from archive');
+            }
+        }
 
         // Engagement Chart
         const engagementCtx = document.getElementById('engagementChart');
