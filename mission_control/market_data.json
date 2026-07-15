@@ -1,57 +1,41 @@
 {
-    "timestamp": "2026-07-15 12:02:30",
-    "assets": {
-        "BTC/USD": {
-            "high": "65277.37",
-            "change": "-335.98",
-            "percent_change": "-0.52",
-            "price": "64708.00",
-            "previous_close": "65043.98",
-            "is_market_open": true,
-            "timestamp": "2026-07-15 12:02:30",
-            "open": "65043.99",
-            "status": "success",
-            "low": "64485.00",
-            "volume": null
-        },
-        "ETH/USD": {
-            "high": "1893.32",
-            "change": "-10.43",
-            "percent_change": "-0.55",
-            "price": "1881.44",
-            "previous_close": "1891.87",
-            "is_market_open": true,
-            "timestamp": "2026-07-15 12:02:30",
-            "open": "1891.87",
-            "status": "success",
-            "low": "1864.38",
-            "volume": null
-        },
-        "HIMS": {
-            "high": "35.39",
-            "change": "0.77",
-            "percent_change": "2.24",
-            "price": "35.15",
-            "previous_close": "34.38",
-            "is_market_open": false,
-            "timestamp": "2026-07-15 12:02:30",
-            "open": "34.80",
-            "status": "success",
-            "low": "34.08",
-            "volume": "7733696"
-        },
-        "MSTR": {
-            "high": "98.03",
-            "change": "5.48",
-            "percent_change": "5.95",
-            "price": "97.58",
-            "previous_close": "92.10",
-            "is_market_open": false,
-            "timestamp": "2026-07-15 12:02:30",
-            "open": "94.78",
-            "status": "success",
-            "low": "93.56",
-            "volume": "18039740"
-        }
+  "timestamp": "2026-07-15 18:01:00",
+  "assets": {
+    "BTC": {
+      "price": 65333,
+      "change_24h": 1.03,
+      "source": "coingecko",
+      "signal": "BULLISH"
+    },
+    "ETH": {
+      "price": 1928.63,
+      "change_24h": 3.14,
+      "source": "coingecko",
+      "signal": "BULLISH"
+    },
+    "MSTR": {
+      "price": 97.58,
+      "change_24h": 5.95,
+      "source": "twelvedata_expired",
+      "signal": "BULLISH"
+    },
+    "HIMS": {
+      "price": 35.15,
+      "change_24h": 2.24,
+      "source": "simulated",
+      "signal": "NEUTRAL"
     }
+  },
+  "midday_analysis": {
+    "cycle": 53,
+    "time": "18:01 CET",
+    "sentiment": "BULLISH CRYPTO",
+    "key_observation": "BTC +1%, ETH +3.1% — BTC pushing 65K resistance, ETH near 1930. MSTR/HIMS stable.",
+    "action": "HOLD positions, momentum continues"
+  },
+  "_maintenance_notes": {
+    "last_check": "2026-07-15 18:01",
+    "twelve_data_status": "API_KEY_EXPIRED_401",
+    "fallback_used": "CoinGecko free for BTC/ETH, stale for MSTR/HIMS"
+  }
 }
