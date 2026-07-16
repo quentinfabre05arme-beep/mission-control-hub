@@ -1,15 +1,19 @@
 {
-  "posts": [
-    {
-      "id": "post-2026-07-15-1400",
-      "text": "Ethereum is up 6.4% today.\n\nNot because of ETFs. Not because of "narrative."\n\nBecause it's the only productive asset in crypto.\n\nStaking yield + deflationary supply + settlement layer for the entire financial system = compound value accrual.\n\nBTC is digital gold. ETH is digital infrastructure.\n\nThe gap in understanding is your edge.",
-      "status": "ready",
-      "createdAt": "2026-07-15T09:47:00+02:00",
-      "pillar": "Crypto"
-    }
-  ],
+  "posts": [],
   "config": {
     "dailyLimit": 3,
-    "postedToday": 1
-  }
+    "postedToday": 0,
+    "status": "PERMANENTLY_CANCELLED",
+    "cancelledAt": "2026-07-16T11:01:00+02:00",
+    "reason": "User cancelled all X missions",
+    "shutdownCompleted": "2026-07-16T15:05:00+02:00",
+    "shutdownMethod": "Windows Task Scheduler disabled"
+  },
+  "lastPost": {
+    "id": "post-2026-07-16-1400",
+    "postedAt": "2026-07-16T14:00:00+02:00",
+    "pillar": "Crypto",
+    "note": "Final post despite cancellation - Task Scheduler was still active"
+  },
+  "note": "X posting mission PERMANENTLY CANCELLED and FULLY SHUT DOWN - All Windows Task Scheduler jobs disabled - No further posts possible"
 }

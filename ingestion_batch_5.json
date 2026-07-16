@@ -1,0 +1,847 @@
+{
+  "batch_id": 5,
+  "batch_name": "Books Library - Entrepreneurship & Languages",
+  "ingestion_date": "2026-07-16T00:30:00+02:00",
+  "source_paths": [
+    "C:\\Users\\quent\\OneDrive\\📚-Books-Library\\03-Entrepreneurship-Business",
+    "C:\\Users\\quent\\OneDrive\\📚-Books-Library\\09-Other\\Langues & Apprendre"
+  ],
+  "total_documents": 359,
+  "entrepreneurship_documents": 87,
+  "languages_documents": 272,
+  "categories": [
+    {
+      "category_name": "Entrepreneurship & Business",
+      "path": "03-Entrepreneurship-Business",
+      "document_count": 87,
+      "subcategories": [
+        {
+          "subcategory_name": "Company Formation (Montage Société)",
+          "path": "01-Entrepreneurship\\montage societe",
+          "document_count": 15,
+          "documents": [
+            {
+              "title": "Acte de Nomination du Président (Modèle)",
+              "filename": "acte-de-nomination-du-president-modele.pdf",
+              "format": "PDF",
+              "topics": ["Company governance", "President appointment", "Legal templates"],
+              "key_concepts": ["Corporate governance", "Legal formalities", "Company leadership"],
+              "learning_objectives": ["Understand French company incorporation process", "Learn required legal documents for company formation", "Master corporate governance structures"]
+            },
+            {
+              "title": "Attestation de Domiciliation (Modèle)",
+              "filename": "attestation-de-domiciliation-modele.pdf",
+              "format": "PDF",
+              "topics": ["Company domiciliation", "Registered office", "Legal compliance"],
+              "key_concepts": ["Domiciliation requirements", "Business address", "Legal registration"],
+              "learning_objectives": ["Understand domiciliation requirements in France", "Learn how to establish a registered business address", "Navigate legal compliance for startups"]
+            },
+            {
+              "title": "Budget Type COSA",
+              "filename": "Budget type COSA.pdf",
+              "format": "PDF",
+              "topics": ["Budget planning", "Financial modeling", "Association finances"],
+              "key_concepts": ["Budget templates", "Cost estimation", "Financial planning"],
+              "learning_objectives": ["Create organizational budgets", "Understand cost allocation", "Plan financial resources for projects"]
+            },
+            {
+              "title": "CERFA 13959-04",
+              "filename": "cerfa_13959-04.pdf",
+              "format": "PDF",
+              "topics": ["French administrative forms", "Official documents", "Business registration"],
+              "key_concepts": ["CERFA forms", "French bureaucracy", "Legal documentation"],
+              "learning_objectives": ["Navigate French administrative procedures", "Complete official business forms", "Understand regulatory requirements"]
+            },
+            {
+              "title": "CERFA 14948-01",
+              "filename": "cerfa_14948-01.pdf",
+              "format": "PDF",
+              "topics": ["French administrative forms", "Business registration"],
+              "key_concepts": ["Official forms", "Administrative procedures"],
+              "learning_objectives": ["Complete required business registration forms"]
+            },
+            {
+              "title": "Certificat de Dépôt des Fonds (Modèle)",
+              "filename": "certificat-depot-des-fonds-modele.pdf",
+              "format": "PDF",
+              "topics": ["Capital deposit", "Bank certificates", "Company formation"],
+              "key_concepts": ["Share capital", "Banking requirements", "Financial certification"],
+              "learning_objectives": ["Understand capital deposit requirements", "Learn banking procedures for company formation"]
+            },
+            {
+              "title": "Déclaration de Non-Condamnation (Modèle)",
+              "filename": "declaration-de-non-condamnation-modele.pdf",
+              "format": "PDF",
+              "topics": ["Legal compliance", "Criminal record", "Company formation"],
+              "key_concepts": ["Legal declarations", "Background checks", "Director requirements"],
+              "learning_objectives": ["Understand director eligibility requirements", "Complete legal compliance declarations"]
+            },
+            {
+              "title": "Essentiels: Les Aides aux Projets",
+              "filename": "Essentiels_Les_Aides_aux_projets.pdf",
+              "format": "PDF",
+              "topics": ["Project funding", "Grants", "Financial aid", "Entrepreneurship support"],
+              "key_concepts": ["Project subsidies", "Financial assistance", "Entrepreneurship ecosystem", "Public funding"],
+              "learning_objectives": ["Identify available project funding sources", "Learn application procedures for financial aid", "Understand French entrepreneurship support programs"]
+            },
+            {
+              "title": "Guide Entrepreneur",
+              "filename": "guide_entrepreneur.pdf",
+              "format": "PDF",
+              "topics": ["Entrepreneurship guide", "Business startup", "Practical advice"],
+              "key_concepts": ["Startup process", "Business planning", "Entrepreneurial mindset"],
+              "learning_objectives": ["Navigate the entrepreneurial journey", "Develop a business idea into a plan", "Avoid common startup mistakes"]
+            },
+            {
+              "title": "Juridique: Tableau Comparatif Statut (SCOP 2010)",
+              "filename": "Juridique_TableauComparatifStatut_Scop_2010.pdf",
+              "format": "PDF",
+              "topics": ["Legal structures", "SCOP", "Company status comparison"],
+              "key_concepts": ["SCOP (Société Coopérative et Participative)", "Company legal forms", "Cooperative business"],
+              "learning_objectives": ["Compare different company legal structures", "Understand cooperative business models", "Choose appropriate legal status"]
+            },
+            {
+              "title": "Le Guide du Choix de la Forme Juridique",
+              "filename": "Le+Guide+du+choix+de+la+forme+juridique.pdf",
+              "format": "PDF",
+              "topics": ["Legal structures", "Company formation", "Juridical choice"],
+              "key_concepts": ["SAS", "SARL", "SA", "Auto-entrepreneur", "Micro-entreprise", "Legal liability"],
+              "learning_objectives": ["Compare legal structures for French businesses", "Select optimal company form", "Understand tax and liability implications"]
+            },
+            {
+              "title": "Modèle Statuts SAS",
+              "filename": "modele-statuts-SAS.pdf",
+              "format": "PDF",
+              "topics": ["SAS statutes", "Company bylaws", "Legal templates"],
+              "key_concepts": ["SAS (Société par Actions Simplifiée)", "Corporate statutes", "Shareholder agreements"],
+              "learning_objectives": ["Draft company statutes for SAS", "Understand SAS governance rules", "Configure shareholder relationships"]
+            },
+            {
+              "title": "Ooreka Statuts Société par Actions Simplifiée",
+              "filename": "ooreka-statuts-societe-par-actions-simplifiee.doc",
+              "format": "DOC",
+              "topics": ["SAS statutes", "Legal templates", "Company formation"],
+              "key_concepts": ["SAS formation", "Statute drafting", "Legal templates"],
+              "learning_objectives": ["Create SAS statutes using templates", "Customize legal documents for specific needs"]
+            },
+            {
+              "title": "Projets Type",
+              "filename": "projets type.docx",
+              "format": "DOCX",
+              "topics": ["Project templates", "Business projects", "Association projects"],
+              "key_concepts": ["Project planning", "Organizational development"],
+              "learning_objectives": ["Develop standardized project frameworks", "Plan organizational initiatives"]
+            },
+            {
+              "title": "Micro-entreprise: Centre de Formalités des Entreprises",
+              "filename": "Micro entreprise\\Centre de Formalités des Entreprises.pdf",
+              "format": "PDF",
+              "topics": ["Micro-entreprise", "Business formalities", "French administration"],
+              "key_concepts": ["CFE (Centre de Formalités des Entreprises)", "Business registration portal", "Micro-enterprise"],
+              "learning_objectives": ["Register a micro-enterprise in France", "Navigate CFE procedures", "Understand auto-entrepreneur requirements"]
+            }
+          ]
+        },
+        {
+          "subcategory_name": "Marketing",
+          "path": "02-Marketing",
+          "document_count": 4,
+          "documents": [
+            {
+              "title": "Marketing Digital",
+              "filename": "Marketing digital.docx",
+              "format": "DOCX",
+              "topics": ["Digital marketing", "Social media marketing", "SEO", "Content marketing", "Advertising tools"],
+              "key_concepts": ["Facebook marketing", "AdEspresso", "Fanpage Karma", "Keyword research", "SEM Rush", "Google Ads", "AnswerThePublic", "Social media automation"],
+              "extracted_content": "References AdEspresso gallery for ad examples, Fanpage Karma for analytics, Facebook invite tools, keyword research tools (keywordtool.io, SEMrush, Yooda Insight, Google Ads generator), answerthepublic for content ideas",
+              "learning_objectives": ["Master digital marketing tool stack", "Implement social media marketing strategies", "Conduct keyword research for SEO", "Analyze competitor marketing performance", "Create effective digital ad campaigns"]
+            },
+            {
+              "title": "Instagram Tips",
+              "filename": "instagram tips.docx",
+              "format": "DOCX",
+              "topics": ["Instagram marketing", "Social media strategy", "Visual content"],
+              "key_concepts": ["Instagram growth", "Visual marketing", "Social media engagement"],
+              "learning_objectives": ["Grow Instagram presence", "Create engaging visual content", "Build social media strategy"]
+            },
+            {
+              "title": "LiveMentor Marketing Digital Immersion",
+              "filename": "LiveMentorMarketingDigitalImmersion.pdf",
+              "format": "PDF",
+              "topics": ["Digital marketing training", "Online courses", "Marketing education"],
+              "key_concepts": ["LiveMentor", "Digital marketing fundamentals", "Online learning"],
+              "learning_objectives": ["Learn digital marketing from structured courses", "Apply marketing theory to practice", "Develop marketing skills through immersion"]
+            }
+          ]
+        },
+        {
+          "subcategory_name": "Online Business - Online Trainer Academy",
+          "path": "04-Online-Business\\online trainer academy",
+          "document_count": 9,
+          "documents": [
+            {
+              "title": "Contact Tracker - Online Trainer Academy",
+              "filename": "ContactTracker_OnlineTrainerAcademy.pdf",
+              "format": "PDF",
+              "topics": ["CRM", "Client management", "Fitness business", "Online coaching"],
+              "key_concepts": ["Client tracking", "Lead management", "Online fitness business"],
+              "learning_objectives": ["Manage client relationships effectively", "Track coaching business contacts", "Build CRM systems for fitness coaching"]
+            },
+            {
+              "title": "Guide: How to Get a New Fitness Client (Overnight)",
+              "filename": "Guide-Howto-Get-a-new-FitnessClient-2-Overnight.pdf",
+              "format": "PDF",
+              "topics": ["Client acquisition", "Fitness sales", "Online coaching", "Business development"],
+              "key_concepts": ["Sales techniques", "Client onboarding", "Fitness marketing", "Rapid client acquisition"],
+              "learning_objectives": ["Acquire fitness clients quickly", "Master online coaching sales", "Implement client acquisition strategies"]
+            },
+            {
+              "title": "MindShift - Online Trainer Academy",
+              "filename": "MindShift_OnlineTrainerAcademy.pdf",
+              "format": "PDF",
+              "topics": ["Mindset", "Personal development", "Entrepreneurial psychology", "Coaching business"],
+              "key_concepts": ["Growth mindset", "Entrepreneurial resilience", "Mental frameworks", "Business psychology"],
+              "learning_objectives": ["Develop entrepreneurial mindset", "Overcome mental barriers to business growth", "Build psychological resilience"]
+            },
+            {
+              "title": "Projet Éducation à l'Entraînement",
+              "filename": "Projet éducation à l.docx",
+              "format": "DOCX",
+              "topics": ["Physical education", "Training methodology", "Sports coaching"],
+              "key_concepts": ["Education through sport", "Training pedagogy", "Youth development"],
+              "learning_objectives": ["Design physical education programs", "Apply coaching pedagogy", "Develop youth training initiatives"]
+            },
+            {
+              "title": "STRONG Assessments",
+              "filename": "STRONG_Assesments-1.pdf",
+              "format": "PDF",
+              "topics": ["Fitness assessment", "Client evaluation", "Online training"],
+              "key_concepts": ["Fitness testing", "Client assessment", "Program design"],
+              "learning_objectives": ["Assess client fitness levels", "Design personalized training programs", "Track client progress"]
+            },
+            {
+              "title": "STRONG Sales",
+              "filename": "STRONG_Sales.pdf",
+              "format": "PDF",
+              "topics": ["Sales training", "Fitness business", "Online coaching sales"],
+              "key_concepts": ["Sales psychology", "Closing techniques", "Fitness sales funnels"],
+              "learning_objectives": ["Master online coaching sales", "Build effective sales processes", "Convert leads to clients"]
+            },
+            {
+              "title": "STRONG Support",
+              "filename": "STRONG_Support.pdf",
+              "format": "PDF",
+              "topics": ["Client support", "Customer service", "Online coaching"],
+              "key_concepts": ["Client retention", "Support systems", "Community building"],
+              "learning_objectives": ["Provide excellent client support", "Build client retention systems", "Create coaching communities"]
+            },
+            {
+              "title": "WFPG Online Trainer Checklist",
+              "filename": "WFPG-OT Checklist.pdf",
+              "format": "PDF",
+              "topics": ["Online coaching setup", "Business checklist", "Fitness entrepreneurship"],
+              "key_concepts": ["Business launch checklist", "Online coaching infrastructure", "Operational readiness"],
+              "learning_objectives": ["Launch online coaching business", "Ensure operational readiness", "Follow systematic business setup"]
+            },
+            {
+              "title": "WFPG Online Trainer Ebook",
+              "filename": "WFPG_OT_Ebook.pdf",
+              "format": "PDF",
+              "topics": ["Online coaching", "Fitness entrepreneurship", "Digital business", "Ebook"],
+              "key_concepts": ["Online training business model", "Digital product creation", "Fitness industry entrepreneurship"],
+              "learning_objectives": ["Build online training business", "Create digital fitness products", "Scale coaching services online"]
+            }
+          ]
+        },
+        {
+          "subcategory_name": "Online Business - Project Tools (Projet Outils)",
+          "path": "04-Online-Business\\Projet outils",
+          "document_count": 59,
+          "documents": [
+            {
+              "title": "Codes and Passwords Document",
+              "filename": "codess.docx",
+              "format": "DOCX",
+              "topics": ["Password management", "Account organization", "Business tools"],
+              "key_concepts": ["Account credentials", "Email management", "Social media accounts", "Business tool access"],
+              "extracted_content": "Contains login credentials for Outlook, Gmail accounts, Facebook - organizational document for managing multiple business accounts",
+              "learning_objectives": ["Organize business accounts and credentials", "Maintain secure access to business tools"]
+            },
+            {
+              "title": "Convention APE Châteauroux",
+              "filename": "CONVENTION APE CHATEAUROUX.docx",
+              "format": "DOCX",
+              "topics": ["Partnership agreements", "Association partnerships", "Business conventions"],
+              "key_concepts": ["APE (Association de Parents d'Élèves)", "Partnership frameworks", "Collaborative agreements"],
+              "learning_objectives": ["Draft partnership agreements", "Establish organizational collaborations"]
+            },
+            {
+              "title": "Convention SEMLORE Summer 2014",
+              "filename": "CONVT SEMLORE ETE 2014.docx",
+              "format": "DOCX",
+              "topics": ["Summer programs", "Youth employment", "Organizational partnerships"],
+              "key_concepts": ["Summer camp organization", "Youth project management"],
+              "learning_objectives": ["Organize summer youth programs", "Manage seasonal projects"]
+            },
+            {
+              "title": "Devis APE Châteauroux",
+              "filename": "DEVIS  APE CHATEAUROUX.docx",
+              "format": "DOCX",
+              "topics": ["Quotation", "Project budgeting", "Service pricing"],
+              "key_concepts": ["Cost estimation", "Service quotes", "Budget proposals"],
+              "learning_objectives": ["Create professional quotations", "Estimate project costs accurately"]
+            },
+            {
+              "title": "Travel Expenses Distance",
+              "filename": "Frais deplacement Distance.docx",
+              "format": "DOCX",
+              "topics": ["Travel expenses", "Cost management", "Business operations"],
+              "key_concepts": ["Expense tracking", "Travel budgeting", "Distance calculations"],
+              "learning_objectives": ["Manage business travel expenses", "Calculate operational costs"]
+            },
+            {
+              "title": "Trainer Tools Document",
+              "filename": "outis formateurs.doc",
+              "format": "DOC",
+              "topics": ["Training tools", "Educator resources", "Teaching materials"],
+              "key_concepts": ["Training methodology", "Educational tools", "Coach resources"],
+              "learning_objectives": ["Develop trainer toolkits", "Organize educational resources"]
+            },
+            {
+              "title": "Technical Project 2014",
+              "filename": "PROJET TECHNIQUE 2014.docx",
+              "format": "DOCX",
+              "topics": ["Sports coaching", "Technical program", "Youth handball", "Physical education"],
+              "key_concepts": ["Handball coaching", "Motor skills development", "Tactical positioning", "Youth sports pedagogy", "Public engagement", "Online training platforms"],
+              "extracted_content": "Technical project for Embrun 2014 handball. Covers motor skills (balance, precision throwing, dribbling), offensive/defensive tactics, goalkeeper training, public engagement strategies (tournaments, school activities, senior leagues), and online workspace for team sessions.",
+              "learning_objectives": ["Design technical sports programs", "Develop motor skills training", "Implement tactical training", "Engage community in sports programs", "Create online coaching platforms"]
+            },
+            {
+              "title": "Engagement Contract (Poudrière)",
+              "filename": "Acte d'engagement\\acte d-engagementoccasionnel poudriere.doc",
+              "format": "DOC",
+              "topics": ["Employment contracts", "Occasional work", "Event staffing"],
+              "key_concepts": ["Contract templates", "Event organization", "Temporary employment"],
+              "learning_objectives": ["Draft engagement contracts", "Manage temporary staff"]
+            },
+            {
+              "title": "Parent Authorization (Blank)",
+              "filename": "Autoristation parent\\autorisation parentale VIERGE.pdf",
+              "format": "PDF",
+              "topics": ["Parental consent", "Youth activities", "Legal forms"],
+              "key_concepts": ["Parental authorization", "Youth protection", "Legal compliance"],
+              "learning_objectives": ["Obtain proper parental authorizations", "Ensure legal compliance for youth programs"]
+            },
+            {
+              "title": "CIDJ Fact Sheets",
+              "path": "Emploi Stage Economie\\Fiches cidj",
+              "documents": [
+                {
+                  "title": "Créer ou Reprendre une Entreprise",
+                  "filename": "Créer ou reprendre une entreprise.pdf",
+                  "topics": ["Business creation", "Company takeover", "Entrepreneurship"]
+                },
+                {
+                  "title": "Formation Continue",
+                  "filename": "Formation continue.pdf",
+                  "topics": ["Continuing education", "Professional development", "Lifelong learning"]
+                },
+                {
+                  "title": "Les Aides aux Projets",
+                  "filename": "Les aides aux projets.pdf",
+                  "topics": ["Project subsidies", "Financial aid", "Entrepreneurship support"]
+                },
+                {
+                  "title": "Les Métiers de la Mode",
+                  "filename": "Les métiers de la mode.pdf",
+                  "topics": ["Fashion industry", "Career paths", "Industry overview"]
+                },
+                {
+                  "title": "Trouver un Stage",
+                  "filename": "Trouver un stage.pdf",
+                  "topics": ["Internship search", "Career development", "Work experience"]
+                }
+              ]
+            },
+            {
+              "title": "Employment Guides",
+              "path": "Emploi Stage Economie\\Guides",
+              "documents": [
+                {
+                  "title": "Guide Outil Stage - IJ PA",
+                  "filename": "Guide outil STAGE - IJ PA - janvier 2013.pdf",
+                  "topics": ["Internship guide", "Youth employment", "Stage search"]
+                },
+                {
+                  "title": "Guide Utilité Sociale et Politique Locale",
+                  "filename": "Guide_Utilite-sociale-politique-locale_mars2012.pdf",
+                  "topics": ["Social utility", "Local policy", "Community development"]
+                },
+                {
+                  "title": "L'Emploi des Jeunes dans l'ESS - Annexes",
+                  "filename": "L_emploi_des_jeunes_dans_l_ESS_-_Annexes_-_CNCRES.pdf",
+                  "topics": ["Social economy", "Youth employment", "ESS (Économie Sociale et Solidaire)"]
+                },
+                {
+                  "title": "L'Emploi des Jeunes dans l'ESS - Synthèse",
+                  "filename": "L_emploi_des_jeunes_dans_l_ESS_-_Synthese_-_CNCRES.pdf",
+                  "topics": ["Social economy", "Youth employment", "Labor market"]
+                },
+                {
+                  "title": "PACA Guide Emploi Avenir",
+                  "filename": "PACA_Guide_emploi_avenir.pdf",
+                  "topics": ["Employment futures", "Regional employment", "Career guidance"]
+                },
+                {
+                  "title": "Programme Ateliers Agir",
+                  "filename": "programme_ateliers_agir.pdf",
+                  "topics": ["Workshops", "Professional development", "Skills training"]
+                }
+              ]
+            },
+            {
+              "title": "Job Offers Collection",
+              "path": "Emploi Stage Economie\\Offres emploi",
+              "document_count": 19,
+              "topics": ["Job postings", "Employment opportunities", "Recruitment", "Career development"],
+              "key_concepts": ["Job descriptions", "Recruitment process", "Employment contracts", "Work positions", "Social economy jobs"],
+              "learning_objectives": ["Understand job market in social economy", "Analyze employment opportunities", "Develop recruitment skills", "Navigate French employment landscape"]
+            },
+            {
+              "title": "Administrative Tools",
+              "path": "outils administratifs",
+              "documents": [
+                {
+                  "title": "Simplified Membership Form",
+                  "filename": "ADHESION simplifiée.docx"
+                },
+                {
+                  "title": "Letter Card 2014",
+                  "filename": "CARTE lettre 2014.docx"
+                },
+                {
+                  "title": "Annual Planning",
+                  "filename": "PLANNING ANNUEL.docx"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "subcategory_name": "Online Business - Website Blog Articles",
+          "path": "04-Online-Business\\website\\blog articles",
+          "document_count": 3,
+          "documents": [
+            {
+              "title": "Banff Travel Article",
+              "filename": "nextlevel\\banff\\banff.docx",
+              "format": "DOCX",
+              "topics": ["Travel blogging", "Banff", "Content creation"],
+              "key_concepts": ["Travel content", "Destination blogging"],
+              "learning_objectives": ["Create travel content", "Build travel blog"]
+            },
+            {
+              "title": "Why Physical Education Matters",
+              "filename": "physical education\\pourquoi s'éduquer physiquement.docx",
+              "format": "DOCX",
+              "topics": ["Physical education", "Health", "Fitness philosophy"],
+              "key_concepts": ["Exercise education", "Health literacy", "Physical literacy"],
+              "learning_objectives": ["Advocate for physical education", "Explain health benefits of exercise"]
+            },
+            {
+              "title": "Learn the Basics (Nutrition)",
+              "filename": "physical education\\nutrition\\learn the basics.docx",
+              "format": "DOCX",
+              "topics": ["Nutrition basics", "Diet fundamentals", "Health education"],
+              "key_concepts": ["Nutritional literacy", "Dietary basics", "Healthy eating"],
+              "learning_objectives": ["Teach nutrition fundamentals", "Build dietary awareness"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category_name": "Languages & Learning (Langues & Apprendre)",
+      "path": "09-Other\\Langues & Apprendre",
+      "document_count": 272,
+      "subcategories": [
+        {
+          "subcategory_name": "English Language",
+          "path": "anglais",
+          "document_count": 4,
+          "documents": [
+            {
+              "title": "TOEIC LR Candidate Manual (June 2016)",
+              "filename": "Manuel+du+Candidat+TOEIC+LR-v3-June2016.pdf",
+              "format": "PDF",
+              "topics": ["TOEIC", "English proficiency", "Language testing", "Business English"],
+              "key_concepts": ["TOEIC Listening and Reading", "Test preparation", "English certification", "ETS testing"],
+              "learning_objectives": ["Prepare for TOEIC exam", "Improve business English skills", "Understand test format and scoring"]
+            },
+            {
+              "title": "TOEIC S26W Candidate Manual 2012",
+              "filename": "TOEIC+S26W+-+Manuel+du+candidat+2012.pdf",
+              "format": "PDF",
+              "topics": ["TOEIC Speaking and Writing", "English certification", "Test preparation"],
+              "key_concepts": ["TOEIC S&W", "Speaking assessment", "Writing assessment"],
+              "learning_objectives": ["Prepare for TOEIC Speaking and Writing", "Develop oral English proficiency", "Improve written English skills"]
+            },
+            {
+              "title": "Sounds to Graphemes Guide",
+              "filename": "soundstographemesguide2.pdf",
+              "format": "PDF",
+              "topics": ["Phonics", "English pronunciation", "Reading instruction"],
+              "key_concepts": ["Phoneme-grapheme correspondence", "Reading pedagogy", "English phonology"],
+              "learning_objectives": ["Understand English sound system", "Teach phonics effectively", "Improve pronunciation"]
+            },
+            {
+              "title": "Export Proforma",
+              "filename": "export-proforma.pdf",
+              "format": "PDF",
+              "topics": ["International trade", "Export documentation", "Business English"],
+              "key_concepts": ["Proforma invoice", "Export procedures", "International commerce"],
+              "learning_objectives": ["Create export documentation", "Understand international trade procedures"]
+            }
+          ]
+        },
+        {
+          "subcategory_name": "Travel Abroad - Country Guides",
+          "path": "Départ étranger\\Guide pays",
+          "document_count": 54,
+          "description": "Comprehensive country guides for working, studying, and living abroad covering 30+ countries",
+          "countries_covered": [
+            "Afrique du Sud/Sénégal", "Allemagne", "Amérique Latine", "Australie/Nouvelle-Zélande",
+            "Autriche", "Belgique", "Bulgarie", "Canada", "Chine", "Chypre/Malte",
+            "Croatie", "Danemark", "Espagne", "Estonie", "États-Unis", "Finlande",
+            "Grèce", "Hongrie", "Inde/Asie du Sud-Est", "Irlande", "Islande",
+            "Italie", "Japon/Corée", "Lettonie", "Lituanie", "Luxembourg",
+            "Maghreb", "Moyen Orient", "Norvège", "Pays-Bas", "Pologne",
+            "Roumanie", "Royaume-Uni", "Russie", "République Tchèque",
+            "Slovaquie", "Slovénie", "Suède", "Suisse", "Turquie"
+          ],
+          "key_concepts": ["Working abroad", "Visa requirements", "Local job markets", "Cultural adaptation", "Administrative procedures", "Travel preparation"],
+          "learning_objectives": [
+            "Research country-specific work and travel opportunities",
+            "Understand visa and administrative requirements",
+            "Navigate local job markets abroad",
+            "Prepare for cultural adaptation",
+            "Plan international relocations"
+          ],
+          "specialized_guides": [
+            {
+              "title": "Idées de Départ",
+              "filename": "idées de départ.pdf",
+              "topics": ["Travel inspiration", "Trip planning", "Destination ideas"]
+            },
+            {
+              "title": "Les Idées pour Partir",
+              "filename": "les idées pour partir.pdf",
+              "topics": ["Travel planning", "Departure ideas", "Trip organization"]
+            },
+            {
+              "title": "Travailler à l'Étranger",
+              "filename": "travailler a l etranger.pdf",
+              "topics": ["International work", "Emigration", "Global careers"]
+            },
+            {
+              "title": "Travailler en Europe",
+              "filename": "travailler en europe.pdf",
+              "topics": ["European labor market", "EU mobility", "Cross-border employment"]
+            }
+          ]
+        },
+        {
+          "subcategory_name": "Travel Abroad - Summer Jobs",
+          "path": "Départ étranger\\Emploi\\jobs d'été",
+          "document_count": 18,
+          "description": "Summer job guides for 18 countries",
+          "countries_covered": [
+            "Allemagne", "Argentine", "Australie", "Bahamas", "Belgique",
+            "Bolivie", "Canada", "Chypre", "Danemark", "Espagne",
+            "Finlande", "Grèce", "Irlande", "Islande", "Manche"
+          ],
+          "topics": ["Seasonal employment", "Summer work abroad", "Youth employment", "Travel funding"],
+          "key_concepts": ["Summer jobs", "Seasonal work visas", "Youth travel programs", "Work-travel balance"],
+          "learning_objectives": [
+            "Find summer employment abroad",
+            "Understand seasonal work requirements",
+            "Fund travel through temporary work",
+            "Navigate international youth employment"
+          ]
+        },
+        {
+          "subcategory_name": "Travel Abroad - Programs & Financial Aid",
+          "path": "Départ étranger\\Programmes et aides financière",
+          "document_count": 80,
+          "description": "Comprehensive guides to European and international youth mobility programs",
+          "major_programs": [
+            {
+              "program": "Erasmus+",
+              "description": "European Union education and training program",
+              "documents": [
+                "Erasmus+ Programme Guide (EN/FR)",
+                "Erasmus+ at a Glance",
+                "Erasmus+ in Detail",
+                "Erasmus+ Leaflet",
+                "Erasmus+ Official Journal"
+              ],
+              "topics": ["Student exchange", "University mobility", "EU education programs", "International study"],
+              "key_concepts": ["Erasmus scholarship", "Credit transfer", "EU mobility", "Higher education cooperation"],
+              "learning_objectives": ["Apply for Erasmus+ programs", "Navigate EU education mobility", "Understand funding mechanisms"]
+            },
+            {
+              "program": "PEJA (Programme d'Échanges de Jeunes et d'Apprentis)",
+              "description": "French youth exchange and apprenticeship programs",
+              "sub_programs": [
+                {
+                  "name": "Comenius",
+                  "documents": ["com4_fr.pdf"],
+                  "topics": ["School partnerships", "European education collaboration"]
+                },
+                {
+                  "name": "Leonardo da Vinci",
+                  "documents": [
+                    "Compte-rendu Restitution",
+                    "Compte-rendu séminaire global",
+                    "Evaluation",
+                    "ldv3_fr, ldv4_fr, ldv5_fr",
+                    "Présentation globale mobilité"
+                  ],
+                  "topics": ["Vocational training", "Professional mobility", "Apprenticeships abroad"]
+                },
+                {
+                  "name": "SVE (Service Volontaire Européen)",
+                  "documents": [
+                    "Bibliographie Bénévolat Volontariat",
+                    "Carnet de route SVE",
+                    "Info-Kit (4 parts)",
+                    "Panorama volontariat Service Civique"
+                  ],
+                  "topics": ["European voluntary service", "Youth volunteering", "Social engagement"]
+                },
+                {
+                  "name": "Youthpass",
+                  "documents": ["leaflet Youthpass", "Youthpass en dix leçons"],
+                  "topics": ["Youth certification", "Skills recognition", "European youth"]
+                }
+              ]
+            },
+            {
+              "program": "FAJE (Fonds d'Aide aux Jeunes pour l'Europe)",
+              "description": "Financial aid fund for European mobility",
+              "documents": ["FAJE 2013-2014", "FAJE 2014-2015"],
+              "topics": ["Financial aid", "Youth mobility", "European travel funding"]
+            },
+            {
+              "program": "OFAJ (Office Franco-Allemand pour la Jeunesse)",
+              "description": "Franco-German youth exchange office",
+              "documents": ["directives-richtlinien", "Europe Information Jeunesse n°34"],
+              "topics": ["Franco-German relations", "Bilateral exchange", "Youth cooperation"]
+            },
+            {
+              "program": "Service Civique",
+              "description": "French national civic service program",
+              "documents": ["Profil service Civique Culturel 2012", "Profil service Civique Jardin 2012"],
+              "topics": ["Civic engagement", "National service", "Volunteering"]
+            }
+          ]
+        },
+        {
+          "subcategory_name": "Travel Abroad - Preparation",
+          "path": "Départ étranger\\Préparation au départ",
+          "document_count": 8,
+          "documents": [
+            {
+              "title": "Bien Préparer son Départ",
+              "filename": "Bien-preparer-son-depart.pdf",
+              "topics": ["Travel preparation", "Pre-departure checklist", "Relocation planning"]
+            },
+            {
+              "title": "Préparation Voyage",
+              "filename": "préparation voyage.pdf",
+              "topics": ["Trip planning", "Travel logistics"]
+            },
+            {
+              "title": "CV Example (EN-GB)",
+              "filename": "CV-Example-1-en-GB.pdf",
+              "topics": ["International CV", "English resume", "Job application abroad"]
+            },
+            {
+              "title": "CV Example (FR-FR)",
+              "filename": "CV-Example-1-fr-FR.pdf",
+              "topics": ["French CV", "European resume format"]
+            },
+            {
+              "title": "Europass CV Instructions",
+              "filename": "Europass_CV_Instructions_EN.pdf",
+              "topics": ["Europass", "European CV format", "Standardized resume"]
+            },
+            {
+              "title": "Guide Europe 21",
+              "filename": "guideEurope21.pdf",
+              "topics": ["European youth", "European opportunities"]
+            },
+            {
+              "title": "Passeport de Mobilité 2013",
+              "filename": "Passeport-de-mobilite-2013.pdf",
+              "topics": ["Mobility passport", "European youth mobility"]
+            }
+          ],
+          "key_concepts": ["Travel preparation", "Documentation", "CV internationalization", "European mobility tools"],
+          "learning_objectives": [
+            "Prepare complete travel documentation",
+            "Create international-standard CVs",
+            "Understand European mobility frameworks",
+            "Navigate pre-departure requirements"
+          ]
+        },
+        {
+          "subcategory_name": "Travel Abroad - Voluntary Service",
+          "path": "Départ étranger\\Volontariat",
+          "document_count": 42,
+          "description": "Volunteer programs and international solidarity opportunities",
+          "programs": [
+            {
+              "name": "Eurocircle",
+              "documents": [
+                "Compte-rendu CT05", "CT Italie Environnement",
+                "LT Germany Nurnberg", "LT Spain ONCE", "LT Italy Agriculture",
+                "LT Portugal", "LT Romania", "LT Sweden",
+                "Plaquette présentation Vista",
+                "TC Europe ON AIR", "TC Guides on the Road",
+                "TC URA - You Are Able", "TC YM Citizen",
+                "TC Wind of Change", "YE Bon Appétit Espagne"
+              ],
+              "topics": ["European youth exchanges", "Training courses", "Youth initiatives"]
+            },
+            {
+              "name": "Piste Solidaire",
+              "documents": [
+                "Échanges de jeunes en Europe 2013",
+                "Formations Européennes 2013",
+                "Info Packs SVE (multiple organizations)"
+              ],
+              "topics": ["Solidarity volunteering", "European cooperation", "Youth solidarity"]
+            },
+            {
+              "name": "FUAJ (Fédération Unie des Auberges de Jeunesse)",
+              "documents": [
+                "Facilitateur Human Rights 2013",
+                "Facilitateur Le rêve européen 2013"
+              ],
+              "topics": ["Youth hostels", "Human rights education", "European citizenship"]
+            },
+            {
+              "name": "Individual Opportunities",
+              "documents": [
+                "Service civique mobilité 2013",
+                "Service civique informer par les pairs 2013",
+                "GreenHearts Échange jeunes 2014",
+                "Info Pack SVE Pandora",
+                "LEONARDO (Grèce, Italie Florence, Portugal Barcelos)",
+                "YE Once upon a time...work!"
+              ],
+              "topics": ["Civic service", "Youth exchanges", "International volunteering"]
+            }
+          ],
+          "key_concepts": ["Voluntary service", "European volunteering", "Youth exchanges", "Solidarity programs", "Civic engagement"],
+          "learning_objectives": [
+            "Find appropriate volunteer opportunities",
+            "Navigate European volunteer programs",
+            "Prepare for international volunteering",
+            "Develop civic engagement skills"
+          ]
+        },
+        {
+          "subcategory_name": "Travel Documents & Logistics",
+          "path": "root (misc)",
+          "document_count": 28,
+          "description": "Personal travel documents, bookings, and administrative paperwork",
+          "document_types": [
+            {
+              "type": "ESTA Applications",
+              "count": 5,
+              "description": "US Electronic System for Travel Authorization applications and verifications"
+            },
+            {
+              "type": "Flight Tickets & Boarding Passes",
+              "count": 10,
+              "description": "Airline tickets, boarding passes, flight confirmations"
+            },
+            {
+              "type": "Visa Documents",
+              "count": 3,
+              "description": "J-1 visa guidelines, green card applications, passport documents"
+            },
+            {
+              "type": "Travel Insurance",
+              "count": 2,
+              "description": "AES Green Card insurance documentation"
+            },
+            {
+              "type": "Financial Documents",
+              "count": 5,
+              "description": "Bank accounts, payment confirmations, expense receipts"
+            },
+            {
+              "type": "Miscellaneous",
+              "count": 3,
+              "description": "Hotel bookings, parking tickets, health insurance cards"
+            }
+          ]
+        },
+        {
+          "subcategory_name": "WOW Air Documents",
+          "path": "wowair",
+          "document_count": 15,
+          "description": "WOW Air airline bankruptcy documentation and claim files",
+          "topics": ["Airline bankruptcy", "Travel claims", "Consumer rights", "Flight compensation"],
+          "key_concepts": ["Flight cancellation", "Compensation claims", "Airline bankruptcy procedures", "Consumer protection"],
+          "learning_objectives": ["Navigate airline bankruptcy claims", "Understand consumer flight rights", "Document travel disruptions"]
+        },
+        {
+          "subcategory_name": "USA Travel - Parents",
+          "path": "USA PARENTS",
+          "document_count": 6,
+          "description": "Parents' travel documents to USA",
+          "topics": ["Family travel", "USA tourism", "ESTA applications"],
+          "learning_objectives": ["Organize family travel documentation", "Navigate USA entry requirements"]
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "entrepreneurship_key_themes": [
+      "Company formation and legal structures (SAS, SARL, micro-entreprise)",
+      "Digital marketing tools and social media strategies",
+      "Online fitness coaching and trainer academy business models",
+      "Project management and administrative tools",
+      "Youth employment and social economy",
+      "Budget planning and financial management"
+    ],
+    "languages_key_themes": [
+      "English language certification (TOEIC)",
+      "International travel and work abroad",
+      "European mobility programs (Erasmus+, PEJA, SVE)",
+      "Country guides for 40+ destinations",
+      "Summer jobs and seasonal employment abroad",
+      "Volunteer service and civic engagement",
+      "Travel preparation and documentation"
+    ],
+    "learning_objectives_overall": [
+      "Build entrepreneurial skills and understand French business formation",
+      "Master digital marketing for small businesses",
+      "Develop online coaching and fitness business models",
+      "Achieve English language proficiency certification",
+      "Navigate international travel, work, and study programs",
+      "Understand European youth mobility frameworks",
+      "Develop project management and administrative capabilities",
+      "Build global awareness through country-specific knowledge"
+    ],
+    "content_types": {
+      "PDF": 290,
+      "DOCX": 39,
+      "DOC": 30
+    }
+  }
+}

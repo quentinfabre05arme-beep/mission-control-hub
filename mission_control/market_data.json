@@ -1,64 +1,62 @@
-﻿­ƒöä Fetching fresh data...
-Ô£à Fetched 4 assets in 410ms
 {
-  "timestamp": "2026-07-16T10:05:07.336Z",
+  "timestamp": "2026-07-16T20:21:40.268Z",
   "assets": {
     "BTC": {
-      "price": 64093.99,
-      "change_24h": -1.022743,
-      "change_amount": -662.29,
+      "price": 64232.04,
+      "change_24h": -0.80955855,
+      "change_amount": -524.24,
       "open": 64756.28,
       "high": 64997.52,
-      "low": 63888,
+      "low": 63838.28,
       "volume": null,
       "source": "twelvedata",
       "signal": "NEUTRAL",
-      "fetch_time_ms": 410,
+      "fetch_time_ms": 363,
       "stale": false
     },
     "ETH": {
-      "price": 1884.7,
-      "change_24h": -1.72901,
-      "change_amount": -33.16,
+      "price": 1875.43,
+      "change_24h": -2.21236,
+      "change_amount": -42.43,
       "open": 1917.86,
       "high": 1929.48,
-      "low": 1875.56,
+      "low": 1862.57,
       "volume": null,
       "source": "twelvedata",
-      "signal": "NEUTRAL",
-      "fetch_time_ms": 346,
+      "signal": "MODERATE_BEARISH",
+      "fetch_time_ms": 311,
       "stale": false
     },
     "MSTR": {
-      "price": 97.47,
-      "change_24h": -0.11272864,
-      "change_amount": -0.11000061,
-      "open": 99.78,
-      "high": 101.8975,
-      "low": 96.3604,
-      "volume": 14496437,
+      "price": 94.05,
+      "change_24h": -3.50877,
+      "change_amount": -3.42,
+      "open": 95.91,
+      "high": 96.51,
+      "low": 93.475,
+      "volume": 1199095,
       "source": "twelvedata",
-      "signal": "NEUTRAL",
-      "fetch_time_ms": 346,
+      "signal": "MODERATE_BEARISH",
+      "fetch_time_ms": 314,
       "stale": false
     },
     "HIMS": {
-      "price": 37.17,
-      "change_24h": 5.74679,
-      "change_amount": 2.019997,
-      "open": 35.669,
-      "high": 37.44,
-      "low": 35.669,
-      "volume": 11742341,
+      "price": 33.67,
+      "change_24h": -9.41619,
+      "change_amount": -3.5,
+      "open": 36.725,
+      "high": 37.68,
+      "low": 33.58,
+      "volume": 2115445,
       "source": "twelvedata",
-      "signal": "BULLISH",
-      "fetch_time_ms": 341,
+      "signal": "BEARISH",
+      "fetch_time_ms": 304,
       "stale": false
     }
   },
   "_meta": {
     "fromCache": false,
-    "fetch_time_ms": 410,
+    "fetch_time_ms": 365,
     "sources": [
       "twelvedata",
       "twelvedata",
@@ -66,6 +64,8 @@
       "twelvedata"
     ],
     "assets_count": 4,
-    "stale_count": 0
+    "stale_count": 0,
+    "saved_at": "2026-07-16T20:21:40.268Z",
+    "version": "2.0"
   }
 }

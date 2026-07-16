@@ -2,11 +2,12 @@
 # Requires Chrome to be logged into X already
 
 param(
-    [string]$Text = (Get-Content "C:\Users\quent\.openclaw\workspace\x_queue.json" | ConvertFrom-Json).posts | Where-Object { $_.status -eq 'pending' } | Select-Object -First 1 -ExpandProperty text
+    [string]$Text = ""
 )
 
 $logFile = "C:\Users\quent\.openclaw\workspace\logs\x_posts.log"
 $screenshotDir = "C:\Users\quent\.openclaw\workspace\screenshots"
+$queueFile = "C:\Users\quent\.openclaw\workspace\x_queue.json"
 
 function Write-Log($message) {
     $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
@@ -21,24 +22,29 @@ New-Item -ItemType Directory -Path $screenshotDir -Force -ErrorAction SilentlyCo
 
 Write-Log "=== X Simple Poster Starting ==="
 
-if (-not $Text) {
-    Write-Log "No pending posts found in queue"
+# If no text provided, try to get from queue
+if ([string]::IsNullOrWhiteSpace($Text)) {
+    try {
+        $queue = Get-Content $queueFile -Raw | ConvertFrom-Json
+        $pendingPost = $queue.posts | Where-Object { $_.status -eq "pending" } | Select-Object -First 1
+        if ($pendingPost) {
+            $Text = $pendingPost.text
+            Write-Log "Found queued post: $($pendingPost.id)"
+        }
+    } catch {
+        Write-Log "Could not read queue file: $($_.Exception.Message)"
+    }
+}
+
+if ([string]::IsNullOrWhiteSpace($Text)) {
+    Write-Log "No text provided and no pending posts found. Exiting."
     exit 0
 }
 
-Write-Log "Posting text: $Text"
+Write-Log "Posting text: $Text.Substring(0, [Math]::Min(50, $Text.Length))..."
 
-# Check if Chrome is running
-$chromeRunning = Get-Process chrome -ErrorAction SilentlyContinue
-if (-not $chromeRunning) {
-    Write-Log "Starting Chrome..."
-    Start-Process "chrome.exe" "https://x.com/home" -WindowStyle Minimized
-    Start-Sleep -Seconds 5
-}
-
-# Use AutoHotkey-style approach with PowerShell
-# This simulates keyboard shortcuts in Chrome
-
+# Load required assemblies
+Add-Type -AssemblyName System.Windows.Forms
 Add-Type @"
     using System;
     using System.Runtime.InteropServices;
@@ -60,41 +66,55 @@ Add-Type @"
     }
 "@
 
+# Check if Chrome is running
+$chromeRunning = Get-Process chrome -ErrorAction SilentlyContinue
+if (-not $chromeRunning) {
+    Write-Log "Starting Chrome..."
+    Start-Process "chrome.exe" "https://x.com/home" -WindowStyle Normal
+    Start-Sleep -Seconds 8
+}
+
 # Find Chrome window
-$chrome = Get-Process chrome | Where-Object { $_.MainWindowTitle -like "*X*" -or $_.MainWindowTitle -like "*Twitter*" } | Select-Object -First 1
+$chrome = Get-Process chrome | Where-Object { $_.MainWindowTitle -like "*X*" -or $_.MainWindowTitle -like "*Twitter*" -or $_.MainWindowTitle -like "*Chrome*" } | Select-Object -First 1
 
 if (-not $chrome) {
-    Write-Log "Chrome window not found - opening X..."
+    Write-Log "Chrome window not found - opening X compose..."
     Start-Process "chrome.exe" "https://x.com/compose/tweet" -WindowStyle Normal
-    Start-Sleep -Seconds 3
+    Start-Sleep -Seconds 5
     $chrome = Get-Process chrome | Where-Object { $_.MainWindowTitle } | Select-Object -First 1
 }
 
 if ($chrome) {
+    Write-Log "Found Chrome window: $($chrome.MainWindowTitle)"
+    
     # Bring Chrome to foreground
-    [WinAPI]::ShowWindow($chrome.MainWindowHandle, [WinAPI]::SW_RESTORE)
-    [WinAPI]::SetForegroundWindow($chrome.MainWindowHandle)
+    [WinAPI]::ShowWindow($chrome.MainWindowHandle, [WinAPI]::SW_RESTORE) | Out-Null
+    Start-Sleep -Milliseconds 300
+    [WinAPI]::SetForegroundWindow($chrome.MainWindowHandle) | Out-Null
     Start-Sleep -Milliseconds 500
     
     # Open new tab with compose URL
+    Write-Log "Opening compose tab..."
     [WinAPI]::keybd_event([WinAPI]::VK_CONTROL, 0, 0, 0)
     [WinAPI]::keybd_event([WinAPI]::VK_T, 0, 0, 0)
     [WinAPI]::keybd_event([WinAPI]::VK_T, 0, [WinAPI]::KEYEVENTF_KEYUP, 0)
     [WinAPI]::keybd_event([WinAPI]::VK_CONTROL, 0, [WinAPI]::KEYEVENTF_KEYUP, 0)
-    Start-Sleep -Milliseconds 500
+    Start-Sleep -Milliseconds 800
     
     # Type compose URL
     [System.Windows.Forms.SendKeys]::SendWait("https://x.com/compose/tweet")
-    Start-Sleep -Milliseconds 200
+    Start-Sleep -Milliseconds 300
     [WinAPI]::keybd_event([WinAPI]::VK_RETURN, 0, 0, 0)
     [WinAPI]::keybd_event([WinAPI]::VK_RETURN, 0, [WinAPI]::KEYEVENTF_KEYUP, 0)
-    Start-Sleep -Seconds 2
+    Start-Sleep -Seconds 3
     
-    # Type the tweet text (simple approach - no special chars)
+    # Type the tweet text
+    Write-Log "Typing tweet text..."
     [System.Windows.Forms.SendKeys]::SendWait($Text)
     Start-Sleep -Milliseconds 500
     
     # Send Ctrl+Enter to post
+    Write-Log "Submitting post..."
     [WinAPI]::keybd_event([WinAPI]::VK_CONTROL, 0, 0, 0)
     [WinAPI]::keybd_event([WinAPI]::VK_RETURN, 0, 0, 0)
     [WinAPI]::keybd_event([WinAPI]::VK_RETURN, 0, [WinAPI]::KEYEVENTF_KEYUP, 0)
@@ -102,7 +122,7 @@ if ($chrome) {
     
     Start-Sleep -Seconds 2
     
-    Write-Log "✅ Post sent via keyboard automation"
+    Write-Log "✅ Post submitted"
 } else {
     Write-Log "❌ Could not find or start Chrome"
 }

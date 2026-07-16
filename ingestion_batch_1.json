@@ -1,0 +1,105 @@
+﻿{
+  "batch_info": {
+    "batch_id": "ingestion_batch_1",
+    "extraction_date": "2026-07-16T00:30:00+02:00",
+    "source_paths": [
+      "C:\\Users\\quent\\OneDrive\\??-Teaching-EPS",
+      "C:\\Users\\quent\\OneDrive\\??-Personal-Documents\\03-Documents\\WordDocs\\Sport"
+    ],
+    "files_processed": 10,
+    "extraction_method": "PowerShell DOCX unzip + XML text extraction"
+  },
+  "files": [
+    {
+      "file_path": "C:\\Users\\quent\\OneDrive\\??-Teaching-EPS\\01-AP\\ACROSPORT TERM.docx",
+      "category": "Teaching-EPS",
+      "file_size_bytes": 11605,
+      "text_length_chars": 452,
+      "summary": "Student roster for an acrosport (acrobatic sport) class. Lists student names organized in groups (A, B, C, D, E), likely for team assignments or grading purposes in a physical education setting.",
+      "key_topics": ["acrosport", "student roster", "physical education", "team assignments", "class organization"],
+      "content_excerpt": "ACROSPORT TERM A B C D E ELODIE Charbonnel SALOME Delgado CAMILLE Martinelle MATHILDE Desvismes CAROLINE Euvrard MARIE ELEONORE Aminot ELISE Karger CLOE Villard FANNY Silvestre CHARLOTTE Martignon LOUISE Larnicol CAMILLE Rochereau BENJAMIN Venitucci RAPHAEL Garcia CYRIL Maurel DAVID Thery-Bulha ANNA Balluet CLEMENTINE Barratin MELISSA Meklat PAUL Albaladejo VALENTIN Jaillet VALENTIN ghibaudo CHARLOTTE Jumeau ALIX Lobes DYLAN Serbin"
+    },
+    {
+      "file_path": "C:\\Users\\quent\\OneDrive\\??-Teaching-EPS\\01-AP\\Analyse du sujet.docx",
+      "category": "Teaching-EPS",
+      "file_size_bytes": 13842,
+      "text_length_chars": 4194,
+      "summary": "Academic essay analyzing the relationship between classroom discipline management and student learning organization in physical education (EPS). Discusses whether discipline and pedagogy are contradictory, complementary, or inseparable. Explores competency-based learning, motor skill acquisition, and the role of projects in student success. References Michel Derrider's work on technique as cultural heritage and personal style.",
+      "key_topics": ["classroom management", "pedagogy", "motor learning", "competency-based education", "physical education theory", "teaching methods", "student assessment"],
+      "content_excerpt": "Au cours de son intervention le professeur d'EPS est confronte a un dilemme comme essentiel : la gestion disciplinaire du groupe classe et l'organisation de l'apprentissage des eleves, comment concevez vous cela ? Opposition entre les 2 Alternative entre 2 options qui visent 1 meme but/ finalite de formation. Y a-t-il contradiction ? Apprentissage : moteur, socio affectif, cognitif. : contradictoire N1, Complementaire N2, Indissociable N3."
+    },
+    {
+      "file_path": "C:\\Users\\quent\\OneDrive\\??-Teaching-EPS\\01-AP\\Analyse situation.docx",
+      "category": "Teaching-EPS",
+      "file_size_bytes": 11425,
+      "text_length_chars": 1844,
+      "summary": "Case study analysis of a disciplinary incident involving 4th-grade students at a boulodrome (petanque court). A student kicked a hole in a plaster wall during class. The document analyzes the situation before, during, and after the incident, proposes short, medium, and long-term interventions, and discusses collaboration with school staff (CPE, principal) and parents.",
+      "key_topics": ["disciplinary incident", "student behavior", "classroom management", "school violence", "intervention strategies", "parent collaboration", "physical education safety"],
+      "content_excerpt": "Analyse d'une situation - Les eleves de 4eme au boulodrome lundi matin (11h30) Coup de pied dans le mur = trou dans le mur - Avt = a la fin de la seance pendant que certains rangent le materiel, les autres attendent devant les vestiaires - Pendant = absence de l'E / quand l'E revient les eleves se dispersent - Apres = constater le trou = 30cm de diametre et 10cm de profondeur mur en placo, 1 m de hauteur"
+    },
+    {
+      "file_path": "C:\\Users\\quent\\OneDrive\\??-Teaching-EPS\\01-AP\\APPN.docx",
+      "category": "Teaching-EPS",
+      "file_size_bytes": 14854,
+      "text_length_chars": 4470,
+      "summary": "Academic notes on APPN (Physical and Sports Education Outdoor Activities), covering risk assessment in outdoor sports. Discusses subjective vs objective risk, efficiency vs effectiveness, and how students adapt to challenging environments (climbing, orienteering, cross-country skiing). Examines behavioral changes under stress, resource mobilization, and decision-making in complex natural settings.",
+      "key_topics": ["outdoor education", "risk management", "orienteering", "climbing", "cross-country skiing", "student adaptation", "motor skills", "physical education theory"],
+      "content_excerpt": "un deplacement finalise (point de depart et d'arrivee) - un risque subjectif (engagement psychologique, relatif au niveau de ressource du moment) en presence d'un risque objectif (lie aux dangers du milieu naturel) nul a l'ecole (consentir a s'engager). Le risque subjectif est faible pour un expert et forte pour un debutant."
+    },
+    {
+      "file_path": "C:\\Users\\quent\\OneDrive\\??-Teaching-EPS\\01-AP\\Apprentissage moteur temprado.docx",
+      "category": "Teaching-EPS",
+      "file_size_bytes": 18313,
+      "text_length_chars": 6673,
+      "summary": "Summary and analysis of Jean-Jacques Temprado's 1997 article on motor learning (Revue EPS 267). Covers the definition of motor learning, its stages (cognitive, associative/autonomous), and what is actually learned (perceptual-decisional and motor mechanisms). Discusses knowledge structuring, proceduralization, coordination mechanisms, and the optimization of motor response processes for stable, precise, and efficient performance.",
+      "key_topics": ["motor learning", "teaching pedagogy", "motor skills development", "cognitive phase", "autonomous phase", "motor coordination", "physical education theory", "student performance"],
+      "content_excerpt": "Les professeurs d'EPS sont des professionnels de l'apprentissage moteur utilise a des fins educatives. L'education physique s'envisage dans les valeurs educatives qu'elle doit vehiculer mais ne peut pas se concevoir sans le developpement des ressources et des habiletes motrices. C'est autour de cette double exigence que s'organise la definition des contenus des programmes et la conception des situations d'apprentissage."
+    },
+    {
+      "file_path": "C:\\Users\\quent\\OneDrive\\??-Personal-Documents\\03-Documents\\WordDocs\\Sport\\1 miles = 1 cupcake.docx",
+      "category": "Personal-Documents\\WordDocs\\Sport",
+      "file_size_bytes": 0,
+      "text_length_chars": 0,
+      "summary": "File appears to be empty or corrupted. No extractable text content was found. The title suggests it may relate to running/exercise rewards (1 mile run = 1 cupcake as motivation).",
+      "key_topics": ["empty file", "no content"],
+      "content_excerpt": "",
+      "note": "File extraction returned zero bytes of text. Possible empty document or extraction failure."
+    },
+    {
+      "file_path": "C:\\Users\\quent\\OneDrive\\??-Personal-Documents\\03-Documents\\WordDocs\\Sport\\211778131-Precision-Nutrition-Nutrient-Timing.docx",
+      "category": "Personal-Documents\\WordDocs\\Sport",
+      "file_size_bytes": 28984,
+      "text_length_chars": 28984,
+      "summary": "Detailed article from Precision Nutrition by Brian St. Pierre questioning the importance of nutrient timing for sports nutrition. Discusses the history of nutrient timing (post-workout vs anytime meals), the evolution of research findings, and whether strategic carb placement actually matters for performance, body composition, and health. Concludes that overall dietary quality and consistency matter more than precise timing.",
+      "key_topics": ["sports nutrition", "nutrient timing", "carbohydrate intake", "post-workout meals", "performance nutrition", "body composition", "research methodology"],
+      "content_excerpt": "Nutrient timing simply means eating specific nutrients (such as protein or carbs)... in specific amounts... at specific times (such as before, during, or after exercise). Researchers have explored this practice from different angles over the last few decades. In the early 2000s, with the publication of Nutrient Timing: The Future of Sports Nutrition by Drs. John Ivy and Robert Portman, the idea of nutrient timing became the Next Big Thing."
+    },
+    {
+      "file_path": "C:\\Users\\quent\\OneDrive\\??-Personal-Documents\\03-Documents\\WordDocs\\Sport\\A propos de la violence et des jeunes.docx",
+      "category": "Personal-Documents\\WordDocs\\Sport",
+      "file_size_bytes": 10867,
+      "text_length_chars": 10867,
+      "summary": "Academic article by Dubet analyzing youth violence and its social regulation. Identifies four forms of violence: juvenile violence deprived of regulation spaces, territorial violence, market violence, and rage violence. Examines how these manifest in school environments, linking increased school violence to massification of education and the inclusion of previously excluded student populations. Discusses how schools now retain students who previously would have left at age 14-15.",
+      "key_topics": ["youth violence", "social regulation", "school violence", "educational massification", "social integration", "disciplinary issues", "sociology of education"],
+      "content_excerpt": "Parce que la violence est definie par sa representation, parce qu'elle n'est rien d'autre que ce qui est vecu comme une violence dans une culture, dans un groupe et dans un contexte d'interaction, elle ne peut etre reduite a un phenomene objectif mesurable. C'est pour cette raison que nous avons choisi de nous interesser aux formes de violences associees aux jeunes plutot que de mesurer d'eventuels indicateurs quantitatifs."
+    },
+    {
+      "file_path": "C:\\Users\\quent\\OneDrive\\??-Personal-Documents\\03-Documents\\WordDocs\\Sport\\Adresse mail club.docx",
+      "category": "Personal-Documents\\WordDocs\\Sport",
+      "file_size_bytes": 749,
+      "text_length_chars": 749,
+      "summary": "Contact directory for handball clubs in the Hautes-Alpes region (France). Lists club names, contact persons, addresses, phone numbers, and handball federation email addresses for clubs including Gap HB, HBC Embrun, HBC Champsaur Valgaudemar, HBC Briancon, and Multi Sports Laragnais.",
+      "key_topics": ["handball clubs", "contact directory", "Hautes-Alpes", "sports organizations", "club contacts"],
+      "content_excerpt": "GAP HB Romain FAURE Maison Dum'Art 14 Avenue Commandant Dumont 05000 Gap 06 32 02 05 35 2305004@handball-france.eu Patrick FAURE HBC EMBRUN Lieu-Dit Serre Bellon 05200 St Andre d'Embrun 04 92 43 66 17 2305005@handball-france.eu"
+    },
+    {
+      "file_path": "C:\\Users\\quent\\OneDrive\\??-Personal-Documents\\03-Documents\\WordDocs\\Sport\\articlecomitehandball.docx",
+      "category": "Personal-Documents\\WordDocs\\Sport",
+      "file_size_bytes": 816,
+      "text_length_chars": 816,
+      "summary": "News article about the Hautes-Alpes handball selection team (14-year-olds) reaching the semi-finals of the French national inter-committee championships. Describes their victory against Corsica and the Eastern Pyrenees in Toulon, highlighting their conquering defense and fast forward play. Despite a loss to the Var team, they advanced to the next round, coached by Charles Colombani and Quentin Fabre.",
+      "key_topics": ["handball", "Hautes-Alpes", "youth sports", "championship", "team performance", "sports competition"],
+      "content_excerpt": "C'est avec etat d'esprit combatif et une grande determination que la selection des meilleurs joueurs de handball des Hautes-Alpes (categories des 14 ans) a remporte le droit de disputer le 3eme tour des inter-comites nationaux. Ce dimanche (30 mars) a Toulon, les joueurs Hauts-Alpins ont su hausser leur niveau de jeu et creer la surprise en gagnant face a la Corse et aux Pyrenees orientales."
+    }
+  ]
+}

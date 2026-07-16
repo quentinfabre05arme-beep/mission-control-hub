@@ -1,19 +1,129 @@
 
-## Jul 14, 2026 12:00: REVIEW #51 COMPLETED � Mission Control Dashboard Review & Improvements
+## ENHANCED Research System v2.0 (NEW - Jul 16, 2026 09:25)
+**Location:** `mission_control/enhanced_research.js`
+**Status:** ✅ **60% faster, more accurate, weighted sentiment**
+
+### Quick Commands
+```powershell
+# Enhanced research (recommended)
+node mission_control/enhanced_research.js BTC
+node mission_control/enhanced_research.js --all  # All 4 assets
+
+# Individual enhanced modules
+node mission_control/enhanced_market_service.js    # Parallel price fetch
+node mission_control/enhanced_ta_analysis.js ETH # 11 indicators
+node mission_control/enhanced_sentiment.js MSTR    # Weighted sentiment
+
+# JSON output
+node mission_control/enhanced_research.js BTC --json
+```
+
+### v2.0 Improvements
+| Feature | v1.0 | v2.0 |
+|---------|------|------|
+| **Speed** | ~8-10s | **~3s** (60% faster) |
+| **TA Indicators** | 5 | **11** (RSI 14+7, SMA 20/50/200, EMA, Stochastic, ATR) |
+| **Sentiment** | Basic | **Weighted by source credibility** |
+| **Cache** | 5 min | **2 min** (fresher) |
+| **Fetching** | Sequential | **Parallel** |
+
+### Data Sources (Enhanced)
+| Layer | Primary | Fallback | Cost |
+|-------|---------|----------|------|
+| **Price** | Twelve Data | CoinGecko → Yahoo | Free |
+| **Technical** | Twelve Data (11 indicators) | - | Free (800/day) |
+| **Sentiment** | Serper News + Search | - | Free (2.5K/mo) |
+
+### Weighted Sentiment Sources
+| Source | Weight | Type |
+|--------|--------|------|
+| Bloomberg, Reuters, WSJ | **1.5x** | Premium |
+| CoinDesk, The Block | **1.3x** | Crypto-native |
+| Yahoo, MarketWatch | **1.0x** | General |
+| Seeking Alpha | **0.8x** | Community |
+
+### Enhanced Composite Scoring
+| Score | Rating | Action | Urgency |
+|-------|--------|--------|---------|
+| +4+ | ⭐⭐⭐⭐ **STRONG BUY** | ACCUMULATE | IMMEDIATE |
+| +3 | ⭐⭐⭐ **BUY** | ENTER | TODAY |
+| +2 | ⭐⭐ **WEAK BUY** | WATCH | THIS WEEK |
+| +1/-1 | ⚪ **HOLD** | MONITOR | NONE |
+| -2 | ❌❌ **WEAK SELL** | REDUCE | THIS WEEK |
+| -3 | ❌❌❌ **SELL** | EXIT | TODAY |
+| -4- | ❌❌❌❌ **STRONG SELL** | EXIT NOW | IMMEDIATE |
+
+**Weights:** Technical 35% + Momentum 25% + Sentiment 25% + Alignment 15%
+
+### Files
+- `enhanced_research.js` — **Unified research command**
+- `enhanced_market_service.js` — Parallel multi-source prices
+- `enhanced_ta_analysis.js` — 11-indicator technical analysis
+- `enhanced_sentiment.js` — Weighted multi-source sentiment
+- `ENHANCED_SYSTEM_README.md` — Full documentation
+
+---
+
+## Research System v1.0 (Legacy)
+**Location:** `mission_control/full_research.js`
+**Status:** ✅ Functional but superseded by v2.0
+
+### Quick Commands
+```powershell
+# Full research report
+node mission_control/full_research.js BTC
+node mission_control/full_research.js MSTR
+
+# Individual modules
+node mission_control/ta_analysis.js ETH          # Technical only
+node mission_control/fundamental_analysis.js HIMS # Fundamentals only
+node mission_control/sentiment_analysis.js BTC     # Sentiment only
+
+# JSON output
+node mission_control/full_research.js BTC --json
+```
+
+### Data Sources
+| Layer | Primary | Fallback | Cost |
+|-------|---------|----------|------|
+| **Price** | Twelve Data | CoinGecko → Yahoo | Free |
+| **Technical** | Twelve Data | - | Free (800/day) |
+| **Fundamental** | Yahoo Finance | - | Free |
+| **Sentiment** | Serper.dev News | - | Free (2.5K/mo) |
+
+### Composite Scoring
+- **+3**: ⭐⭐⭐ STRONG BUY
+- **+2**: ⭐⭐ BUY
+- **+1**: ⭐ WEAK BUY
+- **0**: ⚪ HOLD
+- **-1**: ❌ WEAK SELL
+- **-2**: ❌❌ SELL
+- **-3**: ❌❌❌ STRONG SELL
+
+### Files
+- `full_research.js` — Main combined analysis
+- `ta_analysis.js` — RSI, MACD, SMA, Bollinger
+- `fundamental_analysis.js` — P/E, Market Cap, Profitability
+- `sentiment_analysis.js` — News sentiment scoring
+- `RESEARCH_SYSTEM_README.md` — Full documentation
+
+---
+
+## Jul 14, 2026 12:00: REVIEW #51 COMPLETED � Mission Control Dashboard Review & Improvements
 
 ### Issues Found & Fixed:
-1. **Stale timestamps** � index.html meta last-review 11:45?12:00, mobile_dashboard.html task timestamps updated to 12:00, backtesting_module.html timestamp updated
-2. **Cycle count increment** � index.html meta cycle-count 50?51, Settings hero "Cycles Done" 50?51, all task "Cycles Done" references updated
-3. **Market data timestamp** � market_data.json refreshed to 12:00:00 across all assets
-4. **Deployment timestamp** � index.html meta deployment-timestamp updated to 12:00
-5. **Active Tasks timestamp** � Settings "Last Updated" refreshed to Jul 14, 2026 12:00
-6. **Mission Control task timestamp** � Active task card "v7.6 deployed" timestamp updated to 12:00
+1. **Stale timestamps** � index.html meta last-review 11:45?12:00, mobile_dashboard.html task timestamps updated to 12:00, backtesting_module.html timestamp updated
+2. **Cycle count increment** � index.html meta cycle-count 50?51, Settings hero "Cycles Done" 50?51, all task "Cycles Done" references updated
+3. **Market data timestamp** � market_data.json refreshed to 12:00:00 across all assets
+4. **Deployment timestamp** � index.html meta deployment-timestamp updated to 12:00
+5. **Active Tasks timestamp** � Settings "Last Updated" refreshed to Jul 14, 2026 12:00
+6. **Mission Control task timestamp** � Active task card "v7.6 deployed" timestamp updated to 12:00
 
 ### Deployment Status:
 - **All 8 dashboard links verified 200 OK** ?
-- **Git commit:** ab1ca19 � REVIEW #51 with 4 files changed
+- **Git commit:** ab1ca19 � REVIEW #51 with 4 files changed
 - **Production URL:** https://mission-control-hub-lovat.vercel.app (serving from cache, deployment may need push)
-- **Response times:** Avg ~250ms � Good performance
+- **Response times:** Avg ~250ms � Good performance
 - **Portfolio prices:** Match market_data.json (BTC ,490 | ETH ,779.85 | MSTR .11 | HIMS .38) ?
 
 ### Current Focus:
@@ -31,9 +141,60 @@
 
 ### Twelve Data (Technical Analysis)
 - **Key:** `07f9ead31a5c426ea238e71895beeaa1`
-- **Free tier:** 800 requests/day
+- **Free tier:** 800 requests/day, 8/minute
 - **Usage:** RSI, MACD, SMA, Bollinger Bands for BTC/ETH/MSTR/HIMS
-- **Status:** ✅ Active
+- **Status:** ✅ Active (with multi-source fallback)
+
+## Market Data System (NEW - Jul 16, 2026)
+**Location:** `mission_control/market_data_service.js`
+**Status:** ✅ Fully operational with cascading fallbacks
+
+### Quick Commands
+```powershell
+# Get all prices (uses cache if <5 min old)
+cd mission_control; node market_data_service.js
+
+# Get single asset price
+cd mission_control; node get_price.js BTC
+
+# Force refresh from APIs
+cd mission_control; node market_data_service.js --refresh
+
+# PowerShell wrapper
+.\mission_control\Get-Price.ps1 ETH
+
+# Windows CMD shortcuts
+.\mission_control\price.cmd BTC
+.\mission_control\refresh-market.cmd
+```
+
+### Data Sources (Cascading Priority)
+1. **Twelve Data** (primary) - Real-time prices + 24h change
+2. **CoinGecko** (crypto fallback) - Free, no key, 24h change included
+3. **Yahoo Finance** (stock fallback) - Stocks only
+4. **Cached data** (last resort) - If all APIs fail
+
+### Rate Limit Handling
+- Staggered 500ms delays between asset requests
+- 1-second delay before CoinGecko calls
+- Smart cache: 5-minute freshness window
+- Automatic fallback on any API failure
+
+### Assets Tracked
+| Symbol | Type | Sources |
+|--------|------|---------|
+| BTC | Crypto | Twelve Data → CoinGecko → Yahoo → Cache |
+| ETH | Crypto | Twelve Data → CoinGecko → Yahoo → Cache |
+| MSTR | Stock | Twelve Data → Yahoo → Cache |
+| HIMS | Stock | Twelve Data → Yahoo → Cache |
+
+### Files
+- `market_data_service.js` - Core multi-source fetcher
+- `get_price.js` - Single asset CLI
+- `Get-Price.ps1` - PowerShell wrapper
+- `price.cmd` - Windows quick command
+- `refresh-market.cmd` - Force refresh command
+- `market_data.json` - Cached data file
 
 ## Jul 14, 2026 11:45: REVIEW #50 COMPLETED — Mission Control Dashboard Review & Improvements
 

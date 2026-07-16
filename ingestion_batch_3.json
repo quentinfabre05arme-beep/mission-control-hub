@@ -1,0 +1,495 @@
+{
+  "batch_id": "batch_3_development_tech",
+  "description": "Development and Tech files from OneDrive ??-Development-Tech and related paths",
+  "ingested_at": "2026-07-16T00:40:00+02:00",
+  "source_paths": [
+    "C:\\Users\\quent\\OneDrive\\??-Development-Tech\\07-Development",
+    "C:\\Users\\quent\\OneDrive\\??-Development-Tech\\Mission-Control"
+  ],
+  "files": [
+    {
+      "path": "??-Development-Tech/07-Development/CodeFiles/Claude/benchmarking_analysis.js",
+      "filename": "benchmarking_analysis.js",
+      "extension": ".js",
+      "type": "javascript",
+      "purpose": "Generate DOCX benchmarking analysis documents using the docx library",
+      "key_functionality": [
+        "Creates styled Word documents with tables, headings, and formatted paragraphs",
+        "Uses Document, Packer, Paragraph, TextRun, Table components from docx package",
+        "Defines custom border styles and paragraph formatting",
+        "Outputs structured business/service analysis documents"
+      ],
+      "dependencies": ["docx", "fs (Node.js built-in)"],
+      "notes": "Part of a Claude-generated document generation toolkit for e-commerce/service proposals"
+    },
+    {
+      "path": "??-Development-Tech/07-Development/CodeFiles/Claude/create_ecommerce_service.js",
+      "filename": "create_ecommerce_service.js",
+      "extension": ".js",
+      "type": "javascript",
+      "purpose": "Generate DOCX service proposals for e-commerce product description + copywriting services",
+      "key_functionality": [
+        "Creates professional Word documents with service descriptions",
+        "Includes structured sections with headings (H1, H2)",
+        "Uses tables and styled paragraphs for service pricing/details",
+        "French language content for e-commerce copywriting services"
+      ],
+      "dependencies": ["docx", "fs (Node.js built-in)"],
+      "notes": "Generates proposals in French; appears to be for a copywriting/e-commerce service offering"
+    },
+    {
+      "path": "??-Development-Tech/07-Development/CodeFiles/Claude/generate_document.js",
+      "filename": "generate_document.js",
+      "extension": ".js",
+      "type": "javascript",
+      "purpose": "General-purpose DOCX document generator with advanced styling and table support",
+      "key_functionality": [
+        "Creates richly formatted Word documents with light/dark border styles",
+        "Supports page orientation, vertical alignment, and shading",
+        "Uses HeadingLevel, PageBreak, PageOrientation from docx",
+        "Template for generating professional business documents"
+      ],
+      "dependencies": ["docx", "fs (Node.js built-in)"],
+      "notes": "Most comprehensive of the three docx generators; includes advanced formatting options"
+    },
+    {
+      "path": "??-Development-Tech/07-Development/CodeFiles/Claude/package.json",
+      "filename": "package.json",
+      "extension": ".json",
+      "type": "npm_package_config",
+      "purpose": "NPM package configuration for Claude document generation toolkit",
+      "key_functionality": [
+        "Declares docx library dependency (v9.6.1) for Word document generation"
+      ],
+      "dependencies": ["docx@^9.6.1"],
+      "notes": "Simple package.json for the document generation scripts"
+    },
+    {
+      "path": "??-Development-Tech/07-Development/CodeFiles/Claude/package-lock.json",
+      "filename": "package-lock.json",
+      "extension": ".json",
+      "type": "npm_lockfile",
+      "purpose": "NPM dependency lock file for reproducible installs",
+      "key_functionality": [
+        "Locks exact versions of docx and transitive dependencies"
+      ],
+      "dependencies": ["docx and transitive dependencies"],
+      "notes": "Standard npm lockfile"
+    },
+    {
+      "path": "??-Development-Tech/07-Development/CodeFiles/Culture/jquery-1.3.2.js",
+      "filename": "jquery-1.3.2.js",
+      "extension": ".js",
+      "type": "javascript_library",
+      "purpose": "Legacy jQuery library (v1.3.2) for DOM manipulation",
+      "key_functionality": [
+        "Cross-browser JavaScript DOM manipulation",
+        "Event handling, AJAX, animations"
+      ],
+      "dependencies": ["None (self-contained library)"],
+      "notes": "Very old jQuery version (2009); likely used for legacy website"
+    },
+    {
+      "path": "??-Development-Tech/07-Development/CodeFiles/Culture/menus.js",
+      "filename": "menus.js",
+      "extension": ".js",
+      "type": "javascript",
+      "purpose": "Menu/navigation functionality for a website",
+      "key_functionality": [
+        "Dynamic menu behavior",
+        "Navigation interactions"
+      ],
+      "dependencies": ["jquery-1.3.2.js (likely)"],
+      "notes": "Legacy website menu script"
+    },
+    {
+      "path": "??-Development-Tech/07-Development/CodeFiles/Culture/menus2.js",
+      "filename": "menus2.js",
+      "extension": ".js",
+      "type": "javascript",
+      "purpose": "Secondary menu script for website navigation",
+      "key_functionality": [
+        "Additional menu behaviors",
+        "Navigation enhancements"
+      ],
+      "dependencies": ["jquery-1.3.2.js (likely)"],
+      "notes": "Complementary menu script"
+    },
+    {
+      "path": "??-Development-Tech/07-Development/CodeFiles/Culture/roll_over.js",
+      "filename": "roll_over.js",
+      "extension": ".js",
+      "type": "javascript",
+      "purpose": "Image rollover/hover effects for website",
+      "key_functionality": [
+        "Image swap on mouse hover",
+        "Classic rollover navigation effects"
+      ],
+      "dependencies": ["jquery-1.3.2.js (likely)"],
+      "notes": "Legacy rollover effect script"
+    },
+    {
+      "path": "??-Development-Tech/07-Development/CodeFiles/Obsidian Vault/app.json",
+      "filename": "app.json",
+      "extension": ".json",
+      "type": "obsidian_config",
+      "purpose": "Obsidian vault application configuration",
+      "key_functionality": [
+        "Obsidian app settings and preferences"
+      ],
+      "dependencies": ["Obsidian app"],
+      "notes": "Personal Obsidian knowledge base config"
+    },
+    {
+      "path": "??-Development-Tech/07-Development/CodeFiles/Obsidian Vault/appearance.json",
+      "filename": "appearance.json",
+      "extension": ".json",
+      "type": "obsidian_config",
+      "purpose": "Obsidian vault appearance/theme settings",
+      "key_functionality": [
+        "Theme selection, font sizes, color schemes"
+      ],
+      "dependencies": ["Obsidian app"],
+      "notes": "Obsidian appearance configuration"
+    },
+    {
+      "path": "??-Development-Tech/07-Development/CodeFiles/Obsidian Vault/core-plugins.json",
+      "filename": "core-plugins.json",
+      "extension": ".json",
+      "type": "obsidian_config",
+      "purpose": "Obsidian core plugins configuration",
+      "key_functionality": [
+        "Enabled/disabled core plugin list"
+      ],
+      "dependencies": ["Obsidian app"],
+      "notes": "Obsidian plugin management"
+    },
+    {
+      "path": "??-Development-Tech/07-Development/CodeFiles/Obsidian Vault/graph.json",
+      "filename": "graph.json",
+      "extension": ".json",
+      "type": "obsidian_config",
+      "purpose": "Obsidian graph view settings",
+      "key_functionality": [
+        "Graph visualization parameters, node styling, filter settings"
+      ],
+      "dependencies": ["Obsidian app"],
+      "notes": "Knowledge graph visualization config"
+    },
+    {
+      "path": "??-Development-Tech/07-Development/CodeFiles/Obsidian Vault/workspace.json",
+      "filename": "workspace.json",
+      "extension": ".json",
+      "type": "obsidian_config",
+      "purpose": "Obsidian workspace layout configuration",
+      "key_functionality": [
+        "Pane layout, sidebar states, open files"
+      ],
+      "dependencies": ["Obsidian app"],
+      "notes": "Workspace state persistence"
+    },
+    {
+      "path": "??-Development-Tech/07-Development/CodeFiles/Sport/fonctions.inc.js",
+      "filename": "fonctions.inc.js",
+      "extension": ".js",
+      "type": "javascript",
+      "purpose": "Utility functions for a sports-related website/application",
+      "key_functionality": [
+        "Shared utility functions",
+        "Common operations for sports site"
+      ],
+      "dependencies": ["prototype.js (likely)"],
+      "notes": "French-named file ('functions.inc.js')"
+    },
+    {
+      "path": "??-Development-Tech/07-Development/CodeFiles/Sport/hpage.js through hpage_9.js",
+      "filename": "hpage.js series (hpage.js to hpage_9.js)",
+      "extension": ".js",
+      "type": "javascript",
+      "purpose": "Homepage and section page scripts for a sports website",
+      "key_functionality": [
+        "Multiple page-specific JavaScript files (hpage.js through hpage_9.js)",
+        "Likely handles page-specific behaviors for different sections"
+      ],
+      "dependencies": ["prototype.js"],
+      "notes": "Series of 10 hpage scripts (hpage.js, hpage_1.js through hpage_9.js) for different sports website pages"
+    },
+    {
+      "path": "??-Development-Tech/07-Development/CodeFiles/Sport/prototype.js",
+      "filename": "prototype.js",
+      "extension": ".js",
+      "type": "javascript_library",
+      "purpose": "Prototype.js JavaScript framework for DOM manipulation and AJAX",
+      "key_functionality": [
+        "Class-based OOP, DOM manipulation, AJAX requests",
+        "Predecessor to modern frameworks like React/Vue"
+      ],
+      "dependencies": ["None (self-contained library)"],
+      "notes": "Legacy Prototype.js framework; older than jQuery"
+    },
+    {
+      "path": "??-Development-Tech/07-Development/Mission Control/Dashboard/manifest.json",
+      "filename": "manifest.json",
+      "extension": ".json",
+      "type": "pwa_manifest",
+      "purpose": "PWA manifest for Mission Control dashboard",
+      "key_functionality": [
+        "Defines app metadata: name (@quentinvest1 Mission Control), short_name, description",
+        "Theme colors (#0a0a0a background, #00d4ff theme)",
+        "Standalone display mode, portrait orientation",
+        "SVG icon with embedded data URI"
+      ],
+      "dependencies": ["Web browser with PWA support"],
+      "notes": "Mission Control PWA manifest for X growth dashboard"
+    },
+    {
+      "path": "??-Development-Tech/07-Development/Mission Control/Data/brain_coding_muscles.json",
+      "filename": "brain_coding_muscles.json",
+      "extension": ".json",
+      "type": "ai_model_routing_config",
+      "purpose": "Three-tier AI model routing configuration (Brain-Coding-Muscles system)",
+      "key_functionality": [
+        "Defines 3 tiers: brain (research/strategy), coding (development), muscles (execution)",
+        "Maps each tier to primary and fallback models (deepseek-v4-pro, kimi-k2.7-code, kimi-k2.5)",
+        "Cost profiles: high/medium/low",
+        "Auto-route and fallback chain configuration"
+      ],
+      "dependencies": ["Used by bcm_system.py"],
+      "notes": "Core configuration for cost-optimized AI model selection"
+    },
+    {
+      "path": "??-Development-Tech/07-Development/Mission Control/Scripts/bcm_system.py",
+      "filename": "bcm_system.py",
+      "extension": ".py",
+      "type": "python_cli_tool",
+      "purpose": "Brain-Coding-Muscles (BCM) system CLI for OpenClaw integration",
+      "key_functionality": [
+        "CLI commands: brain, coding, muscles, auto, workflow, cost, help",
+        "Auto-routes tasks based on keywords (research->brain, code->coding, else->muscles)",
+        "Generates cost efficiency reports with markdown output",
+        "Spawns sub-agents with appropriate model tiers",
+        "Daily workflow orchestration (morning: brain+coding, afternoon: muscles, evening: brain)"
+      ],
+      "dependencies": ["json", "sys", "datetime", "pathlib", "brain_coding_muscles.json config file"],
+      "notes": "Central BCM orchestrator; optimizes token spend with 80/15/5 distribution (muscles/coding/brain)"
+    },
+    {
+      "path": "??-Development-Tech/07-Development/Mission Control/Scripts/mission_control_data_feed.py",
+      "filename": "mission_control_data_feed.py",
+      "extension": ".py",
+      "type": "python_data_generator",
+      "purpose": "Generate real-time data feed for Mission Control Dashboard",
+      "key_functionality": [
+        "Tracks Ollama Cloud usage (tier, tokens used, cost today/week)",
+        "BCM tier usage stats (brain/coding/muscles tasks, tokens, models)",
+        "X mission stats (followers, content, engagement, streaks)",
+        "Content pillar status (ETH Treasury, HIMS Healthcare, AI Agentic Commerce)",
+        "Daily rhythm phase detection (content_creation, engagement, community, rest)",
+        "What-to-post queue (urgent/today/this week)",
+        "Engagement targets (Tier 1 accounts, opportunities)",
+        "Active task monitoring from output directories",
+        "System health (ollama_cloud status, gateway uptime, API latency)",
+        "Recent activity tracking from output files",
+        "Weekly summary generation"
+      ],
+      "dependencies": ["json", "os", "datetime", "timedelta", "pathlib"],
+      "notes": "Comprehensive data generator for @quentinvest1's X growth dashboard; outputs mission_control_data.json"
+    },
+    {
+      "path": "??-Development-Tech/Mission-Control/Dashboard/dashboard_data.json",
+      "filename": "dashboard_data.json",
+      "extension": ".json",
+      "type": "dashboard_data",
+      "purpose": "Mission Control dashboard data store with followers, tasks, posts, and content pillars",
+      "key_functionality": [
+        "Stores follower count (212), target (10000), growth history",
+        "Task list with priorities and completion status",
+        "Post queue with titles, priorities, pillars, and statuses",
+        "Content pillars: ETH Treasury, HIMS Healthcare, AI Agentic Commerce"
+      ],
+      "dependencies": ["Used by data_loader.js and sync_dashboard.py"],
+      "notes": "Main data file for Mission Control Dashboard v2.1"
+    },
+    {
+      "path": "??-Development-Tech/Mission-Control/Dashboard/data_loader.js",
+      "filename": "data_loader.js",
+      "extension": ".js",
+      "type": "javascript_dashboard_module",
+      "purpose": "Dynamic data loader for Mission Control Dashboard v2.1",
+      "key_functionality": [
+        "Parses x_growth_log.md for follower counts",
+        "Parses threads_draft.md for thread titles and statuses",
+        "Generates growth history from current follower data",
+        "Updates DashboardData object and triggers re-render"
+      ],
+      "dependencies": ["DashboardData (global)", "updateDashboard()", "renderPosts()", "fetch API"],
+      "notes": "Client-side data loader; uses fetch for local file access"
+    },
+    {
+      "path": "??-Development-Tech/Mission-Control/Dashboard/sync_dashboard.py",
+      "filename": "sync_dashboard.py",
+      "extension": ".py",
+      "type": "python_sync_script",
+      "purpose": "Sync dashboard_data.json from markdown source files",
+      "key_functionality": [
+        "Parses x_growth_log.md for follower metrics",
+        "Parses threads_draft.md for thread titles",
+        "Updates dashboard_data.json with extracted data",
+        "Handles file encoding (UTF-8) and path resolution"
+      ],
+      "dependencies": ["sys", "json", "re", "datetime", "pathlib"],
+      "notes": "Run after updating markdown files to refresh dashboard data"
+    },
+    {
+      "path": "??-Development-Tech/Mission-Control/Dashboard/update_data.py",
+      "filename": "update_data.py",
+      "extension": ".py",
+      "type": "python_sync_script",
+      "purpose": "Update dashboard_data.json from markdown files (duplicate of sync_dashboard.py)",
+      "key_functionality": [
+        "Identical functionality to sync_dashboard.py",
+        "Parses growth log and threads from markdown",
+        "Updates dashboard_data.json"
+      ],
+      "dependencies": ["json", "re", "datetime", "pathlib"],
+      "notes": "Duplicate/variant of sync_dashboard.py; may be older version"
+    },
+    {
+      "path": "??-Development-Tech/Mission-Control/Dashboard/manifest.json",
+      "filename": "manifest.json",
+      "extension": ".json",
+      "type": "pwa_manifest",
+      "purpose": "PWA manifest for Mission Control dashboard (duplicate)",
+      "key_functionality": [
+        "Same as 07-Development/Mission Control/Dashboard/manifest.json",
+        "PWA metadata for standalone app experience"
+      ],
+      "dependencies": ["Web browser with PWA support"],
+      "notes": "Duplicate manifest in Mission-Control/Dashboard path"
+    },
+    {
+      "path": "??-Development-Tech/Mission-Control/Data/brain_coding_muscles.json",
+      "filename": "brain_coding_muscles.json",
+      "extension": ".json",
+      "type": "ai_model_routing_config",
+      "purpose": "BCM configuration (duplicate of 07-Development version)",
+      "key_functionality": [
+        "Identical three-tier system configuration",
+        "Same models and cost profiles"
+      ],
+      "dependencies": ["Used by bcm_system.py"],
+      "notes": "Duplicate in Mission-Control/Data path"
+    },
+    {
+      "path": "??-Development-Tech/Mission-Control/Mission Control/Content/drafts/thread_hims_healthcare_infrastructure_1783794622.json",
+      "filename": "thread_hims_healthcare_infrastructure_1783794622.json",
+      "extension": ".json",
+      "type": "content_draft",
+      "purpose": "Pre-written X thread about HIMS Healthcare Infrastructure",
+      "key_functionality": [
+        "5-tweet thread content with hooks and structured narrative",
+        "Includes character count (1009), media placeholders, hashtags",
+        "Status tracking (ready/scheduled)",
+        "Source file reference for audit trail"
+      ],
+      "dependencies": ["X posting system"],
+      "notes": "Ready-to-post thread; HIMS thesis about GLP-1 healthcare infrastructure"
+    },
+    {
+      "path": "??-Development-Tech/Mission-Control/operations/content_queue.json",
+      "filename": "content_queue.json",
+      "extension": ".json",
+      "type": "content_queue",
+      "purpose": "Queue of content awaiting approval/posting",
+      "key_functionality": [
+        "Tracks content items with ID, title, type, status, and submission timestamp",
+        "Current item: HIMS thread awaiting approval"
+      ],
+      "dependencies": ["Content management system"],
+      "notes": "Simple queue for content approval workflow"
+    },
+    {
+      "path": "??-Development-Tech/Mission-Control/operations/content_templates.json",
+      "filename": "content_templates.json",
+      "extension": ".json",
+      "type": "content_templates",
+      "purpose": "Reusable content templates for X posting across three pillars",
+      "key_functionality": [
+        "ETH Treasury templates: hooks, hashtags (#ETH #Treasury #Crypto), tone (analytical)",
+        "HIMS Healthcare templates: hooks, hashtags (#HIMS #Healthcare #GLP1), tone (insightful)",
+        "AI Agentic Commerce templates: hooks, hashtags (#AI #Agents #Commerce), tone (forward-looking)",
+        "Each template includes CTA (call-to-action) for engagement"
+      ],
+      "dependencies": ["Content generation system"],
+      "notes": "Template library for consistent content creation across investment thesis pillars"
+    },
+    {
+      "path": "??-Development-Tech/Mission-Control/Scripts/bcm_system.py",
+      "filename": "bcm_system.py",
+      "extension": ".py",
+      "type": "python_cli_tool",
+      "purpose": "BCM system CLI (duplicate of 07-Development version)",
+      "key_functionality": [
+        "Identical to 07-Development/Mission Control/Scripts/bcm_system.py",
+        "Brain/Coding/Muscles tier routing"
+      ],
+      "dependencies": ["json", "sys", "datetime", "pathlib"],
+      "notes": "Duplicate in Mission-Control/Scripts path"
+    },
+    {
+      "path": "??-Development-Tech/Mission-Control/Scripts/mission_control_data_feed.py",
+      "filename": "mission_control_data_feed.py",
+      "extension": ".py",
+      "type": "python_data_generator",
+      "purpose": "Mission Control data feed generator (duplicate of 07-Development version)",
+      "key_functionality": [
+        "Identical to 07-Development/Mission Control/Scripts/mission_control_data_feed.py",
+        "Comprehensive dashboard data generation"
+      ],
+      "dependencies": ["json", "os", "datetime", "timedelta", "pathlib"],
+      "notes": "Duplicate in Mission-Control/Scripts path"
+    }
+  ],
+  "summary": {
+    "total_files": 32,
+    "file_types": {
+      ".js": 18,
+      ".json": 14,
+      ".py": 5
+    },
+    "categories": {
+      "document_generation": 4,
+      "legacy_website": 8,
+      "obsidian_config": 5,
+      "mission_control_dashboard": 13,
+      "ai_model_routing": 5
+    },
+    "key_systems": [
+      "Brain-Coding-Muscles (BCM) AI Model Router",
+      "Mission Control Dashboard for X Growth",
+      "Document Generation Toolkit (DOCX)",
+      "Legacy Sports/Culture Websites (jQuery/Prototype.js)",
+      "Obsidian Personal Knowledge Base"
+    ],
+    "primary_dependencies": [
+      "docx (Node.js library for Word documents)",
+      "jquery-1.3.2.js (legacy DOM manipulation)",
+      "prototype.js (legacy JS framework)",
+      "Python standard library (json, sys, datetime, pathlib, os, re)"
+    ],
+    "notable_duplicates": [
+      "manifest.json (2 copies)",
+      "brain_coding_muscles.json (2 copies)",
+      "bcm_system.py (2 copies)",
+      "mission_control_data_feed.py (2 copies)",
+      "sync_dashboard.py / update_data.py (nearly identical)"
+    ],
+    "business_context": {
+      "primary_use_case": "X/Twitter growth automation for @quentinvest1",
+      "content_pillars": ["ETH Treasury Reserve", "HIMS Healthcare", "AI Agentic Commerce"],
+      "follower_goal": "10,000 (currently ~213-219)",
+      "ai_budget": "$20/month Ollama Cloud Pro",
+      "optimization_target": "80% muscles, 15% coding, 5% brain token distribution"
+    }
+  }
+}
