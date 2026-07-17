@@ -1,0 +1,45 @@
+{
+  "on_chain": {
+    "btc": {
+      "provider": "glassnode",
+      "endpoints": [
+        "https://api.glassnode.com/v1/metrics/signals/sopr",
+        "https://api.glassnode.com/v1/metrics/market/mvrv_z_score",
+        "https://api.glassnode.com/v1/metrics/exchange/flow_inflow"
+      ],
+      "signals": ["exchange_outflows", "whale_accumulation", "network_activity"]
+    },
+    "eth": {
+      "provider": "glassnode",
+      "endpoints": [
+        "https://api.glassnode.com/v1/metrics/eth2/staking_total_volume",
+        "https://api.glassnode.com/v1/metrics/fees/gas_price_mean"
+      ]
+    }
+  },
+  "order_flow": {
+    "crypto": {
+      "binance_depth": "https://api.binance.com/api/v3/depth",
+      "coinbase_orderbook": "https://api.exchange.coinbase.com/products/BTC-USD/book",
+      "unusual_volume_alert": true
+    },
+    "equities": {
+      "flowalgo_options": "https://api.flowalgo.com/flow/option-flow",
+      "unusual_whale_options": "https://api.unusualwhales.com/flow"
+    }
+  },
+  "sentiment": {
+    "fear_greed": "https://alternative.me/fng/?format=json",
+    "funding_rates": "https://api.coinglass.com/api/fundingRate/v3/funding-rate-chart?symbol=BTC&exchange=Binance&range=1"
+  },
+  "social": {
+    "grok_x_sentiment": {
+      "provider": "grok",
+      "endpoint": "x_sentiment_analysis",
+      "metrics": ["mention_volume", "sentiment_score", "trending_topics", "influencer_activity"],
+      "refresh": "hourly"
+    },
+    "twitter_volume": "https://api.twitter.com/2/tweets/search/recent",
+    "reddit_mentions": "https://www.reddit.com/r/cryptocurrency/search.json"
+  },
+}

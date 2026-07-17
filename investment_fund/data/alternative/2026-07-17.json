@@ -1,0 +1,158 @@
+{
+  "metadata": {
+    "fetch_timestamp": "2026-07-17T21:19:09.943Z",
+    "local_time": "17/07/2026 23:19:09",
+    "cycle_id": "alternative-data-2026-07-17",
+    "data_sources": [
+      "alternative.me",
+      "serper.dev",
+      "market_data.json"
+    ]
+  },
+  "market_snapshot": {
+    "timestamp": "2026-07-17T21:10:41.140Z",
+    "assets": {
+      "BTC": {
+        "price": 64167.14,
+        "change_24h": 0.52786925,
+        "source": "twelvedata",
+        "signal": "NEUTRAL"
+      },
+      "ETH": {
+        "price": 1844.75,
+        "change_24h": -1.070408,
+        "source": "twelvedata",
+        "signal": "NEUTRAL"
+      },
+      "MSTR": {
+        "price": 94.85,
+        "change_24h": 0.87206179,
+        "source": "twelvedata",
+        "signal": "NEUTRAL"
+      },
+      "HIMS": {
+        "price": 32.85,
+        "change_24h": -2.46438,
+        "source": "twelvedata",
+        "signal": "BEARISH"
+      }
+    },
+    "_meta": {
+      "fromCache": false,
+      "sources": [
+        "twelvedata",
+        "twelvedata",
+        "twelvedata",
+        "twelvedata"
+      ]
+    }
+  },
+  "sentiment": {
+    "fear_greed": {
+      "value": 27,
+      "classification": "FEAR",
+      "timestamp": "2026-07-17T00:00:00.000Z"
+    },
+    "whale_signals": {
+      "signal": "DISTRIBUTION",
+      "score": -2,
+      "confidence": 0.4,
+      "headlines": [
+        {
+          "sentiment": "distribution",
+          "title": "Ethereum approaches $1,900 resistance as ETF inflows and whale activity rise"
+        },
+        {
+          "sentiment": "distribution",
+          "title": "XRP Faces Pressure Amid Geopolitical Tensions but Whale Accumulation and ETF Inflows Signal Resilience"
+        }
+      ]
+    }
+  },
+  "on_chain": {
+    "whale_activity": {
+      "signal": "DISTRIBUTION",
+      "score": -2,
+      "confidence": 0.4,
+      "headlines": [
+        {
+          "sentiment": "distribution",
+          "title": "Ethereum approaches $1,900 resistance as ETF inflows and whale activity rise"
+        },
+        {
+          "sentiment": "distribution",
+          "title": "XRP Faces Pressure Amid Geopolitical Tensions but Whale Accumulation and ETF Inflows Signal Resilience"
+        }
+      ]
+    },
+    "exchange_flows": {
+      "status": "PENDING_IMPLEMENTATION"
+    }
+  },
+  "anomalies": {
+    "flags": [
+      {
+        "asset": "MARKET",
+        "type": "SENTIMENT_RECOVERY",
+        "severity": "MEDIUM",
+        "description": "Fear & Greed at 27 - recovering from extreme fear",
+        "signal": "CONTRARIAN_BUY"
+      },
+      {
+        "asset": "HIMS",
+        "type": "PRICE_DIVERGENCE",
+        "severity": "LOW",
+        "description": "HIMS down -2.46% vs neutral market",
+        "signal": "MONITOR"
+      }
+    ],
+    "count": 2,
+    "summary": "2 anomaly(s) detected"
+  },
+  "composite_scores": {
+    "BTC": {
+      "score": "0.30",
+      "rating": "SLIGHTLY_BULLISH",
+      "factors": [
+        "Extreme fear = contrarian buy opportunity"
+      ]
+    },
+    "ETH": {
+      "score": "0.10",
+      "rating": "NEUTRAL",
+      "factors": [
+        "Negative 24h momentum",
+        "Extreme fear = contrarian buy opportunity"
+      ]
+    },
+    "MSTR": {
+      "score": "0.30",
+      "rating": "SLIGHTLY_BULLISH",
+      "factors": [
+        "Extreme fear = contrarian buy opportunity"
+      ]
+    },
+    "HIMS": {
+      "score": "0.10",
+      "rating": "NEUTRAL",
+      "factors": [
+        "Negative 24h momentum",
+        "Extreme fear = contrarian buy opportunity"
+      ]
+    }
+  },
+  "research_flags": [
+    {
+      "priority": "MEDIUM",
+      "asset": "MARKET",
+      "task": "Investigate SENTIMENT_RECOVERY: Fear & Greed at 27 - recovering from extreme fear",
+      "signal": "CONTRARIAN_BUY"
+    },
+    {
+      "priority": "MEDIUM",
+      "asset": "HIMS",
+      "task": "Investigate PRICE_DIVERGENCE: HIMS down -2.46% vs neutral market",
+      "signal": "MONITOR"
+    }
+  ]
+}

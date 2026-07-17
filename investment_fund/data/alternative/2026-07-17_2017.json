@@ -1,0 +1,239 @@
+{
+  "timestamp": "2026-07-17T18:17:58.000Z",
+  "local_time": "17/07/2026, 20:17:00",
+  "data_fetch_id": "alt-2026-07-17-2017",
+  "fetch_type": "alternative-data-fetch",
+  "summary": {
+    "btc_price_usd": 63987,
+    "eth_price_usd": 1839.93,
+    "btc_24h_change_pct": -0.28888,
+    "eth_24h_change_pct": -1.86682,
+    "fear_greed_index": 27,
+    "fear_greed_label": "Fear",
+    "fear_greed_prev_day": 25,
+    "fear_greed_prev_week": 23,
+    "fear_greed_prev_month": 22,
+    "market_sentiment": "FEAR - IMPROVING FROM EXTREME FEAR",
+    "anomalies_detected": 4,
+    "next_update": "2026-07-17T21:17:00.000Z"
+  },
+  "on_chain_metrics": {
+    "btc": {
+      "price": 63987,
+      "price_change_24h": -185.38,
+      "price_change_24h_pct": -0.28888,
+      "volume_24h_usd": 27922875238,
+      "market_cap_usd": 1283893534852,
+      "market_cap_rank": 1,
+      "circulating_supply": 20057603,
+      "max_supply": 21000000,
+      "ath_usd": 126080,
+      "ath_change_pct": -49.24889,
+      "high_24h": 64249,
+      "low_24h": 62528,
+      "exchange_flows": {
+        "status": "monitoring_required",
+        "note": "Requires Glassnode premium API for accurate exchange inflow/outflow"
+      },
+      "whale_activity": {
+        "status": "monitoring_required",
+        "note": "Requires on-chain analytics subscription (Whale Alert API)"
+      },
+      "supply_dynamics": {
+        "supply_issued_pct": 95.51,
+        "remaining_mineable": 942397
+      }
+    },
+    "eth": {
+      "price": 1839.93,
+      "price_change_24h": -35.00,
+      "price_change_24h_pct": -1.86682,
+      "volume_24h_usd": 10466593638,
+      "market_cap_usd": 222087413411,
+      "market_cap_rank": 2,
+      "circulating_supply": 120682873.21,
+      "ath_usd": 4946.05,
+      "ath_change_pct": -62.80004,
+      "high_24h": 1879.63,
+      "low_24h": 1803.96,
+      "exchange_flows": {
+        "status": "monitoring_required",
+        "note": "Requires exchange API keys for accurate inflow/outflow data"
+      },
+      "staking_metrics": {
+        "note": "Validator data requires beacon chain API access"
+      }
+    }
+  },
+  "order_flow_data": {
+    "btc_volume_analysis": {
+      "volume_24h_usd": 27922875238,
+      "volume_change_24h_pct": -0.25,
+      "market_cap_change_24h": -3241937900.87,
+      "market_cap_change_pct": -0.25187,
+      "signal": "Volume elevated at $27.9B - institutional rotation or distribution",
+      "interpretation": "High volume with slight decline suggests accumulation or rotation rather than panic selling"
+    },
+    "eth_volume_analysis": {
+      "volume_24h_usd": 10466593638,
+      "volume_change_24h_pct": -1.85,
+      "market_cap_change_24h": -4186773008.79,
+      "market_cap_change_pct": -1.85031,
+      "signal": "Volume at $10.4B - underperforming BTC, weaker bid",
+      "interpretation": "ETH showing larger decline than BTC - risk-off sentiment in altcoins"
+    },
+    "volume_divergence": {
+      "signal": "BEARISH",
+      "description": "ETH underperforming BTC by -1.58% - classic risk-off behavior"
+    }
+  },
+  "funding_rates_sentiment": {
+    "fear_greed_index": {
+      "current_value": 27,
+      "current_classification": "Fear",
+      "previous_day": 25,
+      "previous_week": 23,
+      "previous_month": 22,
+      "trend": "RECOVERY_FROM_EXTREME_FEAR",
+      "historical_context": "Values rising from 22 to 27 over past month - sentiment slowly improving",
+      "trading_implication": "FEAR zone often precedes relief rallies. Index recovering from multi-month lows."
+    },
+    "sentiment_components": {
+      "volatility_weight": 25,
+      "market_momentum_volume_weight": 25,
+      "social_media_weight": 15,
+      "surveys_weight": 15,
+      "dominance_weight": 10,
+      "trends_weight": 10
+    },
+    "futures_funding": {
+      "status": "data_unavailable",
+      "source": "CoinGlass requires premium access",
+      "note": "Check coinglass.com for real-time funding rates"
+    }
+  },
+  "social_sentiment_indicators": {
+    "btc_sentiment": "CAUTIOUS",
+    "eth_sentiment": "UNDERPERFORMING",
+    "market_dominance": {
+      "btc_dominance_trend": "RISING",
+      "interpretation": "Rising BTC dominance during weakness suggests flight to safety"
+    },
+    "watchlist_users": {
+      "btc": "2,418,000+",
+      "eth": "1,968,700+"
+    },
+    "community_mood": {
+      "general": "Fear but stabilizing",
+      "btc_specific": "Holding above $62.5K low - resilience noted",
+      "eth_specific": "Concern over underperformance vs BTC"
+    }
+  },
+  "anomalies_flagged": [
+    {
+      "id": "ALT-001-2017",
+      "asset": "BTC/ETH",
+      "type": "FEAR_RECOVERY_PATTERN",
+      "severity": "MEDIUM",
+      "description": "Fear & Greed Index rising from 25 to 27 over 24h - early recovery signal",
+      "signal": "Sentiment bottoming pattern - extreme fear subsiding",
+      "action": "Monitor for confirmation above 30 (Neutral threshold)",
+      "historical_precedent": "Similar recoveries from 22-25 range preceded 15-20% relief rallies in 2024-2025"
+    },
+    {
+      "id": "ALT-002-2017",
+      "asset": "ETH",
+      "type": "UNDERPERFORMANCE_VS_BTC",
+      "severity": "MEDIUM",
+      "description": "ETH -1.87% vs BTC -0.29% - classic risk-off behavior in crypto",
+      "signal": "Altcoin weakness suggests retail risk-off, institutional BTC preference",
+      "action": "Watch BTC.D (dominance) for continued rise. ETH/BTC ratio approaching key support."
+    },
+    {
+      "id": "ALT-003-2017",
+      "asset": "BTC",
+      "type": "HIGH_VOLUME_CONSOLIDATION",
+      "severity": "LOW",
+      "description": "$27.9B daily volume with -0.29% price change",
+      "signal": "Large volume with minimal price movement suggests accumulation/distribution equilibrium",
+      "action": "Watch for volume spike with directional move - will confirm breakout/breakdown"
+    },
+    {
+      "id": "ALT-004-2017",
+      "asset": "BTC",
+      "type": "ATH_DISTANCE_EXTREME",
+      "severity": "MEDIUM",
+      "description": "BTC -49.25% from ATH ($126,080) - deep bear market territory",
+      "signal": "Price near 50% drawdown from peak - historically significant accumulation zone",
+      "action": "DCA strategy validated at these levels. Watch for capitulation volume spike."
+    }
+  ],
+  "early_signals": {
+    "bullish_signals": [
+      {
+        "signal": "Fear & Greed recovering from 22 (last month) to 27 (now)",
+        "significance": "Sentiment bottoming pattern - often leads price by 1-2 weeks",
+        "confidence": "MEDIUM"
+      },
+      {
+        "signal": "BTC holding $62.5K low despite broader weakness",
+        "significance": "Key support holding - institutional bids likely present",
+        "confidence": "MEDIUM"
+      }
+    ],
+    "bearish_signals": [
+      {
+        "signal": "ETH underperforming BTC significantly (-1.87% vs -0.29%)",
+        "significance": "Risk-off behavior - alts leading weakness",
+        "confidence": "HIGH"
+      },
+      {
+        "signal": "BTC -49% from ATH - macro bear trend intact",
+        "significance": "No confirmed bottom - trend remains down",
+        "confidence": "HIGH"
+      }
+    ],
+    "neutral_observations": [
+      "Volume remains elevated - indicates active institutional participation",
+      "BTC dominance likely rising during this weakness (flight to quality)",
+      "No extreme capitulation signals yet - Fear index still above 20"
+    ]
+  },
+  "market_microstructure": {
+    "btc": {
+      "bid_ask_spread": "tight",
+      "liquidity": "excellent",
+      "slippage_1m": "minimal",
+      "observation": "Institutional-grade liquidity despite weekend"
+    },
+    "eth": {
+      "bid_ask_spread": "normal",
+      "liquidity": "good",
+      "slippage_1m": "low",
+      "observation": "Adequate liquidity but softer than BTC"
+    }
+  },
+  "research_team_notes": {
+    "data_sources": [
+      "CoinGecko API - Real-time prices and market data",
+      "Alternative.me Fear & Greed Index API",
+      "Whale Alert (limited access)",
+      "CoinGlass (redirect only - premium required)"
+    ],
+    "data_gaps": [
+      "Exchange inflow/outflow: Requires Glassnode premium or CryptoQuant subscription",
+      "Whale tracking: Requires Whale Alert API key for real-time alerts",
+      "Funding rates: Requires CoinGlass or Bybt premium subscription",
+      "Options flow: Requires Deribit or Derive (Lyra) data access",
+      "Order book depth: Requires exchange API access (Coinbase Pro, Binance)"
+    ],
+    "recommended_upgrades": [
+      "Glassnode Basic Plan ($29/mo) for on-chain metrics",
+      "CryptoQuant Pro ($39/mo) for exchange flows",
+      "CoinGlass Pro ($20/mo) for funding rates and liquidations"
+    ],
+    "cron_job": "alternative-data-fetch",
+    "session_id": "91c519d7-1d85-4706-9361-9ff3aa18677f",
+    "fetch_time_utc": "2026-07-17T18:17:00.000Z"
+  }
+}

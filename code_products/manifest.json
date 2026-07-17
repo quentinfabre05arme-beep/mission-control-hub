@@ -1,0 +1,42 @@
+{
+  "version": "1.0.0",
+  "products": [
+    {
+      "id": "btc-scanner",
+      "name": "BTC Momentum Scanner",
+      "description": "Real-time Bitcoin momentum detection with RSI, MACD, volume",
+      "price": 49,
+      "files": ["scanner.js", "README.md", "config.json"],
+      "tags": ["crypto", "trading", "scanner"]
+    },
+    {
+      "id": "position-sizing",
+      "name": "Kelly Position Sizing Calculator",
+      "description": "Risk-optimized position sizing with tier multipliers",
+      "price": 29,
+      "files": ["kelly_sizing.js", "examples.md"],
+      "tags": ["risk-management", "position-sizing"]
+    },
+    {
+      "id": "alert-system",
+      "name": "Multi-Target Alert System",
+      "description": "Automated alerts for partial profits, stops, time exits",
+      "price": 79,
+      "files": ["alerts.js", "telegram_bot.js", "setup.md"],
+      "tags": ["alerts", "automation", "telegram"]
+    },
+    {
+      "id": "full-dashboard",
+      "name": "Mission Control Dashboard",
+      "description": "Complete trading dashboard with market data, TA, portfolio",
+      "price": 199,
+      "files": ["dashboard/", "api/", "docs/"],
+      "tags": ["dashboard", "full-system"]
+    }
+  ],
+  "pricing_tiers": {
+    "starter": { "price": 49, "description": "Single tool" },
+    "pro": { "price": 99, "description": "3 tools + updates" },
+    "enterprise": { "price": 199, "description": "All tools + source code" }
+  }
+}

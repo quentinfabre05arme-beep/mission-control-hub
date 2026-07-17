@@ -1,0 +1,47 @@
+{
+  "timestamp": "2026-07-17T15:17:00Z",
+  "anomalies_detected": 3,
+  "flagged_for_review": [
+    {
+      "id": "ALT-001",
+      "asset": "ETH",
+      "type": "SENTIMENT_PRICE_DIVERGENCE",
+      "severity": "MEDIUM",
+      "current_price": 1814.54,
+      "price_change_24h_pct": -3.368,
+      "sentiment_score": 87.1,
+      "description": "Extreme bullish sentiment (87.1%) despite negative price action",
+      "signal": "BULLISH_DIVERGENCE",
+      "recommended_action": "Monitor for accumulation signals",
+      "confidence": "MODERATE"
+    },
+    {
+      "id": "ALT-002",
+      "asset": "BTC",
+      "type": "ORDERBOOK_IMBALANCE",
+      "severity": "MEDIUM",
+      "current_price": 62983.99,
+      "bid_ask_ratio": 491.0,
+      "description": "Bid volume 491x higher than ask volume at top of orderbook",
+      "signal": "ACCUMULATION_ZONE",
+      "recommended_action": "Watch for breakout above 64,896",
+      "confidence": "MODERATE"
+    },
+    {
+      "id": "ALT-003",
+      "asset": "BTC/ETH",
+      "type": "FEAR_EXTREME",
+      "severity": "HIGH",
+      "fear_greed_index": 27,
+      "description": "Fear & Greed approaching extreme fear territory",
+      "signal": "CONTRARIAN_BUY",
+      "recommended_action": "Prepare accumulation below 20 F&G",
+      "confidence": "HIGH"
+    }
+  ],
+  "summary": {
+    "overall_sentiment": "FEAR_WITH_SIGNS_OF_ACCUMULATION",
+    "risk_level": "ELEVATED_OPPORTUNITY",
+    "next_review": "2026-07-17T20:00:00Z"
+  }
+}

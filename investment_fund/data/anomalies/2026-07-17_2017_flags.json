@@ -1,0 +1,98 @@
+{
+  "timestamp": "2026-07-17T18:17:00.000Z",
+  "local_time": "17/07/2026, 20:17",
+  "fetch_id": "alt-2026-07-17-2017",
+  "flags_for_research_team": [
+    {
+      "flag_id": "ALT-001-2017",
+      "priority": "HIGH",
+      "status": "ACTIVE",
+      "asset": "BTC/ETH",
+      "type": "FEAR_RECOVERY_PATTERN",
+      "signal": "Fear \u0026 Greed Index recovering from 22 (last month) to 27 (current)",
+      "implication": "Sentiment bottoming pattern - often leads price by 1-2 weeks",
+      "historical_context": "Similar recoveries from 22-25 range preceded 15-20% relief rallies in 2024-2025",
+      "action_required": "Monitor daily Fear \u0026 Greed readings. Alert if crosses above 30.",
+      "confidence": "MEDIUM",
+      "time_horizon": "1-2 weeks"
+    },
+    {
+      "flag_id": "ALT-002-2017",
+      "priority": "HIGH",
+      "status": "ACTIVE",
+      "asset": "ETH",
+      "type": "UNDERPERFORMANCE_VS_BTC",
+      "signal": "ETH -1.87% vs BTC -0.29% today; ETH/BTC ratio under pressure",
+      "implication": "Risk-off behavior - alts leading weakness, institutional preference for BTC",
+      "historical_context": "ETH/BTC ratio declines often mark late-cycle risk-off before major corrections",
+      "action_required": "Monitor ETH/BTC ratio. Consider reducing ETH allocation temporarily.",
+      "confidence": "HIGH",
+      "time_horizon": "Immediate"
+    },
+    {
+      "flag_id": "ALT-003-2017",
+      "priority": "MEDIUM",
+      "status": "WATCH",
+      "asset": "BTC",
+      "type": "HIGH_VOLUME_CONSOLIDATION",
+      "signal": "$27.9B daily volume with minimal -0.29% price change",
+      "implication": "Large volume without direction suggests accumulation/distribution equilibrium",
+      "historical_context": "High volume consolidation periods often precede directional breakouts",
+      "action_required": "Watch for volume spike + directional move. Could signal institutional repositioning.",
+      "confidence": "MEDIUM",
+      "time_horizon": "3-7 days"
+    },
+    {
+      "flag_id": "ALT-004-2017",
+      "priority": "MEDIUM",
+      "status": "WATCH",
+      "asset": "BTC",
+      "type": "ATH_DISTANCE_EXTREME",
+      "signal": "BTC -49.25% from ATH ($126,080)",
+      "implication": "Deep drawdown approaching 50% - historically significant accumulation zone",
+      "historical_context": "Previous 50% drawdowns in BTC marked major cycle bottoms (Mar 2020, Dec 2018)",
+      "action_required": "DCA strategy validated. Prepare for potential capitulation spike below $60K.",
+      "confidence": "MEDIUM",
+      "time_horizon": "2-4 weeks"
+    }
+  ],
+  "composite_signals": {
+    "market_regime": "BEAR_MARKET_RECOVERY_ATTEMPT",
+    "sentiment_phase": "FEAR_TO_HOPE_TRANSITION",
+    "volume_regime": "ELEVATED_INSTITUTIONAL",
+    "correlation_regime": "RISK_OFF_CRYPTO_SPECIFIC"
+  },
+  "research_team_notes": {
+    "key_questions": [
+      "Is this Fear recovery genuine or fake-out before lower lows?",
+      "Why is ETH underperforming so significantly vs BTC?",
+      "What institutional flow data can we access to validate high volume?",
+      "Are we seeing ETF inflows/outflows correlation with price action?"
+    ],
+    "data_priorities": [
+      "1. CoinGlass funding rates (check if shorts are paying longs)",
+      "2. Exchange net flows (CryptoQuant free tier)",
+      "3. Stablecoin inflows (indicates buying power)",
+      "4. MSTR options flow (institutional BTC proxy)"
+    ],
+    "next_actions": [
+      "Monitor Fear \u0026 Greed at 08:00 UTC daily",
+      "Check CoinGlass for funding rate reversal signals",
+      "Alert on any whale transfer \u003e1000 BTC",
+      "Review weekend price action for Monday institutional response"
+    ]
+  },
+  "escalation_triggers": {
+    "immediate_alert": [
+      "Fear \u0026 Greed drops below 20 (Extreme Fear)",
+      "ETH/BTC ratio breaks below 0.028",
+      "BTC volume exceeds $40B with \u003e5% move",
+      "Whale alert: \u003e5000 BTC moved to exchange"
+    ],
+    "daily_digest": [
+      "Any Fear \u0026 Greed change \u003e5 points",
+      "ETH/BTC ratio change \u003e2%",
+      "Funding rates flip positive (bullish)"
+    ]
+  }
+}

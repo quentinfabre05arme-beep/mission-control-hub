@@ -1,0 +1,35 @@
+{
+  "version": "2026-07-17",
+  "patterns": [
+    {
+      "pattern": "want you to create",
+      "type": "new_mission",
+      "priority": "high",
+      "response_template": "acknowledge + create immediately"
+    },
+    {
+      "pattern": "without asking",
+      "type": "autonomy_grant",
+      "priority": "critical",
+      "response_template": "confirm autonomous mode + execute"
+    },
+    {
+      "pattern": "improve workflow",
+      "type": "self_improvement",
+      "priority": "highest",
+      "response_template": "analyze + propose + implement"
+    },
+    {
+      "pattern": "proceed with all",
+      "type": "batch_approval",
+      "priority": "high",
+      "response_template": "execute all items + report"
+    },
+    {
+      "pattern": "check up on everything",
+      "type": "system_audit",
+      "priority": "medium",
+      "response_template": "comprehensive status + gaps + recommendations"
+    }
+  ]
+}

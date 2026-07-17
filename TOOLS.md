@@ -1,5 +1,52 @@
 
-## ENHANCED Research System v2.0 (NEW - Jul 16, 2026 09:25)
+## Alpha Fund Alternative Data (NEW - Jul 17, 2026 23:17)
+**Location:** `investment_fund/scripts/fetch_alternative_data.js`
+**Status:** ✅ **Early signals not visible in price data**
+
+### Quick Commands
+```powershell
+# Fetch alternative data (Fear & Greed, Whale signals, Anomalies)
+cd investment_fund/scripts
+node fetch_alternative_data.js
+
+# JSON output for automation
+node fetch_alternative_data.js --json
+
+# Daily data stored in
+investment_fund/data/alternative/YYYY-MM-DD.json
+```
+
+### Data Sources
+| Layer | Primary | Cost |
+|-------|---------|------|
+| **Fear & Greed** | alternative.me API | Free |
+| **Whale News** | Serper.dev News | Free (2.5K/mo) |
+| **Market Data** | market_data.json | Local |
+
+### Anomaly Detection
+| Type | Signal | Severity |
+|------|--------|----------|
+| **Whale Accumulation** | Declining exchange inflows | HIGH |
+| **Sentiment Recovery** | Fear & Greed recovering from extreme | MEDIUM |
+| **Price Divergence** | Asset diverging from market | LOW |
+
+### Composite Early Signals
+| Score | Rating | Interpretation |
+|-------|--------|----------------|
+| +0.5+ | **BULLISH** | Multiple confirming signals |
+| +0.2 to 0.5 | **SLIGHTLY_BULLISH** | Some positive divergence |
+| -0.2 to +0.2 | **NEUTRAL** | No clear signal |
+| -0.5 to -0.2 | **SLIGHTLY_BEARISH** | Some negative divergence |
+| <-0.5 | **BEARISH** | Multiple warning signals |
+
+### Files
+- `fetch_alternative_data.js` — **Main fetcher script**
+- `investment_fund/data/alternative/` — **Daily JSON reports**
+- `2026-07-17.json` — **First report** (whale accumulation detected)
+
+---
+
+## ENHANCED Research System v2.0 (Jul 16, 2026 09:25)
 **Location:** `mission_control/enhanced_research.js`
 **Status:** ✅ **60% faster, more accurate, weighted sentiment**
 

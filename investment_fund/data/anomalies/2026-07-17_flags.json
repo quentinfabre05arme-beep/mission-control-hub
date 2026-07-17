@@ -1,0 +1,91 @@
+{
+  "date": "2026-07-17",
+  "fund": "Alpha Fund",
+  "flag_summary": {
+    "total_flags": 2,
+    "urgent": 0,
+    "high": 0,
+    "medium": 2,
+    "low": 0
+  },
+  "flags": [
+    {
+      "id": "ALT-2026-07-17-001",
+      "timestamp": "2026-07-17T12:17:00Z",
+      "type": "positive_early_signal",
+      "severity": "medium",
+      "asset": "BTC",
+      "status": "active",
+      "title": "LTH Capitulation Cooling - Early Bottom Signal",
+      "description": "Long-term holder capitulation cooling faster than expected. Glassnode data shows LTH selling pressure decelerating after 5 months below key cost bases. Historically precedes major market bottoms.",
+      "supporting_data": {
+        "current_regime": "Bottom Building in Progress",
+        "fear_greed": 27,
+        "price": 63332.04,
+        "lt_trend": "LTH selling cooling"
+      },
+      "recommendation": "Monitor for confirmation over next 7-14 days. Consider scaling in on confirmed reversal above $65K with volume.",
+      "time_horizon": "1-4 weeks",
+      "confidence": 65
+    },
+    {
+      "id": "ALT-2026-07-17-002",
+      "timestamp": "2026-07-17T12:17:00Z",
+      "type": "sentiment_divergence",
+      "severity": "medium",
+      "asset": "BTC",
+      "status": "active",
+      "title": "Price-Sentiment Bullish Divergence",
+      "description": "BTC price declined only -0.78% but Fear/Greed Index improved from 25 (Extreme Fear) to 27 (Fear). This divergence suggests underlying buying support absorbing selling pressure.",
+      "supporting_data": {
+        "price_change": -0.78,
+        "fg_previous": 25,
+        "fg_current": 27,
+        "fg_trend": "improving"
+      },
+      "recommendation": "Bullish divergence signal. Watch for volume confirmation on next move above $64K.",
+      "time_horizon": "days to 2 weeks",
+      "confidence": 60
+    }
+  ],
+  "watch_list": [
+    {
+      "id": "WATCH-2026-07-17-001",
+      "asset": "HIMS",
+      "metric": "Relative Performance",
+      "current_value": -9.39,
+      "threshold": -12.0,
+      "operator": "less_than",
+      "status": "approaching_threshold",
+      "observation": "HIMS declining -9.39% vs broader market weakness. Underperforming BTC/ETH significantly. May indicate sector rotation out of biotech/telehealth or company-specific issue.",
+      "action_if_triggered": "Alert research team to investigate HIMS-specific news and sector rotation patterns"
+    },
+    {
+      "id": "WATCH-2026-07-17-002",
+      "asset": "BTC",
+      "metric": "Funding Rate",
+      "current_value": "neutral",
+      "threshold": 0.05,
+      "operator": "greater_than",
+      "status": "monitoring",
+      "observation": "Funding rates currently neutral. Watch for spike above 0.05% which would indicate overleveraged longs and potential for long squeeze.",
+      "action_if_triggered": "Alert if funding turns highly positive - reduce leverage exposure"
+    },
+    {
+      "id": "WATCH-2026-07-17-003",
+      "asset": "BTC",
+      "metric": "ETF Net Flow",
+      "current_value": "outflows_drying",
+      "threshold": "positive_flow_3d",
+      "operator": "event",
+      "status": "monitoring",
+      "observation": "ETF outflows drying up. Three consecutive days of positive flows would signal institutional demand returning.",
+      "action_if_triggered": "Flag as strong accumulation signal for research team review"
+    }
+  ],
+  "report_summary": {
+    "key_takeaway": "Alternative data showing early signs of BTC bottoming. LTH capitulation cooling and ETF outflows drying are historically reliable early signals. Not confirmed yet - wait for price confirmation above $65K with volume.",
+    "risk_assessment": "Medium - early signals present but not confirmed. Market still in Fear territory. Patience warranted.",
+    "action_required": "Monitor for confirmation. Prepare accumulation strategy but do not execute until confirmation signals align."
+  }
+}

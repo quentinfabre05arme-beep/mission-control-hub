@@ -1,0 +1,13 @@
+Title: Advances in Financial Machine Learning - Introduction
+Author: Lopez de Prado
+Source: SSRN
+Downloaded: 2026-07-17T11:06:14.463Z
+Status: Downloaded
+File: afml_intro.pdf
+Size: 5.5 KB
+
+Key Topics:
+- TODO: Extract after reading
+
+Notes:
+- TODO: Add insights after analysis

@@ -1,0 +1,70 @@
+{
+  "cycle_id": "AF-2026-0717-001",
+  "timestamp": "2026-07-17T14:10:00.000Z",
+  "timezone": "Europe/Paris",
+  "status": "COMPLETE",
+  "alerts": [],
+  "tier1_opportunities": [
+    {
+      "asset": "HIMS",
+      "signal": "WATCH",
+      "reason": "GLP-1 overhang capitulation, 70-80% analyst upside",
+      "trigger_price": 30.0,
+      "action": "MONITOR"
+    },
+    {
+      "asset": "MSTR",
+      "signal": "WATCH",
+      "reason": "BTC proxy discount, 260% upside potential",
+      "trigger_price": 85.0,
+      "action": "ACCUMULATE_ON_WEAKNESS"
+    }
+  ],
+  "tier2_setups": [
+    {
+      "asset": "ETH",
+      "signal": "REGULATORY_CLOUD",
+      "catalyst": "CLARITY Act resolution",
+      "target": 2400,
+      "upside": "30%"
+    },
+    {
+      "asset": "BTC",
+      "signal": "SUPPORT_TEST",
+      "support": "60000-57700",
+      "target": 72500,
+      "upside": "15%"
+    }
+  ],
+  "tier3_positions": [
+    {
+      "asset": "BTC",
+      "conviction": 5,
+      "thesis": "Digital gold, institutional adoption",
+      "action": "HOLD"
+    },
+    {
+      "asset": "ETH",
+      "conviction": 4,
+      "thesis": "Smart contract dominance, yield",
+      "action": "HOLD"
+    }
+  ],
+  "risk_check": {
+    "max_position_size_ok": true,
+    "daily_loss_limit_ok": true,
+    "correlation_ok": true,
+    "stops_triggered": false,
+    "rebalance_required": false
+  },
+  "market_data": {
+    "BTC": { "price": 62855.32, "change_24h": -1.53, "signal": "NEUTRAL" },
+    "ETH": { "price": 1829.63, "change_24h": -1.88, "signal": "NEUTRAL" },
+    "MSTR": { "price": 93.455, "change_24h": -0.61, "signal": "NEUTRAL" },
+    "HIMS": { "price": 33.575, "change_24h": -0.31, "signal": "NEUTRAL" }
+  },
+  "options_flow": {
+    "hedging_elevated": true,
+    "key_activity": ["SPY put buying", "NVDA call interest", "VIX call volume"]
+  }
+}

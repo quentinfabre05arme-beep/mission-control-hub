@@ -8,6 +8,10 @@
   "outputDirectory": ".",
   "routes": [
     {
+      "src": "/executive_v2.html",
+      "dest": "/executive_v2.html"
+    },
+    {
       "src": "/mission_control_risk_management.html",
       "dest": "/mission_control_risk_management.html"
     },

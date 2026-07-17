@@ -1,0 +1,49 @@
+{
+  "version": "2026-07-17",
+  "patterns": [
+    {
+      "problem": "Build data fetcher",
+      "solution": [
+        "Create modular class",
+        "Add retry logic",
+        "Add rate limiting",
+        "Add caching",
+        "Test with mock data"
+      ],
+      "verified": true
+    },
+    {
+      "problem": "Build alert system",
+      "solution": [
+        "Define alert types",
+        "Create log structure",
+        "Add Telegram integration",
+        "Add position tracking",
+        "Test with dummy data"
+      ],
+      "verified": true
+    },
+    {
+      "problem": "Create cron job",
+      "solution": [
+        "Define schedule",
+        "Build payload",
+        "Set delivery",
+        "Test isolated execution",
+        "Verify next run"
+      ],
+      "verified": true
+    },
+    {
+      "problem": "Build position sizing",
+      "solution": [
+        "Implement formula",
+        "Add constraints",
+        "Add tier multipliers",
+        "Add volatility adjustment",
+        "Validate with examples"
+      ],
+      "verified": true
+    }
+  ]
+}

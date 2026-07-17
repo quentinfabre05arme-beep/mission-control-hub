@@ -1,0 +1,11 @@
+{
+  "cash": 50000,
+  "equity": 0,
+  "positions": [],
+  "total_value": 50000,
+  "daily_pnl": 0,
+  "total_pnl": 0,
+  "total_return_pct": 0,
+  "max_drawdown": 0,
+  "created_at": "2026-07-17T12:15:00Z"
+}
