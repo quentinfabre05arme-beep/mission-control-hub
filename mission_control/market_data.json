@@ -1,71 +1,38 @@
 {
-  "timestamp": "2026-07-16T20:21:40.268Z",
+  "timestamp": "2026-07-17T04:02:16.568Z",
   "assets": {
     "BTC": {
-      "price": 64232.04,
-      "change_24h": -0.80955855,
-      "change_amount": -524.24,
-      "open": 64756.28,
-      "high": 64997.52,
-      "low": 63838.28,
-      "volume": null,
+      "price": 63540.29,
+      "change_24h": -0.4541894,
       "source": "twelvedata",
-      "signal": "NEUTRAL",
-      "fetch_time_ms": 363,
-      "stale": false
+      "signal": "NEUTRAL"
     },
     "ETH": {
-      "price": 1875.43,
-      "change_24h": -2.21236,
-      "change_amount": -42.43,
-      "open": 1917.86,
-      "high": 1929.48,
-      "low": 1862.57,
-      "volume": null,
+      "price": 1852.14,
+      "change_24h": -0.67409946,
       "source": "twelvedata",
-      "signal": "MODERATE_BEARISH",
-      "fetch_time_ms": 311,
-      "stale": false
+      "signal": "NEUTRAL"
     },
     "MSTR": {
-      "price": 94.05,
-      "change_24h": -3.50877,
-      "change_amount": -3.42,
-      "open": 95.91,
-      "high": 96.51,
-      "low": 93.475,
-      "volume": 1199095,
+      "price": 94.029999,
+      "change_24h": -3.52929,
       "source": "twelvedata",
-      "signal": "MODERATE_BEARISH",
-      "fetch_time_ms": 314,
-      "stale": false
+      "signal": "BEARISH"
     },
     "HIMS": {
-      "price": 33.67,
-      "change_24h": -9.41619,
-      "change_amount": -3.5,
-      "open": 36.725,
-      "high": 37.68,
-      "low": 33.58,
-      "volume": 2115445,
+      "price": 33.68,
+      "change_24h": -9.38929,
       "source": "twelvedata",
-      "signal": "BEARISH",
-      "fetch_time_ms": 304,
-      "stale": false
+      "signal": "BEARISH"
     }
   },
   "_meta": {
     "fromCache": false,
-    "fetch_time_ms": 365,
     "sources": [
       "twelvedata",
       "twelvedata",
       "twelvedata",
       "twelvedata"
-    ],
-    "assets_count": 4,
-    "stale_count": 0,
-    "saved_at": "2026-07-16T20:21:40.268Z",
-    "version": "2.0"
+    ]
   }
 }
