@@ -1,0 +1,38 @@
+{
+  "version": 2,
+  "public": true,
+  "github": {
+    "enabled": false
+  },
+  "framework": null,
+  "outputDirectory": ".",
+  "routes": [
+    {
+      "src": "/mission_control_risk_management.html",
+      "dest": "/mission_control_risk_management.html"
+    },
+    {
+      "src": "/mission_control/(.*)",
+      "dest": "/mission_control/$1"
+    },
+    {
+      "src": "/(.*\\.(html|css|js|json|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot))",
+      "dest": "/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }
+      ]
+    }
+  ]
+}
