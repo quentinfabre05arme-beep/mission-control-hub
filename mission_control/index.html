@@ -3,359 +3,926 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mission Control Dashboard v10.0 - Live</title>
-    <meta http-equiv="refresh" content="60">
+    <title>Mission Control — Dashboard v7.7</title>
+    <meta http-equiv="refresh" content="30">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg-primary: #0a0b0e;
+            --bg-secondary: #111318;
+            --bg-tertiary: #1a1d23;
+            --bg-card: #13161c;
+            --border-subtle: #1e2128;
+            --border-active: #2a2d35;
+            --text-primary: #f0f1f3;
+            --text-secondary: #8b919c;
+            --text-muted: #5a6070;
+            --accent-bull: #00d084;
+            --accent-bear: #ff4757;
+            --accent-neutral: #6c7a89;
+            --accent-info: #3498db;
+            --accent-warning: #f39c12;
+            --accent-purple: #9b59b6;
+            --accent-cyan: #00bcd4;
+            --font-mono: 'JetBrains Mono', monospace;
+            --font-sans: 'Inter', sans-serif;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
-            background: #0a0a0f; 
-            color: #e0e0e0;
-            padding: 20px;
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.5;
         }
-        .header { 
-            text-align: center; 
-            padding: 20px; 
-            border-bottom: 2px solid #00d4ff; 
-            margin-bottom: 20px;
-        }
-        .header h1 { 
-            color: #00d4ff; 
-            font-size: 2em;
-            margin-bottom: 10px;
-        }
-        .timestamp {
-            color: #888;
-            font-size: 0.9em;
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        .card {
-            background: #12121a;
-            border: 1px solid #1e1e2e;
-            border-radius: 12px;
-            padding: 20px;
-            transition: all 0.3s ease;
-        }
-        .card:hover {
-            border-color: #00d4ff;
-            transform: translateY(-2px);
-        }
-        .card-header {
+
+        /* HEADER */
+        .header {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 0 24px;
+            height: 64px;
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 15px;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
-        .card-header .icon {
-            width: 40px;
-            height: 40px;
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
             border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.2em;
         }
-        .card-header h3 {
-            color: #fff;
-            font-size: 1.1em;
-        }
-        .price {
-            font-size: 2em;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-        .price.up { color: #00d4aa; }
-        .price.down { color: #ff4757; }
-        .price.neutral { color: #f0f0f0; }
-        .change {
-            font-size: 0.9em;
-            padding: 4px 8px;
-            border-radius: 4px;
-            display: inline-block;
-        }
-        .change.up { background: #00d4aa20; color: #00d4aa; }
-        .change.down { background: #ff475720; color: #ff4757; }
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-top: 15px;
-        }
-        .stat {
-            background: #1a1a25;
-            padding: 10px;
-            border-radius: 6px;
-        }
-        .stat-label {
-            font-size: 0.75em;
-            color: #888;
-            text-transform: uppercase;
-            margin-bottom: 4px;
-        }
-        .stat-value {
+
+        .brand-text h1 {
             font-size: 1.1em;
             font-weight: 600;
+            letter-spacing: -0.02em;
         }
-        .alert {
-            background: #ff475720;
-            border-left: 3px solid #ff4757;
-            padding: 15px;
-            margin: 15px 0;
+
+        .brand-text span {
+            font-size: 0.75em;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* NAVIGATION */
+        .main-nav {
+            display: flex;
+            gap: 4px;
+        }
+
+        .nav-item {
+            padding: 8px 16px;
             border-radius: 6px;
+            font-size: 0.85em;
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
-        .alert-title {
-            color: #ff4757;
-            font-weight: bold;
-            margin-bottom: 5px;
+
+        .nav-item:hover {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
         }
-        .portfolio-card {
-            background: linear-gradient(135deg, #1a1a25 0%, #12121a 100%);
+
+        .nav-item.active {
+            background: var(--accent-cyan);
+            color: var(--bg-primary);
         }
-        .position {
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .header-btn {
+            padding: 8px 12px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            color: var(--text-secondary);
+            font-size: 0.8em;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .header-btn:hover {
+            background: var(--border-active);
+            color: var(--text-primary);
+        }
+
+        .header-btn.active {
+            background: var(--accent-cyan);
+            color: var(--bg-primary);
+            border-color: var(--accent-cyan);
+        }
+
+        .shortcut-hint {
+            font-family: var(--font-mono);
+            font-size: 0.7em;
+            opacity: 0.7;
+            margin-left: 4px;
+        }
+
+        .status-pill {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            background: rgba(0, 208, 132, 0.15);
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+            color: var(--accent-bull);
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent-bull);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; box-shadow: 0 0 4px var(--accent-bull); }
+            50% { opacity: 0.6; }
+        }
+
+        .timestamp {
+            font-family: var(--font-mono);
+            font-size: 0.75em;
+            color: var(--text-muted);
+        }
+
+        /* MAIN LAYOUT */
+        .main-container {
+            display: grid;
+            grid-template-columns: 280px 1fr 320px;
+            gap: 1px;
+            background: var(--border-subtle);
+            min-height: calc(100vh - 64px);
+        }
+
+        @media (max-width: 1400px) {
+            .main-container { grid-template-columns: 260px 1fr 300px; }
+        }
+
+        @media (max-width: 1024px) {
+            .main-container { grid-template-columns: 1fr; grid-template-rows: auto auto auto; }
+        }
+
+        /* COMPACT MODE */
+        .compact-mode .card {
+            margin-bottom: 12px;
+        }
+        
+        .compact-mode .card-header {
+            padding: 14px 20px;
+        }
+        
+        .compact-mode .card-body {
+            padding: 16px 20px;
+        }
+        
+        .compact-mode .metrics-grid {
+            gap: 12px;
+        }
+        
+        .compact-mode .metric-card {
+            padding: 16px;
+        }
+        
+        .compact-mode td {
+            padding: 10px 16px;
+        }
+        
+        .compact-mode .activity-item {
+            padding: 8px 0;
+        }
+        
+        .compact-mode .sidebar {
+            padding: 16px;
+        }
+        
+        .compact-mode .sidebar-section {
+            margin-bottom: 20px;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            background: var(--bg-secondary);
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .sidebar-section {
+            margin-bottom: 28px;
+        }
+
+        .sidebar-title {
+            font-size: 0.65em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .sub-nav-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.88em;
+            margin-bottom: 2px;
+            text-decoration: none;
+            color: var(--text-secondary);
+        }
+
+        .sub-nav-item:hover {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        .sub-nav-item.active {
+            background: var(--accent-cyan);
+            color: var(--bg-primary);
+            font-weight: 600;
+        }
+
+        .sub-nav-badge {
+            font-size: 0.75em;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* CONTENT */
+        .content {
+            background: var(--bg-primary);
+            padding: 24px;
+            overflow-y: auto;
+        }
+
+        /* CARDS */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border-subtle);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px;
-            background: #0d0d15;
-            border-radius: 6px;
-            margin: 8px 0;
         }
-        .position.stop-loss {
-            border-left: 3px solid #ff4757;
+
+        .card-title {
+            font-size: 1em;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-        .position-symbol {
-            font-weight: bold;
-            font-size: 1.1em;
+
+        .card-body {
+            padding: 24px;
         }
-        .position-pnl {
-            font-weight: bold;
+
+        /* METRICS GRID */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
         }
-        .position-pnl.down { color: #ff4757; }
-        .position-pnl.up { color: #00d4aa; }
-        .status-badge {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.75em;
+
+        @media (max-width: 1200px) {
+            .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        .metric-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-subtle);
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .metric-label {
+            font-size: 0.8em;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .metric-value {
+            font-family: var(--font-mono);
+            font-size: 1.5em;
+            font-weight: 600;
+        }
+
+        .metric-value.positive { color: var(--accent-bull); }
+        .metric-value.negative { color: var(--accent-bear); }
+
+        .metric-change {
+            font-family: var(--font-mono);
+            font-size: 0.85em;
+            margin-top: 6px;
+        }
+
+        /* TABLES */
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            padding: 12px 16px;
+            font-size: 0.7em;
             font-weight: 600;
             text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            background: var(--bg-tertiary);
         }
-        .status-active { background: #00d4aa20; color: #00d4aa; }
-        .status-alert { background: #ff475720; color: #ff4757; }
-        .footer {
-            text-align: center;
-            margin-top: 40px;
+
+        td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border-subtle);
+            font-size: 0.9em;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: var(--bg-tertiary);
+        }
+
+        .mono { font-family: var(--font-mono); }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.75em;
+            font-weight: 600;
+        }
+
+        .badge-success { background: rgba(0, 208, 132, 0.15); color: var(--accent-bull); }
+        .badge-danger { background: rgba(255, 71, 87, 0.15); color: var(--accent-bear); }
+        .badge-warning { background: rgba(243, 156, 18, 0.15); color: var(--accent-warning); }
+        .badge-info { background: rgba(52, 152, 219, 0.15); color: var(--accent-info); }
+
+        /* RIGHT PANEL */
+        .right-panel {
+            background: var(--bg-secondary);
             padding: 20px;
-            color: #666;
-            font-size: 0.85em;
+            overflow-y: auto;
         }
+
+        .panel-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .panel-title {
+            font-size: 0.8em;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* ACTIVITY ITEM */
+        .activity-item {
+            display: flex;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85em;
+            flex-shrink: 0;
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-title {
+            font-size: 0.85em;
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+
+        .activity-time {
+            font-size: 0.75em;
+            color: var(--text-muted);
+        }
+
+        /* PROGRESS */
+        .progress-container {
+            margin-bottom: 12px;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8em;
+            margin-bottom: 6px;
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: var(--bg-tertiary);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        /* ALERT */
+        .alert {
+            background: rgba(255, 71, 87, 0.08);
+            border: 1px solid rgba(255, 71, 87, 0.3);
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .alert-icon {
+            font-size: 1.2em;
+        }
+
+        .alert-content {
+            flex: 1;
+        }
+
+        .alert-title {
+            font-weight: 600;
+            color: var(--accent-bear);
+            margin-bottom: 2px;
+        }
+
+        .alert-text {
+            font-size: 0.9em;
+            color: var(--text-secondary);
+        }
+
+        /* FOOTER */
+        .footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-subtle);
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75em;
+            color: var(--text-muted);
+        }
+
+        /* MOBILE */
         @media (max-width: 768px) {
-            .grid { grid-template-columns: 1fr; }
-            .price { font-size: 1.5em; }
+            .main-nav { display: none; }
+            .metrics-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>🚀 Mission Control Dashboard v10.0</h1>
-        <div class="timestamp">Last Updated: <span id="timestamp">2026-07-16 20:21:40 UTC</span> | Auto-refresh: 60s</div>
+    <header class="header">
+        <div class="brand">
+            <div class="brand-icon">⚡</div>
+            <div class="brand-text">
+                <h1>Mission Control</h1>
+                <span>v11.0 PRO</span>
+            </div>
+        </div>
+        
+        <nav class="main-nav">
+            <a href="index.html" class="nav-item active">📊 Dashboard</a>
+            <a href="trading.html" class="nav-item">💰 Trading</a>
+            <a href="markets.html" class="nav-item">📈 Markets</a>
+            <a href="systems.html" class="nav-item">⚙️ Systems</a>
+            <a href="missions.html" class="nav-item">🎯 Missions</a>
+            <a href="analytics.html" class="nav-item">📊 Analytics</a>
+        </nav>
+        
+        <div class="header-right">
+            <div class="header-actions">
+                <button class="header-btn" onclick="showSearchModal()" title="Search (⌘K)">
+                    🔍<span class="shortcut-hint">⌘K</span>
+                </button>
+                <button class="header-btn" onclick="toggleCompactMode()" title="Toggle Compact Mode (C)">
+                    📊<span class="shortcut-hint">C</span>
+                </button>
+                <button class="header-btn" onclick="refreshData()" title="Refresh Data (R)">
+                    🔄<span class="shortcut-hint">R</span>
+                </button>
+                <a href="settings.html" class="header-btn" title="Settings (S)">
+                    ⚙️<span class="shortcut-hint">S</span>
+                </a>
+            </div>
+            
+            <div class="status-pill">
+                <div class="status-dot"></div>
+                <span>AUTONOMOUS</span>
+            </div>
+            <div class="timestamp" id="timestamp">2026-07-16 20:50:00 UTC</div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-title">Trading</div>
+                <a href="trading.html" class="sub-nav-item">
+                    <span>📊 Portfolio</span>
+                </a>
+                <a href="trading-positions.html" class="sub-nav-item">
+                    <span>📈 Positions</span>
+                    <span class="sub-nav-badge">0</span>
+                </a>
+                <a href="trading-history.html" class="sub-nav-item">
+                    <span>📜 History</span>
+                    <span class="sub-nav-badge">1</span>
+                </a>
+                <a href="trading-journal.html" class="sub-nav-item">
+                    <span>📝 Journal</span>
+                    <span class="sub-nav-badge">3</span>
+                </a>
+            </div>
+            
+            <div class="sidebar-section">
+                <div class="sidebar-title">Markets</div>
+                <a href="markets.html" class="sub-nav-item">
+                    <span>📊 Overview</span>
+                </a>
+                <a href="markets-btc.html" class="sub-nav-item">
+                    <span>₿ Bitcoin</span>
+                </a>
+                <a href="markets-eth.html" class="sub-nav-item">
+                    <span>Ξ Ethereum</span>
+                </a>
+                <a href="markets-stocks.html" class="sub-nav-item">
+                    <span>📈 Stocks</span>
+                </a>
+                <a href="markets-signals.html" class="sub-nav-item">
+                    <span>🔔 Signals</span>
+                </a>
+            </div>
+            
+            <div class="sidebar-section">
+                <div class="sidebar-title">Systems</div>
+                <a href="systems.html" class="sub-nav-item">
+                    <span>⚙️ Overview</span>
+                </a>
+                <a href="systems-data.html" class="sub-nav-item">
+                    <span>📡 Data Pipeline</span>
+                </a>
+                <a href="systems-autonomous.html" class="sub-nav-item">
+                    <span>🤖 Autonomous</span>
+                    <span class="sub-nav-badge">ON</span>
+                </a>
+                <a href="systems-apis.html" class="sub-nav-item">
+                    <span>🔑 API Status</span>
+                </a>
+            </div>
+            
+            <div class="sidebar-section">
+                <div class="sidebar-title">Missions</div>
+                <a href="missions.html" class="sub-nav-item">
+                    <span>🎯 Active</span>
+                    <span class="sub-nav-badge">3</span>
+                </a>
+                <a href="missions-paused.html" class="sub-nav-item">
+                    <span>⏸️ Paused</span>
+                    <span class="sub-nav-badge">2</span>
+                </a>
+                <a href="missions-longterm.html" class="sub-nav-item">
+                    <span>🏆 Long-term</span>
+                    <span class="sub-nav-badge">4</span>
+                </a>
+            </div>
+        </aside>
+
+        <main class="content">
+            <div class="alert">
+                <div class="alert-icon">🤖</div>
+                <div class="alert-content">
+                    <div class="alert-title">AUTONOMOUS EXIT EXECUTED</div>
+                    <div class="alert-text">HIMS position automatically closed at stop loss ($33.67). Loss contained at -9.4% (-$941.50). System functioning as designed.</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>💰</span>
+                        <span>Portfolio Overview</span>
+                        <span class="badge badge-success">AUTONOMOUS</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-label">Total Equity</div>
+                            <div class="metric-value">$99,039.44</div>
+                            <div class="metric-change" style="color: var(--text-muted);">$100,000.00 start</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Total P&L</div>
+                            <div class="metric-value negative">-$941.50</div>
+                            <div class="metric-change negative">▼ -0.96%</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Cash Available</div>
+                            <div class="metric-value">$99,039.44</div>
+                            <div class="metric-change" style="color: var(--text-muted);">100% available</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Monthly Progress</div>
+                            <div class="metric-value">0.0%</div>
+                            <div class="progress-container" style="margin-top: 8px;">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 0%; background: var(--accent-bull);"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>📈</span>
+                        <span>Recent Positions</span>
+                        <span class="badge badge-danger">1 CLOSED</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Symbol</th>
+                                    <th>Position</th>
+                                    <th>Entry</th>
+                                    <th>Exit</th>
+                                    <th>P&L</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>HIMS</strong></td>
+                                    <td>269 shares</td>
+                                    <td class="mono">$37.17</td>
+                                    <td class="mono">$33.67</td>
+                                    <td class="mono negative">-$941.50</td>
+                                    <td><span class="badge badge-danger">STOPPED</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>📊</span>
+                        <span>Live Markets</span>
+                        <span class="badge badge-info">30s Refresh</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Asset</th>
+                                    <th>Price</th>
+                                    <th>24h Change</th>
+                                    <th>Signal</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>BTC</strong> <span style="color: var(--text-muted);">Bitcoin</span></td>
+                                    <td class="mono">$64,232.04</td>
+                                    <td class="mono negative">▼ -0.81%</td>
+                                    <td><span class="badge badge-info">NEUTRAL</span></td>
+                                    <td>HOLD</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>ETH</strong> <span style="color: var(--text-muted);">Ethereum</span></td>
+                                    <td class="mono">$1,875.43</td>
+                                    <td class="mono negative">▼ -2.21%</td>
+                                    <td><span class="badge badge-warning">WEAK BUY</span></td>
+                                    <td>WATCH</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>MSTR</strong> <span style="color: var(--text-muted);">MicroStrategy</span></td>
+                                    <td class="mono">$94.05</td>
+                                    <td class="mono negative">▼ -3.51%</td>
+                                    <td><span class="badge badge-info">NEUTRAL</span></td>
+                                    <td>MONITOR</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>HIMS</strong> <span style="color: var(--text-muted);">Hims & Hers</span></td>
+                                    <td class="mono">$33.67</td>
+                                    <td class="mono negative">▼ -9.42%</td>
+                                    <td><span class="badge badge-danger">BEARISH</span></td>
+                                    <td>EXITED</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <aside class="right-panel">
+            <div class="panel-card">
+                <div class="panel-title">🕐 Activity Feed</div>
+                
+                <div class="activity-item">
+                    <div class="activity-icon" style="background: rgba(255, 71, 87, 0.15); color: var(--accent-bear);">⬇️</div>
+                    <div class="activity-content">
+                        <div class="activity-title">HIMS Stop Loss Hit</div>
+                        <div class="activity-time">20:42 — Autonomous</div>
+                    </div>
+                </div>
+                
+                <div class="activity-item">
+                    <div class="activity-icon" style="background: rgba(52, 152, 219, 0.15); color: var(--accent-info);">⚙️</div>
+                    <div class="activity-content">
+                        <div class="activity-title">Autonomous Mode Enabled</div>
+                        <div class="activity-time">20:41 — System</div>
+                    </div>
+                </div>
+                
+                <div class="activity-item">
+                    <div class="activity-icon" style="background: rgba(0, 208, 132, 0.15); color: var(--accent-bull);">⬆️</div>
+                    <div class="activity-content">
+                        <div class="activity-title">HIMS Position Opened</div>
+                        <div class="activity-time">09:45 — Manual</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-card">
+                <div class="panel-title">🎯 Active Missions</div>
+                
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>Swing Trading</span>
+                        <span style="color: var(--accent-bull);">LIVE</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 10%; background: var(--accent-bull);"></div>
+                    </div>
+                </div>
+                
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>Market Research v2.0</span>
+                        <span style="color: var(--accent-bull);">ACTIVE</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 75%; background: var(--accent-bull);"></div>
+                    </div>
+                </div>
+                
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>Dashboard Suite</span>
+                        <span style="color: var(--accent-bull);">LIVE</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 90%; background: var(--accent-bull);"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-card">
+                <div class="panel-title">⚠️ Risk Limits</div>
+                
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>Position Size (6-12%)</span>
+                        <span>0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%; background: var(--accent-bull);"></div>
+                    </div>
+                </div>
+                
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>Total Deployed (44%)</span>
+                        <span>0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%; background: var(--accent-bull);"></div>
+                    </div>
+                </div>
+                
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>Monthly Drawdown (15%)</span>
+                        <span>0.96%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 6%; background: var(--accent-warning);"></div>
+                    </div>
+                </div>
+            </div>
+        </aside>
     </div>
 
-    <div class="alert">
-        <div class="alert-title">🚨 CRITICAL ALERT</div>
-        <div>HIMS position hit stop loss at $35.00. Current price: <strong>$33.67 (-9.4%)</strong>. Unrealized loss: <strong>-$941.50</strong>. Action required.</div>
-    </div>
+    <footer class="footer">
+        <div>Mission Control v11.0 PRO — Multi-page Navigation System</div>
+        <div>Data: Twelve Data + Alpha Vantage + CoinGecko | Auto-refresh: 30s</div>
+    </footer>
 
-    <div class="grid">
-        <!-- BTC Card -->
-        <div class="card">
-            <div class="card-header">
-                <div class="icon" style="background: #f7931a20; color: #f7931a;">₿</div>
-                <h3>Bitcoin</h3>
-            </div>
-            <div class="price down">$64,232.04</div>
-            <div class="change down">▼ -0.81% (-$524.24)</div>
-            <div class="stats-grid">
-                <div class="stat">
-                    <div class="stat-label">24h High</div>
-                    <div class="stat-value">$64,997.52</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-label">24h Low</div>
-                    <div class="stat-value">$63,838.28</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-label">Signal</div>
-                    <div class="stat-value" style="color: #888;">NEUTRAL</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-label">Action</div>
-                    <div class="stat-value">HOLD</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ETH Card -->
-        <div class="card">
-            <div class="card-header">
-                <div class="icon" style="background: #627eea20; color: #627eea;">Ξ</div>
-                <h3>Ethereum</h3>
-            </div>
-            <div class="price down">$1,875.43</div>
-            <div class="change down">▼ -2.21% (-$42.43)</div>
-            <div class="stats-grid">
-                <div class="stat">
-                    <div class="stat-label">24h High</div>
-                    <div class="stat-value">$1,929.48</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-label">24h Low</div>
-                    <div class="stat-value">$1,862.57</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-label">Signal</div>
-                    <div class="stat-value" style="color: #ff4757;">WEAK BUY</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-label">Action</div>
-                    <div class="stat-value" style="color: #00d4aa;">WATCH</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- MSTR Card -->
-        <div class="card">
-            <div class="card-header">
-                <div class="icon" style="background: #ff6b0020; color: #ff6b00;">M</div>
-                <h3>MicroStrategy</h3>
-            </div>
-            <div class="price down">$94.05</div>
-            <div class="change down">▼ -3.51% (-$3.42)</div>
-            <div class="stats-grid">
-                <div class="stat">
-                    <div class="stat-label">24h High</div>
-                    <div class="stat-value">$96.51</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-label">24h Low</div>
-                    <div class="stat-value">$93.48</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-label">Volume</div>
-                    <div class="stat-value">1.20M</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-label">Action</div>
-                    <div class="stat-value">MONITOR</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- HIMS Card -->
-        <div class="card">
-            <div class="card-header">
-                <div class="icon" style="background: #ff475720; color: #ff4757;">H</div>
-                <h3>Hims & Hers</h3>
-            </div>
-            <div class="price down">$33.67</div>
-            <div class="change down">▼ -9.42% (-$3.50)</div>
-            <div class="stats-grid">
-                <div class="stat">
-                    <div class="stat-label">24h High</div>
-                    <div class="stat-value">$37.68</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-label">24h Low</div>
-                    <div class="stat-value">$33.58</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-label">Signal</div>
-                    <div class="stat-value" style="color: #ff4757;">BEARISH</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-label">⚠️ STOP</div>
-                    <div class="stat-value" style="color: #ff4757;">$35.00 HIT</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Portfolio Card -->
-        <div class="card portfolio-card" style="grid-column: span 2;">
-            <div class="card-header">
-                <div class="icon" style="background: #00d4ff20; color: #00d4ff;">📊</div>
-                <h3>Swing Trading Portfolio</h3>
-                <span class="status-badge status-active">LIVE</span>
-            </div>
-            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin: 15px 0;">
-                <div class="stat">
-                    <div class="stat-label">Total Equity</div>
-                    <div class="stat-value">$99,048.50</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-label">Total P&L</div>
-                    <div class="stat-value" style="color: #ff4757;">-$941.50</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-label">Cash Available</div>
-                    <div class="stat-value">$89,991.27</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-label">Deployed</div>
-                    <div class="stat-value">9.1%</div>
-                </div>
-            </div>
-            <div class="position stop-loss">
-                <div>
-                    <div class="position-symbol">HIMS</div>
-                    <div style="font-size: 0.85em; color: #888;">Entry: $37.17 | 269 shares | Aug 10 Earnings</div>
-                </div>
-                <div style="text-align: right;">
-                    <div class="position-pnl down">-$941.50</div>
-                    <div style="font-size: 0.85em; color: #888;">Current: $33.67 (-9.4%)</div>
-                    <div style="font-size: 0.8em; color: #ff4757; margin-top: 4px;">⚠️ STOP LOSS HIT: $35.00</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Mission Status -->
-        <div class="card" style="grid-column: span 2;">
-            <div class="card-header">
-                <div class="icon" style="background: #00d4ff20; color: #00d4ff;">🎯</div>
-                <h3>Active Missions</h3>
-            </div>
-            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
-                <div class="stat">
-                    <div class="stat-label">Week 1 Intensive</div>
-                    <div class="stat-value" style="color: #00d4aa;">✅ Day 1 Complete</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-label">Swing Trading</div>
-                    <div class="stat-value" style="color: #ff4757;">⚠️ STOP HIT</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-label">Dashboard</div>
-                    <div class="stat-value" style="color: #00d4aa;">✅ v10.0 Live</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="footer">
-        <p>Mission Control Dashboard v10.0 | Built for Mobile & Desktop</p>
-        <p>Data: Twelve Data API | Auto-refresh: 60s | Deployed: 2026-07-16</p>
-    </div>
-
+    <script src="dashboard.js"></script>
     <script>
-        document.getElementById('timestamp').textContent = new Date().toLocaleString();
-        setInterval(() => {
-            document.getElementById('timestamp').textContent = new Date().toLocaleString();
-        }, 60000);
+        function updateTimestamp() {
+            const now = new Date();
+            document.getElementById('timestamp').textContent = now.toISOString().replace('T', ' ').slice(0, 19) + ' UTC';
+        }
+        updateTimestamp();
+        setInterval(updateTimestamp, 1000);
     </script>
 </body>
 </html>

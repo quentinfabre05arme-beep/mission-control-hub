@@ -1,26 +1,6 @@
 {
-  "balance": 89991.27,
-  "positions": [
-    {
-      "id": "HIMS-1752661200000",
-      "symbol": "HIMS",
-      "entryPrice": 37.17,
-      "shares": 269,
-      "cost": 9998.73,
-      "entryDate": "2026-07-16T09:45:00.000Z",
-      "stopLoss": 35.00,
-      "targets": [
-        39.03,
-        40.89,
-        42.75
-      ],
-      "thesis": "GLP-1 market leader with accelerating revenue growth. Telehealth platform provides competitive moat. Q2 earnings catalyst on Aug 10.",
-      "catalyst": "Q2 Earnings Aug 10",
-      "timeframe": "swing",
-      "status": "open",
-      "scaleOuts": []
-    }
-  ],
+  "balance": 99039.44277000001,
+  "positions": [],
   "totalEquity": 100000,
   "createdAt": "2026-07-16T09:45:00.000Z",
   "note": "Paper trading portfolio initialized with HIMS position from July 16, 2026"

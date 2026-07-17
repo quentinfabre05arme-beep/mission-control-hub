@@ -2,8 +2,28 @@ const https = require('https');
 const fs = require('fs').promises;
 const path = require('path');
 
-// Load from .env file if exists
-require('dotenv').config({ path: 'C:\\Users\\quent\\.openclaw\\workspace\\pod_business\\.env' });
+// Load from .env file if exists (prioritize .env.local)
+// Try multiple paths since script can be run from different directories
+const possiblePaths = [
+  path.join(process.cwd(), 'pod_business', '.env.local'),
+  path.join(process.cwd(), '.env.local'),
+  path.join(__dirname, 'pod_business', '.env.local'),
+  path.join(__dirname, '.env.local'),
+  'C:\\Users\\quent\\.openclaw\\workspace\\pod_business\\.env.local'
+];
+
+let envLoaded = false;
+for (const envPath of possiblePaths) {
+  if (require('fs').existsSync(envPath)) {
+    require('dotenv').config({ path: envPath });
+    envLoaded = true;
+    break;
+  }
+}
+
+if (!envLoaded) {
+  console.error('Warning: No .env file found');
+}
 
 const CONFIG = {
   apiKey: process.env.PRINTIFY_API_KEY,
@@ -76,7 +96,8 @@ async function log(msg) {
 async function getShops() {
   log('Fetching shops...');
   const response = await apiRequest('/shops.json');
-  return response.data || [];
+  // Handle both {data: [...]} and [...] response formats
+  return response.data || (Array.isArray(response) ? response : []) || [];
 }
 
 // Upload image
