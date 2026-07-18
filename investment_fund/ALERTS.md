@@ -1,12 +1,19 @@
 # Alpha Fund Alert System
 
-**Last Updated:** 2026-07-18 12:10 CET  
+**Last Updated:** 2026-07-18 20:10 CET  
 **Status:** 🟢 NO ACTIVE ALERTS
 
 ---
 
 ## Active Alerts
 *None*
+
+### Recent Research Cycles
+| Cycle | Time | Status |
+|-------|------|--------|
+| #68 | 20:10 | 🟢 No action — Extreme fear persists, no setups |
+| #67 | 12:10 | 🟢 No action — Weekend consolidation |
+| #66 | 08:10 | 🟢 No action — Initial extreme fear signal |
 
 ---
 
@@ -22,9 +29,10 @@
 
 | Asset | Trigger | Level | Status |
 |-------|---------|-------|--------|
-| BTC | Extreme fear + RSI <30 | $60,000–$61,500 | ⏳ WAITING |
-| HIMS | Stabilization after 8-day decline | $28–$30 | ⏳ WAITING |
-| Fear & Greed | Panic buy zone | <20 | ⏳ WAITING |
+| BTC | Extreme fear + RSI <30 | $60,000–$61,500 | ⏳ WAITING (alert set at $61,500) |
+| HIMS | Stabilization after decline | $28–$30 | ⏳ WAITING |
+| Fear & Greed | Panic buy zone | <20 | ⏳ WAITING (currently 25, Day 4) |
+| ETH | Independent strength vs BTC | RSI <30 + volume | ⏳ WAITING |
 
 ---
 

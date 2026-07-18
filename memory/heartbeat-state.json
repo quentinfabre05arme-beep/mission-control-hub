@@ -20,6 +20,8 @@
         "marketDataJul16": "BTC: $64,256 (-0.77%) | ETH: $1,872.89 (-2.34%) | MSTR: $93.89 (-3.67%) | HIMS: $34.70 (-6.65%) (as of Jul 16, 19:13 CET)",
     "marketDataJul17": "BTC: $63,007 (-1.29%) | ETH: $1,836 (-1.55%) | MSTR: $94.03 (-3.53%) | HIMS: $33.68 (-9.39%) (as of Jul 17, 12:01 CET)",
     "marketDataJul18": "BTC: $64,006 (+0.12%) | ETH: $1,845 (+0.17%) | MSTR: $94.85 (+0.87%) | HIMS: $32.84 (-2.49%) (as of Jul 18, 06:02 CET)"
-
+    },
+    "lastChecks": {
+        "heartbeat": 1752855120
     }
 }
