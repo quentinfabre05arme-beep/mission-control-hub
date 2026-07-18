@@ -2,7 +2,7 @@
 
 ## Active Alerts: NONE 🟢
 
-Last Updated: July 17, 2026 16:10 CET
+Last Updated: July 18, 2026 00:15 CET
 
 ---
 
@@ -21,6 +21,21 @@ Last Updated: July 17, 2026 16:10 CET
 - **Risk Limit:** Daily loss approaches -3% portfolio level
 - **Rebalance:** Correlation exceeds 40% threshold
 - **News Catalyst:** Breaking material news on Tier 2/3 positions
+- **Fear & Greed:** Index moves above 50 (greed) or below 20 (extreme fear)
+- **Whale Signal:** Distribution switches to accumulation
+
+---
+
+## Current Watch Levels
+
+| Asset | Level | Alert Type |
+|-------|-------|------------|
+| BTC | $65,000 break | Breakout LONG |
+| BTC | $62,000 break | Support test |
+| ETH | $1,880 reclaim | Breakout LONG |
+| ETH | $1,800 break | Support test |
+| F&G | >50 | Greed entry |
+| F&G | <20 | Extreme fear buy |
 
 ---
 

@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "fetch_timestamp": "2026-07-17T23:18:09.096Z",
-    "local_time": "18/07/2026 01:18:09",
-    "cycle_id": "alternative-data-2026-07-17",
+    "fetch_timestamp": "2026-07-18T03:18:13.145Z",
+    "local_time": "18/07/2026 05:18:13",
+    "cycle_id": "alternative-data-2026-07-18",
     "data_sources": [
       "alternative.me",
       "serper.dev",
@@ -10,17 +10,17 @@
     ]
   },
   "market_snapshot": {
-    "timestamp": "2026-07-17T23:12:37.583Z",
+    "timestamp": "2026-07-18T03:12:36.437Z",
     "assets": {
       "BTC": {
-        "price": 63886.61,
-        "change_24h": 0.088375095,
+        "price": 63954.37,
+        "change_24h": 0.035506659,
         "source": "twelvedata",
         "signal": "NEUTRAL"
       },
       "ETH": {
-        "price": 1835.72,
-        "change_24h": -1.55467,
+        "price": 1841.94,
+        "change_24h": 0.0005429088,
         "source": "twelvedata",
         "signal": "NEUTRAL"
       },
@@ -49,9 +49,9 @@
   },
   "sentiment": {
     "fear_greed": {
-      "value": 27,
-      "classification": "FEAR",
-      "timestamp": "2026-07-17T00:00:00.000Z"
+      "value": 25,
+      "classification": "EXTREME FEAR",
+      "timestamp": "2026-07-18T00:00:00.000Z"
     },
     "whale_signals": {
       "signal": "NEUTRAL",
@@ -92,13 +92,6 @@
   "anomalies": {
     "flags": [
       {
-        "asset": "MARKET",
-        "type": "SENTIMENT_RECOVERY",
-        "severity": "MEDIUM",
-        "description": "Fear & Greed at 27 - recovering from extreme fear",
-        "signal": "CONTRARIAN_BUY"
-      },
-      {
         "asset": "HIMS",
         "type": "PRICE_DIVERGENCE",
         "severity": "LOW",
@@ -106,8 +99,8 @@
         "signal": "MONITOR"
       }
     ],
-    "count": 2,
-    "summary": "2 anomaly(s) detected"
+    "count": 1,
+    "summary": "1 anomaly(s) detected"
   },
   "composite_scores": {
     "BTC": {
@@ -118,10 +111,9 @@
       ]
     },
     "ETH": {
-      "score": "0.10",
-      "rating": "NEUTRAL",
+      "score": "0.30",
+      "rating": "SLIGHTLY_BULLISH",
       "factors": [
-        "Negative 24h momentum",
         "Extreme fear = contrarian buy opportunity"
       ]
     },
@@ -142,12 +134,6 @@
     }
   },
   "research_flags": [
-    {
-      "priority": "MEDIUM",
-      "asset": "MARKET",
-      "task": "Investigate SENTIMENT_RECOVERY: Fear & Greed at 27 - recovering from extreme fear",
-      "signal": "CONTRARIAN_BUY"
-    },
     {
       "priority": "MEDIUM",
       "asset": "HIMS",
