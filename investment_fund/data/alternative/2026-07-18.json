@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "fetch_timestamp": "2026-07-18T03:18:13.145Z",
-    "local_time": "18/07/2026 05:18:13",
+    "fetch_timestamp": "2026-07-18T15:18:07.929Z",
+    "local_time": "18/07/2026 17:18:07",
     "cycle_id": "alternative-data-2026-07-18",
     "data_sources": [
       "alternative.me",
@@ -10,17 +10,17 @@
     ]
   },
   "market_snapshot": {
-    "timestamp": "2026-07-18T03:12:36.437Z",
+    "timestamp": "2026-07-18T15:11:43.127Z",
     "assets": {
       "BTC": {
-        "price": 63954.37,
-        "change_24h": 0.035506659,
+        "price": 64106,
+        "change_24h": 0.27268176,
         "source": "twelvedata",
         "signal": "NEUTRAL"
       },
       "ETH": {
-        "price": 1841.94,
-        "change_24h": 0.0005429088,
+        "price": 1844.64,
+        "change_24h": 0.14712828,
         "source": "twelvedata",
         "signal": "NEUTRAL"
       },
@@ -56,15 +56,27 @@
     "whale_signals": {
       "signal": "NEUTRAL",
       "score": 0,
-      "confidence": 0.4,
+      "confidence": 1,
       "headlines": [
         {
           "sentiment": "accumulation",
-          "title": "Summary: This Week in Crypto - Is Clarity All Markets Need?"
+          "title": "Bitcoin Whales Are Moving Billions in July — Is BTC Price About to Explode?"
+        },
+        {
+          "sentiment": "accumulation",
+          "title": "CryptoQuant: Whales Are Absorbing Bitcoin's Retail Selling Pressure — Cumulative Address Inflows Rising as Spot Outflows Continue"
         },
         {
           "sentiment": "distribution",
-          "title": "Ethereum approaches $1,900 resistance as ETF inflows and whale activity rise"
+          "title": "CryptoQuant: Whales Are Absorbing Bitcoin's Retail Selling Pressure — Cumulative Address Inflows Rising as Spot Outflows Continue"
+        },
+        {
+          "sentiment": "distribution",
+          "title": "CryptoQuant: Whales Are Absorbing Bitcoin's Retail Selling Pressure — Cumulative Address Inflows Rising as Spot Outflows Continue"
+        },
+        {
+          "sentiment": "accumulation",
+          "title": "SUMMARY: This Week in Crypto - Is Clarity All Markets Need?"
         }
       ]
     }
@@ -73,15 +85,27 @@
     "whale_activity": {
       "signal": "NEUTRAL",
       "score": 0,
-      "confidence": 0.4,
+      "confidence": 1,
       "headlines": [
         {
           "sentiment": "accumulation",
-          "title": "Summary: This Week in Crypto - Is Clarity All Markets Need?"
+          "title": "Bitcoin Whales Are Moving Billions in July — Is BTC Price About to Explode?"
+        },
+        {
+          "sentiment": "accumulation",
+          "title": "CryptoQuant: Whales Are Absorbing Bitcoin's Retail Selling Pressure — Cumulative Address Inflows Rising as Spot Outflows Continue"
         },
         {
           "sentiment": "distribution",
-          "title": "Ethereum approaches $1,900 resistance as ETF inflows and whale activity rise"
+          "title": "CryptoQuant: Whales Are Absorbing Bitcoin's Retail Selling Pressure — Cumulative Address Inflows Rising as Spot Outflows Continue"
+        },
+        {
+          "sentiment": "distribution",
+          "title": "CryptoQuant: Whales Are Absorbing Bitcoin's Retail Selling Pressure — Cumulative Address Inflows Rising as Spot Outflows Continue"
+        },
+        {
+          "sentiment": "accumulation",
+          "title": "SUMMARY: This Week in Crypto - Is Clarity All Markets Need?"
         }
       ]
     },
@@ -140,5 +164,6 @@
       "task": "Investigate PRICE_DIVERGENCE: HIMS down -2.49% vs neutral market",
       "signal": "MONITOR"
     }
-  ]
+  ],
+  "cron_note": "This is a reminder that the Alpha Fund alternative data fetch for 2026-07-18 has completed successfully. Data shows Fear & Greed at 25 (EXTREME FEAR) - potential contrarian buy opportunity. One HIMS divergence flagged for monitoring. File logged to investment_fund/data/alternative/2026-07-18.json as requested."
 }

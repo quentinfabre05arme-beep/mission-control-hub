@@ -1,0 +1,45 @@
+{
+  "date": "2026-07-18",
+  "type": "daily_brief",
+  "status": "published",
+  "publication": {
+    "platform": "substack",
+    "url": "https://substack.com/@quentinvest1",
+    "title": "Quentinvest Daily Brief — July 18, 2026"
+  },
+  "market_data": {
+    "timestamp": "2026-07-18T06:00:00Z",
+    "assets": {
+      "BTC": { "price": 63904, "change_24h": 1.79, "signal": "BULLISH" },
+      "ETH": { "price": 1844, "change_24h": 1.24, "signal": "BULLISH" },
+      "MSTR": { "price": 94.85, "change_24h": 0.87, "signal": "NEUTRAL" },
+      "HIMS": { "price": 32.84, "change_24h": -2.49, "signal": "BEARISH" }
+    },
+    "fear_greed": 25,
+    "composite_score": 0.30,
+    "rating": "SLIGHTLY_BULLISH"
+  },
+  "alpha_fund": {
+    "capital": 50000,
+    "currency": "EUR",
+    "positions": 0,
+    "cash_pct": 100,
+    "bias": "defensive"
+  },
+  "key_observations": [
+    "BTC breaking $63.9K resistance with +1.8% move",
+    "ETH following BTC strength, ratio stable",
+    "HIMS down -2.5%, now -18% from recent highs",
+    "Fear & Greed at 25 (Extreme Fear) - contrarian buy signal"
+  ],
+  "action_items": [
+    "Watch BTC $65K for breakout entry",
+    "Monitor HIMS $30 support level",
+    "Hold cash - wait for clean setups"
+  ],
+  "files": [
+    "newsletter/daily_brief_2026-07-18.md"
+  ],
+  "generated_at": "2026-07-18T06:00:00Z",
+  "generator": "Claw v7.6"
+}

@@ -1,42 +1,51 @@
-# Alpha Fund Alerts Dashboard
+# Alpha Fund Alert System
 
-## Active Alerts: NONE 🟢
+**Last Updated:** 2026-07-18 12:10 CET  
+**Status:** 🟢 NO ACTIVE ALERTS
 
-Last Updated: July 18, 2026 00:15 CET
+---
+
+## Active Alerts
+*None*
 
 ---
 
 ## Alert History
 
-| Date | Asset | Alert Type | Action | Status |
-|------|-------|------------|--------|--------|
-| — | — | — | — | — |
+| Time | Type | Asset | Message | Status |
+|------|------|-------|---------|--------|
+| — | — | — | No alerts triggered today | — |
+
+---
+
+## Pending Watch Triggers
+
+| Asset | Trigger | Level | Status |
+|-------|---------|-------|--------|
+| BTC | Extreme fear + RSI <30 | $60,000–$61,500 | ⏳ WAITING |
+| HIMS | Stabilization after 8-day decline | $28–$30 | ⏳ WAITING |
+| Fear & Greed | Panic buy zone | <20 | ⏳ WAITING |
 
 ---
 
 ## Alert Rules
 
-- **Tier 1 Breakout:** Asset moves >5% on volume with catalyst
-- **Stop Hit:** Position reaches -10% stop loss
-- **Risk Limit:** Daily loss approaches -3% portfolio level
-- **Rebalance:** Correlation exceeds 40% threshold
-- **News Catalyst:** Breaking material news on Tier 2/3 positions
-- **Fear & Greed:** Index moves above 50 (greed) or below 20 (extreme fear)
-- **Whale Signal:** Distribution switches to accumulation
+### Entry Alerts
+- Tier 1 setup confirmed: RSI + volume + reversal pattern
+- Tier 2 accumulation zone reached with stabilization
+- Breaking news affecting open positions
+
+### Risk Alerts
+- Stop loss hit (immediate notification)
+- Position size exceeds 10% limit
+- Daily loss exceeds 3% of fund
+- Correlation spike >40%
+
+### Profit Alerts
+- Target 1 (+25%) hit → partial exit + move stop to breakeven
+- Target 2 (+50%) hit → partial exit
+- Target 3 (+100%) hit → final exit
 
 ---
 
-## Current Watch Levels
-
-| Asset | Level | Alert Type |
-|-------|-------|------------|
-| BTC | $65,000 break | Breakout LONG |
-| BTC | $62,000 break | Support test |
-| ETH | $1,880 reclaim | Breakout LONG |
-| ETH | $1,800 break | Support test |
-| F&G | >50 | Greed entry |
-| F&G | <20 | Extreme fear buy |
-
----
-
-*Silent mode active. Alerts only on actionable signals.*
+*Auto-refresh on each research cycle*
