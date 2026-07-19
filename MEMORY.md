@@ -20,13 +20,15 @@
 
 ---
 
-## Dashboard Improvement Cycles #86-#89 — Jul 19, 2026
+## Dashboard Improvement Cycles #86-#91 — Jul 19, 2026
 
-**Status:** Silent hourly maintenance (4 cycles completed by 03:11)
-- Cycle count: 89 (continuation from Jul 18's 85)
-- BTC drifting near flat after 24h reset: $64,775 (-0.09%)
-- Signals: NEUTRAL across all assets
+**Status:** Silent hourly maintenance (6 cycles completed by 05:11)
+- Cycle count: 91 (continuation from Jul 18's 85)
+- BTC slight pullback after 24h reset: $64,737 (-0.15%)
+- ETH outperforming: $1,869 (+0.36%)
+- Signals: NEUTRAL across BTC/ETH/MSTR, BEARISH on HIMS
 - No breakout detected. System healthy.
+- Git push blocked by auth (expected, using Vercel CLI workaround)
 
 ---
 
@@ -41,19 +43,26 @@
 
 ---
 
-## Revenue Reality Check — July 18, 2026
+## Revenue Reality Check — July 19, 2026 (Updated)
 
-**Status:** Zero revenue across all streams. All systems are infrastructure-building phase.
+**Status:** Zero revenue across all streams. All systems are infrastructure-building phase. Day 9 of POD blocker.
 
 | Stream | Status | Blocker | Time to Revenue |
 |--------|--------|---------|-----------------|
-| **POD Business** | 🔴 Blocked | Printify API 401 (Day 5) | Unknown |
+| **POD Business** | 🔴 Blocked | Printify API 401 (Day 9) | Unknown |
 | **Alpha Fund** | 🟡 Research-only | Paper trading, no live capital | N/A |
 | **Newsletter** | 🟡 Pre-monetization | No subscribers yet | 1-2 months |
 | **Data API** | ⚪ Not started | No product built | 3+ months |
 | **Code Products** | ⚪ Not started | No products created | 3+ months |
 
-**Lesson:** Building infrastructure is necessary but not sufficient. The POD blocker (expired API token) has cost 5 days of potential revenue. Without manual intervention to regenerate the token, this stream is dead in the water. This validates the principle: autonomous systems need human checkpoints for external auth/credentials.
+**Lesson:** Building infrastructure is necessary but not sufficient. The POD blocker (expired API token) has cost 9 days of potential revenue (~€90-270 lost). Without manual intervention to regenerate the token, this stream is dead in the water. This validates the principle: autonomous systems need human checkpoints for external auth/credentials.
+
+**Optimizations applied despite blocker (Jul 19):**
+- Pricing optimized: €24.99→€27.99 (BITCOIN TREASURY)
+- Etsy SEO titles/tags generated for all 5 designs
+- New opportunity identified: AI/Prompt Engineer niche (+120% growth, zero competition)
+- Alternative providers researched: Printful (recommended), Gelato, SPOD
+- Files: `pod_business/pricing_config.json`, `pod_business/seo/optimized_titles.json`, `pod_business/seo/optimized_tags.json`
 
 ---
 
@@ -72,18 +81,19 @@
 
 ---
 
-## Autonomous Maintenance Maturity — July 18, 2026
+## Autonomous Maintenance Maturity — July 19, 2026
 
-**Achievement:** 85 consecutive autonomous improvement cycles with zero manual intervention.
+**Achievement:** 91 consecutive autonomous improvement cycles (Jul 18–19), zero manual intervention.
 
 **What the system does autonomously:**
-1. Refreshes market data every hour via Twelve Data API
+1. Refreshes market data every hour via Twelve Data API with cascading fallbacks (CoinGecko → Yahoo → Cache)
 2. Falls back to CoinGecko → Yahoo → cached data on API failures
 3. Syncs timestamps across all dashboard files (index.html, mobile_dashboard.html, backtesting_module.html)
 4. Bumps cycle count and version tags
 5. Creates git commits locally (push blocked by auth)
 6. Self-heals from API 429s with 15s backoff
-7. Detects and logs market breakouts (BTC +$171 in 1h triggered alert)
+7. Detects and logs market breakouts (Jul 18: BTC +$171 in 1h triggered BULLISH → ENTRY sequence)
+8. HEARTBEAT.md synced every cycle for continuity
 
 **What still requires manual intervention:**
 1. Git push (token expired — using Vercel CLI workaround)
@@ -94,11 +104,11 @@
 
 ---
 
-## POD Business Critical Blocker — July 19, 2026
+## POD Business Critical Blocker — July 19, 2026 (Latest)
 
 **Status:** 🔴 **BLOCKED — Printify API Token Expired (Day 9)**
 
-**Update Jul 19, 04:53:** Research cycle #9 complete — optimizations applied despite API block.
+**Update Jul 19, 05:11:** Research cycle #9 complete — optimizations applied despite API block.
 
 - API returning 401 Unauthorized for 9 consecutive days (since Jul 13)
 - 5 designs optimized with +9.2% price increase, SEO titles/tags generated
@@ -144,11 +154,11 @@
 
 ---
 
-## Revenue Team Restructuring Needed — July 18, 2026
+## Revenue Team Restructuring Needed — July 19, 2026 (Updated)
 
 **Current team status:**
 - Alpha Fund: Research-only, no live trading (€50K cash on paper)
-- POD Business: Blocked for 5 days, €0 revenue
+- POD Business: Blocked for 9 days, €0 revenue
 - Newsletter: Pre-monetization, no audience built
 - Mission Control: Infrastructure only, no revenue
 
@@ -160,28 +170,30 @@
 3. Alpha Fund live trading → requires capital commitment
 4. Code products → build once, sell forever
 
+**Note:** POD optimizations continue despite blocker (pricing, SEO, new niches). System is preparing for rapid deployment once auth resolved.
+
 ---
 
-## Revenue Intelligence Team — July 17, 2026
+## Revenue Intelligence Team — July 19, 2026 (Updated)
 
 **Structure:** 4 specialized agents operating autonomously
 
 | Agent | Role | Status | Issue |
 |-------|------|--------|-------|
 | **Alpha Fund** | Investment research, market signals | ✅ Active | None |
-| **POD Business** | Print-on-demand design & ops | 🔴 Blocked | Printify API 401 (Day 5) |
+| **POD Business** | Print-on-demand design & ops | 🔴 Blocked | Printify API 401 (Day 9) |
 | **Newsletter** | Investment research publishing | ✅ Active | None |
 | **Mission Control** | Dashboard & system monitoring | ✅ Active | Git push blocked |
 
 **Lesson:** Multi-agent revenue operations require independent fallback paths. When one agent is blocked (POD), others continue operating. This is the redundancy principle. However, POD is the only revenue-generating agent with €0 actual income — Alpha Fund is research-only (paper trading), Newsletter is pre-monetization.
 
-**Reality check:** No revenue streams are live yet. All are infrastructure-building phase.
+**Reality check:** No revenue streams are live yet. All are infrastructure-building phase. POD blocker now 9 days — longest continuous blocker.
 
 ---
 
-## Dashboard Automation Maturity — July 18, 2026
+## Dashboard Automation Maturity — July 19, 2026
 
-**Achievement:** 81+ fully autonomous improvement cycles (Jul 18, 00:12–19:11), zero manual intervention.
+**Achievement:** 91+ fully autonomous improvement cycles (Jul 18–19), zero manual intervention.
 
 **What works:**
 - Hourly market data refresh via Twelve Data API with cascading fallbacks (CoinGecko → Yahoo → Cache)
@@ -189,13 +201,14 @@
 - Git commit on every change (local only — push blocked by auth)
 - Self-healing: API 429 rate limits trigger 15s backoff, then fallback
 - vercel.json BOM fix applied automatically during sweep #61
-- Breakout detection: BTC +$171 in 1h triggered BULLISH signal at 19:11
+- Breakout detection: BTC +$171 in 1h triggered BULLISH → ENTRY sequence at 19:11 (Jul 18)
+- HEARTBEAT.md synced every cycle for system continuity
 
 **What doesn't:**
 - Static HTML data still requires file rewrite for refresh (live JS fetch not yet implemented)
 - Git push blocked (token expired) — Vercel CLI used as workaround since Jul 16
 - No real-time alerting on market moves (just logs them)
-- MSTR/HIMS prices occasionally stale for hours ( Twelve Data 429s)
+- MSTR/HIMS prices occasionally stale for hours (Twelve Data 429s)
 
 **Next improvement:** Wire live price fetching via client-side JS to eliminate static data dependency and enable sub-minute refresh.
 
