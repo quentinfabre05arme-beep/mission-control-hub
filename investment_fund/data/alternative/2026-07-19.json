@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "fetch_timestamp": "2026-07-19T19:00:09.526Z",
-    "local_time": "19/07/2026 21:00:09",
+    "fetch_timestamp": "2026-07-19T19:18:12.595Z",
+    "local_time": "19/07/2026 21:18:12",
     "cycle_id": "alternative-data-2026-07-19",
     "data_sources": [
       "alternative.me",
@@ -10,40 +10,40 @@
     ]
   },
   "market_snapshot": {
-    "timestamp": "2026-07-19T18:11:18.101Z",
+    "timestamp": "2026-07-19T19:11:10.272Z",
     "assets": {
       "BTC": {
-        "price": 64438,
-        "change_24h": -0.61112789,
-        "source": "cached",
+        "price": 64461.99,
+        "change_24h": -0.57412582,
+        "source": "twelvedata",
         "signal": "NEUTRAL"
       },
       "ETH": {
-        "price": 1861.89,
-        "change_24h": -0.038655435,
-        "source": "cached",
+        "price": 1860.54,
+        "change_24h": -0.11113438,
+        "source": "twelvedata",
         "signal": "NEUTRAL"
       },
       "MSTR": {
         "price": 94.85,
         "change_24h": 0.87206179,
-        "source": "cached",
+        "source": "twelvedata",
         "signal": "NEUTRAL"
       },
       "HIMS": {
         "price": 32.84,
         "change_24h": -2.49406,
-        "source": "cached",
+        "source": "twelvedata",
         "signal": "BEARISH"
       }
     },
     "_meta": {
       "fromCache": false,
       "sources": [
-        "cached",
-        "cached",
-        "cached",
-        "cached"
+        "twelvedata",
+        "twelvedata",
+        "twelvedata",
+        "twelvedata"
       ]
     }
   },
@@ -55,8 +55,8 @@
     },
     "whale_signals": {
       "signal": "NEUTRAL",
-      "score": -1,
-      "confidence": 0.6,
+      "score": 0,
+      "confidence": 0.4,
       "headlines": [
         {
           "sentiment": "accumulation",
@@ -65,10 +65,6 @@
         {
           "sentiment": "distribution",
           "title": "Bitcoin Price Nears Bear Market End as Cost Basis Signal Flashes"
-        },
-        {
-          "sentiment": "distribution",
-          "title": "XRP Holds Near $1.09 as ETF Inflows Offset Weak Retail Demand"
         }
       ]
     }
@@ -76,8 +72,8 @@
   "on_chain": {
     "whale_activity": {
       "signal": "NEUTRAL",
-      "score": -1,
-      "confidence": 0.6,
+      "score": 0,
+      "confidence": 0.4,
       "headlines": [
         {
           "sentiment": "accumulation",
@@ -86,10 +82,6 @@
         {
           "sentiment": "distribution",
           "title": "Bitcoin Price Nears Bear Market End as Cost Basis Signal Flashes"
-        },
-        {
-          "sentiment": "distribution",
-          "title": "XRP Holds Near $1.09 as ETF Inflows Offset Weak Retail Demand"
         }
       ]
     },
