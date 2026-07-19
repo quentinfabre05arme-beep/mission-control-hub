@@ -1,10 +1,10 @@
 {
-  "timestamp": "2026-07-19T22:11:34.726Z",
+  "timestamp": "2026-07-19T23:11:37.791Z",
   "assets": {
     "BTC": {
       "price": 64479.54,
       "change_24h": 0,
-      "source": "yahoo",
+      "source": "cached",
       "signal": "NEUTRAL"
     },
     "ETH": {
@@ -29,7 +29,7 @@
   "_meta": {
     "fromCache": false,
     "sources": [
-      "yahoo",
+      "cached",
       "cached",
       "cached",
       "cached"
