@@ -21,7 +21,21 @@
       "targets": "39.03 (5%), 40.89 (10%), 42.75 (15%)",
       "thesis": "HIMS is a GLP-1 market leader with accelerating revenue growth and telehealth platform providing competitive moat. Q2 earnings on Aug 10 are the catalyst. WEAK_BUY signal has 79% historical win rate. Position sized at 10% based on conviction.",
       "why_wrong": "1) GLP-1 market saturates faster than expected 2) Competitors take market share 3) Earnings miss expectations 4) Market correction hits growth stocks",
-      "review_date": "2026-08-10",
+      "review_date": "2026-07-19",
+      "lessons_extracted": {
+        "what_worked": [
+          "Systematic stop loss execution - loss contained within parameters",
+          "Position sizing appropriate for conviction level",
+          "Pre-defined exit rules followed without emotion"
+        ],
+        "what_didnt_work": [
+          "Entry timing - bought into early strength without waiting for pullback confirmation",
+          "Over-reliance on checklist score without price action context",
+          "Did not account for broader market weakness on entry day"
+        ],
+        "pattern_insight": "WEAK_BUY + earnings catalyst needs price confirmation within 48 hours or early stop recommended",
+        "system_update": "Add price momentum check: require close > prior day high OR wait for pullback to 20 SMA"
+      },
       "fair_value": "$48.30",
       "upside": "+29.9%",
       "outcome": {
@@ -75,6 +89,8 @@
     "open_entries": 1,
     "closed_entries": 1,
     "win_rate": "0%",
-    "avg_pnl": "-941.50"
+    "avg_pnl": "-941.50",
+    "lessons_learned": 3,
+    "improvements_made": 1
   }
 }

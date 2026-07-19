@@ -9,7 +9,9 @@
         "WEAK_BUY or BUY signal from enhanced research",
         "Checklist score >= 80",
         "Earnings or major catalyst within 30 days",
-        "Clear thesis with identifiable moat"
+        "Clear thesis with identifiable moat",
+        "REQUIRED: Price confirmation (close > prior day high OR pullback to 20 SMA)",
+        "REQUIRED: Broader market not in distribution phase"
       ],
       "exit_rules": [
         "Stop loss: 6% or technical breakdown",
@@ -30,12 +32,19 @@
           "stop": 35.0,
           "targets": [39.03, 40.89, 42.75],
           "catalyst": "Q2 Earnings Aug 10",
-          "status": "open",
-          "result": null
+          "exit_date": "2026-07-16",
+          "exit_price": 33.67,
+          "exit_reason": "stop_loss_autonomous",
+          "result": "loss",
+          "pnl_pct": -9.42,
+          "holding_days": 0,
+          "lessons": "Entry lacked price confirmation. Early stop hit same day. Consider waiting for pullback to 20 SMA or momentum confirmation."
         }
       ],
-      "win_rate": null,
-      "avg_return": null,
+      "win_rate": 0,
+      "avg_return": -9.42,
+      "status": "under_review",
+      "pattern_grade": "C",
       "notes": "Based on backtest: WEAK_BUY alone has 73-79% win rate. Adding earnings catalyst should improve odds. Need 5+ occurrences to calculate reliable stats."
     },
     {
@@ -129,6 +138,10 @@
     "total_patterns": 4,
     "active_patterns": 1,
     "total_occurrences": 1,
-    "last_updated": "2026-07-16T10:00:00Z"
+    "completed_occurrences": 1,
+    "winning_trades": 0,
+    "losing_trades": 1,
+    "under_review": 1,
+    "last_updated": "2026-07-19T09:00:00Z"
   }
 }
