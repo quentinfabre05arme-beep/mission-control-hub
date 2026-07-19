@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "fetch_timestamp": "2026-07-18T21:18:08.583Z",
-    "local_time": "18/07/2026 23:18:08",
+    "fetch_timestamp": "2026-07-18T23:18:11.584Z",
+    "local_time": "19/07/2026 01:18:11",
     "cycle_id": "alternative-data-2026-07-18",
     "data_sources": [
       "alternative.me",
@@ -10,17 +10,17 @@
     ]
   },
   "market_snapshot": {
-    "timestamp": "2026-07-18T21:11:40.365Z",
+    "timestamp": "2026-07-18T23:11:44.552Z",
     "assets": {
       "BTC": {
-        "price": 64677.4,
-        "change_24h": 1.16645,
+        "price": 64730.42,
+        "change_24h": 1.24938,
         "source": "twelvedata",
         "signal": "NEUTRAL"
       },
       "ETH": {
-        "price": 1857.88,
-        "change_24h": 0.86593953,
+        "price": 1861.63,
+        "change_24h": 1.06953,
         "source": "twelvedata",
         "signal": "NEUTRAL"
       },
@@ -55,8 +55,8 @@
     },
     "whale_signals": {
       "signal": "NEUTRAL",
-      "score": 1,
-      "confidence": 1,
+      "score": 0,
+      "confidence": 0.8,
       "headlines": [
         {
           "sentiment": "accumulation",
@@ -73,10 +73,6 @@
         {
           "sentiment": "distribution",
           "title": "CryptoQuant: Whales Are Absorbing Bitcoin's Retail Selling Pressure — Cumulative Address Inflows Rising as Spot Outflows Continue"
-        },
-        {
-          "sentiment": "accumulation",
-          "title": "SUMMARY: This Week in Crypto - Is Clarity All Markets Need?"
         }
       ]
     }
@@ -84,8 +80,8 @@
   "on_chain": {
     "whale_activity": {
       "signal": "NEUTRAL",
-      "score": 1,
-      "confidence": 1,
+      "score": 0,
+      "confidence": 0.8,
       "headlines": [
         {
           "sentiment": "accumulation",
@@ -102,10 +98,6 @@
         {
           "sentiment": "distribution",
           "title": "CryptoQuant: Whales Are Absorbing Bitcoin's Retail Selling Pressure — Cumulative Address Inflows Rising as Spot Outflows Continue"
-        },
-        {
-          "sentiment": "accumulation",
-          "title": "SUMMARY: This Week in Crypto - Is Clarity All Markets Need?"
         }
       ]
     },
@@ -136,9 +128,10 @@
       ]
     },
     "ETH": {
-      "score": "0.30",
+      "score": "0.50",
       "rating": "SLIGHTLY_BULLISH",
       "factors": [
+        "Positive 24h momentum",
         "Extreme fear = contrarian buy opportunity"
       ]
     },
@@ -165,17 +158,5 @@
       "task": "Investigate PRICE_DIVERGENCE: HIMS down -2.49% vs neutral market",
       "signal": "MONITOR"
     }
-  ],
-  "early_signals_summary": {
-    "market_regime": "FEAR_EXTREME_CONTRARIAN",
-    "key_insight": "Fear & Greed at 25 (EXTREME FEAR) with BTC up 1.17% - classic contrarian signal. Whale accumulation headlines suggest smart money positioning. HIMS divergence warrants monitoring for biotech rotation.",
-    "trade_setup": "BTC showing early accumulation conditions - price rising while sentiment still fearful. Watch for fear index recovery above 30 for confirmation.",
-    "data_gaps": [
-      "Real-time funding rates (pending exchange API)",
-      "On-chain exchange flows (pending Glassnode/CryptoQuant)",
-      "Options flow data (pending Unusual Whales or similar)",
-      "Social sentiment scores (pending LunarCrush)",
-      "Order book depth (pending direct exchange feeds)"
-    ]
-  }
+  ]
 }

@@ -1,13 +1,14 @@
 # Mission Control Heartbeat Status
 
-**Current Version:** v10.0 Risk Management Dashboard
-**Last Updated:** Friday, July 17, 2026 - 10:10 (Europe/Paris)
+**Current Version:** v11.1 Mission Control Dashboard
+**Last Updated:** Sunday, July 19, 2026 - 04:11 (Europe/Paris)
 **Status:** ✅ All Systems Operational
+**Cycle:** #90
 
 **Morning Checklist:**
 - [ ] Email
 - [x] Dashboard status (all 8 dashboards verified)
-- [x] Market data (BTC: $62,745 | ETH: $1,789 | MSTR: $92 | HIMS: $34)
+- [x] Market data (BTC: $64,877 | ETH: $1,868 | MSTR: $95 | HIMS: $33)
 - [ ] Calendar events next 24-48h
 - [ ] Social mentions
 - [x] System health (gateway online)
@@ -391,11 +392,11 @@
 | NewsAPI | ✅ Online | 234ms | 20/min | 45s ago |
 | RSS Feeds | 🟡 Degraded | 456ms | 10/min | 2m ago |
 
-**Market Data (Jul 14, 07:58 CET):**
-- BTC: $62,745 (+0.2%)
-- ETH: $1,789 (+0.1%)
-- MSTR: $92 (stable)
-- HIMS: $34 (stable)
+**Market Data (Jul 19, 04:11 CET):**
+- BTC: $64,877 (+0.07%)
+- ETH: $1,868 (+0.29%)
+- MSTR: $94.85 (+0.87%)
+- HIMS: $32.84 (-2.49%)
 
 **News Queue:**
 - Healthcare GLP-1: "New study shows 40% weight loss efficacy"

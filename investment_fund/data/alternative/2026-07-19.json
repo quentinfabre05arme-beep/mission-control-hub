@@ -1,0 +1,158 @@
+{
+  "metadata": {
+    "fetch_timestamp": "2026-07-19T02:11:33.342Z",
+    "local_time": "19/07/2026 04:11:33",
+    "cycle_id": "alternative-data-2026-07-19",
+    "data_sources": [
+      "alternative.me",
+      "serper.dev",
+      "market_data.json"
+    ]
+  },
+  "market_snapshot": {
+    "timestamp": "2026-07-19T02:10:36.559Z",
+    "assets": {
+      "BTC": {
+        "price": 64844.02,
+        "change_24h": 0.015115475,
+        "change_amount": 9.8,
+        "open": 64834.21,
+        "high": 64967.25,
+        "low": 64700.84,
+        "volume": null,
+        "source": "twelvedata",
+        "signal": "NEUTRAL",
+        "fetch_time_ms": 368,
+        "stale": false
+      },
+      "ETH": {
+        "price": 1866.87,
+        "change_24h": 0.22871132,
+        "change_amount": 4.26,
+        "open": 1862.61,
+        "high": 1872.79,
+        "low": 1858.17,
+        "volume": null,
+        "source": "twelvedata",
+        "signal": "NEUTRAL",
+        "fetch_time_ms": 328,
+        "stale": false
+      },
+      "MSTR": {
+        "price": 94.85,
+        "change_24h": 0.87206179,
+        "change_amount": 0.81999969,
+        "open": 91.3,
+        "high": 95.97,
+        "low": 90.059998,
+        "volume": 13026300,
+        "source": "twelvedata",
+        "signal": "NEUTRAL",
+        "fetch_time_ms": 321,
+        "stale": false
+      },
+      "HIMS": {
+        "price": 32.84,
+        "change_24h": -2.49406,
+        "change_amount": -0.84000015,
+        "open": 32.062,
+        "high": 34.040001,
+        "low": 31.91,
+        "volume": 9877600,
+        "source": "twelvedata",
+        "signal": "MODERATE_BEARISH",
+        "fetch_time_ms": 331,
+        "stale": false
+      }
+    },
+    "_meta": {
+      "fromCache": false,
+      "fetch_time_ms": 377,
+      "sources": [
+        "twelvedata",
+        "twelvedata",
+        "twelvedata",
+        "twelvedata"
+      ],
+      "assets_count": 4,
+      "stale_count": 0,
+      "saved_at": "2026-07-19T02:10:36.559Z",
+      "version": "2.0"
+    }
+  },
+  "sentiment": {
+    "fear_greed": {
+      "value": 28,
+      "classification": "FEAR",
+      "timestamp": "2026-07-19T00:00:00.000Z"
+    },
+    "whale_signals": {
+      "signal": "NEUTRAL",
+      "score": 0,
+      "confidence": 0.8,
+      "headlines": [
+        {
+          "sentiment": "accumulation",
+          "title": "Bitcoin Whales Are Moving Billions in July — Is BTC Price About to Explode?"
+        },
+        {
+          "sentiment": "accumulation",
+          "title": "CryptoQuant: Whales Are Absorbing Bitcoin's Retail Selling Pressure — Cumulative Address Inflows Rising as Spot Outflows Continue"
+        }
+      ]
+    }
+  },
+  "composite_scores": {
+    "BTC": {
+      "score": "0.30",
+      "rating": "SLIGHTLY_BULLISH",
+      "factors": [
+        "Extreme fear = contrarian buy opportunity",
+        "MACD histogram divergence bullish"
+      ]
+    },
+    "ETH": {
+      "score": "0.30",
+      "rating": "SLIGHTLY_BULLISH",
+      "factors": [
+        "Extreme fear = contrarian buy opportunity"
+      ]
+    },
+    "MSTR": {
+      "score": "0.30",
+      "rating": "SLIGHTLY_BULLISH",
+      "factors": [
+        "Extreme fear = contrarian buy opportunity",
+        "Outperforming BTC (+0.87% vs +0.02%)"
+      ]
+    },
+    "HIMS": {
+      "score": "0.10",
+      "rating": "NEUTRAL",
+      "factors": [
+        "Negative 24h momentum",
+        "Extreme fear = contrarian buy opportunity"
+      ]
+    }
+  },
+  "research_flags": [
+    {
+      "priority": "MEDIUM",
+      "asset": "MARKET",
+      "task": "SENTIMENT_RECOVERY: Fear & Greed at 28 - recovering from extreme fear",
+      "signal": "CONTRARIAN_BUY"
+    },
+    {
+      "priority": "LOW",
+      "asset": "BTC",
+      "task": "Monitor MACD divergence - histogram turning positive",
+      "signal": "BULLISH_DIVERGENCE"
+    }
+  ],
+  "alert_summary": {
+    "immediate_action_required": false,
+    "stops_triggered": [],
+    "breaking_setups": [],
+    "notes": "No immediate action required. Market in consolidation. Sentiment recovering from extreme fear."
+  }
+}

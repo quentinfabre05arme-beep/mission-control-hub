@@ -4,9 +4,10 @@
         "email": 1752325339,
         "calendar": 1752393240,
         "autonomyMorning": 1752232000,
-        "heartbeat": 1752421331,
+        "heartbeat": 1752855120,
         "heartbeatCheck": 1752753660,
-        "wsl": 1752354420
+        "wsl": 1752354420,
+        "marketData": 1752855900
     },
     "wslInstall": {
         "status": "completed",
@@ -14,12 +15,7 @@
     },
     "notes": {
         "calendarCheck": "oo CLI installed but NOT authenticated - need oo auth login + Google Calendar connection",
-        "marketData": "BTC: $62,522 | ETH: $1,781 | Dashboards 200 OK (as of Jul 14, 09:22 CET)",
-        "marketData": "BTC: $62,745 | ETH: $1,789 | MSTR: $92 | HIMS: $34 (as of Jul 14, 07:58 CET)",
-        "marketDataJul15": "BTC: $64,620 (+4.08%) | ETH: $1,874.95 (+6.41%) (as of Jul 15, 00:02 CET)",
-        "marketDataJul16": "BTC: $64,256 (-0.77%) | ETH: $1,872.89 (-2.34%) | MSTR: $93.89 (-3.67%) | HIMS: $34.70 (-6.65%) (as of Jul 16, 19:13 CET)",
-    "marketDataJul17": "BTC: $63,007 (-1.29%) | ETH: $1,836 (-1.55%) | MSTR: $94.03 (-3.53%) | HIMS: $33.68 (-9.39%) (as of Jul 17, 12:01 CET)",
-    "marketDataJul18": "BTC: $64,006 (+0.12%) | ETH: $1,845 (+0.17%) | MSTR: $94.85 (+0.87%) | HIMS: $32.84 (-2.49%) (as of Jul 18, 06:02 CET)"
+        "marketDataJul19": "BTC: $64,794 (+1.35%) | ETH: $1,863 (+1.16%) | MSTR: $94.85 (+0.87%) | HIMS: $32.84 (-2.49%) (as of Jul 19, 00:05 CET)"
     },
     "lastChecks": {
         "heartbeat": 1752855120

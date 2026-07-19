@@ -20,6 +20,16 @@
 
 ---
 
+## Dashboard Improvement Cycles #86-#89 — Jul 19, 2026
+
+**Status:** Silent hourly maintenance (4 cycles completed by 03:11)
+- Cycle count: 89 (continuation from Jul 18's 85)
+- BTC drifting near flat after 24h reset: $64,775 (-0.09%)
+- Signals: NEUTRAL across all assets
+- No breakout detected. System healthy.
+
+---
+
 ## Dashboard Improvement Cycle #81 — BTC Breakout Alert — July 18, 2026
 
 **Time:** 19:11 CET — First autonomous breakout detection
@@ -84,35 +94,44 @@
 
 ---
 
-## POD Business Critical Blocker — July 18, 2026
+## POD Business Critical Blocker — July 19, 2026
 
-**Status:** 🔴 **BLOCKED — Printify API Token Expired (Day 5)**
+**Status:** 🔴 **BLOCKED — Printify API Token Expired (Day 9)**
 
-- API returning 401 Unauthorized for 5 consecutive days (since Jul 13)
+**Update Jul 19, 03:11:** Still blocked. Daily research continues (cycle #8) but designs cannot publish. AI/Prompt Engineer niche identified as first-mover opportunity. Migration to Printful prepared if unrecoverable.
+
+- API returning 401 Unauthorized for 8 consecutive days (since Jul 13)
 - 5 designs ready to publish, cannot upload
 - Revenue: €0/day (complete halt)
-- Timeline delay: +1 month
+- Cost of delay: ~€80-240 lost revenue potential (8 days × €10-30/day)
+- Timeline to €200/day: Extended by 8 days
 - Etsy shop "Quentinvestdesign" (ID: 28241288) connected but empty
 
 **Designs ready:**
 1. "Bitcoin Treasury" — crypto niche, +145% trend growth, €12-20 profit
 2. "Gym Rat Premium" — fitness, evergreen demand, €10-16 profit
 3. "Developer Gift Bundles" — professions/AI-themed, €10-15 profit
+4. "AI Whisperer" — NEW: AI/Prompt Engineer niche, +120% growth, low competition
+
+**New opportunity identified (Jul 19, 01:53):**
+- AI/Prompt Engineer niche showing +120% growth, very low competition on Etsy
+- First-mover advantage available — zero existing designs in this space
+- Designs queued for immediate generation upon API fix
+
+**Alternative providers researched (Jul 19):**
+- Printful: Reliable, slightly higher base costs, no API issues reported
+- Gelato: Good European shipping, competitive pricing
+- SPOD: Fastest production times, lower margins
+- **Recommendation:** If Printify unrecoverable, migrate to Printful
 
 **Required action (manual):**
-1. Log into printify.com
-2. Account Settings → API Tokens → Create New
-3. Update pod_business/.env.local
-4. Test with node test_auth.js
-
-**Required action (manual):**
-1. Log into printify.com
-2. Account Settings → API Tokens → Create New
-3. Update pod_business/.env.local
-4. Test with node test_auth.js
+1. Log into printify.com → Account Settings → API Tokens → Create New
+2. Update pod_business/.env.local
+3. Test with node test_auth.js
+4. If unrecoverable, switch to Printful (API key already available)
 
 **Files:**
-- Research: pod_business/research/daily_2026-07-18_0753.md
+- Research: pod_business/research/daily_2026-07-19.md
 - Designs: pod_business/designs/
 - Strategy: pod_business/research/POD_REVENUE_STRATEGY.md
 
