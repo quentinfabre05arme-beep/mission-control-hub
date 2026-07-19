@@ -96,6 +96,25 @@
 
 ---
 
+## POD Revenue Research Cycle #2 — July 19, 2026 (16:54 CET)
+
+**Status:** 🔴 **BLOCKED — Day 7 Printify API 401**
+
+**Key Finding:** Token is VALID (expires July 2027) but API still rejects with 401. Not an expiration issue — likely scope/shop mismatch.
+
+**Opportunities Still Valid:**
+1. Bitcoin Treasury line (€12-16 profit/item, +145% trend)
+2. Gym Rat premium (€10-13 profit, summer peak)
+3. Developer gift bundles (€10-15 profit, underserved)
+
+**Current Inventory:** 5 designs ready → 20 products post-fix
+**Cumulative Loss:** ~€140-420 (7 days blocked)
+**Required Action:** Debug Printify token scopes/shop ID match
+
+**File:** `pod_business/research/daily_2026-07-19.md`
+
+---
+
 ## POD Revenue Research Cycle #2 — July 19, 2026 (13:53 CET)
 
 **Status:** 🔄 Research complete, execution blocked (Day 7)

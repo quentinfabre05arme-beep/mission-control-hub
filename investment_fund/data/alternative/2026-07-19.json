@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "fetch_timestamp": "2026-07-19T14:11:24.502Z",
-    "local_time": "19/07/2026 16:11:24",
+    "fetch_timestamp": "2026-07-19T14:18:12.945Z",
+    "local_time": "19/07/2026 16:18:12",
     "cycle_id": "alternative-data-2026-07-19",
     "data_sources": [
       "alternative.me",
@@ -10,74 +10,41 @@
     ]
   },
   "market_snapshot": {
-    "timestamp": "2026-07-19T14:10:43.364Z",
+    "timestamp": "2026-07-19T14:12:08.531Z",
     "assets": {
       "BTC": {
-        "price": 64497.63,
-        "change_24h": -0.51915485,
-        "change_amount": -336.59,
-        "open": 64834.21,
-        "high": 64967.25,
-        "low": 64285.24,
-        "volume": null,
+        "price": 64497.8,
+        "change_24h": -0.51889265,
         "source": "twelvedata",
-        "signal": "NEUTRAL",
-        "fetch_time_ms": 348,
-        "stale": false
+        "signal": "NEUTRAL"
       },
       "ETH": {
-        "price": 1872.39,
-        "change_24h": 0.52506966,
-        "change_amount": 9.78,
-        "open": 1862.61,
-        "high": 1879.38,
-        "low": 1858.17,
-        "volume": null,
+        "price": 1872.45,
+        "change_24h": 0.52829095,
         "source": "twelvedata",
-        "signal": "NEUTRAL",
-        "fetch_time_ms": 315,
-        "stale": false
+        "signal": "NEUTRAL"
       },
       "MSTR": {
         "price": 94.85,
         "change_24h": 0.87206179,
-        "change_amount": 0.81999969,
-        "open": 91.3,
-        "high": 95.97,
-        "low": 90.059998,
-        "volume": 13026300,
         "source": "twelvedata",
-        "signal": "NEUTRAL",
-        "fetch_time_ms": 292,
-        "stale": false
+        "signal": "NEUTRAL"
       },
       "HIMS": {
         "price": 32.84,
         "change_24h": -2.49406,
-        "change_amount": -0.84000015,
-        "open": 32.062,
-        "high": 34.040001,
-        "low": 31.91,
-        "volume": 9877600,
         "source": "twelvedata",
-        "signal": "MODERATE_BEARISH",
-        "fetch_time_ms": 312,
-        "stale": false
+        "signal": "BEARISH"
       }
     },
     "_meta": {
       "fromCache": false,
-      "fetch_time_ms": 352,
       "sources": [
         "twelvedata",
         "twelvedata",
         "twelvedata",
         "twelvedata"
-      ],
-      "assets_count": 4,
-      "stale_count": 0,
-      "saved_at": "2026-07-19T14:10:43.365Z",
-      "version": "2.0"
+      ]
     }
   },
   "sentiment": {
@@ -122,10 +89,17 @@
         "severity": "MEDIUM",
         "description": "Fear & Greed at 28 - recovering from extreme fear",
         "signal": "CONTRARIAN_BUY"
+      },
+      {
+        "asset": "HIMS",
+        "type": "PRICE_DIVERGENCE",
+        "severity": "LOW",
+        "description": "HIMS down -2.49% vs neutral market",
+        "signal": "MONITOR"
       }
     ],
-    "count": 1,
-    "summary": "1 anomaly(s) detected"
+    "count": 2,
+    "summary": "2 anomaly(s) detected"
   },
   "composite_scores": {
     "BTC": {
@@ -164,6 +138,12 @@
       "asset": "MARKET",
       "task": "Investigate SENTIMENT_RECOVERY: Fear & Greed at 28 - recovering from extreme fear",
       "signal": "CONTRARIAN_BUY"
+    },
+    {
+      "priority": "MEDIUM",
+      "asset": "HIMS",
+      "task": "Investigate PRICE_DIVERGENCE: HIMS down -2.49% vs neutral market",
+      "signal": "MONITOR"
     }
   ]
 }
