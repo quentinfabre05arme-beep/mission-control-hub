@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "fetch_timestamp": "2026-07-19T20:18:14.210Z",
-    "local_time": "19/07/2026 22:18:14",
+    "fetch_timestamp": "2026-07-19T21:18:11.737Z",
+    "local_time": "19/07/2026 23:18:11",
     "cycle_id": "alternative-data-2026-07-19",
     "data_sources": [
       "alternative.me",
@@ -10,17 +10,17 @@
     ]
   },
   "market_snapshot": {
-    "timestamp": "2026-07-19T20:11:11.075Z",
+    "timestamp": "2026-07-19T21:11:13.977Z",
     "assets": {
       "BTC": {
-        "price": 64511.68,
-        "change_24h": -0.4974842,
+        "price": 64518.18,
+        "change_24h": -0.48745863,
         "source": "twelvedata",
         "signal": "NEUTRAL"
       },
       "ETH": {
-        "price": 1865.55,
-        "change_24h": 0.15784303,
+        "price": 1866.8,
+        "change_24h": 0.22495316,
         "source": "twelvedata",
         "signal": "NEUTRAL"
       },
@@ -64,7 +64,7 @@
         },
         {
           "sentiment": "distribution",
-          "title": "Bitcoin Price Nears Bear Market End as Cost Basis Signal Flashes"
+          "title": "Binance and Bybit Lose $2.3B in Stablecoins as Crypto Liquidity Weakens and Bitcoin Struggles to Break Higher"
         }
       ]
     }
@@ -81,7 +81,7 @@
         },
         {
           "sentiment": "distribution",
-          "title": "Bitcoin Price Nears Bear Market End as Cost Basis Signal Flashes"
+          "title": "Binance and Bybit Lose $2.3B in Stablecoins as Crypto Liquidity Weakens and Bitcoin Struggles to Break Higher"
         }
       ]
     },
