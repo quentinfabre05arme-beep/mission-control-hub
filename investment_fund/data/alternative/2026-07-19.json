@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "fetch_timestamp": "2026-07-19T15:18:10.968Z",
-    "local_time": "19/07/2026 17:18:10",
+    "fetch_timestamp": "2026-07-19T18:10:58.723Z",
+    "local_time": "19/07/2026 20:10:58",
     "cycle_id": "alternative-data-2026-07-19",
     "data_sources": [
       "alternative.me",
@@ -10,17 +10,17 @@
     ]
   },
   "market_snapshot": {
-    "timestamp": "2026-07-19T15:12:10.067Z",
+    "timestamp": "2026-07-19T17:12:13.057Z",
     "assets": {
       "BTC": {
-        "price": 64553.25,
-        "change_24h": -0.43336682,
+        "price": 64599.63,
+        "change_24h": -0.36183053,
         "source": "twelvedata",
         "signal": "NEUTRAL"
       },
       "ETH": {
-        "price": 1874.29,
-        "change_24h": 0.62707706,
+        "price": 1867.54,
+        "change_24h": 0.26468235,
         "source": "twelvedata",
         "signal": "NEUTRAL"
       },
@@ -56,11 +56,19 @@
     "whale_signals": {
       "signal": "NEUTRAL",
       "score": -1,
-      "confidence": 0.2,
+      "confidence": 0.6,
       "headlines": [
+        {
+          "sentiment": "accumulation",
+          "title": "Shiba Inu Is Losing Momentum At A Crucial Time"
+        },
         {
           "sentiment": "distribution",
           "title": "Bitcoin Price Nears Bear Market End as Cost Basis Signal Flashes"
+        },
+        {
+          "sentiment": "distribution",
+          "title": "XRP Holds Near $1.09 as ETF Inflows Offset Weak Retail Demand"
         }
       ]
     }
@@ -69,11 +77,19 @@
     "whale_activity": {
       "signal": "NEUTRAL",
       "score": -1,
-      "confidence": 0.2,
+      "confidence": 0.6,
       "headlines": [
+        {
+          "sentiment": "accumulation",
+          "title": "Shiba Inu Is Losing Momentum At A Crucial Time"
+        },
         {
           "sentiment": "distribution",
           "title": "Bitcoin Price Nears Bear Market End as Cost Basis Signal Flashes"
+        },
+        {
+          "sentiment": "distribution",
+          "title": "XRP Holds Near $1.09 as ETF Inflows Offset Weak Retail Demand"
         }
       ]
     },
@@ -145,34 +161,5 @@
       "task": "Investigate PRICE_DIVERGENCE: HIMS down -2.49% vs neutral market",
       "signal": "MONITOR"
     }
-  ],
-  "enhanced_data": {
-    "fear_greed_trend": {
-      "current": 28,
-      "yesterday": 25,
-      "last_week": 26,
-      "last_month": 14,
-      "interpretation": "SENTIMENT_RECOVERY_PHASE - Index rising from extreme fear (25) to fear (28), up from monthly low of 14. Contrarian buy opportunity emerging."
-    },
-    "on_chain_note": "Current data limited to news-based whale sentiment. Full on-chain exchange flows require Glassnode/CryptoQuant API integration (pending).",
-    "order_flow_note": "Volume data from market_data.json only. Real-time options flow and unusual volume detection require additional data providers."
-  },
-  "research_team_summary": {
-    "key_signals": [
-      "1. Fear & Greed recovering from extreme fear zone (14→25→28)",
-      "2. BTC/ETH/MSTR showing slightly bullish composite scores",
-      "3. HIMS showing price divergence vs market (-2.5% while others flat)"
-    ],
-    "recommended_actions": [
-      "MONITOR: HIMS divergence - check for stock-specific news",
-      "WATCH: Fear & Greed trend - confirmation of sentiment shift",
-      "CONSIDER: Scale into BTC/ETH on extreme fear pullback"
-    ],
-    "data_gaps": [
-      "Real-time exchange inflows/outflows (Glassnode)",
-      "BTC/ETH funding rates (Binance/Bybit)",
-      "Options flow data (CBOE/unusual whales)",
-      "Social sentiment metrics (LunarCrush/Santiment)"
-    ]
-  }
+  ]
 }
