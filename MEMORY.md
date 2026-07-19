@@ -9,6 +9,59 @@
 
 ---
 
+## Weekly Skill Development Review #1 — July 19, 2026
+
+**Period:** July 13-19, 2026
+**File:** `memory/2026-07-19-skill-development-review.md`
+
+### Key Decisions Reviewed:
+1. **HIMS Trade (Jul 16) — CLOSED at -9.42%** (Grade C)
+   - Entry: $37.17 (WEAK_BUY, 100/100 checklist)
+   - Exit: Stop loss hit at $33.67 (-$941.50)
+   - **Lesson:** Checklist score ≠ edge. Added price confirmation requirement (close > prior day high OR pullback to 20 SMA)
+
+2. **Autonomous Mode Enable (Jul 16) — VALIDATED**
+   - HIMS stop executed immediately without emotional hesitation
+   - Infrastructure works as designed
+
+### Pattern Library Update:
+- **WEAK_BUY + Earnings Catalyst** pattern refined with price confirmation requirement
+- 4 patterns identified, 1 with occurrence data
+- Investment Research Book: Vol 1 & 2 complete, Vol 3 ~40%
+
+### Skill Mastery Progress:
+| Skill | Level | Change |
+|-------|-------|--------|
+| Technical Analysis | ⭐⭐⭐ | → 65% |
+| Behavioral Control | ⭐⭐ | → 50% (+10%) |
+| Risk Management | ⭐⭐⭐ | → 65% |
+| Macro Awareness | ⭐ | → 30% |
+
+**Next week focus:** Complete Vol 3 (Market Context), add price confirmation to entry workflow.
+
+---
+
+## Pricing Strategy Report — July 19, 2026
+
+**Time:** 06:30 CET (Subagent-generated)
+**File:** `revenue_team/PRICING_STRATEGY_REPORT_2026-07-19.md` (14KB)
+
+**Context:** All 5 revenue streams at €0/month. Report aimed to identify fastest path to €10,300/month target.
+
+### Top 3 Pricing Experiments:
+| Rank | Experiment | Impact | Confidence | Effort |
+|------|-----------|--------|------------|--------|
+| 1 | Newsletter Freemium Gate (50 req → €9 intro) | 9 | 82% | Medium |
+| 2 | POD Dynamic Pricing (€27.99 vs €29.99 A/B) | 7 | 78% | Low |
+| 3 | Code Product Bundle (€149 vs €356) | 8 | 70% | Medium |
+
+**Conservative projection (top 3):** €1,950/month
+**Optimistic (all 5):** €9,490/month
+
+**Key insight:** Pricing optimization is the fastest lever for revenue growth once streams are operational. All streams need to transition from "building" to "selling" mode.
+
+---
+
 ## Dashboard Improvement Cycle #85 — BTC Day's High Close — July 18, 2026
 
 **Time:** 23:11 CET — Strongest close of the day
@@ -20,12 +73,22 @@
 
 ---
 
-## Dashboard Improvement Cycles #86-#91 — Jul 19, 2026
+## Dashboard Improvement Cycles #86-#95 — Jul 19, 2026
 
-**Status:** Silent hourly maintenance (6 cycles completed by 05:11)
-- Cycle count: 91 (continuation from Jul 18's 85)
-- BTC slight pullback after 24h reset: $64,737 (-0.15%)
-- ETH outperforming: $1,869 (+0.36%)
+**Status:** Silent hourly maintenance (15 cycles completed by 10:00)
+- Cycle count: 95 (continuation from Jul 18's 85)
+- BTC: $64,690 (-0.22%), ETH: $1,868 (+0.29%), MSTR: $94.85 (+0.87%), HIMS: $32.84 (-2.49%)
+- Signals: NEUTRAL across BTC/ETH/MSTR, BEARISH on HIMS
+- No breakout detected. System healthy.
+- Git push blocked by auth (expected, using Vercel CLI workaround)
+
+---
+
+## Dashboard Improvement Cycles #86-#95 — Jul 19, 2026
+
+**Status:** Silent hourly maintenance (15 cycles completed by 10:00)
+- Cycle count: 95 (continuation from Jul 18's 85)
+- BTC: $64,690 (-0.22%), ETH: $1,868 (+0.29%), MSTR: $94.85 (+0.87%), HIMS: $32.84 (-2.49%)
 - Signals: NEUTRAL across BTC/ETH/MSTR, BEARISH on HIMS
 - No breakout detected. System healthy.
 - Git push blocked by auth (expected, using Vercel CLI workaround)
@@ -43,9 +106,9 @@
 
 ---
 
-## Revenue Reality Check — July 19, 2026 (Updated)
+## Revenue Reality Check — July 19, 2026 (10:00 CET Update)
 
-**Status:** Zero revenue across all streams. All systems are infrastructure-building phase. Day 9 of POD blocker.
+**Status:** Zero revenue across all streams. All systems infrastructure-building phase. Day 10 of POD blocker.
 
 | Stream | Status | Blocker | Time to Revenue |
 |--------|--------|---------|-----------------|
@@ -59,7 +122,7 @@
 
 **July 19 Research Update:**
 - Daily research cycle #2 completed (5-day trend data, pricing intel validated)
-- Competitive intelligence report from July 17 confirms €10-16 profit potential across all niches
+- Competitive intelligence confirms €10-16 profit potential across all niches
 - Path to €200/day: 15-20 sales/day at current pricing
 - Opportunity ranking unchanged: Bitcoin Treasury (crypto) > Gym Rat (fitness) > Developer gifts (professions)
 - 5 designs ready, 20 products pending API fix
@@ -71,6 +134,12 @@
 - New opportunity identified: AI/Prompt Engineer niche (+120% growth, zero competition)
 - Alternative providers researched: Printful (recommended), Gelato, SPOD
 - Files: `pod_business/pricing_config.json`, `pod_business/seo/optimized_titles.json`, `pod_business/seo/optimized_tags.json`
+
+**Pricing Strategy Report (Jul 19, 06:30):**
+- Subagent generated 14KB pricing strategy report
+- 5 experiments proposed with impact/confidence/effort scoring
+- Top 3 tests could reach €1,950/month conservative
+- Full report: `revenue_team/PRICING_STRATEGY_REPORT_2026-07-19.md`
 
 ---
 
@@ -89,9 +158,62 @@
 
 ---
 
+## Weekly Skill Development Review #1 — July 19, 2026
+
+**Period:** July 13-19, 2026
+**File:** `memory/2026-07-19-skill-development-review.md`
+
+### Key Decisions Reviewed:
+1. **HIMS Trade (Jul 16) — CLOSED at -9.42%** (Grade C)
+   - Entry: $37.17 (WEAK_BUY, 100/100 checklist)
+   - Exit: Stop loss hit at $33.67 (-$941.50)
+   - **Lesson:** Checklist score ≠ edge. Added price confirmation requirement (close > prior day high OR pullback to 20 SMA)
+
+2. **Autonomous Mode Enable (Jul 16) — VALIDATED**
+   - HIMS stop executed immediately without emotional hesitation
+   - Infrastructure works as designed
+
+### Pattern Library Update:
+- **WEAK_BUY + Earnings Catalyst** pattern refined with price confirmation requirement
+- 4 patterns identified, 1 with occurrence data
+- Investment Research Book: Vol 1 & 2 complete, Vol 3 ~40%
+
+### Skill Mastery Progress:
+| Skill | Level | Change |
+|-------|-------|--------|
+| Technical Analysis | ⭐⭐⭐ | → 65% |
+| Behavioral Control | ⭐⭐ | → 50% (+10%) |
+| Risk Management | ⭐⭐⭐ | → 65% |
+| Macro Awareness | ⭐ | → 30% |
+
+**Next week focus:** Complete Vol 3 (Market Context), add price confirmation to entry workflow.
+
+---
+
+## Pricing Strategy Report — July 19, 2026
+
+**Time:** 06:30 CET (Subagent-generated)
+**File:** `revenue_team/PRICING_STRATEGY_REPORT_2026-07-19.md` (14KB)
+
+**Context:** All 5 revenue streams at €0/month. Report aimed to identify fastest path to €10,300/month target.
+
+### Top 3 Pricing Experiments:
+| Rank | Experiment | Impact | Confidence | Effort |
+|------|-----------|--------|------------|--------|
+| 1 | Newsletter Freemium Gate (50 req → €9 intro) | 9 | 82% | Medium |
+| 2 | POD Dynamic Pricing (€27.99 vs €29.99 A/B) | 7 | 78% | Low |
+| 3 | Code Product Bundle (€149 vs €356) | 8 | 70% | Medium |
+
+**Conservative projection (top 3):** €1,950/month
+**Optimistic (all 5):** €9,490/month
+
+**Key insight:** Pricing optimization is the fastest lever for revenue growth once streams are operational. All streams need to transition from "building" to "selling" mode.
+
+---
+
 ## Autonomous Maintenance Maturity — July 19, 2026
 
-**Achievement:** 91 consecutive autonomous improvement cycles (Jul 18–19), zero manual intervention.
+**Achievement:** 95 consecutive autonomous improvement cycles (Jul 18–19), zero manual intervention.
 
 **What the system does autonomously:**
 1. Refreshes market data every hour via Twelve Data API with cascading fallbacks (CoinGecko → Yahoo → Cache)
