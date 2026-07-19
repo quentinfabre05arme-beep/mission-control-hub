@@ -49,13 +49,21 @@
 
 | Stream | Status | Blocker | Time to Revenue |
 |--------|--------|---------|-----------------|
-| **POD Business** | 🔴 Blocked | Printify API 401 (Day 9) | Unknown |
+| **POD Business** | 🔴 Blocked | Printify API 401 (Day 10) | Unknown |
 | **Alpha Fund** | 🟡 Research-only | Paper trading, no live capital | N/A |
 | **Newsletter** | 🟡 Pre-monetization | No subscribers yet | 1-2 months |
 | **Data API** | ⚪ Not started | No product built | 3+ months |
 | **Code Products** | ⚪ Not started | No products created | 3+ months |
 
-**Lesson:** Building infrastructure is necessary but not sufficient. The POD blocker (expired API token) has cost 9 days of potential revenue (~€90-270 lost). Without manual intervention to regenerate the token, this stream is dead in the water. This validates the principle: autonomous systems need human checkpoints for external auth/credentials.
+**Lesson:** Building infrastructure is necessary but not sufficient. The POD blocker (expired API token) has cost 10 days of potential revenue (~€100-300 lost). Without manual intervention to regenerate the token, this stream is dead in the water. This validates the principle: autonomous systems need human checkpoints for external auth/credentials.
+
+**July 19 Research Update:**
+- Daily research cycle #2 completed (5-day trend data, pricing intel validated)
+- Competitive intelligence report from July 17 confirms €10-16 profit potential across all niches
+- Path to €200/day: 15-20 sales/day at current pricing
+- Opportunity ranking unchanged: Bitcoin Treasury (crypto) > Gym Rat (fitness) > Developer gifts (professions)
+- 5 designs ready, 20 products pending API fix
+- Research logged to `pod_business/research/daily_2026-07-19.md`
 
 **Optimizations applied despite blocker (Jul 19):**
 - Pricing optimized: €24.99→€27.99 (BITCOIN TREASURY)
