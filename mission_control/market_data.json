@@ -1,15 +1,15 @@
 {
-  "timestamp": "2026-07-19T15:12:10.067Z",
+  "timestamp": "2026-07-19T16:03:37.962Z",
   "assets": {
     "BTC": {
-      "price": 64553.25,
-      "change_24h": -0.43336682,
+      "price": 64553.41,
+      "change_24h": -0.43312004,
       "source": "twelvedata",
       "signal": "NEUTRAL"
     },
     "ETH": {
-      "price": 1874.29,
-      "change_24h": 0.62707706,
+      "price": 1870.33,
+      "change_24h": 0.41447217,
       "source": "twelvedata",
       "signal": "NEUTRAL"
     },

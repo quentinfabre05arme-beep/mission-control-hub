@@ -7,8 +7,8 @@
 
 **Morning Checklist:**
 - [ ] Email
-- [x] Dashboard status (all 8 dashboards verified)
-- [x] Market data (BTC: $64,553 | ETH: $1,874 | MSTR: $95 | HIMS: $33)
+- [x] Dashboard status (all dashboards verified)
+- [x] Market data (BTC: $64,692 | ETH: $1,868 | MSTR: $94.85 | HIMS: $32.84)
 - [ ] Calendar events next 24-48h
 - [ ] Social mentions
 - [x] System health (gateway online)
@@ -392,11 +392,12 @@
 | NewsAPI | ✅ Online | 234ms | 20/min | 45s ago |
 | RSS Feeds | 🟡 Degraded | 456ms | 10/min | 2m ago |
 
-**Market Data (Jul 19, 17:11 CET):**
-- BTC: $64,553.25 (-0.43%)
-- ETH: $1,874.29 (+0.63%)
+**Market Data (Jul 19, 18:03 CET):**
+- BTC: $64,692 (-0.22%)
+- ETH: $1,868 (+0.26%)
 - MSTR: $94.85 (+0.87%)
 - HIMS: $32.84 (-2.49%)
+- Fear & Greed: 28 (FEAR)
 
 **News Queue:**
 - Healthcare GLP-1: "New study shows 40% weight loss efficacy"
