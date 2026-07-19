@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "fetch_timestamp": "2026-07-19T18:10:58.723Z",
-    "local_time": "19/07/2026 20:10:58",
+    "fetch_timestamp": "2026-07-19T19:00:09.526Z",
+    "local_time": "19/07/2026 21:00:09",
     "cycle_id": "alternative-data-2026-07-19",
     "data_sources": [
       "alternative.me",
@@ -10,40 +10,40 @@
     ]
   },
   "market_snapshot": {
-    "timestamp": "2026-07-19T17:12:13.057Z",
+    "timestamp": "2026-07-19T18:11:18.101Z",
     "assets": {
       "BTC": {
-        "price": 64599.63,
-        "change_24h": -0.36183053,
-        "source": "twelvedata",
+        "price": 64438,
+        "change_24h": -0.61112789,
+        "source": "cached",
         "signal": "NEUTRAL"
       },
       "ETH": {
-        "price": 1867.54,
-        "change_24h": 0.26468235,
-        "source": "twelvedata",
+        "price": 1861.89,
+        "change_24h": -0.038655435,
+        "source": "cached",
         "signal": "NEUTRAL"
       },
       "MSTR": {
         "price": 94.85,
         "change_24h": 0.87206179,
-        "source": "twelvedata",
+        "source": "cached",
         "signal": "NEUTRAL"
       },
       "HIMS": {
         "price": 32.84,
         "change_24h": -2.49406,
-        "source": "twelvedata",
+        "source": "cached",
         "signal": "BEARISH"
       }
     },
     "_meta": {
       "fromCache": false,
       "sources": [
-        "twelvedata",
-        "twelvedata",
-        "twelvedata",
-        "twelvedata"
+        "cached",
+        "cached",
+        "cached",
+        "cached"
       ]
     }
   },
