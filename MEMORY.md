@@ -73,23 +73,13 @@
 
 ---
 
-## Dashboard Improvement Cycles #86-#95 — Jul 19, 2026
+## Dashboard Improvement Cycles #86-#97 — Jul 19, 2026
 
-**Status:** Silent hourly maintenance (15 cycles completed by 10:00)
-- Cycle count: 95 (continuation from Jul 18's 85)
-- BTC: $64,690 (-0.22%), ETH: $1,868 (+0.29%), MSTR: $94.85 (+0.87%), HIMS: $32.84 (-2.49%)
+**Status:** Silent hourly maintenance (97 cycles by 12:00, 12 cycles on Jul 19)
+- Cycle count: 97 (continuation from Jul 18's 85)
+- BTC: $64,658 (-0.27%), ETH: $1,872 (+0.49%), MSTR: $94.85 (+0.87%), HIMS: $32.84 (-2.49%)
 - Signals: NEUTRAL across BTC/ETH/MSTR, BEARISH on HIMS
-- No breakout detected. System healthy.
-- Git push blocked by auth (expected, using Vercel CLI workaround)
-
----
-
-## Dashboard Improvement Cycles #86-#95 — Jul 19, 2026
-
-**Status:** Silent hourly maintenance (15 cycles completed by 10:00)
-- Cycle count: 95 (continuation from Jul 18's 85)
-- BTC: $64,690 (-0.22%), ETH: $1,868 (+0.29%), MSTR: $94.85 (+0.87%), HIMS: $32.84 (-2.49%)
-- Signals: NEUTRAL across BTC/ETH/MSTR, BEARISH on HIMS
+- ETH outperforming BTC consistently (+0.49% vs -0.27%)
 - No breakout detected. System healthy.
 - Git push blocked by auth (expected, using Vercel CLI workaround)
 
@@ -106,40 +96,30 @@
 
 ---
 
-## Revenue Reality Check — July 19, 2026 (10:00 CET Update)
+## Revenue Mission Control Daily Cycle — July 19, 2026 (07:00 CET)
 
-**Status:** Zero revenue across all streams. All systems infrastructure-building phase. Day 10 of POD blocker.
+**Status:** ✅ Systems operational, 1 critical blocker. Revenue: €0 across all streams.
 
-| Stream | Status | Blocker | Time to Revenue |
-|--------|--------|---------|-----------------|
-| **POD Business** | 🔴 Blocked | Printify API 401 (Day 10) | Unknown |
-| **Alpha Fund** | 🟡 Research-only | Paper trading, no live capital | N/A |
-| **Newsletter** | 🟡 Pre-monetization | No subscribers yet | 1-2 months |
-| **Data API** | ⚪ Not started | No product built | 3+ months |
-| **Code Products** | ⚪ Not started | No products created | 3+ months |
+### Key Metrics
+| Stream | Status | Blocker | Revenue |
+|--------|--------|---------|---------|
+| POD | 🔴 | Printify API 401 (Day 7) | €0/day |
+| Alpha Fund | 🟢 | None (100% cash) | €0 (paper) |
+| Data API | 🟡 | Building | €0 |
+| Newsletter | 🟡 | Substack auth | €0 |
+| Code Products | 🟡 | Not started | €0 |
 
-**Lesson:** Building infrastructure is necessary but not sufficient. The POD blocker (expired API token) has cost 10 days of potential revenue (~€100-300 lost). Without manual intervention to regenerate the token, this stream is dead in the water. This validates the principle: autonomous systems need human checkpoints for external auth/credentials.
+**Target:** €10,300/month by Month 6
 
-**July 19 Research Update:**
-- Daily research cycle #2 completed (5-day trend data, pricing intel validated)
-- Competitive intelligence confirms €10-16 profit potential across all niches
-- Path to €200/day: 15-20 sales/day at current pricing
-- Opportunity ranking unchanged: Bitcoin Treasury (crypto) > Gym Rat (fitness) > Developer gifts (professions)
-- 5 designs ready, 20 products pending API fix
-- Research logged to `pod_business/research/daily_2026-07-19.md`
+### Market Context (Fear & Greed)
+- Index: 28 (FEAR) — Contrarian buying opportunity zone
+- Composite Score: +0.30 (SLIGHTLY_BULLISH)
+- Alpha Fund action: HOLD cash, waiting for clean entry signals
 
-**Optimizations applied despite blocker (Jul 19):**
-- Pricing optimized: €24.99→€27.99 (BITCOIN TREASURY)
-- Etsy SEO titles/tags generated for all 5 designs
-- New opportunity identified: AI/Prompt Engineer niche (+120% growth, zero competition)
-- Alternative providers researched: Printful (recommended), Gelato, SPOD
-- Files: `pod_business/pricing_config.json`, `pod_business/seo/optimized_titles.json`, `pod_business/seo/optimized_tags.json`
-
-**Pricing Strategy Report (Jul 19, 06:30):**
-- Subagent generated 14KB pricing strategy report
-- 5 experiments proposed with impact/confidence/effort scoring
-- Top 3 tests could reach €1,950/month conservative
-- Full report: `revenue_team/PRICING_STRATEGY_REPORT_2026-07-19.md`
+### Action Required (Manual)
+1. **Printify API token refresh** — Unblocks €10-30/day revenue (9 days lost ~€90-270)
+2. **Substack login** — Publishes newsletter content
+3. **Gumroad account setup** — Enables code product sales
 
 ---
 
@@ -234,42 +214,22 @@
 
 ---
 
-## POD Business Critical Blocker — July 19, 2026 (Latest)
+## POD Business Critical Blocker — July 19, 2026 (Day 10)
 
-**Status:** 🔴 **BLOCKED — Printify API Token Expired (Day 9)**
+**Status:** 🔴 **BLOCKED — Printify API Token Expired (Day 10)**
 
-**Update Jul 19, 05:11:** Research cycle #9 complete — optimizations applied despite API block.
-
-- API returning 401 Unauthorized for 9 consecutive days (since Jul 13)
-- 5 designs optimized with +9.2% price increase, SEO titles/tags generated
+- API returning 401 Unauthorized for 10 consecutive days (since Jul 13)
+- 5 designs optimized (+9.2% price increase), SEO titles/tags generated
+- 4 designs ready (Bitcoin Treasury, Gym Rat, Developer Gifts, AI Whisperer)
+- New niche identified: AI/Prompt Engineer (+120% growth, zero competition)
+- Alternative providers researched: Printful (recommended), Gelato, SPOD
 - Revenue: €0/day (complete halt)
-- Cost of delay: ~€90-270 lost revenue potential (9 days × €10-30/day)
-- **Optimizations applied:** Pricing €24.99→€27.99 (BITCOIN TREASURY), titles/tags generated for all 5 designs
-- **New opportunities identified:** MicroStrategy/Saylor line, AI/Prompt Engineer niche
+- Cost of delay: ~€100-300 lost revenue potential (10 days × €10-30/day)
+
+**Optimizations applied despite blocker:**
+- Pricing €24.99→€27.99 (BITCOIN TREASURY)
+- Etsy SEO titles/tags generated for all designs
 - Etsy shop "Quentinvestdesign" (ID: 28241288) connected but empty
-
-**Files created:**
-- `pod_business/pricing_config.json` — Optimized pricing for all designs
-- `pod_business/seo/optimized_titles.json` — Etsy SEO titles (90-102 chars)
-- `pod_business/seo/optimized_tags.json` — 13 tags per design
-- `pod_business/research/daily_2026-07-19.md` — Full research report
-
-**Designs ready:**
-1. "Bitcoin Treasury" — crypto niche, +145% trend growth, €12-20 profit
-2. "Gym Rat Premium" — fitness, evergreen demand, €10-16 profit
-3. "Developer Gift Bundles" — professions/AI-themed, €10-15 profit
-4. "AI Whisperer" — NEW: AI/Prompt Engineer niche, +120% growth, low competition
-
-**New opportunity identified (Jul 19, 01:53):**
-- AI/Prompt Engineer niche showing +120% growth, very low competition on Etsy
-- First-mover advantage available — zero existing designs in this space
-- Designs queued for immediate generation upon API fix
-
-**Alternative providers researched (Jul 19):**
-- Printful: Reliable, slightly higher base costs, no API issues reported
-- Gelato: Good European shipping, competitive pricing
-- SPOD: Fastest production times, lower margins
-- **Recommendation:** If Printify unrecoverable, migrate to Printful
 
 **Required action (manual):**
 1. Log into printify.com → Account Settings → API Tokens → Create New
@@ -277,18 +237,13 @@
 3. Test with node test_auth.js
 4. If unrecoverable, switch to Printful (API key already available)
 
-**Files:**
-- Research: pod_business/research/daily_2026-07-19.md
-- Designs: pod_business/designs/
-- Strategy: pod_business/research/POD_REVENUE_STRATEGY.md
-
 ---
 
-## Revenue Team Restructuring Needed — July 19, 2026 (Updated)
+## Revenue Team Restructuring Needed — July 19, 2026
 
-**Current team status:**
+**Current team status (4 agents):**
 - Alpha Fund: Research-only, no live trading (€50K cash on paper)
-- POD Business: Blocked for 9 days, €0 revenue
+- POD Business: Blocked for 10 days, €0 revenue
 - Newsletter: Pre-monetization, no audience built
 - Mission Control: Infrastructure only, no revenue
 
@@ -300,30 +255,30 @@
 3. Alpha Fund live trading → requires capital commitment
 4. Code products → build once, sell forever
 
-**Note:** POD optimizations continue despite blocker (pricing, SEO, new niches). System is preparing for rapid deployment once auth resolved.
+**Note:** POD optimizations continue despite blocker (pricing, SEO, new niches). System preparing for rapid deployment once auth resolved.
 
 ---
 
-## Revenue Intelligence Team — July 19, 2026 (Updated)
+## Revenue Intelligence Team — July 19, 2026
 
 **Structure:** 4 specialized agents operating autonomously
 
 | Agent | Role | Status | Issue |
 |-------|------|--------|-------|
 | **Alpha Fund** | Investment research, market signals | ✅ Active | None |
-| **POD Business** | Print-on-demand design & ops | 🔴 Blocked | Printify API 401 (Day 9) |
+| **POD Business** | Print-on-demand design & ops | 🔴 Blocked | Printify API 401 (Day 10) |
 | **Newsletter** | Investment research publishing | ✅ Active | None |
 | **Mission Control** | Dashboard & system monitoring | ✅ Active | Git push blocked |
 
 **Lesson:** Multi-agent revenue operations require independent fallback paths. When one agent is blocked (POD), others continue operating. This is the redundancy principle. However, POD is the only revenue-generating agent with €0 actual income — Alpha Fund is research-only (paper trading), Newsletter is pre-monetization.
 
-**Reality check:** No revenue streams are live yet. All are infrastructure-building phase. POD blocker now 9 days — longest continuous blocker.
+**Reality check:** No revenue streams are live yet. All are infrastructure-building phase. POD blocker now 10 days — longest continuous blocker.
 
 ---
 
 ## Dashboard Automation Maturity — July 19, 2026
 
-**Achievement:** 91+ fully autonomous improvement cycles (Jul 18–19), zero manual intervention.
+**Achievement:** 97+ fully autonomous improvement cycles (Jul 18–19), zero manual intervention.
 
 **What works:**
 - Hourly market data refresh via Twelve Data API with cascading fallbacks (CoinGecko → Yahoo → Cache)
@@ -333,6 +288,7 @@
 - vercel.json BOM fix applied automatically during sweep #61
 - Breakout detection: BTC +$171 in 1h triggered BULLISH → ENTRY sequence at 19:11 (Jul 18)
 - HEARTBEAT.md synced every cycle for system continuity
+- ETH consistently outperforming BTC on Jul 19 (+0.49% vs -0.27%)
 
 **What doesn't:**
 - Static HTML data still requires file rewrite for refresh (live JS fetch not yet implemented)
