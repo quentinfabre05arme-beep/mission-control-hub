@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "fetch_timestamp": "2026-07-19T21:18:11.737Z",
-    "local_time": "19/07/2026 23:18:11",
+    "fetch_timestamp": "2026-07-19T22:10:27.791Z",
+    "local_time": "20/07/2026 00:10:27",
     "cycle_id": "alternative-data-2026-07-19",
     "data_sources": [
       "alternative.me",
@@ -10,40 +10,40 @@
     ]
   },
   "market_snapshot": {
-    "timestamp": "2026-07-19T21:11:13.977Z",
+    "timestamp": "2026-07-20T00:02:00+02:00",
     "assets": {
       "BTC": {
         "price": 64518.18,
         "change_24h": -0.48745863,
-        "source": "twelvedata",
+        "source": "cached",
         "signal": "NEUTRAL"
       },
       "ETH": {
         "price": 1866.8,
         "change_24h": 0.22495316,
-        "source": "twelvedata",
+        "source": "cached",
         "signal": "NEUTRAL"
       },
       "MSTR": {
         "price": 94.85,
         "change_24h": 0.87206179,
-        "source": "twelvedata",
+        "source": "cached",
         "signal": "NEUTRAL"
       },
       "HIMS": {
         "price": 32.84,
         "change_24h": -2.49406,
-        "source": "twelvedata",
+        "source": "cached",
         "signal": "BEARISH"
       }
     },
     "_meta": {
-      "fromCache": false,
+      "fromCache": true,
       "sources": [
-        "twelvedata",
-        "twelvedata",
-        "twelvedata",
-        "twelvedata"
+        "cached",
+        "cached",
+        "cached",
+        "cached"
       ]
     }
   },
@@ -55,16 +55,12 @@
     },
     "whale_signals": {
       "signal": "NEUTRAL",
-      "score": 0,
-      "confidence": 0.4,
+      "score": 1,
+      "confidence": 0.2,
       "headlines": [
         {
           "sentiment": "accumulation",
           "title": "Shiba Inu Is Losing Momentum At A Crucial Time"
-        },
-        {
-          "sentiment": "distribution",
-          "title": "Binance and Bybit Lose $2.3B in Stablecoins as Crypto Liquidity Weakens and Bitcoin Struggles to Break Higher"
         }
       ]
     }
@@ -72,16 +68,12 @@
   "on_chain": {
     "whale_activity": {
       "signal": "NEUTRAL",
-      "score": 0,
-      "confidence": 0.4,
+      "score": 1,
+      "confidence": 0.2,
       "headlines": [
         {
           "sentiment": "accumulation",
           "title": "Shiba Inu Is Losing Momentum At A Crucial Time"
-        },
-        {
-          "sentiment": "distribution",
-          "title": "Binance and Bybit Lose $2.3B in Stablecoins as Crypto Liquidity Weakens and Bitcoin Struggles to Break Higher"
         }
       ]
     },
