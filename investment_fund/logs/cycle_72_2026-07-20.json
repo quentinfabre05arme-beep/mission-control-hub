@@ -1,0 +1,94 @@
+{
+  "cycle_id": "72",
+  "timestamp": "2026-07-20T10:10:00.000Z",
+  "local_time": "2026-07-20 12:10 CET",
+  "status": "COMPLETED_NO_ACTION",
+  "market_snapshot": {
+    "BTC": {
+      "price": 64223,
+      "change_24h": -0.77,
+      "signal": "NEUTRAL",
+      "composite_score": 0
+    },
+    "ETH": {
+      "price": 1865.13,
+      "change_24h": -0.38,
+      "signal": "NEUTRAL",
+      "composite_score": 0
+    },
+    "MSTR": {
+      "price": 94.85,
+      "change_24h": 0.87,
+      "signal": "NEUTRAL",
+      "composite_score": 0
+    },
+    "HIMS": {
+      "price": 32.84,
+      "change_24h": -2.49,
+      "signal": "BEARISH",
+      "composite_score": -0.75
+    },
+    "fear_greed": 29,
+    "fear_greed_classification": "FEAR",
+    "fear_zone_days": 6
+  },
+  "tier_analysis": {
+    "tier_1": {
+      "allocation_pct": 30,
+      "current_exposure_pct": 0,
+      "status": "NO_SETUPS",
+      "opportunities": []
+    },
+    "tier_2": {
+      "allocation_pct": 40,
+      "current_exposure_pct": 0,
+      "status": "BUILDING_WATCHLIST",
+      "opportunities": [
+        {
+          "asset": "BTC",
+          "setup": "Crypto Fear Dip",
+          "target_zone": "<61500",
+          "current_price": 64223,
+          "status": "WAITING"
+        },
+        {
+          "asset": "HIMS",
+          "setup": "Stabilization",
+          "target_zone": "28-32",
+          "current_price": 32.84,
+          "status": "APPROACHING"
+        }
+      ]
+    },
+    "tier_3": {
+      "allocation_pct": 30,
+      "current_exposure_pct": 0,
+      "status": "POSITIONING_FOR_DCA",
+      "opportunities": [
+        {
+          "asset": "BTC",
+          "target_entry": "<60000",
+          "current_price": 64223,
+          "status": "WAITING"
+        },
+        {
+          "asset": "HIMS",
+          "target_entry": "<30",
+          "current_price": 32.84,
+          "status": "APPROACHING"
+        }
+      ]
+    }
+  },
+  "risk_metrics": {
+    "daily_loss_pct": 0,
+    "max_position_size_pct": 0,
+    "cash_position_pct": 100,
+    "correlation_risk": "N/A",
+    "open_risk_usd": 0,
+    "status": "ALL_CLEAR"
+  },
+  "alerts_triggered": [],
+  "actions_taken": [],
+  "notes": "Day 6 in fear zone. No immediate setups. HIMS approaching Tier 2/Tier 3 zones. Patience required."
+}

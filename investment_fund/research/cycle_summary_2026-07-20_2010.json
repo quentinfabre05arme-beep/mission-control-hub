@@ -1,0 +1,138 @@
+{
+  "cycle_id": "73",
+  "timestamp": "2026-07-20T18:10:00.000Z",
+  "local_time": "2026-07-20 20:10 CET",
+  "status": "COMPLETED_NO_ACTION",
+  "market_snapshot": {
+    "BTC": {
+      "price": 65477.75,
+      "change_24h": 1.17,
+      "signal": "NEUTRAL",
+      "composite_score": 0.50,
+      "rating": "SLIGHTLY_BULLISH"
+    },
+    "ETH": {
+      "price": 1900.69,
+      "change_24h": 1.52,
+      "signal": "NEUTRAL",
+      "composite_score": 0.50,
+      "rating": "SLIGHTLY_BULLISH"
+    },
+    "MSTR": {
+      "price": 99.70,
+      "change_24h": 5.11,
+      "signal": "BULLISH",
+      "composite_score": 0.50,
+      "rating": "SLIGHTLY_BULLISH"
+    },
+    "HIMS": {
+      "price": 33.06,
+      "change_24h": 0.67,
+      "signal": "NEUTRAL",
+      "composite_score": 0.30,
+      "rating": "SLIGHTLY_BULLISH"
+    },
+    "fear_greed": 29,
+    "fear_greed_classification": "FEAR",
+    "fear_zone_days": 7
+  },
+  "tier_analysis": {
+    "tier_1": {
+      "allocation_pct": 30,
+      "current_exposure_pct": 0,
+      "status": "NO_SETUPS",
+      "opportunities": [
+        {
+          "asset": "MSTR",
+          "setup": "Breakout Play",
+          "target": "$100 break",
+          "current_price": 99.70,
+          "status": "APPROACHING"
+        },
+        {
+          "asset": "ETH",
+          "setup": "$1.9K Hold",
+          "target": "Hold above $1,900",
+          "current_price": 1900.69,
+          "status": "TESTING"
+        }
+      ]
+    },
+    "tier_2": {
+      "allocation_pct": 40,
+      "current_exposure_pct": 0,
+      "status": "WATCHLIST_BUILDING",
+      "opportunities": [
+        {
+          "asset": "BTC",
+          "setup": "Crypto Fear Dip",
+          "target_zone": "<61500",
+          "current_price": 65477.75,
+          "status": "MISSED — up 6.6% from Friday low"
+        },
+        {
+          "asset": "HIMS",
+          "setup": "Stabilization",
+          "target_zone": "28-32",
+          "current_price": 33.06,
+          "status": "ABOVE_ZONE"
+        }
+      ]
+    },
+    "tier_3": {
+      "allocation_pct": 30,
+      "current_exposure_pct": 0,
+      "status": "POSITIONING_FOR_DCA",
+      "opportunities": [
+        {
+          "asset": "BTC",
+          "target_entry": "<60000",
+          "current_price": 65477.75,
+          "status": "ABOVE_ZONE — wait for pullback"
+        },
+        {
+          "asset": "ETH",
+          "target_entry": "<1800",
+          "current_price": 1900.69,
+          "status": "ABOVE_ZONE — wait for pullback"
+        },
+        {
+          "asset": "HIMS",
+          "target_entry": "<30",
+          "current_price": 33.06,
+          "status": "ABOVE_ZONE — wait for pullback"
+        },
+        {
+          "asset": "MSTR",
+          "target_entry": "<90",
+          "current_price": 99.70,
+          "status": "ABOVE_ZONE — wait for pullback"
+        }
+      ]
+    }
+  },
+  "risk_metrics": {
+    "daily_loss_pct": 0,
+    "max_position_size_pct": 0,
+    "cash_position_pct": 100,
+    "correlation_risk": "N/A",
+    "open_risk_usd": 0,
+    "status": "ALL_CLEAR"
+  },
+  "alerts_triggered": [],
+  "actions_taken": [],
+  "whale_signal": {
+    "signal": "ACCUMULATION",
+    "confidence": 0.8,
+    "note": "66,700 BTC scooped by whales while mid-tier holders exit"
+  },
+  "key_findings": [
+    "Market in recovery mode — all assets positive",
+    "Fear at 29 for 7 consecutive days (contrarian zone)",
+    "Whale accumulation signal — 66,700 BTC bought",
+    "MSTR outperforming BTC — institutional confidence",
+    "All Tier 3 DCA zones missed (market up 6%+ from Friday)",
+    "Wait for pullbacks or adjust entry levels higher"
+  ],
+  "notes": "Day 7 in fear zone. Recovery building. No immediate setups. All DCA zones above current targets — patience required. Whale accumulation validates bullish thesis."
+}
