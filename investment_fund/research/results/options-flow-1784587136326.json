@@ -1,0 +1,227 @@
+{
+  "id": "options-flow-1784587136326",
+  "name": "Options Unusual Activity",
+  "description": "Test if unusual options flow predicts price moves",
+  "dataSource": "mock_options_data",
+  "baseline": "standard_asymmetry",
+  "successMetric": "hit_rate",
+  "targetImprovement": 0.15,
+  "durationDays": 14,
+  "status": "running",
+  "createdAt": "2026-07-20T22:38:56.327Z",
+  "trades": [
+    {
+      "id": "T0",
+      "ticker": "CRWD",
+      "entry": 100,
+      "exit": 120,
+      "pnl": 772.530725710043,
+      "timestamp": "2026-07-20T22:38:58.989Z"
+    },
+    {
+      "id": "T1",
+      "ticker": "NVDA",
+      "entry": 100,
+      "exit": 85,
+      "pnl": -582.2663665724278,
+      "timestamp": "2026-07-19T22:38:58.989Z"
+    },
+    {
+      "id": "T2",
+      "ticker": "PLTR",
+      "entry": 100,
+      "exit": 120,
+      "pnl": 1156.7629826483787,
+      "timestamp": "2026-07-18T22:38:58.989Z"
+    },
+    {
+      "id": "T3",
+      "ticker": "TSLA",
+      "entry": 100,
+      "exit": 85,
+      "pnl": -286.0238927776025,
+      "timestamp": "2026-07-17T22:38:58.989Z"
+    },
+    {
+      "id": "T4",
+      "ticker": "CRWD",
+      "entry": 100,
+      "exit": 120,
+      "pnl": 1225.7734644807185,
+      "timestamp": "2026-07-16T22:38:58.989Z"
+    },
+    {
+      "id": "T5",
+      "ticker": "NVDA",
+      "entry": 100,
+      "exit": 120,
+      "pnl": 1129.258316956637,
+      "timestamp": "2026-07-15T22:38:58.989Z"
+    },
+    {
+      "id": "T6",
+      "ticker": "PLTR",
+      "entry": 100,
+      "exit": 85,
+      "pnl": -283.42201940835105,
+      "timestamp": "2026-07-14T22:38:58.989Z"
+    },
+    {
+      "id": "T7",
+      "ticker": "TSLA",
+      "entry": 100,
+      "exit": 120,
+      "pnl": 1224.2182060879352,
+      "timestamp": "2026-07-13T22:38:58.989Z"
+    },
+    {
+      "id": "T8",
+      "ticker": "CRWD",
+      "entry": 100,
+      "exit": 120,
+      "pnl": 1091.389858678767,
+      "timestamp": "2026-07-12T22:38:58.989Z"
+    },
+    {
+      "id": "T9",
+      "ticker": "NVDA",
+      "entry": 100,
+      "exit": 85,
+      "pnl": -291.6697543149962,
+      "timestamp": "2026-07-11T22:38:58.989Z"
+    },
+    {
+      "id": "T10",
+      "ticker": "PLTR",
+      "entry": 100,
+      "exit": 120,
+      "pnl": 1298.3468316097337,
+      "timestamp": "2026-07-10T22:38:58.989Z"
+    },
+    {
+      "id": "T11",
+      "ticker": "TSLA",
+      "entry": 100,
+      "exit": 120,
+      "pnl": 856.6510260760197,
+      "timestamp": "2026-07-09T22:38:58.989Z"
+    },
+    {
+      "id": "T12",
+      "ticker": "CRWD",
+      "entry": 100,
+      "exit": 120,
+      "pnl": 873.6693409327348,
+      "timestamp": "2026-07-08T22:38:58.989Z"
+    },
+    {
+      "id": "T13",
+      "ticker": "NVDA",
+      "entry": 100,
+      "exit": 85,
+      "pnl": -687.5151551914348,
+      "timestamp": "2026-07-07T22:38:58.989Z"
+    },
+    {
+      "id": "T14",
+      "ticker": "PLTR",
+      "entry": 100,
+      "exit": 120,
+      "pnl": 1310.087501758693,
+      "timestamp": "2026-07-06T22:38:58.989Z"
+    },
+    {
+      "id": "T15",
+      "ticker": "TSLA",
+      "entry": 100,
+      "exit": 85,
+      "pnl": -315.78667738709873,
+      "timestamp": "2026-07-05T22:38:58.989Z"
+    },
+    {
+      "id": "T16",
+      "ticker": "CRWD",
+      "entry": 100,
+      "exit": 120,
+      "pnl": 825.8644665207437,
+      "timestamp": "2026-07-04T22:38:58.989Z"
+    },
+    {
+      "id": "T17",
+      "ticker": "NVDA",
+      "entry": 100,
+      "exit": 120,
+      "pnl": 600.5524466179776,
+      "timestamp": "2026-07-03T22:38:58.989Z"
+    },
+    {
+      "id": "T18",
+      "ticker": "PLTR",
+      "entry": 100,
+      "exit": 120,
+      "pnl": 1257.4541387676663,
+      "timestamp": "2026-07-02T22:38:58.989Z"
+    },
+    {
+      "id": "T19",
+      "ticker": "TSLA",
+      "entry": 100,
+      "exit": 120,
+      "pnl": 1043.2026130171116,
+      "timestamp": "2026-07-01T22:38:58.989Z"
+    },
+    {
+      "id": "T20",
+      "ticker": "CRWD",
+      "entry": 100,
+      "exit": 85,
+      "pnl": -638.8937713181782,
+      "timestamp": "2026-06-30T22:38:58.989Z"
+    },
+    {
+      "id": "T21",
+      "ticker": "NVDA",
+      "entry": 100,
+      "exit": 120,
+      "pnl": 556.3909983342836,
+      "timestamp": "2026-06-29T22:38:58.989Z"
+    },
+    {
+      "id": "T22",
+      "ticker": "PLTR",
+      "entry": 100,
+      "exit": 85,
+      "pnl": -458.5614475679579,
+      "timestamp": "2026-06-28T22:38:58.989Z"
+    },
+    {
+      "id": "T23",
+      "ticker": "TSLA",
+      "entry": 100,
+      "exit": 120,
+      "pnl": 1145.7804732383877,
+      "timestamp": "2026-06-27T22:38:58.989Z"
+    },
+    {
+      "id": "T24",
+      "ticker": "CRWD",
+      "entry": 100,
+      "exit": 120,
+      "pnl": 835.1147773973103,
+      "timestamp": "2026-06-26T22:38:58.989Z"
+    }
+  ],
+  "results": {
+    "totalTrades": 25,
+    "wins": 17,
+    "losses": 8,
+    "hitRate": 0.68,
+    "avgWin": 1011.9440099313613,
+    "avgLoss": 443.0173855672558,
+    "profitFactor": 2.284208346892822,
+    "pnl": 13658.90908429509,
+    "significance": "sufficient",
+    "recommendation": "drop"
+  },
+  "startedAt": "2026-07-20T22:38:58.989Z"
+}
