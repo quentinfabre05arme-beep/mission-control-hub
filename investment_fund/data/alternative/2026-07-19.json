@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "fetch_timestamp": "2026-07-19T22:18:12.361Z",
-    "local_time": "20/07/2026 00:18:12",
+    "fetch_timestamp": "2026-07-19T23:18:13.168Z",
+    "local_time": "20/07/2026 01:18:13",
     "cycle_id": "alternative-data-2026-07-19",
     "data_sources": [
       "alternative.me",
@@ -10,12 +10,12 @@
     ]
   },
   "market_snapshot": {
-    "timestamp": "2026-07-19T22:11:34.726Z",
+    "timestamp": "2026-07-19T23:11:37.791Z",
     "assets": {
       "BTC": {
         "price": 64479.54,
         "change_24h": 0,
-        "source": "yahoo",
+        "source": "cached",
         "signal": "NEUTRAL"
       },
       "ETH": {
@@ -40,7 +40,7 @@
     "_meta": {
       "fromCache": false,
       "sources": [
-        "yahoo",
+        "cached",
         "cached",
         "cached",
         "cached"

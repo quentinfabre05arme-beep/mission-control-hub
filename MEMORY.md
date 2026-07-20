@@ -9,10 +9,11 @@
 
 ---
 
-## Autonomous Operations Maturity — July 18-19, 2026
+## Autonomous Operations Maturity — July 18-20, 2026
 
-**Achievement:** 109 consecutive autonomous improvement cycles (Jul 18–19), zero manual intervention.
+**Achievement:** 111 consecutive autonomous improvement cycles (Jul 18–20), zero manual intervention.
 - **Milestone: Cycle #100 reached at 14:11 CET on Jul 19**
+- **Milestone: Cycle #111 reached at 01:11 CET on Jul 20**
 - Full breakout sequence autonomously detected and logged (Jul 18): BTC +$171 in 1h → BULLISH → ENTRY → HOLD LONG across cycles #81-#85
 - System self-healed through API rate limits, cache fallback, stale data detection
 - HEARTBEAT.md synced every cycle for continuity
@@ -20,13 +21,30 @@
 **What works autonomously:** Market data refresh (Twelve Data + cascading fallbacks), timestamp/cycle sync, git commits (local), self-healing from 429s, breakout detection/logging
 **Still manual:** Git push (token expired — Vercel CLI workaround), Printify API token refresh, any external auth
 
+**API Fallback Pattern Learned:**
+- Twelve Data: Primary (800 req/day), fails weekends/late night
+- Yahoo Finance: Reliable fallback for stocks, works for crypto during Twelve Data outages
+- CoinGecko: Crypto-only fallback, rate-limited
+- Cache: <5min stale acceptable for dashboards
+
 **Next frontier:** True client-side live data fetching to eliminate static HTML rewrites entirely.
 
 ---
 
-## Revenue Reality Check — July 19, 2026
+## Revenue Reality Check — July 20, 2026
 
 **Status:** ALL 5 revenue streams at €0/month. Infrastructure complete, execution blocked.
+
+**Updated status:**
+| Stream | Status | Blocker | Days Blocked |
+|--------|--------|---------|-------------|
+| POD | 🔴 | Printify API 401 | 11 days |
+| Alpha Fund | 🟢 | Paper trading (no capital) | N/A |
+| Newsletter | 🟡 | Substack auth not configured | N/A |
+| Data API | 🟡 | Building | N/A |
+| Code Products | 🟡 | Not started | N/A |
+
+**Key insight:** No revenue stream generates actual revenue. All in build/validation. POD closest to €0.10-0.30/day but blocked by auth.
 
 | Stream | Status | Blocker | Time Blocked |
 |--------|--------|---------|-------------|
@@ -42,9 +60,9 @@
 
 ---
 
-## POD Business Critical Blocker — July 19, 2026 (Day 10)
+## POD Business Critical Blocker — July 20, 2026 (Day 11)
 
-**Status:** 🔴 **BLOCKED — Printify API 401 Unauthorized (10+ consecutive days)**
+**Status:** 🔴 **BLOCKED — Printify API 401 Unauthorized (11+ consecutive days)**
 
 - API returning 401 Unauthorized since Jul 10
 - 5 designs optimized (+9.2% price increase), SEO titles/tags generated
@@ -173,14 +191,16 @@
 
 ---
 
-## Dashboard Version Drift Pattern — July 16-18, 2026
+## Dashboard Version Drift Pattern — July 16-20, 2026
 
-**Observation:** Version numbers have become meaningless due to rapid iteration.
+**Observation:** Version numbers became meaningless due to rapid iteration.
 - Jul 16: v11.0 PRO → v11.2 → v11.3 (same day)
 - Jul 17: v11.1 → v7.7 (user reset) → v11.1 again
-- Jul 18: No explicit version changes, just cycle counts (61→85)
+- Jul 18-20: No explicit version changes, just cycle counts (61→111)
 
-**Recommendation:** Drop version numbers in favor of cycle counts. Each cycle IS the version. Simpler, more honest, no drift.
+**Resolution:** Dropped version numbers in favor of cycle counts. Each cycle IS the version. Simpler, more honest, no drift.
+
+**New record:** 111 consecutive autonomous improvement cycles (Jul 20, 01:11 CET) — zero manual intervention.
 
 ---
 
@@ -267,3 +287,23 @@
 ### Research System v1.0 (Legacy)
 - **Location:** mission_control/full_research.js
 - **Status:** Superseded by v2.0
+
+---
+
+## Alpha Fund Alternative Data — July 20, 2026
+
+**Status:** 🟢 **Operational — BULLISH accumulation signals detected**
+
+**Latest signals (Jul 20 01:18 CET):**
+| Metric | Signal | Confidence |
+|--------|--------|------------|
+| BTC Exchange Outflows | -2,450 BTC | 65% |
+| ETH Exchange Outflows | -18,500 ETH | 60% |
+| Fear & Greed | 28 (recovery from 25) | 70% |
+| Whale Wallets | +12 addresses | 70% |
+
+**Composite scores:** BTC +0.45 (BULLISH), ETH +0.40 (SLIGHTLY_BULLISH), MSTR +0.25 (SLIGHTLY_BULLISH)
+
+**Interpretation:** Multiple early signals align — potential accumulation phase. Not yet visible in price data.
+
+**File:** `investment_fund/data/alternative/2026-07-20.json`

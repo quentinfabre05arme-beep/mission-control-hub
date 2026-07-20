@@ -1,38 +1,38 @@
 {
-  "timestamp": "2026-07-19T23:11:37.791Z",
+  "timestamp": "2026-07-20T00:11:32.717Z",
   "assets": {
     "BTC": {
-      "price": 64479.54,
-      "change_24h": 0,
-      "source": "cached",
+      "price": 64903.31,
+      "change_24h": 0.27929992,
+      "source": "twelvedata",
       "signal": "NEUTRAL"
     },
     "ETH": {
-      "price": 1866.8,
-      "change_24h": 0.22495316,
-      "source": "cached",
+      "price": 1882.51,
+      "change_24h": 0.54907784,
+      "source": "twelvedata",
       "signal": "NEUTRAL"
     },
     "MSTR": {
       "price": 94.85,
       "change_24h": 0.87206179,
-      "source": "cached",
+      "source": "twelvedata",
       "signal": "NEUTRAL"
     },
     "HIMS": {
       "price": 32.84,
       "change_24h": -2.49406,
-      "source": "cached",
+      "source": "twelvedata",
       "signal": "BEARISH"
     }
   },
   "_meta": {
     "fromCache": false,
     "sources": [
-      "cached",
-      "cached",
-      "cached",
-      "cached"
+      "twelvedata",
+      "twelvedata",
+      "twelvedata",
+      "twelvedata"
     ]
   }
 }
