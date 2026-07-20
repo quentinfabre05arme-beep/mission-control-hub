@@ -1,21 +1,21 @@
 {
-  "timestamp": "2026-07-20T20:12:08.370Z",
+  "timestamp": "2026-07-20T21:12:16.779Z",
   "assets": {
     "BTC": {
-      "price": 65128.92,
-      "change_24h": 0.62788018,
+      "price": 65352,
+      "change_24h": 0.97255145,
       "source": "twelvedata",
       "signal": "NEUTRAL"
     },
     "ETH": {
-      "price": 1898.55,
-      "change_24h": 1.40581,
+      "price": 1906.98,
+      "change_24h": 1.85608,
       "source": "twelvedata",
       "signal": "NEUTRAL"
     },
     "MSTR": {
-      "price": 97.76,
-      "change_24h": 3.068004,
+      "price": 97.81,
+      "change_24h": 3.12072,
       "source": "twelvedata",
       "signal": "BULLISH"
     },
