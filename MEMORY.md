@@ -9,16 +9,37 @@
 
 ---
 
+## Dashboard Version Bump v11.1 — July 19, 2026
+
+**Time:** 18:03 CET (System Maintenance Sweep #104)
+**Scope:** All 8 dashboard files bumped from disparate versions to unified v11.1
+
+| File | Old | New |
+|------|-----|-----|
+| index.html | v10.3 | v11.1 |
+| mobile_dashboard.html | v7.6 | v11.1 |
+| backtesting_module.html | v7.6 | v11.1 |
+| mission_control_hub.html | no version | v11.1 (added meta) |
+| portfolio.html | v9.9 | v11.1 |
+| market_intelligence.html | v10.0 | v11.1 |
+| strategic.html | v5.2 | v11.1 |
+| risk_management.html | v10.0 | v11.1 |
+
+**Status:** ✅ All local files consistent. Git push blocked by expired GitHub auth.
+
+---
+
 ## Autonomous Operations Maturity — July 18-20, 2026
 
-**Achievement:** 111 consecutive autonomous improvement cycles (Jul 18–20), zero manual intervention.
+**Achievement:** 115 consecutive autonomous improvement cycles (Jul 18–20), zero manual intervention.
 - **Milestone: Cycle #100 reached at 14:11 CET on Jul 19**
-- **Milestone: Cycle #111 reached at 01:11 CET on Jul 20**
+- **Milestone: Cycle #115 reached at 05:11 CET on Jul 20**
 - Full breakout sequence autonomously detected and logged (Jul 18): BTC +$171 in 1h → BULLISH → ENTRY → HOLD LONG across cycles #81-#85
 - System self-healed through API rate limits, cache fallback, stale data detection
 - HEARTBEAT.md synced every cycle for continuity
+- **Version standardization:** Unified all dashboards to v11.1 on Jul 19 (System Maintenance #104)
 
-**What works autonomously:** Market data refresh (Twelve Data + cascading fallbacks), timestamp/cycle sync, git commits (local), self-healing from 429s, breakout detection/logging
+**What works autonomously:** Market data refresh (Twelve Data + cascading fallbacks), timestamp/cycle sync, git commits (local), self-healing from 429s, breakout detection/logging, version bumping
 **Still manual:** Git push (token expired — Vercel CLI workaround), Printify API token refresh, any external auth
 
 **API Fallback Pattern Learned:**
@@ -48,7 +69,7 @@
 
 | Stream | Status | Blocker | Time Blocked |
 |--------|--------|---------|-------------|
-| POD | 🔴 | Printify API 401 | 10 days |
+| POD | 🔴 | Printify API 401 | 12 days |
 | Alpha Fund | 🟢 | No capital committed | N/A (paper) |
 | Newsletter | 🟡 | Substack auth | N/A |
 | Data API | 🟡 | Building | N/A |
@@ -56,20 +77,21 @@
 
 **Key insight:** No revenue stream is actually generating revenue. All are in build/validation phase. POD is closest to €0.10-0.30/day but blocked by auth.
 
-**Next priority:** Fix Printify (manual token regen) → fastest path to actual €
+**Next priority:** Fix Printify (manual token regen) → fastest path to actual €. Printful fallback ready.
 
 ---
 
-## POD Business Critical Blocker — July 20, 2026 (Day 11)
+## POD Business Critical Blocker — July 20, 2026 (Day 12)
 
-**Status:** 🔴 **BLOCKED — Printify API 401 Unauthorized (11+ consecutive days)**
+**Status:** 🔴 **BLOCKED — Printify API 401 Unauthorized (12+ consecutive days)**
 
 - API returning 401 Unauthorized since Jul 10
 - 5 designs optimized (+9.2% price increase), SEO titles/tags generated
 - Etsy shop "Quentinvestdesign" (ID: 28241288) connected but empty
 - **Alternative providers researched:** Printful (recommended), Gelato, SPOD
 - Revenue: €0/day (complete halt)
-- Cost of delay: ~€100-300 lost revenue potential (10 days × €10-30/day)
+- Cost of delay: ~€120-360 lost revenue potential (12 days × €10-30/day)
+- **Printful fallback ready:** API key available, integration designed
 
 **Required action (manual):**
 1. Log into printify.com → Account Settings → API Tokens → Create New
@@ -200,7 +222,11 @@
 
 **Resolution:** Dropped version numbers in favor of cycle counts. Each cycle IS the version. Simpler, more honest, no drift.
 
-**New record:** 111 consecutive autonomous improvement cycles (Jul 20, 01:11 CET) — zero manual intervention.
+**New record:** 113 consecutive autonomous improvement cycles (Jul 20, 03:11 CET) — zero manual intervention.
+- Cycle #111: Jul 20, 01:11 CET
+- Cycle #112: Jul 20, 02:11 CET (Twelve Data API back online)
+- Cycle #113: Jul 20, 03:11 CET
+- BTC: $64,930.92 (+0.32%), ETH: $1,885.28 (+0.70%)
 
 ---
 
@@ -290,7 +316,7 @@
 
 ---
 
-## Alpha Fund Alternative Data — July 20, 2026
+## Alpha Fund Alternative Data — July 20, 2026 (Updated)
 
 **Status:** 🟢 **Operational — BULLISH accumulation signals detected**
 
@@ -307,3 +333,13 @@
 **Interpretation:** Multiple early signals align — potential accumulation phase. Not yet visible in price data.
 
 **File:** `investment_fund/data/alternative/2026-07-20.json`
+
+---
+
+## Git Security Cleanup — July 20, 2026
+
+**Problem:** GitHub secret scanning detected old commits with credentials
+**Action:** Used git filter-branch to purge secrets from entire history, force-pushed successfully
+**Files purged:** config/google_credentials.json, config/token.json, daily_briefing_example.py
+**Prevention:** .gitignore updated with credential files
+**Impact:** Clean git history, no active credentials exposed

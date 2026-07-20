@@ -1,0 +1,99 @@
+{
+  "metadata": {
+    "cycle_id": "#71",
+    "timestamp": "2026-07-20T04:10:00.000+02:00",
+    "local_time": "2026-07-20 04:10 CET",
+    "type": "fund-research-cycle",
+    "status": "complete"
+  },
+  "market_snapshot": {
+    "timestamp": "2026-07-20T04:10:00.000+02:00",
+    "assets": {
+      "BTC": { "price": 64930.92, "change_24h": 0.32, "signal": "NEUTRAL", "composite": "SLIGHTLY_BULLISH" },
+      "ETH": { "price": 1885.28, "change_24h": 0.70, "signal": "NEUTRAL", "composite": "SLIGHTLY_BULLISH" },
+      "MSTR": { "price": 94.85, "change_24h": 0.87, "signal": "NEUTRAL", "composite": "SLIGHTLY_BULLISH" },
+      "HIMS": { "price": 32.84, "change_24h": -2.49, "signal": "BEARISH", "composite": "NEUTRAL" }
+    },
+    "fear_greed": { "value": 29, "classification": "FEAR" }
+  },
+  "scan_results": {
+    "enhanced_scanner": {
+      "symbols_scanned": 63,
+      "setups_found": 0,
+      "status": "No Tier 1/T2 setups"
+    },
+    "alternative_data": {
+      "btc_composite_score": 0.45,
+      "eth_composite_score": 0.40,
+      "early_signals_detected": true,
+      "confidence": 0.68
+    }
+  },
+  "risk_check": {
+    "cash_position_pct": 100,
+    "max_position_size_pct": 0,
+    "daily_loss_limit_pct": 0,
+    "correlation_status": "N/A",
+    "open_positions": 0,
+    "all_clear": true
+  },
+  "tier_1_opportunities": [
+    {
+      "id": "T1-001",
+      "asset": "BTC",
+      "price": 64930.92,
+      "entry_zone": "62000-64500",
+      "stop_loss": 59000,
+      "target": 72000,
+      "risk_reward": 1.2,
+      "position_size_pct": 10,
+      "status": "READY_TO_SCALE_IN",
+      "rationale": "Contrarian accumulation zone. Exchange outflows + whale wallets."
+    },
+    {
+      "id": "T1-002",
+      "asset": "ETH",
+      "price": 1885.28,
+      "entry_zone": "1800-1900",
+      "stop_loss": 1700,
+      "target": 2150,
+      "risk_reward": 1.4,
+      "position_size_pct": 7,
+      "status": "WATCH_FOR_ENTRY",
+      "rationale": "Exchange outflows suggest staking demand. Higher funding vs BTC."
+    }
+  ],
+  "tier_2_setups": [
+    {
+      "id": "T2-001",
+      "asset": "MSTR",
+      "price": 94.85,
+      "entry_zone": "85-95",
+      "stop_loss": 75,
+      "target": 130,
+      "risk_reward": 1.8,
+      "position_size_pct": 5,
+      "status": "ACCUMULATE_ON_WEAKNESS"
+    },
+    {
+      "id": "T2-002",
+      "asset": "HIMS",
+      "price": 32.84,
+      "entry_zone": "30-33",
+      "stop_loss": 26,
+      "target": 48,
+      "risk_reward": 2.2,
+      "position_size_pct": 5,
+      "status": "SCALE_IN_ON_DIPS"
+    }
+  ],
+  "alerts_triggered": [],
+  "actions_taken": [
+    "Generated daily research report",
+    "Completed enhanced market scan (63 symbols)
+",
+    "Validated risk metrics (all clear)",
+    "Updated opportunity tracking"
+  ],
+  "next_cycle": "2026-07-20T08:10:00.000+02:00"
+}

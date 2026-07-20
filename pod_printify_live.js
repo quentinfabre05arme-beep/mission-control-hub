@@ -2,7 +2,7 @@ const https = require('https');
 const fs = require('fs').promises;
 const path = require('path');
 
-// Load from .env file if exists (prioritize .env.local)
+// Load from .env file directly (bypass dotenv to avoid token mutation)
 // Try multiple paths since script can be run from different directories
 const possiblePaths = [
   path.join(process.cwd(), 'pod_business', '.env.local'),
@@ -12,22 +12,40 @@ const possiblePaths = [
   'C:\\Users\\quent\\.openclaw\\workspace\\pod_business\\.env.local'
 ];
 
-let envLoaded = false;
+function loadEnvFile(envPath) {
+  try {
+    const content = require('fs').readFileSync(envPath, 'utf8');
+    const lines = content.split('\n');
+    const env = {};
+    for (const line of lines) {
+      const match = line.match(/^([A-Za-z0-9_]+)=(.*)$/);
+      if (match) {
+        env[match[1]] = match[2].trim();
+      }
+    }
+    return env;
+  } catch {
+    return null;
+  }
+}
+
+let envVars = null;
 for (const envPath of possiblePaths) {
-  if (require('fs').existsSync(envPath)) {
-    require('dotenv').config({ path: envPath });
-    envLoaded = true;
+  envVars = loadEnvFile(envPath);
+  if (envVars) {
+    console.log(`[POD] Loaded env from: ${envPath}`);
     break;
   }
 }
 
-if (!envLoaded) {
-  console.error('Warning: No .env file found');
+if (!envVars) {
+  console.error('[POD] Warning: No .env file found');
+  envVars = {};
 }
 
 const CONFIG = {
-  apiKey: process.env.PRINTIFY_API_KEY,
-  shopId: process.env.PRINTIFY_SHOP_ID,
+  apiKey: envVars.PRINTIFY_API_KEY,
+  shopId: envVars.PRINTIFY_SHOP_ID,
   baseUrl: 'api.printify.com',
   dataDir: 'C:\\Users\\quent\\.openclaw\\workspace\\pod_business',
   autoPublish: true,

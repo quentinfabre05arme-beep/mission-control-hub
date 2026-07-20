@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-07-20T03:02:51.222Z",
+  "shopId": "28241288",
+  "designsProcessed": 5,
+  "results": [
+    {
+      "design": "design_crypto_1784049410601.svg",
+      "status": "ready_for_upload",
+      "shopId": "28241288"
+    },
+    {
+      "design": "design_crypto_1784049410607.svg",
+      "status": "ready_for_upload",
+      "shopId": "28241288"
+    },
+    {
+      "design": "design_fitness_1784049410604.svg",
+      "status": "ready_for_upload",
+      "shopId": "28241288"
+    },
+    {
+      "design": "design_professions_1784049410606.svg",
+      "status": "ready_for_upload",
+      "shopId": "28241288"
+    },
+    {
+      "design": "design_professions_1784049410609.svg",
+      "status": "ready_for_upload",
+      "shopId": "28241288"
+    }
+  ]
+}
