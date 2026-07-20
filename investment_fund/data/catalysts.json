@@ -1,0 +1,12 @@
+{
+  "timestamp": "2026-07-20T22:31:03.862Z",
+  "catalysts": [
+    {
+      "ticker": "TSLA",
+      "date": "2026-07-25",
+      "event": "Q2 Earnings",
+      "impact": "high",
+      "type": "earnings"
+    }
+  ]
+}
