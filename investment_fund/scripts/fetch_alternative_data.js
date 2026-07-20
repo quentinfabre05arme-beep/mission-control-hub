@@ -231,12 +231,17 @@ async function fetchAlternativeData() {
   const anomalies = detectAnomalies(marketData, fearGreed, whaleSignals);
   const composites = generateCompositeScores(marketData, fearGreed, whaleSignals);
 
+  // Use local Paris time for date string
+  const localDateStr = now.toLocaleDateString('fr-CA', { timeZone: 'Europe/Paris' }).replace(/\//g, '-');
+  
   const report = {
     metadata: {
       fetch_timestamp: timestamp,
       local_time: now.toLocaleString('fr-FR', { timeZone: 'Europe/Paris' }),
-      cycle_id: `alternative-data-${dateStr}`,
-      data_sources: ['alternative.me', 'serper.dev', 'market_data.json']
+      utc_time: now.toISOString(),
+      cycle_id: `alternative-data-${localDateStr}`,
+      data_sources: ['alternative.me', 'serper.dev', 'market_data.json'],
+      focus: 'Early signals not visible in price data'
     },
     market_snapshot: marketData,
     sentiment: {
@@ -261,8 +266,8 @@ async function fetchAlternativeData() {
     }))
   };
 
-  // Save to file
-  const outputPath = path.join(CONFIG.DATA_DIR, `${dateStr}.json`);
+  // Save to file using local date (already declared above)
+  const outputPath = path.join(CONFIG.DATA_DIR, `${localDateStr}.json`);
   fs.writeFileSync(outputPath, JSON.stringify(report, null, 2));
 
   return { report, outputPath };
