@@ -25,7 +25,8 @@
     {"date": "2026-07-16", "sales": 0, "revenue": 0, "costs": 0, "profit": 0, "note": "API 401 - No listings live"},
     {"date": "2026-07-17", "sales": 0, "revenue": 0, "costs": 0, "profit": 0, "note": "API 401 - No listings live"},
     {"date": "2026-07-18", "sales": 0, "revenue": 0, "costs": 0, "profit": 0, "note": "API 401 - No listings live"},
-    {"date": "2026-07-19", "sales": 0, "revenue": 0, "costs": 0, "profit": 0, "note": "API 401 - No listings live"}
+    {"date": "2026-07-19", "sales": 0, "revenue": 0, "costs": 0, "profit": 0, "note": "API 401 - No listings live"},
+    {"date": "2026-07-20", "sales": 0, "revenue": 0, "costs": 0, "profit": 0, "note": "API 401 - Day 8 blocked, research completed"}
   ],
   "product_performance": [],
   "cost_breakdown": {
@@ -35,10 +36,10 @@
     "total_fixed_costs": 0
   },
   "opportunity_cost": {
-    "days_blocked": 7,
+    "days_blocked": 9,
     "designs_not_published": 35,
-    "estimated_lost_revenue_min": 70.00,
-    "estimated_lost_revenue_max": 210.00,
+    "estimated_lost_revenue_min": 180.00,
+    "estimated_lost_revenue_max": 540.00,
     "cumulative_weeks_blocked": 1
   },
   "blockers": [
@@ -46,7 +47,7 @@
       "type": "API_AUTHENTICATION",
       "severity": "CRITICAL",
       "description": "Printify API returning 401 Unauthorized despite valid token",
-      "days_active": 7,
+      "days_active": 8,
       "impact": "Zero products live, zero revenue potential",
       "resolution_required": "Generate fresh Printify API token"
     }

@@ -29,58 +29,6 @@
 
 ---
 
-## Autonomous Operations Maturity — July 18-20, 2026
-
-**Achievement:** 115 consecutive autonomous improvement cycles (Jul 18–20), zero manual intervention.
-- **Milestone: Cycle #100 reached at 14:11 CET on Jul 19**
-- **Milestone: Cycle #115 reached at 05:11 CET on Jul 20**
-- Full breakout sequence autonomously detected and logged (Jul 18): BTC +$171 in 1h → BULLISH → ENTRY → HOLD LONG across cycles #81-#85
-- System self-healed through API rate limits, cache fallback, stale data detection
-- HEARTBEAT.md synced every cycle for continuity
-- **Version standardization:** Unified all dashboards to v11.1 on Jul 19 (System Maintenance #104)
-
-**What works autonomously:** Market data refresh (Twelve Data + cascading fallbacks), timestamp/cycle sync, git commits (local), self-healing from 429s, breakout detection/logging, version bumping
-**Still manual:** Git push (token expired — Vercel CLI workaround), Printify API token refresh, any external auth
-
-**API Fallback Pattern Learned:**
-- Twelve Data: Primary (800 req/day), fails weekends/late night
-- Yahoo Finance: Reliable fallback for stocks, works for crypto during Twelve Data outages
-- CoinGecko: Crypto-only fallback, rate-limited
-- Cache: <5min stale acceptable for dashboards
-
-**Next frontier:** True client-side live data fetching to eliminate static HTML rewrites entirely.
-
----
-
-## Revenue Reality Check — July 20, 2026
-
-**Status:** ALL 5 revenue streams at €0/month. Infrastructure complete, execution blocked.
-
-**Updated status:**
-| Stream | Status | Blocker | Days Blocked |
-|--------|--------|---------|-------------|
-| POD | 🔴 | Printify API 401 | 11 days |
-| Alpha Fund | 🟢 | Paper trading (no capital) | N/A |
-| Newsletter | 🟡 | Substack auth not configured | N/A |
-| Data API | 🟡 | Building | N/A |
-| Code Products | 🟡 | Not started | N/A |
-
-**Key insight:** No revenue stream generates actual revenue. All in build/validation. POD closest to €0.10-0.30/day but blocked by auth.
-
-| Stream | Status | Blocker | Time Blocked |
-|--------|--------|---------|-------------|
-| POD | 🔴 | Printify API 401 | 12 days |
-| Alpha Fund | 🟢 | No capital committed | N/A (paper) |
-| Newsletter | 🟡 | Substack auth | N/A |
-| Data API | 🟡 | Building | N/A |
-| Code Products | 🟡 | Not started | N/A |
-
-**Key insight:** No revenue stream is actually generating revenue. All are in build/validation phase. POD is closest to €0.10-0.30/day but blocked by auth.
-
-**Next priority:** Fix Printify (manual token regen) → fastest path to actual €. Printful fallback ready.
-
----
-
 ## POD Business Critical Blocker — July 20, 2026 (Day 12)
 
 **Status:** 🔴 **BLOCKED — Printify API 401 Unauthorized (12+ consecutive days)**
@@ -98,38 +46,6 @@
 2. Update pod_business/.env.local
 3. Test with node test_auth.js
 4. If unrecoverable, switch to Printful (API key already available)
-
----
-
-## Weekly Skill Development Review #1 — July 19, 2026
-
-**Period:** July 13-19, 2026
-**File:** `memory/2026-07-19-skill-development-review.md`
-
-### Key Decisions Reviewed:
-1. **HIMS Trade (Jul 16) — CLOSED at -9.42%** (Grade C)
-   - Entry: $37.17 (WEAK_BUY, 100/100 checklist)
-   - Exit: Stop loss hit at $33.67 (-$941.50)
-   - **Lesson:** Checklist score ≠ edge. Added price confirmation requirement (close > prior day high OR pullback to 20 SMA)
-
-2. **Autonomous Mode Enable (Jul 16) — VALIDATED**
-   - HIMS stop executed immediately without emotional hesitation
-   - Infrastructure works as designed
-
-### Pattern Library Update:
-- **WEAK_BUY + Earnings Catalyst** pattern refined with price confirmation requirement
-- 4 patterns identified, 1 with occurrence data
-- Investment Research Book: Vol 1 & 2 complete, Vol 3 ~40%
-
-### Skill Mastery Progress:
-| Skill | Level | Change |
-|-------|-------|--------|
-| Technical Analysis | ⭐⭐⭐ | → 65% |
-| Behavioral Control | ⭐⭐ | → 50% (+10%) |
-| Risk Management | ⭐⭐⭐ | → 65% |
-| Macro Awareness | ⭐ | → 30% |
-
-**Next week focus:** Complete Vol 3 (Market Context), add price confirmation to entry workflow.
 
 ---
 
@@ -210,23 +126,6 @@
 **Reason:** Accidental posts sent despite safeguards
 **Action:** All 7 Windows Task Scheduler jobs disabled
 **Lesson:** Automation without robust gating is dangerous. The "human approval gate" failed because Task Scheduler triggered before gate could activate.
-
----
-
-## Dashboard Version Drift Pattern — July 16-20, 2026
-
-**Observation:** Version numbers became meaningless due to rapid iteration.
-- Jul 16: v11.0 PRO → v11.2 → v11.3 (same day)
-- Jul 17: v11.1 → v7.7 (user reset) → v11.1 again
-- Jul 18-20: No explicit version changes, just cycle counts (61→111)
-
-**Resolution:** Dropped version numbers in favor of cycle counts. Each cycle IS the version. Simpler, more honest, no drift.
-
-**New record:** 113 consecutive autonomous improvement cycles (Jul 20, 03:11 CET) — zero manual intervention.
-- Cycle #111: Jul 20, 01:11 CET
-- Cycle #112: Jul 20, 02:11 CET (Twelve Data API back online)
-- Cycle #113: Jul 20, 03:11 CET
-- BTC: $64,930.92 (+0.32%), ETH: $1,885.28 (+0.70%)
 
 ---
 
@@ -343,3 +242,155 @@
 **Files purged:** config/google_credentials.json, config/token.json, daily_briefing_example.py
 **Prevention:** .gitignore updated with credential files
 **Impact:** Clean git history, no active credentials exposed
+
+---
+
+## Newsletter Automation Launch — July 20, 2026
+
+**Status:** 🟢 **CONTENT GENERATING — MANUAL POSTING REQUIRED**
+**First daily brief:** 2026-07-20 08:00 CET
+**File:** `revenue/reports/daily_brief_2026-07-20.md`
+**Publication target:** Quentinvest Alpha (@quentinvest1 / Substack)
+
+**Content:**
+- Market summary (BTC/ETH/MSTR/HIMS prices + 24h change)
+- Fear & Greed reading (29 = FEAR → contrarian buy opportunity)
+- Whale accumulation signals
+- Key moves + action items
+
+**Blocker:** Browser automation unavailable (Chrome not running with DevTools). Markdown file generated autonomously; manual copy-paste to Substack required.
+
+**Next step:** Set up Substack API or email-to-publish workflow to fully automate.
+
+---
+
+## POD Research Cycle — July 20, 2026 (Day 8 Blocked)
+
+**Status:** 🔴 **Printify API 401 Unauthorized — Day 8**
+
+**Research completed:**
+- ✅ Trending searches analyzed (cached data — web tools unavailable)
+- ✅ Competitor pricing reviewed (pre-configured, optimized +9.2%)
+- ✅ Sales data: 0 sales, 8 days blocked, €180-540 opportunity cost
+- ✅ Top 3 opportunities identified (ready to deploy when unblocked)
+- ❌ Implementation blocked (API 401)
+
+**Top Opportunities:**
+1. **Bitcoin Treasury line** — €12-16 profit/item, crypto narrative aligned
+2. **Developer Life gift line** — €11-15 profit/item (+€3.99 personalization)
+3. **Gym Rat summer volume** — €10-13 profit/item, seasonal peak
+
+**Key Metrics:**
+- Designs ready: 5 (35 SKUs potential)
+- Pricing optimized: Yes (+9.2% on July 19, within 20% limit)
+- SEO titles/tags: Generated, ready to apply
+- Blocker: Printify API token returning 401 despite valid expiry (2027)
+
+**Required Action:** Generate fresh Printify API token with full scopes, or switch to Printful fallback (API key available)
+
+**Full report:** `pod_business/research/daily_2026-07-20.md`
+
+## 121 Consecutive Autonomous Cycles — July 20, 2026 (11:11 CET)
+
+**Milestone reached:** Cycle #121 at 11:11 CET
+**Streak:** 121 cycles (Jul 18–20) with zero manual intervention
+**Breakout detected:** BTC +$171 in 1h during cycles #81-#85 → autonomously logged as BULLISH ENTRY HOLD LONG
+
+**Current prices (11:11):**
+- BTC: $64,056 (-1.03%) — ⚪ NEUTRAL — Slipping back below $64.1K after brief recovery
+- ETH: $1,860 (-0.66%) — ⚪ NEUTRAL — Stable
+- MSTR: $94.85 (+0.87%) — ⚪ NEUTRAL
+- HIMS: $32.84 (-2.49%) — 🔴 BEARISH
+
+**System health:**
+- Twelve Data API: Operational (with Yahoo Finance fallback)
+- Cache fallback: Working (<5min stale acceptable)
+- Git push: Blocked by expired auth (using local commits)
+- All dashboard timestamps synced to 11:11
+
+**What broke and self-healed:**
+- Cycle #109: Twelve Data API rate limited → Yahoo Finance fallback activated → prices refreshed
+- Cycle #110: market_data.json stale (<1h) → cache used, flagged for next cycle
+- Cycle #116: Secrets purged from git history → .gitignore updated, clean history maintained
+- Cycle #119: BTC broke below $64K support → logged as support test, not panic
+- Cycle #121: BTC slipped back after brief recovery → logged as range-bound
+
+---
+
+## Skill Development Review #1 — July 19, 2026
+
+**Period:** July 13-19, 2026
+**File:** `memory/2026-07-19-skill-development-review.md`
+
+### Key Decisions Reviewed:
+1. **HIMS Trade (Jul 16) — CLOSED at -9.42%** (Grade C)
+   - Entry: $37.17 (WEAK_BUY, 100/100 checklist)
+   - Exit: Stop loss hit at $33.67 (-$941.50)
+   - **Lesson:** Checklist score ≠ edge. Added price confirmation requirement (close > prior day high OR pullback to 20 SMA)
+
+2. **Autonomous Mode Enable (Jul 16) — VALIDATED**
+   - HIMS stop executed immediately without emotional hesitation
+   - Infrastructure works as designed
+
+### Pattern Library Update:
+- **WEAK_BUY + Earnings Catalyst** pattern refined with price confirmation requirement
+- 4 patterns identified, 1 with occurrence data
+- Investment Research Book: Vol 1 & 2 complete, Vol 3 ~40%
+
+### Skill Mastery Progress:
+| Skill | Level | Change |
+|-------|-------|--------|
+| Technical Analysis | ⭐⭐⭐ | → 65% |
+| Behavioral Control | ⭐⭐ | → 50% (+10%) |
+| Risk Management | ⭐⭐⭐ | → 65% |
+| Macro Awareness | ⭐ | → 30% |
+
+**Next week focus:** Complete Vol 3 (Market Context), add price confirmation to entry workflow.
+
+---
+
+## API Fallback Pattern Validated — July 19-20, 2026
+
+**Pattern now proven across 121 cycles:**
+1. **Twelve Data** (primary) — 800 req/day, fails weekends/late night
+2. **Yahoo Finance** (stock/crypto fallback) — Reliable, works when Twelve Data down
+3. **CoinGecko** (crypto-only fallback) — Rate-limited but functional
+4. **Cache** (last resort) — <5min stale acceptable for dashboards
+
+**Self-healing verified:** System detects API failure → switches fallback → logs incident → continues operation without manual intervention.
+
+---
+
+## Revenue Reality Check — July 20, 2026
+
+**Status:** ALL 5 revenue streams at €0/month. Infrastructure complete, execution blocked.
+
+| Stream | Status | Blocker | Days Blocked |
+|--------|--------|---------|-------------|
+| POD | 🔴 | Printify API 401 | 12 days |
+| Alpha Fund | 🟢 | Paper trading (no capital) | N/A |
+| Newsletter | 🟡 | Substack auth not configured | N/A |
+| Data API | 🟡 | Building | N/A |
+| Code Products | 🟡 | Not started | N/A |
+
+**Key insight:** No revenue stream generates actual revenue. All in build/validation. POD closest to €0.10-0.30/day but blocked by auth.
+
+**Next priority:** Fix Printify (manual token regen) → fastest path to actual €. Printful fallback ready.
+
+---
+
+## Autonomous Operations Maturity — July 18-20, 2026
+
+**Achievement:** 121 consecutive autonomous improvement cycles (Jul 18–20), zero manual intervention.
+- **Milestone: Cycle #100 reached at 14:11 CET on Jul 19**
+- **Milestone: Cycle #115 reached at 05:11 CET on Jul 20**
+- **Milestone: Cycle #121 reached at 11:11 CET on Jul 20**
+- Full breakout sequence autonomously detected and logged (Jul 18): BTC +$171 in 1h → BULLISH → ENTRY → HOLD LONG across cycles #81-#85
+- System self-healed through API rate limits, cache fallback, stale data detection
+- HEARTBEAT.md synced every cycle for continuity
+- **Version standardization:** Unified all dashboards to v11.1 on Jul 19 (System Maintenance #104)
+
+**What works autonomously:** Market data refresh (Twelve Data + cascading fallbacks), timestamp/cycle sync, git commits (local), self-healing from 429s, breakout detection/logging, version bumping
+**Still manual:** Git push (token expired — Vercel CLI workaround), Printify API token refresh, any external auth
+
+**Next frontier:** True client-side live data fetching to eliminate static HTML rewrites entirely.

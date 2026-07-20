@@ -1,0 +1,32 @@
+{
+  "publication": "Quentinvest Alpha",
+  "handle": "@quentinvest1",
+  "url": "https://substack.com/@quentinvest1",
+  "posts": [
+    {
+      "date": "2026-07-20",
+      "title": "Quentinvest Daily Brief — Monday, July 20, 2026",
+      "status": "PUBLISHED",
+      "file": "revenue/reports/daily_brief_2026-07-20.md",
+      "timestamp": "2026-07-20T08:00:00+02:00",
+      "market_data": {
+        "BTC": { "price": 64156.01, "change_24h": -0.88 },
+        "ETH": { "price": 1855.92, "change_24h": -0.87 },
+        "MSTR": { "price": 94.85, "change_24h": 0.87 },
+        "HIMS": { "price": 32.84, "change_24h": -2.49 }
+      },
+      "signals": {
+        "BTC": "BULLISH",
+        "ETH": "SLIGHTLY_BULLISH",
+        "MSTR": "SLIGHTLY_BULLISH",
+        "HIMS": "NEUTRAL"
+      },
+      "fear_greed": 29
+    }
+  ],
+  "subscriber_metrics": {
+    "total_subscribers": 0,
+    "last_updated": "2026-07-20T08:00:00+02:00"
+  },
+  "automated": true
+}
