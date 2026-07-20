@@ -16,31 +16,106 @@ const CONFIG = {
   TIMEOUT_MS: 10000
 };
 
-// Asset mapping across sources
+// Asset mapping across sources - EXPANDED WATCHLIST (12 tickers)
 const ASSETS = {
+  // Tier 1: Core Holdings
   BTC: {
     twelvedata: 'BTC/USD',
     coingecko: 'bitcoin',
     yahoo: 'BTC-USD',
-    symbol: 'BTC'
+    symbol: 'BTC',
+    sector: 'Crypto',
+    tier: 1
   },
   ETH: {
-    twelvedata: 'ETH/USD', 
+    twelvedata: 'ETH/USD',
     coingecko: 'ethereum',
     yahoo: 'ETH-USD',
-    symbol: 'ETH'
+    symbol: 'ETH',
+    sector: 'Crypto',
+    tier: 1
   },
+  NVDA: {
+    twelvedata: 'NVDA',
+    coingecko: null,
+    yahoo: 'NVDA',
+    symbol: 'NVDA',
+    sector: 'AI/Tech',
+    tier: 1
+  },
+  TSLA: {
+    twelvedata: 'TSLA',
+    coingecko: null,
+    yahoo: 'TSLA',
+    symbol: 'TSLA',
+    sector: 'EV/Autonomy',
+    tier: 1
+  },
+  // Tier 2: Growth & Exposure
   MSTR: {
     twelvedata: 'MSTR',
-    coingecko: null, // No CoinGecko for stocks
+    coingecko: null,
     yahoo: 'MSTR',
-    symbol: 'MSTR'
+    symbol: 'MSTR',
+    sector: 'Bitcoin Proxy',
+    tier: 2
+  },
+  AAPL: {
+    twelvedata: 'AAPL',
+    coingecko: null,
+    yahoo: 'AAPL',
+    symbol: 'AAPL',
+    sector: 'Consumer Tech',
+    tier: 2
   },
   HIMS: {
     twelvedata: 'HIMS',
     coingecko: null,
     yahoo: 'HIMS',
-    symbol: 'HIMS'
+    symbol: 'HIMS',
+    sector: 'Telehealth',
+    tier: 2
+  },
+  COIN: {
+    twelvedata: 'COIN',
+    coingecko: null,
+    yahoo: 'COIN',
+    symbol: 'COIN',
+    sector: 'Crypto Infrastructure',
+    tier: 2
+  },
+  // Tier 3: Diversification & Defense
+  SPY: {
+    twelvedata: 'SPY',
+    coingecko: null,
+    yahoo: 'SPY',
+    symbol: 'SPY',
+    sector: 'Index',
+    tier: 3
+  },
+  QQQ: {
+    twelvedata: 'QQQ',
+    coingecko: null,
+    yahoo: 'QQQ',
+    symbol: 'QQQ',
+    sector: 'Tech Index',
+    tier: 3
+  },
+  GLD: {
+    twelvedata: 'GLD',
+    coingecko: null,
+    yahoo: 'GLD',
+    symbol: 'GLD',
+    sector: 'Gold',
+    tier: 3
+  },
+  TLT: {
+    twelvedata: 'TLT',
+    coingecko: null,
+    yahoo: 'TLT',
+    symbol: 'TLT',
+    sector: 'Bonds',
+    tier: 3
   }
 };
 
@@ -139,9 +214,11 @@ async function fetchAssetWithFallback(assetKey) {
   const asset = ASSETS[assetKey];
   const errors = [];
   
-  // Add staggered delay based on asset index to avoid rate limits
+  // Staggered delay: Tier 1 (0-1s), Tier 2 (1-2s), Tier 3 (2-3s) to respect rate limits
+  const tier = asset.tier || 2;
   const assetIndex = Object.keys(ASSETS).indexOf(assetKey);
-  await new Promise(r => setTimeout(r, assetIndex * 500));
+  const delayMs = (tier - 1) * 1000 + (assetIndex % 4) * 250;
+  await new Promise(r => setTimeout(r, delayMs));
   
   // Try Twelve Data quote endpoint first (has change %)
   try {
@@ -244,20 +321,17 @@ async function fetchAllPrices(forceRefresh = false) {
     return { ...cache, fromCache: true };
   }
   
-  // Fetch all assets in parallel
+  // Fetch all assets in parallel - DYNAMIC based on ASSETS config
   console.log('Fetching fresh prices...');
-  const results = await Promise.allSettled([
-    fetchAssetWithFallback('BTC'),
-    fetchAssetWithFallback('ETH'),
-    fetchAssetWithFallback('MSTR'),
-    fetchAssetWithFallback('HIMS')
-  ]);
+  const assetKeys = Object.keys(ASSETS);
+  const promises = assetKeys.map(key => fetchAssetWithFallback(key));
+  const results = await Promise.allSettled(promises);
   
   const assets = {};
   const failures = [];
   
   results.forEach((result, index) => {
-    const symbol = ['BTC', 'ETH', 'MSTR', 'HIMS'][index];
+    const symbol = assetKeys[index];
     if (result.status === 'fulfilled') {
       assets[symbol] = {
         price: result.value.price,
@@ -318,13 +392,15 @@ async function main() {
         console.log(`⚠️ Failures: ${data._meta.failures.join(', ')}`);
       }
       console.log('');
-      console.log('| Asset | Price | 24h Change | Source | Signal |');
-      console.log('|-------|-------|------------|--------|--------|');
+      console.log('| Asset | Price | 24h Change | Source | Signal | Tier | Sector |');
+      console.log('|-------|-------|------------|--------|--------|------|--------|');
       
       Object.entries(data.assets).forEach(([symbol, asset]) => {
         const changeStr = asset.change_24h >= 0 ? `+${asset.change_24h.toFixed(2)}%` : `${asset.change_24h.toFixed(2)}%`;
         const stale = asset.stale ? ' (STALE)' : '';
-        console.log(`| ${symbol.padEnd(5)} | $${asset.price.toLocaleString()} | ${changeStr.padEnd(10)} | ${asset.source}${stale} | ${asset.signal} |`);
+        const tier = ASSETS[symbol]?.tier || '-';
+        const sector = ASSETS[symbol]?.sector || '-';
+        console.log(`| ${symbol.padEnd(5)} | $${asset.price.toLocaleString()} | ${changeStr.padEnd(10)} | ${asset.source}${stale} | ${asset.signal.padEnd(8)} | ${tier} | ${sector} |`);
       });
       
       console.log('\nSources used:', [...new Set(data._meta?.sources || [])].join(', '));
