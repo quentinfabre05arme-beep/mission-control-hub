@@ -1,0 +1,48 @@
+{
+  "timestamp": "2026-07-21T15:45:08.182Z",
+  "sourceScan": "scan_2026-07-21T15-45-08-182Z.json",
+  "queuedAt": "2026-07-21T15:45:22Z",
+  "top3": [
+    {
+      "rank": 1,
+      "ticker": "AAPL",
+      "price": 100,
+      "target": 380,
+      "upside": "280.0%",
+      "downside": "-64.3%",
+      "score": 144.7,
+      "catalyst": "Apple Intelligence rollout",
+      "confidence": 75,
+      "flags": ["STALE_DATA_WARNING"]
+    },
+    {
+      "rank": 2,
+      "ticker": "NVDA",
+      "price": 100,
+      "target": 280,
+      "upside": "180.0%",
+      "downside": "-41.2%",
+      "score": 124.7,
+      "catalyst": "AI demand cycle",
+      "confidence": 85,
+      "flags": ["STALE_DATA_WARNING"]
+    },
+    {
+      "rank": 3,
+      "ticker": "COIN",
+      "price": 100,
+      "target": 220,
+      "upside": "120.0%",
+      "downside": "-16.7%",
+      "score": 46.7,
+      "catalyst": "Institutional crypto adoption",
+      "confidence": 70,
+      "flags": ["STALE_DATA_WARNING"]
+    }
+  ],
+  "notes": [
+    "⚠️ CRITICAL: AAPL/COIN scanner shows $100 — actual prices ~$200+/ $200+. Scanner data is stale/mock.",
+    "⚠️ NVDA at $100 is also suspect (actual ~$110-120). Verify before any action.",
+    "Scores >5.0 detected (144.7, 124.7, 46.7) but based on stale inputs. Human review required."
+  ]
+}
