@@ -1,0 +1,24 @@
+{
+  "queuedAt": "2026-07-21T14:45:12.696Z",
+  "source": "./investment_fund/opportunities/scan_2026-07-21T14-45-05-936Z.json",
+  "opportunities": [
+    {
+      "ticker": "AAPL",
+      "score": 144.66,
+      "catalyst": "Apple Intelligence rollout",
+      "confidence": 75
+    },
+    {
+      "ticker": "NVDA",
+      "score": 124.73,
+      "catalyst": "AI demand cycle",
+      "confidence": 85
+    },
+    {
+      "ticker": "COIN",
+      "score": 46.74,
+      "catalyst": "Institutional crypto adoption",
+      "confidence": 70
+    }
+  ]
+}
