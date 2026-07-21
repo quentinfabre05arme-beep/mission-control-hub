@@ -2,7 +2,7 @@
   "portfolio_id": "alpha-paper-001",
   "created_at": "2026-07-21T00:00:00Z",
   "initial_capital": 10000,
-  "current_value": 9990.74212640296,
+  "current_value": 9994.19541720296,
   "cash": 2551.753413762959,
   "positions": [
     {
@@ -20,12 +20,12 @@
       "ticker": "SOL",
       "shares": 16,
       "entryPrice": 77.71,
-      "currentPrice": 77.82,
+      "currentPrice": 77.88,
       "stopLoss": 58.28,
       "takeProfit": 117.29,
       "entryDate": "2026-07-20T23:36:03.345Z",
-      "unrealizedPnl": 1.759999999999991,
-      "unrealizedPnlPct": 0.14155192381932746
+      "unrealizedPnl": 2.7200000000000273,
+      "unrealizedPnlPct": 0.21876206408442123
     },
     {
       "ticker": "CRWD",
@@ -79,29 +79,30 @@
       "stopLoss": 97.77,
       "takeProfit": 210.4,
       "entryDate": "2026-07-21T10:36:28.877Z",
-      "unrealizedPnl": -0.53940004
+      "unrealizedPnl": -0.53940004,
+      "unrealizedPnlPct": -0.10002594245544977
     },
     {
       "ticker": "ETH",
       "shares": 0.274536,
       "entryPrice": 1930.39,
-      "currentPrice": 1918.24,
+      "currentPrice": 1922.54,
       "stopLoss": 1592.57,
       "takeProfit": 2516.99,
       "entryDate": "2026-07-21T11:36:41.510Z",
-      "unrealizedPnl": -3.335612400000025,
-      "unrealizedPnlPct": -0.6294064929884713
+      "unrealizedPnl": -2.1551076000000373,
+      "unrealizedPnlPct": -0.40665357777445177
     },
     {
       "ticker": "BTC",
       "shares": 0.006802,
       "entryPrice": 66214,
-      "currentPrice": 66178,
+      "currentPrice": 66371,
       "stopLoss": 56281.9,
       "takeProfit": 83462.56,
       "entryDate": "2026-07-21T11:36:41.521Z",
-      "unrealizedPnl": -0.244872,
-      "unrealizedPnlPct": -0.054369166641499156
+      "unrealizedPnl": 1.067914,
+      "unrealizedPnlPct": 0.23710997674208922
     }
   ],
   "trades": [
@@ -198,7 +199,7 @@
     }
   ],
   "performance": {
-    "total_return": -0.09257873597040556,
+    "total_return": -0.05804582797039881,
     "total_trades": 9,
     "winning_trades": 0,
     "losing_trades": 0,
