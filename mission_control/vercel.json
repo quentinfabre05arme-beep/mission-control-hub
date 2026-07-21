@@ -5,27 +5,29 @@
     "enabled": false
   },
   "framework": null,
-  "cleanUrls": true,
+  "cleanUrls": false,
   "trailingSlash": false,
   "routes": [
+    { "src": "/index.html", "dest": "/index.html" },
+    { "src": "/trading.html", "dest": "/trading.html" },
+    { "src": "/markets.html", "dest": "/markets.html" },
+    { "src": "/portfolio_tracker.html", "dest": "/portfolio_tracker.html" },
+    { "src": "/analytics.html", "dest": "/analytics.html" },
+    { "src": "/mission_control_risk_management.html", "dest": "/mission_control_risk_management.html" },
+    { "src": "/ai_intelligence_hub.html", "dest": "/ai_intelligence_hub.html" },
+    { "src": "/backtesting_module.html", "dest": "/backtesting_module.html" },
+    { "src": "/mobile_dashboard.html", "dest": "/mobile_dashboard.html" },
+    { "src": "/executive_dashboard.html", "dest": "/executive_dashboard.html" },
+    { "src": "/settings.html", "dest": "/settings.html" },
+    { "src": "/news_sentiment_tracker.html", "dest": "/news_sentiment_tracker.html" },
+    { "src": "/social_sentiment_live.html", "dest": "/social_sentiment_live.html" },
+    { "src": "/competitor_tracker_app.html", "dest": "/competitor_tracker_app.html" },
+    { "src": "/command_center.html", "dest": "/command_center.html" },
+    { "src": "/advanced_reporting.html", "dest": "/advanced_reporting.html" },
+    { "src": "/missions.html", "dest": "/missions.html" },
+    { "src": "/systems.html", "dest": "/systems.html" },
     { "src": "/", "dest": "/index.html" },
-    { "src": "/trading", "dest": "/trading.html" },
-    { "src": "/markets", "dest": "/markets.html" },
-    { "src": "/portfolio", "dest": "/portfolio_tracker.html" },
-    { "src": "/analytics", "dest": "/analytics.html" },
-    { "src": "/risk", "dest": "/mission_control_risk_management.html" },
-    { "src": "/ai", "dest": "/ai_intelligence_hub.html" },
-    { "src": "/backtest", "dest": "/backtesting_module.html" },
-    { "src": "/mobile", "dest": "/mobile_dashboard.html" },
-    { "src": "/executive", "dest": "/executive_dashboard.html" },
-    { "src": "/settings", "dest": "/settings.html" },
-    { "src": "/news", "dest": "/news_sentiment_tracker.html" },
-    { "src": "/social", "dest": "/social_sentiment_live.html" },
-    { "src": "/competitors", "dest": "/competitor_tracker_app.html" },
-    { "src": "/command", "dest": "/command_center.html" },
-    { "src": "/reports", "dest": "/advanced_reporting.html" },
-    { "src": "/missions", "dest": "/missions.html" },
-    { "src": "/systems", "dest": "/systems.html" }
+    { "src": "/(.*)", "dest": "/$1" }
   ],
   "headers": [
     {
@@ -34,14 +36,6 @@
         {
           "key": "Cache-Control",
           "value": "no-store, max-age=0, must-revalidate"
-        },
-        {
-          "key": "CDN-Cache-Control",
-          "value": "no-store"
-        },
-        {
-          "key": "Vercel-CDN-Cache-Control",
-          "value": "no-store"
         }
       ]
     }
