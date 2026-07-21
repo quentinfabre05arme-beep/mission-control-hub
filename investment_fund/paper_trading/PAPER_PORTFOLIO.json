@@ -2,8 +2,8 @@
   "portfolio_id": "alpha-paper-001",
   "created_at": "2026-07-21T00:00:00Z",
   "initial_capital": 10000,
-  "current_value": 10002.88236002,
-  "cash": 4073.022380019999,
+  "current_value": 10004.823289522961,
+  "cash": 2551.753413762959,
   "positions": [
     {
       "ticker": "COIN",
@@ -20,12 +20,12 @@
       "ticker": "SOL",
       "shares": 16,
       "entryPrice": 77.71,
-      "currentPrice": 78.26,
+      "currentPrice": 78.31,
       "stopLoss": 58.28,
       "takeProfit": 117.29,
       "entryDate": "2026-07-20T23:36:03.345Z",
-      "unrealizedPnl": 8.800000000000182,
-      "unrealizedPnlPct": 0.7077596190966595
+      "unrealizedPnl": 9.600000000000136,
+      "unrealizedPnlPct": 0.7721014026508932
     },
     {
       "ticker": "CRWD",
@@ -70,6 +70,38 @@
       "entryDate": "2026-07-21T00:33:14.663Z",
       "unrealizedPnl": 0,
       "unrealizedPnlPct": 0
+    },
+    {
+      "ticker": "PLTR",
+      "shares": 4,
+      "entryPrice": 134.85001,
+      "currentPrice": 134.85001,
+      "stopLoss": 97.77,
+      "takeProfit": 210.4,
+      "entryDate": "2026-07-21T10:36:28.877Z",
+      "unrealizedPnl": -0.53940004
+    },
+    {
+      "ticker": "ETH",
+      "shares": 0.274536,
+      "entryPrice": 1930.39,
+      "currentPrice": 1934.16,
+      "stopLoss": 1592.57,
+      "takeProfit": 2516.99,
+      "entryDate": "2026-07-21T11:36:41.510Z",
+      "unrealizedPnl": 1.035000719999995,
+      "unrealizedPnlPct": 0.19529732333880556
+    },
+    {
+      "ticker": "BTC",
+      "shares": 0.006802,
+      "entryPrice": 66214,
+      "currentPrice": 66453,
+      "stopLoss": 56281.9,
+      "takeProfit": 83462.56,
+      "entryDate": "2026-07-21T11:36:41.521Z",
+      "unrealizedPnl": 1.625678,
+      "unrealizedPnlPct": 0.3609508563143793
     }
   ],
   "trades": [
@@ -124,11 +156,50 @@
       "reason": "TSLA - oversold setup (3.0% move)",
       "stopLoss": 277.18,
       "takeProfit": 635.92
+    },
+    {
+      "id": "T1784630188873",
+      "timestamp": "2026-07-21T10:36:28.873Z",
+      "ticker": "PLTR",
+      "action": "BUY",
+      "shares": 4,
+      "price": 134.85001,
+      "total": 539.40004,
+      "commission": 0.53940004,
+      "reason": "PLTR - momentum setup (1.9% move)",
+      "stopLoss": 97.77,
+      "takeProfit": 210.4
+    },
+    {
+      "id": "T1784633801507",
+      "timestamp": "2026-07-21T11:36:41.507Z",
+      "ticker": "ETH",
+      "action": "BUY",
+      "shares": 0.274536,
+      "price": 1930.39,
+      "total": 529.96154904,
+      "commission": 0.52996154904,
+      "reason": "ETH - momentum setup (2.1% move)",
+      "stopLoss": 1592.57,
+      "takeProfit": 2516.99
+    },
+    {
+      "id": "T1784633801521",
+      "timestamp": "2026-07-21T11:36:41.521Z",
+      "ticker": "BTC",
+      "action": "BUY",
+      "shares": 0.006802,
+      "price": 66214,
+      "total": 450.387628,
+      "commission": 0.45038762800000004,
+      "reason": "BTC - momentum setup (2.2% move)",
+      "stopLoss": 56281.9,
+      "takeProfit": 83462.56
     }
   ],
   "performance": {
-    "total_return": 0.028823600200000854,
-    "total_trades": 6,
+    "total_return": 0.04823289522961627,
+    "total_trades": 9,
     "winning_trades": 0,
     "losing_trades": 0,
     "win_rate": 0,
@@ -146,24 +217,11 @@
     },
     {
       "date": "2026-07-21",
-      "value": 9997.12236002,
-      "cash": 4073.022380019999,
-      "unrealized_pnl": 3.040000000000191,
-      "positions_count": 6
-    },
-    {
-      "date": "2026-07-21",
-      "value": 9994.40236002,
-      "cash": 4073.022380019999,
-      "unrealized_pnl": 0.3200000000001637,
-      "positions_count": 6
-    },
-    {
-      "date": "2026-07-21",
-      "value": 10002.88236002,
-      "cash": 4073.022380019999,
-      "unrealized_pnl": 8.800000000000182,
-      "positions_count": 6
+      "value": 10004.82,
+      "cash": 2551.75,
+      "unrealized_pnl": 12.72,
+      "positions_count": 7,
+      "timestamp": "2026-07-21T15:36:00Z"
     }
   ]
 }

@@ -1,6 +1,8 @@
 {
   "version": "2026-07-21",
-  "last_updated": "2026-07-21T10:53:00+02:00",
+  "last_updated": "2026-07-21T13:53:00+02:00",
+  "seo_optimized": true,
+  "bundle_pricing_ready": true,
   "currency": "EUR",
   "strategy": "dynamic_margin",
   "min_margin_percent": 40,
@@ -63,6 +65,32 @@
     "crypto_premium": "29.99-34.99",
     "fitness_range": "22.99-27.99",
     "professions_personalized": "26.99-32.99"
+  },
+  "bundles": {
+    "crypto_duo": {
+      "name": "Crypto Duo Bundle",
+      "products": ["Bitcoin Treasury", "HODL Strong"],
+      "individual_total": 59.98,
+      "bundle_price": 54.99,
+      "savings": 4.99,
+      "margin_percent": 52
+    },
+    "motivation_pack": {
+      "name": "Motivation Pack",
+      "products": ["Work Hard", "Fitness Motivation"],
+      "individual_total": 55.98,
+      "bundle_price": 49.99,
+      "savings": 5.99,
+      "margin_percent": 51
+    },
+    "full_collection": {
+      "name": "Complete Collection",
+      "products": ["Bitcoin Treasury", "HODL Strong", "Fitness Motivation", "Professional Pride", "Work Hard"],
+      "individual_total": 142.95,
+      "bundle_price": 129.99,
+      "savings": 12.96,
+      "margin_percent": 53
+    }
   },
   "rules_applied": {
     "max_price_increase_percent": 20,
