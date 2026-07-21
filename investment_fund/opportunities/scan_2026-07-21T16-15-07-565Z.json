@@ -1,0 +1,75 @@
+{
+  "scan_time": "2026-07-21T16:15:07.559Z",
+  "opportunities": [
+    {
+      "ticker": "AAPL",
+      "price": 100.0,
+      "target": 380.0,
+      "upside": 280.0,
+      "downside": -64.3,
+      "score": 144.7,
+      "catalyst": "Apple Intelligence roll",
+      "flag": "🌟"
+    },
+    {
+      "ticker": "NVDA",
+      "price": 100.0,
+      "target": 280.0,
+      "upside": 180.0,
+      "downside": -41.2,
+      "score": 124.7,
+      "catalyst": "AI demand cycle",
+      "flag": "🌟"
+    },
+    {
+      "ticker": "COIN",
+      "price": 100.0,
+      "target": 220.0,
+      "upside": 120.0,
+      "downside": -16.7,
+      "score": 46.7,
+      "catalyst": "Institutional crypto ad",
+      "flag": "🌟"
+    },
+    {
+      "ticker": "SOL",
+      "price": 185.0,
+      "target": 280.0,
+      "upside": 51.4,
+      "downside": 15.6,
+      "score": 3.0,
+      "catalyst": "DeFi + NFT ecosystem",
+      "flag": "✓"
+    },
+    {
+      "ticker": "PLTR",
+      "price": 28.0,
+      "target": 45.0,
+      "upside": 60.7,
+      "downside": 27.3,
+      "score": 2.7,
+      "catalyst": "Government AI contracts",
+      "flag": "✓"
+    }
+  ],
+  "queue": [
+    {
+      "rank": 1,
+      "ticker": "AAPL",
+      "score": 144.7,
+      "note": "Apple Intelligence rollout"
+    },
+    {
+      "rank": 2,
+      "ticker": "NVDA",
+      "score": 124.7,
+      "note": "AI demand cycle"
+    },
+    {
+      "rank": 3,
+      "ticker": "COIN",
+      "score": 46.7,
+      "note": "Institutional crypto adoption"
+    }
+  ]
+}
