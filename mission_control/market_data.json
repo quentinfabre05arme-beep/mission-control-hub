@@ -1,17 +1,17 @@
 {
-  "timestamp": "2026-07-21T10:02:17.292Z",
+  "timestamp": "2026-07-21T10:11:39.171Z",
   "assets": {
     "BTC": {
-      "price": 66292.01,
-      "change_24h": 1.58837,
+      "price": 66375.89,
+      "change_24h": 1.71691,
       "source": "twelvedata",
       "signal": "NEUTRAL"
     },
     "ETH": {
-      "price": 1942.3,
-      "change_24h": 1.97032,
+      "price": 1946.08,
+      "change_24h": 2.16877,
       "source": "twelvedata",
-      "signal": "NEUTRAL"
+      "signal": "BULLISH"
     },
     "NVDA": {
       "price": 203.28,
