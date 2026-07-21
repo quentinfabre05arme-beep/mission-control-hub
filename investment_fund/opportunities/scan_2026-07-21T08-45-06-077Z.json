@@ -1,0 +1,46 @@
+{
+  "timestamp": "2026-07-21T08:45:06.077Z",
+  "opportunities": [
+    {
+      "ticker": "SOL",
+      "currentPrice": 185,
+      "targetPrice": 280,
+      "floorPrice": 160,
+      "upside": 51.35135135135136,
+      "downside": 15.625,
+      "catalystProb": 0.55,
+      "asymmetryScore": 2.959426208016,
+      "catalyst": "DeFi + NFT ecosystem",
+      "confidence": 60
+    },
+    {
+      "ticker": "NVDA",
+      "currentPrice": 203.28,
+      "targetPrice": 280,
+      "floorPrice": 170,
+      "upside": 37.74104683195591,
+      "downside": 19.576470588235285,
+      "catalystProb": 0.8,
+      "asymmetryScore": 2.775695243232414,
+      "catalyst": "AI demand cycle",
+      "confidence": 85
+    },
+    {
+      "ticker": "PLTR",
+      "currentPrice": 28,
+      "targetPrice": 45,
+      "floorPrice": 22,
+      "upside": 60.71428571428572,
+      "downside": 27.27272727272727,
+      "catalystProb": 0.7,
+      "asymmetryScore": 2.742666894038397,
+      "catalyst": "Government AI contracts",
+      "confidence": 80
+    }
+  ],
+  "metadata": {
+    "totalScanned": 30,
+    "highConviction": 0,
+    "mediumConviction": 3
+  }
+}

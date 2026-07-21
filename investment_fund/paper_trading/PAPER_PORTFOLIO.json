@@ -2,7 +2,7 @@
   "portfolio_id": "alpha-paper-001",
   "created_at": "2026-07-21T00:00:00Z",
   "initial_capital": 10000,
-  "current_value": 9997.12236002,
+  "current_value": 10002.88236002,
   "cash": 4073.022380019999,
   "positions": [
     {
@@ -20,12 +20,12 @@
       "ticker": "SOL",
       "shares": 16,
       "entryPrice": 77.71,
-      "currentPrice": 77.9,
+      "currentPrice": 78.26,
       "stopLoss": 58.28,
       "takeProfit": 117.29,
       "entryDate": "2026-07-20T23:36:03.345Z",
-      "unrealizedPnl": 3.040000000000191,
-      "unrealizedPnlPct": 0.24449877750611915
+      "unrealizedPnl": 8.800000000000182,
+      "unrealizedPnlPct": 0.7077596190966595
     },
     {
       "ticker": "CRWD",
@@ -127,14 +127,14 @@
     }
   ],
   "performance": {
-    "total_return": -0.028776399800012342,
+    "total_return": 0.028823600200000854,
     "total_trades": 6,
     "winning_trades": 0,
     "losing_trades": 0,
     "win_rate": 0,
     "avg_winner": 0,
     "avg_loser": 0,
-    "max_drawdown": 0.03679679960001522
+    "max_drawdown": 0.05597639980000167
   },
   "daily_snapshots": [
     {
@@ -149,6 +149,20 @@
       "value": 9997.12236002,
       "cash": 4073.022380019999,
       "unrealized_pnl": 3.040000000000191,
+      "positions_count": 6
+    },
+    {
+      "date": "2026-07-21",
+      "value": 9994.40236002,
+      "cash": 4073.022380019999,
+      "unrealized_pnl": 0.3200000000001637,
+      "positions_count": 6
+    },
+    {
+      "date": "2026-07-21",
+      "value": 10002.88236002,
+      "cash": 4073.022380019999,
+      "unrealized_pnl": 8.800000000000182,
       "positions_count": 6
     }
   ]

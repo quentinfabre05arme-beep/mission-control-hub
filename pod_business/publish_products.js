@@ -31,35 +31,35 @@ const DESIGNS = [
     title: 'Bitcoin Treasury',
     description: 'Premium Bitcoin-themed design for crypto enthusiasts. Features the iconic Bitcoin orange and black color scheme.',
     tags: ['bitcoin', 'btc', 'crypto', 'cryptocurrency', 'blockchain', 'hodl', 'treasury'],
-    price: 24.99
+    price: 29.99
   },
   {
     id: 'design_crypto_1784049410607',
     title: 'HODL Strong',
     description: 'Classic crypto mantra for true believers. Bold design for Bitcoin and crypto enthusiasts.',
     tags: ['hodl', 'bitcoin', 'crypto', 'cryptocurrency', 'strong', 'investor', 'blockchain'],
-    price: 24.99
+    price: 29.99
   },
   {
     id: 'design_fitness_1784049410604',
     title: 'Fitness Motivation',
     description: 'Premium fitness design for gym enthusiasts and athletes.',
     tags: ['fitness', 'gym', 'workout', 'motivation', 'health', 'training'],
-    price: 24.99
+    price: 27.99
   },
   {
     id: 'design_professions_1784049410606',
     title: 'Professional Pride',
     description: 'Celebrate your profession with this premium design.',
     tags: ['profession', 'career', 'job', 'work', 'professional'],
-    price: 24.99
+    price: 27.99
   },
   {
     id: 'design_professions_1784049410609',
     title: 'Work Hard',
     description: 'Motivational design for dedicated professionals.',
     tags: ['work', 'motivation', 'professional', 'career', 'success'],
-    price: 24.99
+    price: 27.99
   }
 ];
 
@@ -83,7 +83,12 @@ function apiRequest(path, method = 'GET', postData = null) {
       res.on('end', () => {
         try {
           const json = JSON.parse(data);
-          resolve({ status: res.statusCode, data: json });
+          // Handle both array and object responses
+          if (Array.isArray(json)) {
+            resolve({ status: res.statusCode, data: json });
+          } else {
+            resolve({ status: res.statusCode, data: json.data || json });
+          }
         } catch (e) {
           resolve({ status: res.statusCode, data: data.substring(0, 500) });
         }
@@ -101,27 +106,37 @@ function apiRequest(path, method = 'GET', postData = null) {
   });
 }
 
-// Get available blueprints and print providers
+// Get available blueprints
 async function getCatalogInfo() {
   console.log('📦 Fetching catalog info...');
   
   try {
     const blueprintsResult = await apiRequest('/v1/catalog/blueprints.json');
-    const providersResult = await apiRequest('/v1/catalog/print_providers.json');
     
-    if (blueprintsResult.status === 200) {
-      const blueprints = blueprintsResult.data.data || [];
+    if (blueprintsResult.status === 200 && Array.isArray(blueprintsResult.data)) {
+      const blueprints = blueprintsResult.data;
       console.log(`   ✅ ${blueprints.length} blueprints available`);
       
       // Find a good T-shirt blueprint
       const tshirt = blueprints.find(b => 
-        b.title.toLowerCase().includes('unisex') && 
+        b.title && b.title.toLowerCase().includes('unisex') && 
         b.title.toLowerCase().includes('t-shirt')
       );
       
       if (tshirt) {
         console.log(`   🎯 Using: ${tshirt.title} (ID: ${tshirt.id})`);
-        return { blueprintId: tshirt.id };
+        
+        // Get print providers for this blueprint
+        const providersResult = await apiRequest(`/v1/catalog/blueprints/${tshirt.id}/print_providers.json`);
+        const providers = providersResult.data || [];
+        
+        if (providers.length > 0) {
+          console.log(`   ✅ ${providers.length} print providers available`);
+          return { 
+            blueprintId: tshirt.id,
+            printProviderId: providers[0].id
+          };
+        }
       }
     }
     
@@ -132,30 +147,54 @@ async function getCatalogInfo() {
   }
 }
 
-// Create a product (simplified - uploads image then creates product)
-async function createProduct(design, blueprintId) {
-  console.log(`\n🎨 Creating product: ${design.title}`);
-  
-  // Read the SVG file
-  const svgPath = path.join(__dirname, 'designs', `${design.id}.svg`);
+// Upload image to Printify
+async function uploadImage(designId) {
+  const svgPath = path.join(__dirname, 'designs', `${designId}.svg`);
   if (!fs.existsSync(svgPath)) {
     console.log(`   ❌ Design file not found: ${svgPath}`);
     return null;
   }
   
-  // Note: In production, we'd upload the image to Printify first
-  // For now, we'll create the product structure
+  const svgContent = fs.readFileSync(svgPath);
+  
+  console.log('   📤 Uploading image...');
+  
+  try {
+    // Upload the image using base64
+    const uploadData = {
+      file_name: `${designId}.svg`,
+      contents: svgContent.toString('base64')
+    };
+    
+    const result = await apiRequest('/v1/uploads/images.json', 'POST', uploadData);
+    
+    if (result.status === 200 && result.data.id) {
+      console.log(`   ✅ Image uploaded: ${result.data.id}`);
+      return result.data.id;
+    } else {
+      console.log(`   ⚠️ Upload response:`, JSON.stringify(result.data).substring(0, 300));
+      return null;
+    }
+  } catch (error) {
+    console.error('   ❌ Upload error:', error.message);
+    return null;
+  }
+}
+
+// Create a product
+async function createProduct(design, catalog, imageId) {
+  console.log(`\n🎨 Creating product: ${design.title}`);
   
   const productData = {
     title: design.title,
     description: design.description,
-    blueprint_id: blueprintId,
-    print_provider_id: 1, // Will need to be fetched dynamically
+    blueprint_id: catalog.blueprintId,
+    print_provider_id: catalog.printProviderId,
     variants: [
-      { id: 408, price: Math.round(design.price * 100), is_enabled: true }, // S
-      { id: 409, price: Math.round(design.price * 100), is_enabled: true }, // M
-      { id: 410, price: Math.round(design.price * 100), is_enabled: true }, // L
-      { id: 411, price: Math.round(design.price * 100), is_enabled: true }, // XL
+      { id: 408, price: Math.round(design.price * 100), is_enabled: true },
+      { id: 409, price: Math.round(design.price * 100), is_enabled: true },
+      { id: 410, price: Math.round(design.price * 100), is_enabled: true },
+      { id: 411, price: Math.round(design.price * 100), is_enabled: true },
     ],
     print_areas: [
       {
@@ -165,7 +204,7 @@ async function createProduct(design, blueprintId) {
             position: 'front',
             images: [
               {
-                id: 'image_placeholder', // Would be actual uploaded image ID
+                id: imageId,
                 x: 0.5,
                 y: 0.5,
                 scale: 1.0,
@@ -178,11 +217,44 @@ async function createProduct(design, blueprintId) {
     ]
   };
   
-  console.log(`   ℹ️  Product data prepared (image upload required)`);
-  console.log(`   💰 Price: $${design.price}`);
-  console.log(`   🏷️  Tags: ${design.tags.join(', ')}`);
+  try {
+    const result = await apiRequest(`/v1/shops/${SHOP_ID}/products.json`, 'POST', productData);
+    
+    if (result.status === 200 || result.status === 201) {
+      console.log(`   ✅ Product created: ${result.data.id || 'N/A'}`);
+      return result.data;
+    } else {
+      console.log(`   ❌ Failed:`, JSON.stringify(result.data).substring(0, 400));
+      return null;
+    }
+  } catch (error) {
+    console.error('   ❌ Error:', error.message);
+    return null;
+  }
+}
+
+// Publish product to Etsy
+async function publishToEtsy(productId) {
+  console.log('   📤 Publishing to Etsy...');
   
-  return productData;
+  try {
+    const result = await apiRequest(
+      `/v1/shops/${SHOP_ID}/products/${productId}/publish.json`,
+      'POST',
+      { external: { id: productId } }
+    );
+    
+    if (result.status === 200) {
+      console.log('   ✅ Published to Etsy');
+      return true;
+    } else {
+      console.log(`   ⚠️ Publish response:`, JSON.stringify(result.data).substring(0, 200));
+      return false;
+    }
+  } catch (error) {
+    console.error('   ❌ Publish error:', error.message);
+    return false;
+  }
 }
 
 // Main
@@ -206,50 +278,49 @@ async function main() {
     process.exit(1);
   }
   
-  // Prepare products
-  console.log('\n📦 Preparing products...');
-  const products = [];
+  // Process first design
+  console.log('\n📦 Starting product creation...');
+  const results = [];
   
-  for (const design of DESIGNS) {
-    const product = await createProduct(design, catalog.blueprintId);
-    if (product) {
-      products.push({ design, product });
+  for (const design of DESIGNS.slice(0, 1)) { // Start with 1 design
+    const imageId = await uploadImage(design.id);
+    if (imageId) {
+      const product = await createProduct(design, catalog, imageId);
+      if (product) {
+        const published = await publishToEtsy(product.id);
+        results.push({ design, product, published });
+      }
     }
+    
+    // Rate limiting
+    await new Promise(r => setTimeout(r, 1000));
   }
   
   // Summary
   console.log('\n═══════════════════════════════════════');
   console.log('📊 Publishing Summary');
   console.log('═══════════════════════════════════════');
-  console.log(`Products ready: ${products.length}/${DESIGNS.length}`);
-  console.log(`Target shop: Quentinvestdesign (${SHOP_ID})`);
-  console.log(`Channel: Etsy`);
+  console.log(`Products created: ${results.length}`);
+  console.log(`Published to Etsy: ${results.filter(r => r.published).length}`);
   console.log('═══════════════════════════════════════\n');
   
-  console.log('⚠️  Note: Image upload step required');
-  console.log('   Printify API requires images to be uploaded separately');
-  console.log('   before products can be created.\n');
-  
-  console.log('Next steps:');
-  console.log('1. Upload images via Printify dashboard or API');
-  console.log('2. Create products with image IDs');
-  console.log('3. Publish to Etsy\n');
-  
-  // Export product data
+  // Save results
   const output = {
     timestamp: new Date().toISOString(),
     shopId: SHOP_ID,
-    products: products.map(p => ({
-      title: p.design.title,
-      description: p.design.description,
-      tags: p.design.tags,
-      price: p.design.price,
-      designFile: p.design.id + '.svg'
+    results: results.map(r => ({
+      title: r.design.title,
+      productId: r.product.id,
+      published: r.published
     }))
   };
   
-  fs.writeFileSync('products_ready.json', JSON.stringify(output, null, 2));
-  console.log('✅ Product data saved to: products_ready.json');
+  fs.writeFileSync('publish_results.json', JSON.stringify(output, null, 2));
+  console.log('✅ Results saved to: publish_results.json');
+  
+  if (results.length > 0) {
+    console.log('\n🎉 First product published! Check your Printify dashboard.');
+  }
 }
 
 main().catch(err => {

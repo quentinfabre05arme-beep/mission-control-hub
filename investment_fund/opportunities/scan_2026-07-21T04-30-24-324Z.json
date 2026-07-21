@@ -1,0 +1,202 @@
+{
+  "timestamp": "2026-07-21T04:30:24.325Z",
+  "opportunities": [
+    {
+      "ticker": "MKR",
+      "currentPrice": 100,
+      "targetPrice": 2200,
+      "floorPrice": 1400,
+      "upside": 2100,
+      "downside": -92.85714285714286,
+      "catalystProb": 0.5,
+      "asymmetryScore": 210,
+      "catalyst": "RWA tokenization",
+      "confidence": 55
+    },
+    {
+      "ticker": "ASML",
+      "currentPrice": 100,
+      "targetPrice": 850,
+      "floorPrice": 600,
+      "upside": 750,
+      "downside": -83.33333333333334,
+      "catalystProb": 0.75,
+      "asymmetryScore": 112.5,
+      "catalyst": "EUV monopoly",
+      "confidence": 85
+    },
+    {
+      "ticker": "UNH",
+      "currentPrice": 100,
+      "targetPrice": 650,
+      "floorPrice": 480,
+      "upside": 550,
+      "downside": -79.16666666666666,
+      "catalystProb": 0.6,
+      "asymmetryScore": 66,
+      "catalyst": "Healthcare consolidation",
+      "confidence": 75
+    },
+    {
+      "ticker": "SPY",
+      "currentPrice": 100,
+      "targetPrice": 620,
+      "floorPrice": 480,
+      "upside": 520,
+      "downside": -79.16666666666666,
+      "catalystProb": 0.6,
+      "asymmetryScore": 62.4,
+      "catalyst": "Fed rate cuts",
+      "confidence": 70
+    },
+    {
+      "ticker": "BRK.B",
+      "currentPrice": 100,
+      "targetPrice": 520,
+      "floorPrice": 400,
+      "upside": 420,
+      "downside": -75,
+      "catalystProb": 0.7,
+      "asymmetryScore": 58.8,
+      "catalyst": "Insurance float + equity",
+      "confidence": 80
+    },
+    {
+      "ticker": "MA",
+      "currentPrice": 100,
+      "targetPrice": 580,
+      "floorPrice": 420,
+      "upside": 480,
+      "downside": -76.19047619047619,
+      "catalystProb": 0.6,
+      "asymmetryScore": 57.59999999999999,
+      "catalyst": "Cross-border payments",
+      "confidence": 70
+    },
+    {
+      "ticker": "QQQ",
+      "currentPrice": 100,
+      "targetPrice": 520,
+      "floorPrice": 400,
+      "upside": 420,
+      "downside": -75,
+      "catalystProb": 0.65,
+      "asymmetryScore": 54.6,
+      "catalyst": "AI productivity gains",
+      "confidence": 75
+    },
+    {
+      "ticker": "CRWD",
+      "currentPrice": 100,
+      "targetPrice": 380,
+      "floorPrice": 240,
+      "upside": 280,
+      "downside": -58.33333333333333,
+      "catalystProb": 0.75,
+      "asymmetryScore": 41.99999999999999,
+      "catalyst": "Cybersecurity demand",
+      "confidence": 85
+    },
+    {
+      "ticker": "V",
+      "currentPrice": 100,
+      "targetPrice": 380,
+      "floorPrice": 280,
+      "upside": 280,
+      "downside": -64.28571428571428,
+      "catalystProb": 0.65,
+      "asymmetryScore": 36.4,
+      "catalyst": "Payment volume growth",
+      "confidence": 75
+    },
+    {
+      "ticker": "DUOL",
+      "currentPrice": 100,
+      "targetPrice": 320,
+      "floorPrice": 200,
+      "upside": 220.00000000000003,
+      "downside": -50,
+      "catalystProb": 0.55,
+      "asymmetryScore": 24.200000000000003,
+      "catalyst": "AI tutoring monetization",
+      "confidence": 60
+    },
+    {
+      "ticker": "GLD",
+      "currentPrice": 100,
+      "targetPrice": 280,
+      "floorPrice": 210,
+      "upside": 179.99999999999997,
+      "downside": -52.38095238095239,
+      "catalystProb": 0.55,
+      "asymmetryScore": 19.799999999999997,
+      "catalyst": "De-dollarization",
+      "confidence": 65
+    },
+    {
+      "ticker": "JPM",
+      "currentPrice": 100,
+      "targetPrice": 280,
+      "floorPrice": 200,
+      "upside": 179.99999999999997,
+      "downside": -50,
+      "catalystProb": 0.55,
+      "asymmetryScore": 19.799999999999997,
+      "catalyst": "Net interest income",
+      "confidence": 65
+    },
+    {
+      "ticker": "SOL",
+      "currentPrice": 100,
+      "targetPrice": 280,
+      "floorPrice": 160,
+      "upside": 179.99999999999997,
+      "downside": -37.5,
+      "catalystProb": 0.55,
+      "asymmetryScore": 19.799999999999997,
+      "catalyst": "DeFi + NFT ecosystem",
+      "confidence": 60
+    },
+    {
+      "ticker": "TSM",
+      "currentPrice": 100,
+      "targetPrice": 220,
+      "floorPrice": 150,
+      "upside": 120.00000000000001,
+      "downside": -33.333333333333336,
+      "catalystProb": 0.7,
+      "asymmetryScore": 16.8,
+      "catalyst": "AI chip demand",
+      "confidence": 80
+    },
+    {
+      "ticker": "SNOW",
+      "currentPrice": 100,
+      "targetPrice": 220,
+      "floorPrice": 130,
+      "upside": 120.00000000000001,
+      "downside": -23.076923076923073,
+      "catalystProb": 0.6,
+      "asymmetryScore": 14.400000000000002,
+      "catalyst": "Data cloud expansion",
+      "confidence": 70
+    },
+    {
+      "ticker": "AAVE",
+      "currentPrice": 100,
+      "targetPrice": 180,
+      "floorPrice": 100,
+      "upside": 80,
+      "downside": 0,
+      "catalystProb": 0.45,
+      "asymmetryScore": 7.2,
+      "catalyst": "DeFi lending growth",
+      "confidence": 50
+    }
+  ],
+  "metadata": {
+    "totalScanned": 30,
+    "highConviction": 16,
+    "mediumConviction": 0
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "report_id": "newsletter-daily-2026-07-21",
+  "date": "2026-07-21",
+  "type": "daily_brief",
+  "status": "published",
+  "timestamp": "2026-07-21T06:00:00.000Z",
+  "content": {
+    "title": "Quentinvest Daily Brief — July 21, 2026",
+    "assets_covered": ["BTC", "ETH", "MSTR", "COIN", "TSLA", "AAPL", "HIMS", "NVDA"],
+    "key_signals": {
+      "bullish": ["MSTR", "COIN"],
+      "bearish": ["TSLA", "AAPL"],
+      "neutral": ["BTC", "ETH", "HIMS", "NVDA"]
+    },
+    "alpha_composite": {
+      "signal": "SLIGHTLY_BULLISH",
+      "fear_greed": 25,
+      "fear_greed_classification": "EXTREME_FEAR"
+    },
+    "whale_activity": {
+      "signal": "ACCUMULATION",
+      "btc_accumulated": 66700,
+      "confidence": 0.6
+    }
+  },
+  "metrics": {
+    "word_count": 685,
+    "assets_analyzed": 8,
+    "signals_generated": 8,
+    "action_items": 3
+  },
+  "files": {
+    "markdown": "newsletter/daily_brief_2026-07-21.md",
+    "substack_url": "https://substack.com/@quentinvest1"
+  }
+}
