@@ -7,6 +7,26 @@
   "framework": null,
   "cleanUrls": true,
   "trailingSlash": false,
+  "routes": [
+    { "src": "/", "dest": "/index.html" },
+    { "src": "/trading", "dest": "/trading.html" },
+    { "src": "/markets", "dest": "/markets.html" },
+    { "src": "/portfolio", "dest": "/portfolio_tracker.html" },
+    { "src": "/analytics", "dest": "/analytics.html" },
+    { "src": "/risk", "dest": "/mission_control_risk_management.html" },
+    { "src": "/ai", "dest": "/ai_intelligence_hub.html" },
+    { "src": "/backtest", "dest": "/backtesting_module.html" },
+    { "src": "/mobile", "dest": "/mobile_dashboard.html" },
+    { "src": "/executive", "dest": "/executive_dashboard.html" },
+    { "src": "/settings", "dest": "/settings.html" },
+    { "src": "/news", "dest": "/news_sentiment_tracker.html" },
+    { "src": "/social", "dest": "/social_sentiment_live.html" },
+    { "src": "/competitors", "dest": "/competitor_tracker_app.html" },
+    { "src": "/command", "dest": "/command_center.html" },
+    { "src": "/reports", "dest": "/advanced_reporting.html" },
+    { "src": "/missions", "dest": "/missions.html" },
+    { "src": "/systems", "dest": "/systems.html" }
+  ],
   "headers": [
     {
       "source": "/(.*)",
