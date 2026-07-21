@@ -5,36 +5,23 @@
     "enabled": false
   },
   "framework": null,
-  "outputDirectory": ".",
-  "routes": [
-    {
-      "src": "/executive_v2.html",
-      "dest": "/executive_v2.html"
-    },
-    {
-      "src": "/mission_control_risk_management.html",
-      "dest": "/mission_control_risk_management.html"
-    },
-    {
-      "src": "/mission_control/(.*)",
-      "dest": "/mission_control/$1"
-    },
-    {
-      "src": "/(.*\\.(html|css|js|json|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot))",
-      "dest": "/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
-    }
-  ],
+  "cleanUrls": true,
+  "trailingSlash": false,
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
-          "value": "no-cache, no-store, must-revalidate"
+          "value": "no-store, max-age=0, must-revalidate"
+        },
+        {
+          "key": "CDN-Cache-Control",
+          "value": "no-store"
+        },
+        {
+          "key": "Vercel-CDN-Cache-Control",
+          "value": "no-store"
         }
       ]
     }
