@@ -303,6 +303,9 @@ const mode = process.argv[2] || 'status';
       const topN = process.argv[3] === '--auto-top3' ? 3 : 1;
       await autoTrade(topN);
       break;
+    case 'buy-top3':
+      await autoTrade(3);
+      break;
     case 'update':
       await updatePrices();
       showPortfolio();
@@ -318,7 +321,7 @@ const mode = process.argv[2] || 'status';
       });
       break;
     default:
-      console.log('Usage: node trade_executor.js [buy|update|status|scan] [--auto-top3]');
+      console.log('Usage: node trade_executor.js [buy|buy-top3|update|status|scan] [--auto-top3]');
   }
 })();
 
