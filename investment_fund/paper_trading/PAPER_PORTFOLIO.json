@@ -1,41 +1,155 @@
 {
   "portfolio_id": "alpha-paper-001",
-  "created_at": "2026-07-21T00:31:00Z",
+  "created_at": "2026-07-21T00:00:00Z",
   "initial_capital": 10000,
-  "current_value": 10000,
-  "cash": 8999,
+  "current_value": 9997.12236002,
+  "cash": 4073.022380019999,
   "positions": [
     {
+      "ticker": "COIN",
+      "shares": 9,
+      "entryPrice": 160.42999,
+      "currentPrice": 160.42999,
+      "stopLoss": 112.3,
+      "takeProfit": 243.97,
+      "entryDate": "2026-07-20T23:36:03.333Z",
+      "unrealizedPnl": 0,
+      "unrealizedPnlPct": 0
+    },
+    {
+      "ticker": "SOL",
+      "shares": 16,
+      "entryPrice": 77.71,
+      "currentPrice": 77.9,
+      "stopLoss": 58.28,
+      "takeProfit": 117.29,
+      "entryDate": "2026-07-20T23:36:03.345Z",
+      "unrealizedPnl": 3.040000000000191,
+      "unrealizedPnlPct": 0.24449877750611915
+    },
+    {
       "ticker": "CRWD",
-      "shares": 10,
-      "entryPrice": 100,
-      "currentPrice": 100,
-      "stopLoss": 240,
-      "takeProfit": 380,
-      "entryDate": "2026-07-20T22:31:30.839Z",
-      "unrealizedPnl": -1
+      "shares": 5,
+      "entryPrice": 198.49001,
+      "currentPrice": 198.49001,
+      "stopLoss": 163.75,
+      "takeProfit": 297.95,
+      "entryDate": "2026-07-20T23:36:03.351Z",
+      "unrealizedPnl": 0,
+      "unrealizedPnlPct": 0
+    },
+    {
+      "ticker": "TSLA",
+      "shares": 2,
+      "entryPrice": 369.57001,
+      "currentPrice": 369.57001,
+      "stopLoss": 277.18,
+      "takeProfit": 635.92,
+      "entryDate": "2026-07-21T00:31:54.791Z",
+      "unrealizedPnl": 0,
+      "unrealizedPnlPct": 0
+    },
+    {
+      "ticker": "HIMS",
+      "shares": 25,
+      "entryPrice": 32.7,
+      "currentPrice": 32.7,
+      "stopLoss": 23.71,
+      "takeProfit": 50.76,
+      "entryDate": "2026-07-21T00:33:14.652Z",
+      "unrealizedPnl": 0,
+      "unrealizedPnlPct": 0
+    },
+    {
+      "ticker": "MSTR",
+      "shares": 7,
+      "entryPrice": 97.82,
+      "currentPrice": 97.82,
+      "stopLoss": 75.81,
+      "takeProfit": 136.41,
+      "entryDate": "2026-07-21T00:33:14.663Z",
+      "unrealizedPnl": 0,
+      "unrealizedPnlPct": 0
     }
   ],
   "trades": [
     {
-      "id": "T1784586690838",
-      "timestamp": "2026-07-20T22:31:30.839Z",
+      "id": "T1784590563329",
+      "timestamp": "2026-07-20T23:36:03.329Z",
+      "ticker": "COIN",
+      "action": "BUY",
+      "shares": 9,
+      "price": 160.42999,
+      "total": 1443.8699100000001,
+      "commission": 1.44386991,
+      "reason": "COIN - momentum setup (2.1% move)",
+      "stopLoss": 112.3,
+      "takeProfit": 243.97
+    },
+    {
+      "id": "T1784590563345",
+      "timestamp": "2026-07-20T23:36:03.345Z",
+      "ticker": "SOL",
+      "action": "BUY",
+      "shares": 16,
+      "price": 77.71,
+      "total": 1243.36,
+      "commission": 1.24336,
+      "reason": "SOL - momentum setup (1.9% move)",
+      "stopLoss": 58.28,
+      "takeProfit": 117.29
+    },
+    {
+      "id": "T1784590563351",
+      "timestamp": "2026-07-20T23:36:03.351Z",
       "ticker": "CRWD",
       "action": "BUY",
-      "shares": 10,
-      "price": 100,
-      "total": 1000,
-      "commission": 1,
-      "reason": "Cybersecurity demand",
-      "stopLoss": 240,
-      "takeProfit": 380
+      "shares": 5,
+      "price": 198.49001,
+      "total": 992.45005,
+      "commission": 0.9924500500000001,
+      "reason": "CRWD - oversold setup (2.3% move)",
+      "stopLoss": 163.75,
+      "takeProfit": 297.95
+    },
+    {
+      "id": "T1784593914787",
+      "timestamp": "2026-07-21T00:31:54.787Z",
+      "ticker": "TSLA",
+      "action": "BUY",
+      "shares": 2,
+      "price": 369.57001,
+      "total": 739.14002,
+      "commission": 0.7391400200000001,
+      "reason": "TSLA - oversold setup (3.0% move)",
+      "stopLoss": 277.18,
+      "takeProfit": 635.92
     }
   ],
   "performance": {
-    "total_return": 0,
-    "total_trades": 1,
+    "total_return": -0.028776399800012342,
+    "total_trades": 6,
+    "winning_trades": 0,
+    "losing_trades": 0,
     "win_rate": 0,
     "avg_winner": 0,
-    "avg_loser": 0
-  }
+    "avg_loser": 0,
+    "max_drawdown": 0.03679679960001522
+  },
+  "daily_snapshots": [
+    {
+      "date": "2026-07-20",
+      "value": 9996.320320039998,
+      "cash": 6316.640360039999,
+      "unrealized_pnl": 0,
+      "positions_count": 3
+    },
+    {
+      "date": "2026-07-21",
+      "value": 9997.12236002,
+      "cash": 4073.022380019999,
+      "unrealized_pnl": 3.040000000000191,
+      "positions_count": 6
+    }
+  ]
 }

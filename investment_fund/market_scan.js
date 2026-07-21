@@ -1,4 +1,5 @@
-require('dotenv').config({ path: 'data/.env.local' });
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, 'data', '.env.local') });
 const https = require('https');
 
 const SYMBOLS = ['BTC', 'ETH', 'MSTR', 'HIMS'];
@@ -125,7 +126,7 @@ function getRSI(symbol) {
     });
   }
   
-  // Save for paper trading
+  const path = require('path');
   const fs = require('fs');
-  fs.writeFileSync('paper_trading/opportunities.json', JSON.stringify(opportunities, null, 2));
+  fs.writeFileSync(path.join(__dirname, 'paper_trading', 'opportunities.json'), JSON.stringify(opportunities, null, 2));
 })();
