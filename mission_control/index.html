@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mission Control â€” Dashboard v11.1</title>
+    <title>Mission Control â€" Dashboard v11.1</title>
     <meta http-equiv="refresh" content="30">
     <meta name="last-review" content="2026-07-21T23:11:00+02:00">
     <meta name="cycle-count" content="157">
@@ -208,35 +208,35 @@
         .compact-mode .card {
             margin-bottom: 12px;
         }
-        
+
         .compact-mode .card-header {
             padding: 14px 20px;
         }
-        
+
         .compact-mode .card-body {
             padding: 16px 20px;
         }
-        
+
         .compact-mode .metrics-grid {
             gap: 12px;
         }
-        
+
         .compact-mode .metric-card {
             padding: 16px;
         }
-        
+
         .compact-mode td {
             padding: 10px 16px;
         }
-        
+
         .compact-mode .activity-item {
             padding: 8px 0;
         }
-        
+
         .compact-mode .sidebar {
             padding: 16px;
         }
-        
+
         .compact-mode .sidebar-section {
             margin-bottom: 20px;
         }
@@ -566,32 +566,34 @@
                 <span>v11.1 PRO</span>
             </div>
         </div>
-        
+
         <nav class="main-nav">
-            <a href="index.html" class="nav-item active">ðŸ“Š Dashboard</a>
-            <a href="trading.html" class="nav-item">ðŸ’° Trading</a>
-            <a href="markets.html" class="nav-item">ðŸ“ˆ Markets</a>
-            <a href="systems.html" class="nav-item">âš™ï¸ Systems</a>
-            <a href="missions.html" class="nav-item">ðŸŽ¯ Missions</a>
-            <a href="analytics.html" class="nav-item">ðŸ“Š Analytics</a>
+            <a href="index.html" class="nav-item active">Dashboard</a>
+            <a href="trading.html" class="nav-item">Trading</a>
+            <a href="markets.html" class="nav-item">Markets</a>
+            <a href="portfolio_tracker.html" class="nav-item">Portfolio</a>
+            <a href="analytics.html" class="nav-item">Analytics</a>
+            <a href="mission_control_risk_management.html" class="nav-item">Risk</a>
+            <a href="ai_intelligence_hub.html" class="nav-item">AI Hub</a>
+            <a href="backtesting_module.html" class="nav-item">Backtest</a>
         </nav>
-        
+
         <div class="header-right">
             <div class="header-actions">
-                <button class="header-btn" onclick="showSearchModal()" title="Search (âŒ˜K)">
-                    ðŸ”<span class="shortcut-hint">âŒ˜K</span>
+                <button class="header-btn" onclick="showSearchModal()" title="Search (âŒ ̃K)">
+                    ðŸ"<span class="shortcut-hint">âŒ ̃K</span>
                 </button>
                 <button class="header-btn" onclick="toggleCompactMode()" title="Toggle Compact Mode (C)">
-                    ðŸ“Š<span class="shortcut-hint">C</span>
+                    ðŸ"Š<span class="shortcut-hint">C</span>
                 </button>
                 <button class="header-btn" onclick="refreshData()" title="Refresh Data (R)">
-                    ðŸ”„<span class="shortcut-hint">R</span>
+                    ðŸ""<span class="shortcut-hint">R</span>
                 </button>
                 <a href="settings.html" class="header-btn" title="Settings (S)">
-                    âš™ï¸<span class="shortcut-hint">S</span>
+                    âšTMï ̧<span class="shortcut-hint">S</span>
                 </a>
             </div>
-            
+
             <div class="status-pill">
                 <div class="status-dot"></div>
                 <span>AUTONOMOUS</span>
@@ -603,80 +605,70 @@
     <div class="main-container">
         <aside class="sidebar">
             <div class="sidebar-section">
-                <div class="sidebar-title">Trading</div>
-                <a href="trading.html" class="sub-nav-item">
-                    <span>ðŸ“Š Portfolio</span>
+                <div class="sidebar-title">Dashboard</div>
+                <a href="index.html" class="sub-nav-item active">
+                    <span>Main</span>
+                    <span class="sub-nav-badge">#157</span>
                 </a>
-                <a href="trading-positions.html" class="sub-nav-item">
-                    <span>ðŸ“ˆ Positions</span>
-                    <span class="sub-nav-badge">0</span>
+                <a href="mobile_dashboard.html" class="sub-nav-item">
+                    <span>Mobile</span>
                 </a>
-                <a href="trading-history.html" class="sub-nav-item">
-                    <span>ðŸ“œ History</span>
-                    <span class="sub-nav-badge">1</span>
-                </a>
-                <a href="trading-journal.html" class="sub-nav-item">
-                    <span>ðŸ“ Journal</span>
-                    <span class="sub-nav-badge">3</span>
+                <a href="executive_dashboard.html" class="sub-nav-item">
+                    <span>Executive</span>
                 </a>
             </div>
-            
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Trading</div>
+                <a href="trading.html" class="sub-nav-item">
+                    <span>Positions</span>
+                    <span class="sub-nav-badge">9</span>
+                </a>
+                <a href="portfolio_tracker.html" class="sub-nav-item">
+                    <span>Portfolio</span>
+                </a>
+            </div>
+
             <div class="sidebar-section">
                 <div class="sidebar-title">Markets</div>
                 <a href="markets.html" class="sub-nav-item">
-                    <span>ðŸ“Š Overview</span>
+                    <span>Overview</span>
                 </a>
-                <a href="markets-btc.html" class="sub-nav-item">
-                    <span>â‚¿ Bitcoin</span>
+                <a href="markets.html" class="sub-nav-item">
+                    <span>Crypto</span>
                 </a>
-                <a href="markets-eth.html" class="sub-nav-item">
-                    <span>Îž Ethereum</span>
-                </a>
-                <a href="markets-stocks.html" class="sub-nav-item">
-                    <span>ðŸ“ˆ Stocks</span>
-                </a>
-                <a href="markets-signals.html" class="sub-nav-item">
-                    <span>ðŸ”” Signals</span>
+                <a href="markets.html" class="sub-nav-item">
+                    <span>Stocks</span>
                 </a>
             </div>
-            
+
             <div class="sidebar-section">
-                <div class="sidebar-title">Systems</div>
-                <a href="systems.html" class="sub-nav-item">
-                    <span>âš™ï¸ Overview</span>
+                <div class="sidebar-title">Analysis</div>
+                <a href="analytics.html" class="sub-nav-item">
+                    <span>Analytics</span>
                 </a>
-                <a href="systems-data.html" class="sub-nav-item">
-                    <span>ðŸ“¡ Data Pipeline</span>
+                <a href="backtesting_module.html" class="sub-nav-item">
+                    <span>Backtesting</span>
                 </a>
-                <a href="systems-autonomous.html" class="sub-nav-item">
-                    <span>ðŸ¤– Autonomous</span>
-                    <span class="sub-nav-badge">ON</span>
-                </a>
-                <a href="systems-apis.html" class="sub-nav-item">
-                    <span>ðŸ”‘ API Status</span>
+                <a href="mission_control_risk_management.html" class="sub-nav-item">
+                    <span>Risk Management</span>
                 </a>
             </div>
-            
+
             <div class="sidebar-section">
-                <div class="sidebar-title">Missions</div>
-                <a href="missions.html" class="sub-nav-item">
-                    <span>ðŸŽ¯ Active</span>
-                    <span class="sub-nav-badge">3</span>
+                <div class="sidebar-title">Intelligence</div>
+                <a href="ai_intelligence_hub.html" class="sub-nav-item">
+                    <span>AI Hub</span>
                 </a>
-                <a href="missions-paused.html" class="sub-nav-item">
-                    <span>â¸ï¸ Paused</span>
-                    <span class="sub-nav-badge">2</span>
-                </a>
-                <a href="missions-longterm.html" class="sub-nav-item">
-                    <span>ðŸ† Long-term</span>
-                    <span class="sub-nav-badge">4</span>
+                <a href="news_sentiment_tracker.html" class="sub-nav-item">
+                    <span>Sentiment</span>
                 </a>
             </div>
         </aside>
 
         <main class="content">
             <div class="alert" style="background: rgba(0,208,132,0.08); border-color: rgba(0,208,132,0.3);">
-                <div class="alert-icon">ðŸ¤–</div>
+                <div class="alert-icon">ðŸ¤-</div>
                 <div class="alert-content">
                     <div class="alert-title">ALL SYSTEMS OPERATIONAL</div>
                     <div class="alert-text">Dashboard v11.1 Cycle #135 complete. Market data refreshed at 00:01. Autonomous mode active.</div>
@@ -686,7 +678,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-title">
-                        <span>ðŸ’°</span>
+                        <span>ðŸ'°</span>
                         <span>Portfolio Overview</span>
                         <span class="badge badge-success">AUTONOMOUS</span>
                     </div>
@@ -701,7 +693,7 @@
                         <div class="metric-card">
                             <div class="metric-label">Total P&L</div>
                             <div class="metric-value negative">-$941.50</div>
-                            <div class="metric-change negative">â–¼ -0.96%</div>
+                            <div class="metric-change negative">â-1⁄4 -0.96%</div>
                         </div>
                         <div class="metric-card">
                             <div class="metric-label">Cash Available</div>
@@ -724,7 +716,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-title">
-                        <span>ðŸ“ˆ</span>
+                        <span>ðŸ"ˆ</span>
                         <span>Recent Positions</span>
                         <span class="badge badge-danger">1 CLOSED</span>
                     </div>
@@ -760,7 +752,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-title">
-                        <span>ðŸ“Š</span>
+                        <span>ðŸ"Š</span>
                         <span>Live Markets</span>
                         <span class="badge badge-info">30s Refresh</span>
                     </div>
@@ -816,51 +808,51 @@
         <aside class="right-panel">
             <div class="panel-card">
                 <div class="panel-title">ðŸ• Activity Feed</div>
-                
+
                 <div class="activity-item">
-                    <div class="activity-icon" style="background: rgba(52, 152, 219, 0.15); color: var(--accent-info);">âš™ï¸</div>
+                    <div class="activity-icon" style="background: rgba(52, 152, 219, 0.15); color: var(--accent-info);">âšTMï ̧</div>
                     <div class="activity-content">
                         <div class="activity-title">Maintenance Sweep #135 Complete</div>
-                        <div class="activity-time">00:01 â€” Autonomous</div>
+                        <div class="activity-time">00:01 â€" Autonomous</div>
                     </div>
                 </div>
-                
+
                 <div class="activity-item">
-                    <div class="activity-icon" style="background: rgba(52, 152, 219, 0.15); color: var(--accent-info);">ðŸ“Š</div>
+                    <div class="activity-icon" style="background: rgba(52, 152, 219, 0.15); color: var(--accent-info);">ðŸ"Š</div>
                     <div class="activity-content">
                         <div class="activity-title">Market Data Refreshed</div>
-                        <div class="activity-time">03:11 â€” System</div>
+                        <div class="activity-time">03:11 â€" System</div>
                     </div>
                 </div>
-                
+
                 <div class="activity-item">
-                    <div class="activity-icon" style="background: rgba(255, 71, 87, 0.15); color: var(--accent-bear);">â¬‡ï¸</div>
+                    <div class="activity-icon" style="background: rgba(255, 71, 87, 0.15); color: var(--accent-bear);">â¬‡ï ̧</div>
                     <div class="activity-content">
                         <div class="activity-title">HIMS Stop Loss Hit</div>
-                        <div class="activity-time">Jul 16 20:42 â€” Autonomous</div>
+                        <div class="activity-time">Jul 16 20:42 â€" Autonomous</div>
                     </div>
                 </div>
-                
+
                 <div class="activity-item">
-                    <div class="activity-icon" style="background: rgba(52, 152, 219, 0.15); color: var(--accent-info);">âš™ï¸</div>
+                    <div class="activity-icon" style="background: rgba(52, 152, 219, 0.15); color: var(--accent-info);">âšTMï ̧</div>
                     <div class="activity-content">
                         <div class="activity-title">Autonomous Mode Enabled</div>
-                        <div class="activity-time">Jul 16 20:41 â€” System</div>
+                        <div class="activity-time">Jul 16 20:41 â€" System</div>
                     </div>
                 </div>
-                
+
                 <div class="activity-item">
-                    <div class="activity-icon" style="background: rgba(0, 208, 132, 0.15); color: var(--accent-bull);">â¬†ï¸</div>
+                    <div class="activity-icon" style="background: rgba(0, 208, 132, 0.15); color: var(--accent-bull);">â¬†ï ̧</div>
                     <div class="activity-content">
                         <div class="activity-title">HIMS Position Opened</div>
-                        <div class="activity-time">Jul 16 09:45 â€” Manual</div>
+                        <div class="activity-time">Jul 16 09:45 â€" Manual</div>
                     </div>
                 </div>
             </div>
 
             <div class="panel-card">
-                <div class="panel-title">ðŸŽ¯ Active Missions</div>
-                
+                <div class="panel-title">ðŸŽ ̄ Active Missions</div>
+
                 <div class="progress-container">
                     <div class="progress-label">
                         <span>Swing Trading</span>
@@ -870,7 +862,7 @@
                         <div class="progress-fill" style="width: 10%; background: var(--accent-bull);"></div>
                     </div>
                 </div>
-                
+
                 <div class="progress-container">
                     <div class="progress-label">
                         <span>Market Research v11.1</span>
@@ -880,7 +872,7 @@
                         <div class="progress-fill" style="width: 75%; background: var(--accent-bull);"></div>
                     </div>
                 </div>
-                
+
                 <div class="progress-container">
                     <div class="progress-label">
                         <span>Dashboard Suite</span>
@@ -893,8 +885,8 @@
             </div>
 
             <div class="panel-card">
-                <div class="panel-title">âš ï¸ Risk Limits</div>
-                
+                <div class="panel-title">âš ï ̧ Risk Limits</div>
+
                 <div class="progress-container">
                     <div class="progress-label">
                         <span>Position Size (6-12%)</span>
@@ -904,7 +896,7 @@
                         <div class="progress-fill" style="width: 0%; background: var(--accent-bull);"></div>
                     </div>
                 </div>
-                
+
                 <div class="progress-container">
                     <div class="progress-label">
                         <span>Total Deployed (44%)</span>
@@ -914,7 +906,7 @@
                         <div class="progress-fill" style="width: 0%; background: var(--accent-bull);"></div>
                     </div>
                 </div>
-                
+
                 <div class="progress-container">
                     <div class="progress-label">
                         <span>Monthly Drawdown (15%)</span>
@@ -929,7 +921,7 @@
     </div>
 
     <footer class="footer">
-        <div>Mission Control v11.1 PRO â€” Multi-page Navigation System</div>
+        <div>Mission Control v11.1 PRO â€" Multi-page Navigation System</div>
         <div>Data: Twelve Data + Alpha Vantage + CoinGecko | Auto-refresh: 30s</div>
     </footer>
 
