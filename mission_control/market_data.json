@@ -1,15 +1,15 @@
 {
-  "timestamp": "2026-07-22T06:14:01.139Z",
+  "timestamp": "2026-07-22T07:14:00.530Z",
   "assets": {
     "BTC": {
-      "price": 65981.99,
-      "change_24h": -0.86268499,
+      "price": 65911.07,
+      "change_24h": -0.96924161,
       "source": "twelvedata",
       "signal": "NEUTRAL"
     },
     "ETH": {
-      "price": 1919.72,
-      "change_24h": -0.53728064,
+      "price": 1917,
+      "change_24h": -0.67820672,
       "source": "twelvedata",
       "signal": "NEUTRAL"
     },
@@ -52,19 +52,19 @@
     "QQQ": {
       "price": 708.96997,
       "change_24h": 1.85472,
-      "source": "twelvedata",
+      "source": "cached",
       "signal": "NEUTRAL"
     },
     "GLD": {
       "price": 374.81,
       "change_24h": 1.96137,
-      "source": "twelvedata",
+      "source": "cached",
       "signal": "NEUTRAL"
     },
     "TLT": {
       "price": 83.66,
       "change_24h": -0.27416346,
-      "source": "twelvedata",
+      "source": "cached",
       "signal": "NEUTRAL"
     }
   },
@@ -82,9 +82,9 @@
       "twelvedata",
       "twelvedata",
       "twelvedata",
-      "twelvedata",
-      "twelvedata",
-      "twelvedata"
+      "cached",
+      "cached",
+      "cached"
     ]
   }
 }
