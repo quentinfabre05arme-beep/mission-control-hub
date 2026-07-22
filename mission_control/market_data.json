@@ -1,41 +1,72 @@
 {
-  "timestamp": "2026-07-22 12:03:32",
+  "timestamp": "2026-07-22T11:11:40.005Z",
   "assets": {
-    "BTC/USD": {
-      "price": 65947.99,
-      "change": -608.17,
-      "change_percent": -0.91,
-      "name": "Bitcoin",
-      "type": "crypto",
-      "timestamp": "2026-07-22 12:03:32",
-      "source": "twelve_data"
+    "BTC": {
+      "price": 66026.3,
+      "change_24h": -0.79610963,
+      "source": "twelvedata",
+      "signal": "NEUTRAL"
     },
-    "ETH/USD": {
-      "price": 1923.78,
-      "change": -6.31,
-      "change_percent": -0.33,
-      "name": "Ethereum",
-      "type": "crypto",
-      "timestamp": "2026-07-22 12:03:33",
-      "source": "twelve_data"
+    "ETH": {
+      "price": 1929.11,
+      "change_24h": -0.050774834,
+      "source": "twelvedata",
+      "signal": "NEUTRAL"
+    },
+    "NVDA": {
+      "price": 207.28999,
+      "change_24h": 1.97265,
+      "source": "twelvedata",
+      "signal": "NEUTRAL"
+    },
+    "TSLA": {
+      "price": 378.92999,
+      "change_24h": 2.53267,
+      "source": "twelvedata",
+      "signal": "BULLISH"
     },
     "MSTR": {
       "price": 101.95,
-      "change": 4.13,
-      "change_percent": 4.22,
-      "name": "MicroStrategy",
-      "type": "stock",
-      "timestamp": "2026-07-22 12:03:34",
-      "source": "twelve_data"
+      "change_24h": 4.22204,
+      "source": "twelvedata",
+      "signal": "BULLISH"
+    },
+    "AAPL": {
+      "price": 327.73999,
+      "change_24h": 0.35212159,
+      "source": "twelvedata",
+      "signal": "NEUTRAL"
     },
     "HIMS": {
-      "price": 30.42,
-      "change": 0,
-      "change_percent": 0,
-      "name": "Hims & Hers Health",
-      "type": "stock",
-      "timestamp": "2026-07-22 12:03:35",
-      "source": "cached"
+      "price": 32.73,
+      "change_24h": 0.091739384,
+      "source": "twelvedata",
+      "signal": "NEUTRAL"
+    },
+    "COIN": {
+      "price": 175.85001,
+      "change_24h": 9.61168,
+      "source": "twelvedata",
+      "signal": "BULLISH"
     }
+  },
+  "_meta": {
+    "fromCache": false,
+    "failures": [
+      "SPY: All sources failed for SPY: Twelve Data quote: Twelve Data quote error: You have run out of API credits for the current minute. 9 API credits were used, with the current limit being 8. Wait for the next minute or consider switching to a higher tier plan at https://twelvedata.com/pricing; Yahoo: Parse error: Unexpected token 'T', \"Too Many Requests\r\n\" is not valid JSON",
+      "QQQ: All sources failed for QQQ: Twelve Data quote: Twelve Data quote error: You have run out of API credits for the current minute. 10 API credits were used, with the current limit being 8. Wait for the next minute or consider switching to a higher tier plan at https://twelvedata.com/pricing; Yahoo: Parse error: Unexpected token 'T', \"Too Many Requests\r\n\" is not valid JSON",
+      "GLD: All sources failed for GLD: Twelve Data quote: Twelve Data quote error: You have run out of API credits for the current minute. 11 API credits were used, with the current limit being 8. Wait for the next minute or consider switching to a higher tier plan at https://twelvedata.com/pricing; Yahoo: Parse error: Unexpected token 'T', \"Too Many Requests\r\n\" is not valid JSON",
+      "TLT: All sources failed for TLT: Twelve Data quote: Twelve Data quote error: You have run out of API credits for the current minute. 12 API credits were used, with the current limit being 8. Wait for the next minute or consider switching to a higher tier plan at https://twelvedata.com/pricing; Yahoo: Parse error: Unexpected token 'T', \"Too Many Requests\r\n\" is not valid JSON"
+    ],
+    "sources": [
+      "twelvedata",
+      "twelvedata",
+      "twelvedata",
+      "twelvedata",
+      "twelvedata",
+      "twelvedata",
+      "twelvedata",
+      "twelvedata"
+    ]
   }
 }
