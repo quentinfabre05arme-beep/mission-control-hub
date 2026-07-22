@@ -9,6 +9,7 @@
   "cleanUrls": false,
   "trailingSlash": false,
   "routes": [
+    { "src": "/hub", "dest": "/hub.html" },
     { "src": "/hub.html", "dest": "/hub.html" },
     { "src": "/index.html", "dest": "/index.html" },
     { "src": "/trading.html", "dest": "/trading.html" },
