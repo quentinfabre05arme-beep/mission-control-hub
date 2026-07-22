@@ -117,11 +117,41 @@ function calculateAsymmetry(ticker, price, change24h) {
   };
 }
 
+// Price sanity ranges to prevent trades on bad data
+const PRICE_SANITY = {
+  BTC: { min: 20000, max: 120000 },
+  ETH: { min: 1000, max: 6000 },
+  SOL: { min: 20, max: 400 },
+  MSTR: { min: 50, max: 200 },
+  HIMS: { min: 15, max: 60 },
+  NVDA: { min: 80, max: 300 },
+  TSLA: { min: 150, max: 600 },
+  AAPL: { min: 150, max: 500 },
+  COIN: { min: 100, max: 300 },
+  PLTR: { min: 50, max: 150 },
+  CRWD: { min: 100, max: 400 },
+  SNOW: { min: 100, max: 400 },
+  SPY: { min: 400, max: 700 },
+  QQQ: { min: 300, max: 600 },
+  GLD: { min: 150, max: 300 },
+  TLT: { min: 70, max: 130 }
+};
+
+function isPriceSane(ticker, price) {
+  const range = PRICE_SANITY[ticker];
+  if (!range) return true; // Unknown tickers pass if from price fetcher
+  return price >= range.min && price <= range.max;
+}
+
 async function getOpportunities() {
   const prices = await fetchAllPrices();
   const opportunities = [];
   
   for (const [ticker, data] of Object.entries(prices)) {
+    if (!isPriceSane(ticker, data.price)) {
+      console.warn(`⚠️ Price sanity check failed for ${ticker}: $${data.price} — skipping`);
+      continue;
+    }
     const setup = calculateAsymmetry(ticker, data.price, data.change24h);
     opportunities.push({
       ticker,
@@ -139,16 +169,16 @@ async function getOpportunities() {
 function executePaperTrade(opportunity) {
   const portfolio = loadPortfolio();
   
-  // Check if already holding
-  const existing = portfolio.positions.find(p => p.ticker === opportunity.ticker);
-  if (existing) {
-    console.log(`⚠️ Already holding ${opportunity.ticker}, skipping`);
-    return null;
-  }
-  
   // Check position limit
   if (portfolio.positions.length >= CONFIG.MAX_POSITIONS) {
     console.log(`⚠️ Max positions (${CONFIG.MAX_POSITIONS}) reached`);
+    return null;
+  }
+  
+  // Check if already holding (skip duplicate)
+  const existing = portfolio.positions.find(p => p.ticker === opportunity.ticker);
+  if (existing) {
+    console.log(`⚠️ Already holding ${opportunity.ticker}, skipping`);
     return null;
   }
   
@@ -269,7 +299,7 @@ function showPortfolio() {
   }
 }
 
-async function autoTrade(topN = 3) {
+async function autoTrade(topN = 3, force = false, allowExisting = false) {
   console.log('\n🔍 SCANNING FOR OPPORTUNITIES...\n');
   const opportunities = await getOpportunities();
   
@@ -279,9 +309,17 @@ async function autoTrade(topN = 3) {
     console.log(`   Upside: ${o.upside}% | Downside: ${o.downside}% | Conf: ${o.confidence}%`);
   });
   
-  const topOpps = opportunities
-    .filter(o => o.asymmetryScore >= CONFIG.MIN_ASYMMETRY_SCORE)
-    .slice(0, topN);
+  const portfolio = loadPortfolio();
+  const heldTickers = new Set(portfolio.positions.map(p => p.ticker));
+  
+  let topOpps = opportunities
+    .filter(o => o.asymmetryScore >= CONFIG.MIN_ASYMMETRY_SCORE);
+  
+  if (!allowExisting) {
+    topOpps = topOpps.filter(o => !heldTickers.has(o.ticker));
+  }
+  
+  topOpps = topOpps.slice(0, topN);
   
   if (topOpps.length === 0) {
     console.log('\n⚠️ No opportunities meet minimum asymmetry threshold');
@@ -290,6 +328,10 @@ async function autoTrade(topN = 3) {
   
   console.log(`\n🎯 AUTO-ENTERING TOP ${topOpps.length} OPPORTUNITIES`);
   for (const opp of topOpps) {
+    if (!force && heldTickers.has(opp.ticker)) {
+      console.log(`⚠️ Already holding ${opp.ticker}, skipping (use --allow-existing to override)`);
+      continue;
+    }
     executePaperTrade(opp);
   }
 }
@@ -299,10 +341,18 @@ const mode = process.argv[2] || 'status';
 
 (async () => {
   switch (mode) {
-    case 'buy':
-      const topN = process.argv[3] === '--auto-top3' ? 3 : 1;
-      await autoTrade(topN);
+    case 'buy': {
+      // Parse flags: --top N to control how many positions to enter
+      let topN = 3; // Default to 3 for cron runs
+      const topFlagIdx = process.argv.indexOf('--top');
+      if (topFlagIdx !== -1 && process.argv[topFlagIdx + 1]) {
+        topN = parseInt(process.argv[topFlagIdx + 1], 10) || 3;
+      }
+      const forceFlag = process.argv.includes('--force');
+      const allowExisting = process.argv.includes('--allow-existing');
+      await autoTrade(topN, forceFlag, allowExisting);
       break;
+    }
     case 'buy-top3':
       await autoTrade(3);
       break;

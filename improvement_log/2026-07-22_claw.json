@@ -1,0 +1,216 @@
+{
+  "date": "2026-07-22",
+  "cycle": 6,
+  "timestamp": "2026-07-22T06:00:00+02:00",
+  "system_health": {
+    "cron_jobs_active": 1,
+    "cron_jobs_expected": 1,
+    "status": "✅ HEALTHY",
+    "notes": [
+      "Single active cron job: claw-improvement-daily",
+      "Last run status: ok",
+      "Next run scheduled: 2026-07-23 06:00 CET",
+      "All other scheduling is handled by Windows Task Scheduler and Alpha Fund hourly runs (no additional cron jobs needed)"
+    ]
+  },
+  "api_status": {
+    "twelve_data": "✅ OPERATIONAL",
+    "market_data_last_update": "2026-07-22 04:00 UTC (2h ago)",
+    "cache_hits": 0,
+    "live_api_hits": 4,
+    "fallback_status": "Primary sources operational - no fallbacks needed",
+    "errors_24h": 0,
+    "connectivity_test": "api.twelvedata.com reachable ✅"
+  },
+  "overnight_activity": {
+    "dashboard_cycles": {
+      "cycles_completed": 8,
+      "range": "#156-163",
+      "status": "✅ COMPLETED",
+      "notes": "Hourly autonomous maintenance cycles since Jul 18. index.html last updated 05:14 CET. market_data.json refreshed at 04:00 CET."
+    },
+    "alpha_fund": {
+      "status": "✅ OPERATIONAL",
+      "timestamp": "2026-07-22 04:04 UTC",
+      "developments": [
+        "Paper portfolio initialized with €10,000",
+        "10 positions opened (COIN, SOL, CRWD, TSLA, HIMS, MSTR, PLTR, ETH, BTC, SNOW)",
+        "Current value: €10,001.85 (+0.02%)",
+        "Cash: €2,279.75 (22.8%)",
+        "Hourly trade executor added SNOW position overnight",
+        "Self-improvement engine ran: 119 samples, hit rate 27.7%, weights auto-adjusted"
+      ],
+      "performance": "Flat +€1.85 after 10 trades; max drawdown -0.93%"
+    },
+    "watchlist_expansion": {
+      "status": "✅ OPERATIONAL",
+      "old_scope": "4 assets (BTC, ETH, MSTR, HIMS)",
+      "new_scope": "30 symbols (scanner universe)",
+      "coverage": "Crypto, Tech/Growth, Value, International, ETFs, Biotech",
+      "notes": "Asymmetry scanner now covers 30 tickers. SOL and NVDA generated realistic signals (3.0 and 2.2). $100 fallback bug fixed."
+    },
+    "x_posting": {
+      "status": "⏸️ PAUSED",
+      "notes": "No posts scheduled — focus on Alpha Fund + POD unblocking"
+    },
+    "printify": {
+      "status": "🔴 BLOCKED",
+      "days_down": 10,
+      "notes": "API 401 despite token not expired (expires 2027-07-14). Likely shop disconnection or account flagging. €100-300 cumulative revenue loss."
+    }
+  },
+  "aar_count": 2,
+  "after_action_reviews": [
+    {
+      "mission": "Alpha Fund Paper Trading Launch",
+      "date": "2026-07-21",
+      "what_was_planned": "Deploy autonomous Alpha Fund with paper trading and hourly execution",
+      "what_happened": "System is live. 10 positions opened in ~24h. PAPER_PORTFOLIO.json tracking unrealized P&L. trade_executor.js runs on schedule. SNOW was added overnight. Self-improvement engine adjusted weights based on 119 historical opportunities.",
+      "variance_analysis": "Slight variance: scanner initially generated false positives due to $100 fallback for tickers not in market_data.json. This was identified and fixed in IMPROVEMENTS_LOG.md. No positions appear to have been opened based on the bug (all entries have plausible prices).",
+      "root_cause": "getEstimatedPrice() returned $100 for unknown tickers, producing inflated asymmetry scores.",
+      "lessons": [
+        "Price sanity validation must be mandatory before any scoring",
+        "Fallback prices are dangerous — better to skip unknown tickers",
+        "Paper trading surface area needs guardrails for stale/missing data",
+        "Self-improvement loop correctly flags data gaps and adjusts weights"
+      ],
+      "concrete_changes": [
+        "Updated asymmetry_scanner.js estimates to realistic Jul 2026 prices",
+        "Changed unknown-ticker fallback from $100 to null",
+        "Added CONFIG.PRICE_SANITY ranges for validation",
+        "Documented fix in investment_fund/IMPROVEMENTS_LOG.md"
+      ],
+      "impact_verification": "Post-fix scan produced SOL 3.0 and NVDA 2.2 (realistic). Dashboard cycles continued without errors."
+    },
+    {
+      "mission": "Printify API 401 Blocker",
+      "date": "2026-07-12 to 2026-07-22",
+      "what_was_planned": "Automated Printify → Etsy product uploads for POD revenue",
+      "what_happened": "All API calls return 'Unauthenticated' despite token showing valid expiry 2027. Manual upload script also fails. Image conversion helper created but cannot be exercised due to auth.",
+      "variance_analysis": "Token validity ≠ API access. Printify may have revoked/flagged the token, or the shop connection was lost.",
+      "root_cause": "External account/token state changed on Printify side.",
+      "lessons": [
+        "API tokens can be rejected even when not expired",
+        "OAuth/shop connection state matters as much as token expiry",
+        "Don't let a single external blocker stall an entire revenue stream for 10 days"
+      ],
+      "concrete_changes": [
+        "Created fix_image_upload.js with SVG→PNG conversion instructions",
+        "Created manual dashboard upload instructions",
+        "Identified alternative: upload directly via printify.com dashboard"
+      ],
+      "impact_verification": "Token still rejected in tests. User action required."
+    }
+  ],
+  "claw_self_analysis": {
+    "tool_usage_efficiency": {
+      "observation": "Overnight operation ran with minimal AI tokens. Hourly Alpha Fund cycles, dashboard refreshes, and scans are script-driven. Only claw-improvement-daily uses an agentTurn cron.",
+      "optimization": "Token usage is well-optimized. Continue using systemEvent/lightweight scripts for scheduled tasks."
+    },
+    "api_connectivity": {
+      "status": "✅ HEALTHY",
+      "twelve_data": "✅ OPERATIONAL — 4 Tier-1 assets live, scanner fetches 11 assets via price_fetcher.js",
+      "coin_gecko": "✅ FALLBACK READY",
+      "printify": "❌ BLOCKED — Unauthenticated despite valid token",
+      "reliability": "100% uptime (24h)",
+      "cascade_performance": "No fallbacks needed for Tier-1 market data"
+    },
+    "memory_system": {
+      "status": "⚠️ DEGRADED",
+      "issue": "Memory index requires rebuild (different embedding provider)",
+      "action": "File-based fallback continues to work effectively",
+      "workaround": "Direct file reads of memory/YYYY-MM-DD.md and MEMORY.md sufficient"
+    },
+    "autonomy_evolution": {
+      "level": "100% autonomous paper trading deployed",
+      "capability": "Hourly execution without human intervention",
+      "safety": "Paper trading + position limits + stop losses",
+      "improvement": "Self-improvement engine auto-adjusts scoring weights daily"
+    },
+    "revenue_streams": {
+      "print_on_demand": "🔴 BLOCKED — Printify API Day 10 (€100-300 lost)",
+      "newsletter": "✅ ACTIVE — Research cycles continue",
+      "alpha_fund": "🟢 LIVE — Paper trading 10 positions, +0.02%",
+      "research": "✅ ACTIVE — 163 dashboard cycles completed",
+      "impact": "Alpha Fund now the primary autonomous execution path"
+    }
+  },
+  "improvements_made": [
+    {
+      "type": "fix",
+      "description": "$100 fallback price bug eliminated from asymmetry scanner",
+      "action_taken": "Updated estimates, returned null for unknown tickers, added PRICE_SANITY validation",
+      "impact": "Scanner now produces realistic signals (SOL 3.0, NVDA 2.2)"
+    },
+    {
+      "type": "monitoring",
+      "description": "Alpha Fund paper portfolio tracked and healthy",
+      "action_taken": "Verified PAPER_PORTFOLIO.json, trades log, position sizing, stop losses",
+      "impact": "10 positions, +0.02%, max drawdown -0.93%"
+    },
+    {
+      "type": "documentation",
+      "description": "AAR logged for Alpha Fund launch and Printify blocker",
+      "action_taken": "Captured lessons and concrete changes in this improvement log",
+      "impact": "Reusable patterns for future deployments and external API failures"
+    }
+  ],
+  "lessons": [
+    "Price sanity checks are non-negotiable in any scoring system",
+    "Fallback defaults must fail safe, not optimistic",
+    "Paper trading validates execution before real capital risk",
+    "Self-improvement loop with historical samples prevents threshold drift",
+    "External API tokens can be rejected while technically 'not expired' — monitor HTTP 401 as a separate failure mode",
+    "Hourly autonomous cycles are stable and require no intervention when well-instrumented",
+    "Keep a single source of truth for prices (market_data.json) and expand it rather than maintaining parallel estimates"
+  ],
+  "backlog_changes": [
+    "+ Expand market_data.json to all 30 scanner tickers (reduce reliance on estimates)",
+    "+ Add price sanity check before every trade in trade_executor.js",
+    "+ Build POD manual-upload fallback workflow (dashboard uploads when API fails)",
+    "+ Alpha Fund backtesting module (validate strategies before live paper)",
+    "+ Real money transition checklist (after 30-day paper track record)",
+    "~ Printify token regeneration (still blocked — user action)",
+    "~ Memory index rebuild (low priority — file fallback sufficient)",
+    "- Rate limit concerns (Twelve Data stable)",
+    "- API reliability concerns (primary sources healthy)"
+  ],
+  "forward_planning": {
+    "today_priority": 1,
+    "focus": "Alpha Fund performance monitoring + POD unblocking",
+    "learning_target": "How to gracefully degrade when external APIs revoke access mid-campaign",
+    "enhancements_scheduled": [
+      "Monitor paper trading P&L throughout the day",
+      "Add price sanity gate to trade_executor.js before new orders",
+      "Research Printify manual dashboard bulk-upload process",
+      "Expand market_data.json universe beyond 4 assets",
+      "Dashboard cycle #164+"
+    ]
+  },
+  "success_metrics": {
+    "tool_efficiency": "24 calls for comprehensive diagnostic — acceptable",
+    "api_error_rate_24h": "0% (Twelve Data healthy)",
+    "mission_success_rate": "100% (dashboard + Alpha Fund + scanner fix)",
+    "revenue_blocked": "€100-300 cumulative (POD API Day 10)",
+    "response_latency_avg": "~1.0s for file operations",
+    "autonomous_trades_executed": 10,
+    "paper_portfolio_value": 10001.85,
+    "paper_portfolio_return_pct": 0.0185
+  },
+  "critical_blockers": [
+    {
+      "item": "Printify API token / shop connection",
+      "impact": "€10-30/day revenue loss (cumulative €100-300)",
+      "action_required": "User: log into printify.com → Account → API Tokens → regenerate, or reconnect Etsy shop",
+      "workaround": "Manual dashboard upload via fix_image_upload.js instructions",
+      "priority": "HIGH"
+    }
+  ],
+  "breakthrough_achievements": [
+    "100% autonomous paper trading system live",
+    "10 positions opened with proper stop losses and take profits",
+    "Asymmetry scanner bug fixed and producing realistic signals",
+    "163 dashboard cycles completed",
+    "Self-improvement engine auto-adjusts weights from 119 samples"
+  ]
+}
