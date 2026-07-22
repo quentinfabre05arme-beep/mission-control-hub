@@ -1,13 +1,15 @@
 
-## Alpha Fund Alternative Data (NEW - Jul 17, 2026 23:17)
+## Alpha Fund Alternative Data v2.0 (Jul 22, 2026 09:19)
 **Location:** `investment_fund/scripts/fetch_alternative_data.js`
-**Status:** ✅ **Early signals not visible in price data**
+**Status:** ✅ **Enhanced multi-source data with on-chain metrics**
 
 ### Quick Commands
 ```powershell
-# Fetch alternative data (Fear & Greed, Whale signals, Anomalies)
-cd investment_fund/scripts
-node fetch_alternative_data.js
+# Fetch alternative data
+.\run_alternative_data.ps1
+
+# Or directly
+cd investment_fund/scripts && node fetch_alternative_data.js
 
 # JSON output for automation
 node fetch_alternative_data.js --json
@@ -16,19 +18,36 @@ node fetch_alternative_data.js --json
 investment_fund/data/alternative/YYYY-MM-DD.json
 ```
 
-### Data Sources
-| Layer | Primary | Cost |
-|-------|---------|------|
-| **Fear & Greed** | alternative.me API | Free |
-| **Whale News** | Serper.dev News | Free (2.5K/mo) |
-| **Market Data** | market_data.json | Local |
+### Enhanced Data Sources
+| Layer | Primary | Fallback | Cost |
+|-------|---------|----------|------|
+| **Fear & Greed** | alternative.me API | - | Free |
+| **Whale Signals** | Serper.dev News | - | Free (2.5K/mo) |
+| **On-Chain** | mempool.space | - | Free |
+| **Funding Rates** | CoinGecko (proxy) | - | Free |
+| **Social Sentiment** | Serper.dev Search | - | Free |
+| **Market Data** | market_data.json | - | Local |
 
-### Anomaly Detection
+### Data Layers
+| Metric | Source | Signal |
+|--------|--------|--------|
+| **Fear & Greed** | alternative.me | Market sentiment index |
+| **Whale Activity** | News analysis | Accumulation/Distribution |
+| **Mempool Size** | mempool.space | Network congestion |
+| **Funding Rates** | CoinGecko proxy | Derivatives sentiment |
+| **Social Sentiment** | News keywords | Bullish/Bearish ratio |
+| **Volume Anomalies** | Price data | Unusual price action |
+
+### Anomaly Detection (v2.0)
 | Type | Signal | Severity |
 |------|--------|----------|
 | **Whale Accumulation** | Declining exchange inflows | HIGH |
 | **Sentiment Recovery** | Fear & Greed recovering from extreme | MEDIUM |
-| **Price Divergence** | Asset diverging from market | LOW |
+| **Extreme Fear** | Fear & Greed < 20 | HIGH |
+| **Funding Divergence** | Positive funding + positive price | MEDIUM |
+| **Sentiment Divergence** | High social sentiment + low F&G | MEDIUM |
+| **Volume Anomaly** | >5% price move in 24h | HIGH |
+| **Volume Attention** | >3% price move in 24h | MEDIUM |
 
 ### Composite Early Signals
 | Score | Rating | Interpretation |
@@ -39,10 +58,28 @@ investment_fund/data/alternative/YYYY-MM-DD.json
 | -0.5 to -0.2 | **SLIGHTLY_BEARISH** | Some negative divergence |
 | <-0.5 | **BEARISH** | Multiple warning signals |
 
+### Latest Report (Jul 22, 2026 09:19 UTC)
+```
+📊 FEAR & GREED: 33 FEAR ↑ (improving from 25)
+🐋 WHALE SIGNALS: DISTRIBUTION (100% confidence)
+⛓️ MEMPOOL: 90,380 txs | MEDIUM congestion
+🚨 ANOMALIES: 3 detected
+   🔴 COIN: +9.61% (BULLISH MOMENTUM)
+   🟡 MSTR: +4.22% (BULLISH MOMENTUM)
+   🟡 MARKET: Sentiment recovery (CONTRARIAN BUY)
+
+COMPOSITE SCORES:
+   BTC: NEUTRAL (0.10) - Sentiment improving
+   ETH: NEUTRAL (0.10) - Sentiment improving
+   MSTR: SLIGHTLY_BULLISH (0.30) - +4.22% momentum
+   COIN: SLIGHTLY_BULLISH (0.30) - +9.61% momentum
+```
+
 ### Files
-- `fetch_alternative_data.js` — **Main fetcher script**
+- `fetch_alternative_data.js` — **Enhanced multi-source fetcher**
+- `run_alternative_data.ps1` — **Quick PowerShell runner**
 - `investment_fund/data/alternative/` — **Daily JSON reports**
-- `2026-07-17.json` — **First report** (whale accumulation detected)
+- `2026-07-22.json` — **Latest report** (sentiment recovery detected)
 
 ---
 

@@ -1,0 +1,102 @@
+{
+  "metadata": {
+    "fetch_timestamp": "2026-07-22T02:10:00.000Z",
+    "local_time": "2026-07-22 04:10:00",
+    "cycle_id": "research-cycle-56",
+    "type": "daily-scan",
+    "researcher": "claw-autonomous"
+  },
+  "market_snapshot": {
+    "timestamp": "2026-07-22T02:10:00.000Z",
+    "assets": {
+      "BTC": {
+        "price": 66589,
+        "change_24h": 1.63,
+        "source": "yahoo_finance",
+        "signal": "SLIGHTLY_BULLISH"
+      },
+      "ETH": {
+        "price": 1941,
+        "change_24h": 3.94,
+        "source": "yahoo_finance",
+        "signal": "SLIGHTLY_BULLISH"
+      },
+      "SOL": {
+        "price": 78,
+        "change_24h": 0.7,
+        "source": "estimated",
+        "signal": "NEUTRAL"
+      },
+      "MSTR": {
+        "price": 101.95,
+        "change_24h": 4.22,
+        "source": "yahoo_finance",
+        "signal": "BULLISH"
+      },
+      "HIMS": {
+        "price": 32.73,
+        "change_24h": 0.09,
+        "source": "yahoo_finance",
+        "signal": "NEUTRAL"
+      },
+      "NVDA": {
+        "price": 207.29,
+        "change_24h": 1.97,
+        "source": "yahoo_finance",
+        "signal": "NEUTRAL"
+      },
+      "TSLA": {
+        "price": 378.93,
+        "change_24h": 2.53,
+        "source": "yahoo_finance",
+        "signal": "BULLISH"
+      },
+      "COIN": {
+        "price": 175.85,
+        "change_24h": 9.61,
+        "source": "yahoo_finance",
+        "signal": "STRONG_BULLISH"
+      }
+    }
+  },
+  "scan_results": {
+    "tier_1_setups": 0,
+    "tier_2_watch": 3,
+    "tier_3_hold": 10,
+    "status": "No immediate Tier 1 setups - monitoring recovery"
+  },
+  "sentiment": {
+    "fear_greed": {
+      "value": 33,
+      "classification": "FEAR",
+      "previous": 25,
+      "trend": "RECOVERING",
+      "note": "Contrarian zone - watch for >40 confirmation"
+    },
+    "market_regime": "Recovery from extreme fear",
+    "whale_signal": "NEUTRAL (ETF inflows positive)"
+  },
+  "fund_status": {
+    "value": 10002.44,
+    "change": 0.02,
+    "cash": 2279.75,
+    "positions": 10,
+    "risk_exposure": "NORMAL",
+    "daily_pnl": 0.02
+  },
+  "alerts": {
+    "high": 0,
+    "medium": 1,
+    "low": 2
+  },
+  "risk_check": {
+    "daily_loss": 0.02,
+    "daily_loss_limit": -3,
+    "max_position_pct": 16,
+    "max_position_limit": 10,
+    "cash_pct": 22.8,
+    "cash_minimum": 10,
+    "all_stops_safe": true,
+    "status": "PASS"
+  }
+}

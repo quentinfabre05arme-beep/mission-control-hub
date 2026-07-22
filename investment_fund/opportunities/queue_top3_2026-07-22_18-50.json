@@ -1,0 +1,40 @@
+{
+  "timestamp": "2026-07-22T16:50:51.479Z",
+  "scan_time": "18:50 CET",
+  "queue": [
+    {
+      "rank": 1,
+      "ticker": "SOL",
+      "currentPrice": 185,
+      "targetPrice": 280,
+      "floorPrice": 160,
+      "upside": "51.4%",
+      "downside": "15.6%",
+      "asymmetryScore": 2.96,
+      "catalyst": "DeFi + NFT ecosystem",
+      "confidence": 60,
+      "status": "queued_for_review"
+    },
+    {
+      "rank": 2,
+      "ticker": "NVDA",
+      "currentPrice": 207,
+      "targetPrice": 280,
+      "floorPrice": 170,
+      "upside": "35.3%",
+      "downside": "21.8%",
+      "asymmetryScore": 2.21,
+      "catalyst": "AI demand cycle",
+      "confidence": 85,
+      "status": "queued_for_review"
+    }
+  ],
+  "summary": {
+    "total_scanned": 30,
+    "threshold": 5.0,
+    "above_threshold": 0,
+    "queued": 2,
+    "highest_score": 2.96,
+    "note": "No opportunities exceeded 5.0 threshold. Top 2 queued for monitoring."
+  }
+}

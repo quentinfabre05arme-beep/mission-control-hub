@@ -1,0 +1,34 @@
+{
+  "timestamp": "2026-07-22T20:59:34.479Z",
+  "opportunities": [
+    {
+      "ticker": "SOL",
+      "currentPrice": 185,
+      "targetPrice": 280,
+      "floorPrice": 160,
+      "upside": 51.35135135135136,
+      "downside": 15.625,
+      "catalystProb": 0.55,
+      "asymmetryScore": 2.959426208016,
+      "catalyst": "DeFi + NFT ecosystem",
+      "confidence": 60
+    },
+    {
+      "ticker": "NVDA",
+      "currentPrice": 213.63,
+      "targetPrice": 280,
+      "floorPrice": 170,
+      "upside": 31.06773393250013,
+      "downside": 25.664705882352944,
+      "catalystProb": 0.8,
+      "asymmetryScore": 1.5157711706673747,
+      "catalyst": "AI demand cycle",
+      "confidence": 85
+    }
+  ],
+  "metadata": {
+    "totalScanned": 30,
+    "highConviction": 0,
+    "mediumConviction": 2
+  }
+}

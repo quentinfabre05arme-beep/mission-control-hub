@@ -1,0 +1,46 @@
+{
+  "timestamp": "2026-07-22T06:20:52.469Z",
+  "opportunities": [
+    {
+      "ticker": "TLT",
+      "currentPrice": 83.66,
+      "targetPrice": 110,
+      "floorPrice": 85,
+      "upside": 31.48458044465694,
+      "downside": -1.5764705882353014,
+      "catalystProb": 0.5,
+      "asymmetryScore": 6.088522236755613,
+      "catalyst": "Bond rally on cuts",
+      "confidence": 60
+    },
+    {
+      "ticker": "SOL",
+      "currentPrice": 185,
+      "targetPrice": 280,
+      "floorPrice": 160,
+      "upside": 51.35135135135136,
+      "downside": 15.625,
+      "catalystProb": 0.55,
+      "asymmetryScore": 2.959426208016,
+      "catalyst": "DeFi + NFT ecosystem",
+      "confidence": 60
+    },
+    {
+      "ticker": "NVDA",
+      "currentPrice": 207.28999,
+      "targetPrice": 280,
+      "floorPrice": 170,
+      "upside": 35.076469442639265,
+      "downside": 21.935288235294117,
+      "catalystProb": 0.8,
+      "asymmetryScore": 2.17672045413679,
+      "catalyst": "AI demand cycle",
+      "confidence": 85
+    }
+  ],
+  "metadata": {
+    "totalScanned": 30,
+    "highConviction": 1,
+    "mediumConviction": 2
+  }
+}

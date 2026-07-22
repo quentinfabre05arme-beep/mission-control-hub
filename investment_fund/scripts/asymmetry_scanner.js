@@ -23,22 +23,53 @@ const CONFIG = {
     'BRK.B', 'UNH', 'V', 'MA', 'JPM',       // Value
     'ASML', 'TSM', 'BABA', 'TCEHY',          // International
     'SOL', 'LINK', 'AAVE', 'MKR'             // Crypto
-  ]
+  ],
+  // Price sanity ranges — flag unrealistic prices
+  PRICE_SANITY: {
+    'AAPL': { min: 150, max: 500 },
+    'TSLA': { min: 150, max: 600 },
+    'NVDA': { min: 80, max: 300 },
+    'BTC': { min: 20000, max: 120000 },
+    'ETH': { min: 1000, max: 6000 },
+    'MSTR': { min: 50, max: 200 },
+    'HIMS': { min: 15, max: 60 },
+    'COIN': { min: 100, max: 300 },
+    'PLTR': { min: 50, max: 150 }
+  }
 };
 
 /**
  * Estimated prices for tickers not in market_data.json
  * Updated quarterly with rough market prices
  */
+/**
+ * Estimated prices for tickers not in market_data.json
+ * Updated with latest market prices — Jul 22, 2026
+ * CRITICAL: $100 fallback removed to prevent false signals
+ */
 function getEstimatedPrice(ticker) {
   const estimates = {
+    // ETFs / Macro
     'SPY': 585, 'QQQ': 485, 'GLD': 250, 'TLT': 95,
-    'PLTR': 28, 'CRWD': 310, 'SNOW': 165, 'NET': 95, 'DUOL': 280,
+    // Growth
+    'PLTR': 82, 'CRWD': 310, 'SNOW': 165, 'NET': 95, 'DUOL': 280,
+    // Value
     'BRK.B': 460, 'UNH': 580, 'V': 345, 'MA': 520, 'JPM': 245,
+    // International
     'ASML': 720, 'TSM': 185, 'BABA': 105, 'TCEHY': 48,
-    'SOL': 185, 'LINK': 22, 'AAVE': 145, 'MKR': 1850
+    // Crypto
+    'SOL': 185, 'LINK': 22, 'AAVE': 145, 'MKR': 1850,
+    // Tech majors (from market_data.json when available)
+    'BTC': 66200, 'ETH': 1930, 'NVDA': 207, 'TSLA': 379,
+    'MSTR': 102, 'AAPL': 328, 'HIMS': 33, 'COIN': 176
   };
-  return estimates[ticker] || 100;
+  
+  const price = estimates[ticker];
+  if (!price) {
+    console.warn(`⚠️ No price estimate for ${ticker} — skipping (no $100 fallback)`);
+    return null;  // Return null instead of $100 to prevent false signals
+  }
+  return price;
 }
 
 // Ensure output directory exists
@@ -159,7 +190,16 @@ async function runScan() {
   const opportunities = [];
   
   for (const ticker of CONFIG.TICKERS) {
-    const currentPrice = marketData[ticker]?.price || getEstimatedPrice(ticker);
+    const marketPrice = marketData[ticker]?.price;
+    const estimatedPrice = getEstimatedPrice(ticker);
+    const currentPrice = marketPrice || estimatedPrice;
+    
+    // Skip if no valid price available (null estimated price = no $100 fallback)
+    if (!currentPrice) {
+      console.log(`   ⚠️ ${ticker}: No price data — skipped`);
+      continue;
+    }
+    
     const fundamentals = getFundamentals(ticker);
     
     if (fundamentals.targetPrice === 0) continue;

@@ -1,0 +1,66 @@
+{
+  "metadata": {
+    "fetch_timestamp": "2026-07-21T22:10:00.000Z",
+    "local_time": "2026-07-22 00:10:00",
+    "cycle_id": "research-cycle-55",
+    "type": "daily-scan"
+  },
+  "market_snapshot": {
+    "timestamp": "2026-07-22T00:10:00.000Z",
+    "assets": {
+      "BTC": {
+        "price": 66292,
+        "change_24h": 1.74,
+        "source": "coingecko",
+        "signal": "SLIGHTLY_BULLISH"
+      },
+      "ETH": {
+        "price": 1921.66,
+        "change_24h": 1.21,
+        "source": "coingecko",
+        "signal": "SLIGHTLY_BULLISH"
+      },
+      "SOL": {
+        "price": 77.98,
+        "change_24h": 0.41,
+        "source": "coingecko",
+        "signal": "NEUTRAL"
+      },
+      "MSTR": {
+        "price": 101.95,
+        "change_24h": 4.22,
+        "source": "yahoo_finance",
+        "signal": "SLIGHTLY_BULLISH"
+      },
+      "HIMS": {
+        "price": 32.73,
+        "change_24h": 0.09,
+        "source": "yahoo_finance",
+        "signal": "SLIGHTLY_BULLISH"
+      }
+    }
+  },
+  "scan_results": {
+    "tier_1_setups": 0,
+    "tier_2_watch": 3,
+    "tier_3_hold": 2,
+    "status": "No immediate Tier 1 setups - monitoring"
+  },
+  "sentiment": {
+    "fear_greed": {
+      "value": 25,
+      "classification": "EXTREME_FEAR",
+      "note": "Contrarian buy zone - watch for recovery"
+    },
+    "market_regime": "Consolidation with fear",
+    "whale_signal": "NEUTRAL (ETF inflows positive)"
+  },
+  "fund_status": {
+    "value": 10004.82,
+    "change": 0.05,
+    "cash": 2551.75,
+    "positions": 9,
+    "risk_exposure": "NORMAL",
+    "daily_pnl": 0.05
+  }
+}

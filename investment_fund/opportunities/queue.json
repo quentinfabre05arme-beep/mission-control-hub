@@ -1,0 +1,24 @@
+{
+  "timestamp": "2026-07-22T15:35:51Z",
+  "scanFile": "scan_2026-07-22T15-35-51-246Z.json",
+  "queued": [],
+  "threshold": 5.0,
+  "reason": "No opportunities exceeded the 5.0 score threshold",
+  "belowThreshold": [
+    {
+      "ticker": "SOL",
+      "score": 2.96,
+      "upside": 51.4,
+      "downside": 15.6,
+      "catalyst": "DeFi + NFT ecosystem"
+    },
+    {
+      "ticker": "NVDA",
+      "score": 2.24,
+      "upside": 35.4,
+      "downside": 21.7,
+      "catalyst": "AI demand cycle"
+    }
+  ],
+  "action": "none"
+}

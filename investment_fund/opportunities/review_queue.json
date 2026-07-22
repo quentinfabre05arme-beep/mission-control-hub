@@ -1,41 +1,27 @@
 [
   {
-    "ticker": "AAPL",
-    "currentPrice": 100,
-    "targetPrice": 380,
-    "floorPrice": 60,
-    "upside": 280,
-    "downside": -64.3,
-    "catalystProb": 0.85,
-    "asymmetryScore": 144.7,
-    "catalyst": "Apple Intelligence rollout",
-    "confidence": 90,
-    "queuedAt": "2026-07-21T14:30:05.310Z"
+    "ticker": "TLT",
+    "score": 6.09,
+    "price": 83.66,
+    "target": 110,
+    "upside": 31.5,
+    "downside": 1.6,
+    "catalyst": "Bond rally on cuts",
+    "confidence": 60,
+    "queued_at": "2026-07-22T06:36:18.060Z",
+    "status": "pending"
   },
   {
-    "ticker": "NVDA",
-    "currentPrice": 100,
+    "ticker": "SOL",
+    "currentPrice": 185,
     "targetPrice": 280,
-    "floorPrice": 80,
-    "upside": 180,
-    "downside": -41.2,
-    "catalystProb": 0.9,
-    "asymmetryScore": 124.7,
-    "catalyst": "AI demand cycle",
-    "confidence": 95,
-    "queuedAt": "2026-07-21T14:30:05.310Z"
-  },
-  {
-    "ticker": "COIN",
-    "currentPrice": 100,
-    "targetPrice": 220,
-    "floorPrice": 90,
-    "upside": 120,
-    "downside": -16.7,
-    "catalystProb": 0.75,
-    "asymmetryScore": 46.7,
-    "catalyst": "Institutional crypto adoption",
-    "confidence": 80,
-    "queuedAt": "2026-07-21T14:30:05.310Z"
+    "floorPrice": 160,
+    "upside": 51.35135135135136,
+    "downside": 15.625,
+    "catalystProb": 0.55,
+    "asymmetryScore": 2.959426208016,
+    "catalyst": "DeFi + NFT ecosystem",
+    "confidence": 60,
+    "queuedAt": "2026-07-22T08:36:02.669Z"
   }
 ]

@@ -1,0 +1,13 @@
+[
+  {
+    "ticker": "TLT",
+    "price": 83.66,
+    "target": 110.00,
+    "upside": 31.5,
+    "downside": -1.6,
+    "score": 6.1,
+    "catalyst": "Bond rally on rate cuts",
+    "rank": 1,
+    "scan_timestamp": "2026-07-22T09:35:50.253Z"
+  }
+]

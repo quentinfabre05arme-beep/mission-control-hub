@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-21T21:29:33.755Z",
+  "timestamp": "2026-07-22T21:29:51.501Z",
   "catalysts": [
     {
       "ticker": "TSLA",
@@ -14,6 +14,13 @@
       "event": "BTC Treasury Update",
       "impact": "medium",
       "type": "update"
+    },
+    {
+      "ticker": "AAPL",
+      "date": "2026-07-29",
+      "event": "Q3 Earnings",
+      "impact": "high",
+      "type": "earnings"
     }
   ]
 }

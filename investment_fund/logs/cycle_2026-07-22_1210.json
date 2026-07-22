@@ -1,0 +1,42 @@
+{
+  "cycle_id": "research-cycle-57",
+  "timestamp": "2026-07-22T10:10:00.000Z",
+  "local_time": "2026-07-22 12:10:00",
+  "timezone": "Europe/Paris",
+  "status": "COMPLETE",
+  "alerts": 0,
+  "tier_1_opportunities": 0,
+  "tier_2_watch": 4,
+  "tier_3_holds": 3,
+  "market_summary": {
+    "sentiment": 33,
+    "sentiment_trend": "IMPROVING",
+    "btc_price": 65898.01,
+    "btc_change_24h": -0.99,
+    "eth_price": 1923.49,
+    "eth_change_24h": -0.34,
+    "mstr_price": 101.95,
+    "mstr_change_24h": 4.22,
+    "hims_price": 30.42,
+    "hims_change_24h": 0
+  },
+  "risk_metrics": {
+    "daily_pnl_pct": 0.02,
+    "max_position_pct": 16,
+    "cash_pct": 22.8,
+    "closest_stop_distance_pct": 7.7,
+    "closest_stop_ticker": "HIMS"
+  },
+  "signals": [
+    {
+      "type": "SENTIMENT_RECOVERY",
+      "asset": "MARKET",
+      "severity": "MEDIUM",
+      "trigger_value": 33,
+      "threshold": 40,
+      "status": "WATCHING"
+    }
+  ],
+  "actions_required": [],
+  "output_file": "investment_fund/research/daily_2026-07-22.md"
+}

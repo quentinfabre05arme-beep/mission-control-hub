@@ -1,0 +1,31 @@
+{
+  "issue_id": "daily-brief-2026-07-22",
+  "date": "2026-07-22",
+  "title": "Quentinvest Daily Brief — July 22, 2026",
+  "published": "2026-07-22T06:00:00Z",
+  "status": "PUBLISHED",
+  "platform": "Substack",
+  "url": "https://substack.com/@quentinvest1",
+  "content": {
+    "assets_covered": ["BTC", "ETH", "MSTR", "COIN", "NVDA", "TSLA", "HIMS"],
+    "key_signals": [
+      "COIN +9.61% - VERY_BULLISH",
+      "MSTR +4.22% - BULLISH",
+      "BTC -0.44% - NEUTRAL with VERY_BULLISH sentiment",
+      "ETH +0.11% - BULLISH"
+    ],
+    "macro_themes": [
+      "Crypto Bill Optimism - White House ethics provision agreement",
+      "Institutional Accumulation - $4.1B firm discloses BTC exposure",
+      "AI/Crypto Convergence - Mining companies pivoting to AI"
+    ]
+  },
+  "metrics": {
+    "estimated_read_time": "3 min",
+    "sentiment_score": 1.35,
+    "bullish_signals": 4,
+    "neutral_signals": 3,
+    "bearish_signals": 0
+  },
+  "next_issue": "2026-07-23"
+}
