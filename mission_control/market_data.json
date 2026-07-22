@@ -1,53 +1,53 @@
 {
-  "timestamp": "2026-07-22T13:10:46.066Z",
+  "timestamp": "2026-07-22T14:10:49.218Z",
   "assets": {
     "BTC": {
-      "price": 65684.56,
-      "change_24h": -1.30957,
+      "price": 66000,
+      "change_24h": -0.83562513,
       "source": "twelvedata",
       "signal": "NEUTRAL"
     },
     "ETH": {
-      "price": 1921.25,
-      "change_24h": -0.45800973,
+      "price": 1944.87,
+      "change_24h": 0.7657674,
       "source": "twelvedata",
       "signal": "NEUTRAL"
     },
     "NVDA": {
-      "price": 207.28999,
-      "change_24h": 1.97265,
+      "price": 206.82,
+      "change_24h": -0.22673226,
       "source": "twelvedata",
       "signal": "NEUTRAL"
     },
     "TSLA": {
-      "price": 378.92999,
-      "change_24h": 2.53267,
+      "price": 376.98,
+      "change_24h": -0.514605,
       "source": "twelvedata",
-      "signal": "BULLISH"
+      "signal": "NEUTRAL"
     },
     "MSTR": {
-      "price": 101.95,
-      "change_24h": 4.22204,
+      "price": 101.01,
+      "change_24h": -0.92201763,
       "source": "twelvedata",
-      "signal": "BULLISH"
+      "signal": "NEUTRAL"
     },
     "AAPL": {
-      "price": 327.73999,
-      "change_24h": 0.35212159,
+      "price": 325.45,
+      "change_24h": -0.69872164,
       "source": "twelvedata",
       "signal": "NEUTRAL"
     },
     "HIMS": {
-      "price": 32.73,
-      "change_24h": 0.091739384,
+      "price": 32.5,
+      "change_24h": -0.70271783,
       "source": "twelvedata",
       "signal": "NEUTRAL"
     },
     "COIN": {
-      "price": 175.85001,
-      "change_24h": 9.61168,
+      "price": 173.31,
+      "change_24h": -1.44442,
       "source": "twelvedata",
-      "signal": "BULLISH"
+      "signal": "NEUTRAL"
     }
   },
   "_meta": {
