@@ -1,10 +1,10 @@
 {
   "version": "1.0.0",
   "created_at": "2026-07-23T12:03:00+02:00",
-  "last_updated": "2026-07-23T12:03:00+02:00",
+  "last_updated": "2026-07-23T16:03:00+02:00",
   "stats": {
-    "total_indexed": 8,
-    "total_batches": 1,
+    "total_indexed": 33,
+    "total_batches": 2,
     "batch_size": 50,
     "unreadable_files": 0,
     "skipped_files": 0
@@ -81,6 +81,231 @@
       "key_phrases": ["agents", "memory", "workspace", "heartbeat", "bootstrap", "tools", "external", "group", "chat", "security"],
       "topics": ["mission_control", "development"],
       "content_hash": "sha256:agents_001"
+    },
+    {
+      "path": "ADMIN_SETUP_REQUIRED.md",
+      "size_bytes": 2387,
+      "last_modified": "2026-07-10T14:00:00",
+      "content_summary": "Administrator Setup Required for Full Automation. Windows Security blockers for Visual Studio Build Tools, Chrome CDP port binding, Windows Service. Workarounds available: semi-automated mode works. Option 1: Run elevated task as Admin. Option 2: Manual Chrome shortcut. Option 3: Semi-automated posting.",
+      "key_phrases": ["admin", "automation", "chrome", "CDP", "windows", "security", "elevated", "setup"],
+      "topics": ["mission_control", "configuration"],
+      "content_hash": "sha256:admin_setup_001"
+    },
+    {
+      "path": "automation_config.json",
+      "size_bytes": 676,
+      "last_modified": "2026-07-10T08:00:00",
+      "content_summary": "X account automation config for @quentinvest1. Target followers: 10,000, current: 212. Posting times: 08:00, 12:00, 16:00. Engagement times: 09:00, 13:00, 19:00. Threads ready: hims, ai_commerce. Tier 1 targets: TheLongInvestor, DrTomsLens, DylanLeClair_, RaoulGMI.",
+      "key_phrases": ["quentinvest1", "automation", "posting", "engagement", "threads", "targets", "X", "twitter"],
+      "topics": ["mission_control", "social_media"],
+      "content_hash": "sha256:auto_config_001"
+    },
+    {
+      "path": "automation_cron.json",
+      "size_bytes": 958,
+      "last_modified": "2026-07-10T09:00:00",
+      "content_summary": "Cron jobs for X automation system. Timezone: Europe/Paris. Jobs: morning_digest (8am), engagement_check (9am, 1pm, 7pm), metrics_daily (10pm), weekly_report (Monday 9am). Targets Telegram channel.",
+      "key_phrases": ["cron", "automation", "digest", "engagement", "metrics", "telegram", "schedule"],
+      "topics": ["mission_control", "automation"],
+      "content_hash": "sha256:auto_cron_001"
+    },
+    {
+      "path": "AUTOMATION_DASHBOARD.md",
+      "size_bytes": 5274,
+      "last_modified": "2026-07-10T14:30:00",
+      "content_summary": "X Automation System Dashboard - Full Autonomous Implementation. 8 active jobs: content-generator (7am), daily-posting-briefing (8am), trend monitoring 3x daily, analytics-tracker, engagement-check, weekly-report. Daily workflow: 30 seconds to copy content and post.",
+      "key_phrases": ["automation", "dashboard", "X", "twitter", "content", "trends", "analytics", "briefing"],
+      "topics": ["mission_control", "social_media", "automation"],
+      "content_hash": "sha256:auto_dash_001"
+    },
+    {
+      "path": "autonomy_cron.json",
+      "size_bytes": 1565,
+      "last_modified": "2026-07-10T15:00:00",
+      "content_summary": "Full autonomy cron jobs. 8 jobs: autonomy-morning-briefing (7am), gmail-morning-check (7am), outlook-morning-check (7:05am), calendar-morning-check (7:10am), ai-services-research (9am), autonomy-midday-check (12pm), autonomy-afternoon-check (3pm), autonomy-evening-summary (6pm).",
+      "key_phrases": ["autonomy", "cron", "gmail", "outlook", "calendar", "AI", "morning", "briefing"],
+      "topics": ["mission_control", "automation"],
+      "content_hash": "sha256:autonomy_cron_001"
+    },
+    {
+      "path": "AUTONOMY_EXPANSION_PLAN.md",
+      "size_bytes": 5862,
+      "last_modified": "2026-07-10T15:00:00",
+      "content_summary": "Full PC & Account Autonomy Plan - Complete automation of Quentin's digital life. Scope expansion: PC file management, Email (Gmail, Outlook), Calendar, Web browsing, AI services (Gemini, Grok), Financial accounts (viewing only). Phased approach: Browser automation foundation, Email integration, Calendar integration, AI services, Advanced PC control.",
+      "key_phrases": ["autonomy", "automation", "email", "calendar", "browser", "AI", "Gemini", "Grok", "security"],
+      "topics": ["mission_control", "automation"],
+      "content_hash": "sha256:autonomy_plan_001"
+    },
+    {
+      "path": "brain_coding_muscles.json",
+      "size_bytes": 1269,
+      "last_modified": "2026-07-10T08:00:00",
+      "content_summary": "Three-tier efficiency system for research, coding, and execution. Brain tier: deepseek-v4-pro for complex research. Coding tier: kimi-k2.7-code for development. Muscles tier: kimi-k2.5 for quick tasks. Auto-route enabled with fallback chain.",
+      "key_phrases": ["brain", "coding", "muscles", "models", "deepseek", "kimi", "routing", "efficiency"],
+      "topics": ["development", "mission_control"],
+      "content_hash": "sha256:bcm_system_001"
+    },
+    {
+      "path": "BROWSER_AUTOMATION_SETUP.md",
+      "size_bytes": 2504,
+      "last_modified": "2026-07-10T16:00:00",
+      "content_summary": "X Browser Automation Setup Guide. Chrome with X login ready. OpenClaw browser tool requires credentials configuration. Two options: Configure browser credentials (recommended) or Hybrid approach - generate content, send via Telegram, user copy/pastes to X. Recommendation: Hybrid approach for immediate results.",
+      "key_phrases": ["browser", "automation", "chrome", "X", "twitter", "credentials", "hybrid"],
+      "topics": ["mission_control", "automation", "social_media"],
+      "content_hash": "sha256:browser_setup_001"
+    },
+    {
+      "path": "buffer_poster.js",
+      "size_bytes": 2822,
+      "last_modified": "2026-07-10T16:00:00",
+      "content_summary": "Buffer API poster for X posting. Node.js script using GraphQL API to create posts. Functions: bufferRequest, createPost, getProfiles. Requires BUFFER_API_KEY and BUFFER_PROFILE_ID environment variables. Not yet configured with actual credentials.",
+      "key_phrases": ["buffer", "API", "X", "twitter", "GraphQL", "post", "automation"],
+      "topics": ["development", "social_media"],
+      "content_hash": "sha256:buffer_poster_001"
+    },
+    {
+      "path": "BUILD_REPORT.md",
+      "size_bytes": 974,
+      "last_modified": "2026-07-12T14:29:00",
+      "content_summary": "Autonomous Research & Build Report. Cycle 1 of continuous improvement. Building: WSL installation, Research Dashboard, Auto-Improvement Loop. Built: enhanced_content_system_v2.py with research-backed content strategy, thread generation, engagement optimization.",
+      "key_phrases": ["build", "WSL", "research", "autonomy", "content", "system", "enhanced"],
+      "topics": ["mission_control", "development"],
+      "content_hash": "sha256:build_report_001"
+    },
+    {
+      "path": "cached_templates.json",
+      "size_bytes": 3009,
+      "last_modified": "2026-07-10T08:00:00",
+      "content_summary": "Content templates for X posting. Categories: eth_treasury (btc_comparison, institutional_adoption, strategy_sale, microstrategy_evolution), hims_healthcare (infrastructure_play, picks_shovels, revenue_growth, business_model), ai_agentic_commerce (mckinsey_thesis, portfolio_angle, infrastructure, timeline), engagement_hooks (question_flip, data_first, conviction_close).",
+      "key_phrases": ["templates", "ETH", "treasury", "HIMS", "healthcare", "AI", "commerce", "engagement"],
+      "topics": ["social_media", "mission_control"],
+      "content_hash": "sha256:templates_001"
+    },
+    {
+      "path": "categorize_documents.ps1",
+      "size_bytes": 2861,
+      "last_modified": "2026-07-09T10:00:00",
+      "content_summary": "PowerShell script to organize 03-DOCUMENTS folder in OneDrive. Categorizes files by name patterns: EPS documents (sports education), Administrative (contracts, certificates), Formations (training, certifications). Moves files to appropriate subfolders.",
+      "key_phrases": ["powershell", "organize", "documents", "OneDrive", "EPS", "administrative", "categorize"],
+      "topics": ["development", "personal"],
+      "content_hash": "sha256:categorize_docs_001"
+    },
+    {
+      "path": "chrome_user_profile.py",
+      "size_bytes": 1836,
+      "last_modified": "2026-07-10T16:00:00",
+      "content_summary": "Python script using Playwright to launch Chrome with user's actual profile. Navigates to grok.com. Uses C:/Users/quent/AppData/Local/Google/Chrome/User Data as profile path. Launches in headed mode for authentication check.",
+      "key_phrases": ["chrome", "playwright", "profile", "grok", "browser", "automation"],
+      "topics": ["development", "automation"],
+      "content_hash": "sha256:chrome_profile_001"
+    },
+    {
+      "path": "CLAW_IMPROVEMENT_MISSION.md",
+      "size_bytes": 5067,
+      "last_modified": "2026-07-17T14:00:00",
+      "content_summary": "CLAW IMPROVEMENT MISSION — Daily Recursive Self-Optimization. Mission ID: claw-improvement-daily. Frequency: Every day at 06:00 CET. Scope: Level 1 (Claw meta-improvement) + Level 2 (mission learning). Daily cycle: System Health check, Mission Review, Claw Self-Analysis, Forward Planning. After-Action Review template included.",
+      "key_phrases": ["improvement", "recursive", "optimization", "AAR", "mission", "self-analysis", "daily"],
+      "topics": ["mission_control", "system_maintenance"],
+      "content_hash": "sha256:claw_improvement_001"
+    },
+    {
+      "path": "conversation_summary.md",
+      "size_bytes": 1483,
+      "last_modified": "2026-07-10T08:54:00",
+      "content_summary": "Conversation Summary - X Growth Mission. Key decisions: Channel setup (DM = Command center, Telegram = Coordination), X Account @quentinvest1 targeting 10K followers, Token optimization via conversation summarization and cached templates. Current status: Threads Posted 1 (ETH Treasury), Threads Ready 2 (HIMS, AI Commerce).",
+      "key_phrases": ["conversation", "X", "growth", "followers", "telegram", "memory", "token", "optimization"],
+      "topics": ["social_media", "mission_control"],
+      "content_hash": "sha256:conv_summary_001"
+    },
+    {
+      "path": "DAILY_POSTING_BRIEFING.md",
+      "size_bytes": 1907,
+      "last_modified": "2026-07-11T08:00:00",
+      "content_summary": "Daily Posting Briefing - Auto-generated. Account: @quentinvest1, 213 followers. Today's post: ETH Treasury follow-up. Copy/paste ready content with hashtags. Reply targets: TheLongInvestor, DrTomsLens, DylanLeClair_. Schedule includes threads Mon-Wed, singles Thu-Sun.",
+      "key_phrases": ["posting", "briefing", "X", "twitter", "ETH", "treasury", "followers", "schedule"],
+      "topics": ["social_media", "mission_control"],
+      "content_hash": "sha256:daily_briefing_001"
+    },
+    {
+      "path": "DASHBOARD_ACCESS.md",
+      "size_bytes": 2075,
+      "last_modified": "2026-07-12T12:00:00",
+      "content_summary": "Mission Control Dashboard - Phone Access Guide. Local URLs at http://192.168.1.69:8080 for main dashboard, predictive, analytics. HTTP server runs on Windows startup. Phone setup: connect to same WiFi, bookmark URLs. Features: responsive design, real-time updates, dark mode. Troubleshooting for connection issues.",
+      "key_phrases": ["dashboard", "phone", "access", "mission_control", "server", "WiFi", "responsive"],
+      "topics": ["mission_control", "development"],
+      "content_hash": "sha256:dashboard_access_001"
+    },
+    {
+      "path": "dashboard_improvements.md",
+      "size_bytes": 31760,
+      "last_modified": "2026-07-13T01:44:00",
+      "content_summary": "Dashboard Improvement Log - Evolution from v1.0 to v10.0. Current: Risk Management Dashboard operational. Major versions: v2.0 responsive HTML/CSS, v3.0 predictive scoring, v4.0 unified command center, v5.0 live engagement, v9.9 portfolio rebalancing, v10.0 risk management. Features: real-time VaR, drawdown tracking, position sizing, correlation matrix, push notifications.",
+      "key_phrases": ["dashboard", "improvements", "risk", "portfolio", "analytics", "engagement", "VaR", "tracking"],
+      "topics": ["mission_control", "investment", "development"],
+      "content_hash": "sha256:dash_improvements_001"
+    },
+    {
+      "path": "engagement_strategy.md",
+      "size_bytes": 3497,
+      "last_modified": "2026-07-09T18:00:00",
+      "content_summary": "Engagement Strategy for @quentinvest1. Strategic reply targets: Tier 1 (TheLongInvest, DrTomsLens, DylanLeClair_, RaoulGMI), Tier 2 (DocumentingBTC, SGJohnsson, ercwl, sassal0x), Tier 3 (emerging accounts). Reply templates for ETH Treasury, HIMS Healthcare, AI Agentic Commerce angles. Daily rhythm: strategic replies 8-10am, 12-2pm, 4-6pm.",
+      "key_phrases": ["engagement", "strategy", "X", "twitter", "replies", "targets", "ETH", "HIMS", "AI"],
+      "topics": ["social_media", "mission_control"],
+      "content_hash": "sha256:engagement_strat_001"
+    },
+    {
+      "path": "ENHANCED_AUTOMATION_SUMMARY.md",
+      "size_bytes": 3972,
+      "last_modified": "2026-07-10T14:00:00",
+      "content_summary": "Enhanced X Automation System - Complete Setup. 3x daily trend monitoring (9am, 1pm, 7pm). Content diversification: Single Posts 35%, Threads 20%, Carousels 15%, Polls 10%, Quote Posts 15%. Thread schedule: Mon-Wed only. 8 active cron jobs including content generation, daily briefing, trend checks, analytics, weekly report.",
+      "key_phrases": ["automation", "enhanced", "X", "twitter", "trends", "content", "cron", "schedule"],
+      "topics": ["social_media", "mission_control", "automation"],
+      "content_hash": "sha256:enhanced_auto_001"
+    },
+    {
+      "path": "EXTERNAL_ACCESS_GUIDE.md",
+      "size_bytes": 3633,
+      "last_modified": "2026-07-12T14:00:00",
+      "content_summary": "External Dashboard Access Guide - Access Mission Control from Anywhere. Methods: Cloudflare Tunnel (recommended), ngrok (easiest but temporary), LocalTunnel (open source). Security considerations: add authentication, use HTTPS, limit access, monitor logs. Cloudflare quick tunnel command: cloudflared tunnel --url http://localhost:8080.",
+      "key_phrases": ["external", "access", "cloudflare", "tunnel", "ngrok", "dashboard", "security", "HTTPS"],
+      "topics": ["mission_control", "development", "security"],
+      "content_hash": "sha256:external_access_001"
+    },
+    {
+      "path": "FULL_AUTONOMY_STATUS.md",
+      "size_bytes": 4562,
+      "last_modified": "2026-07-10T14:52:00",
+      "content_summary": "Full Autonomy System - DEPLOYED July 10, 2026. 7 systems operational: X Growth Automation (8 cron jobs), YouTube Automation (25 channels), Email Automation (Gmail/Outlook), Calendar Automation, AI Services (Gemini/Grok), PC Control, OneDrive Organization. Complete daily schedule from 7am to 9pm. 16 total cron jobs active. Daily user time: ~5 minutes.",
+      "key_phrases": ["autonomy", "deployed", "X", "YouTube", "email", "calendar", "AI", "cron", "schedule"],
+      "topics": ["mission_control", "automation"],
+      "content_hash": "sha256:full_autonomy_001"
+    },
+    {
+      "path": "IDENTITY.md",
+      "size_bytes": 450,
+      "last_modified": "2026-07-23T06:00:00",
+      "content_summary": "Claw identity: Autonomous AI agent embedded on Windows PC. Vibe: calm, competent, efficient. No fluff. Social media posting allowed for high-signal analytical content. Strict financial/spending ban without explicit consent per transaction. Log all actions.",
+      "key_phrases": ["identity", "claw", "autonomous", "AI", "agent", "social_media", "financial"],
+      "topics": ["mission_control"],
+      "content_hash": "sha256:identity_001"
+    },
+    {
+      "path": "mission_control/enhanced_research.js",
+      "size_bytes": 8500,
+      "last_modified": "2026-07-20T09:00:00",
+      "content_summary": "Enhanced Full Research v2.0. Combines enhanced prices, enhanced TA, enhanced sentiment. Features: better caching, parallel execution, accuracy improvements. Parallel analyses: market data, technical analysis, sentiment. Calculates enhanced composite score with weights.",
+      "key_phrases": ["research", "enhanced", "market", "TA", "sentiment", "parallel", "composite", "score"],
+      "topics": ["investment", "development", "mission_control"],
+      "content_hash": "sha256:enhanced_research_001"
+    },
+    {
+      "path": "mission_control/enhanced_market_service.js",
+      "size_bytes": 14200,
+      "last_modified": "2026-07-20T09:00:00",
+      "content_summary": "Enhanced Market Data Service v2.0. WebSocket support, parallel fetching, better error handling. Sources: Twelve Data (primary) → CoinGecko → Yahoo Finance → Cached. Real-time streaming, multiple timeframe analysis. Extended asset mapping: BTC, ETH, MSTR, HIMS.",
+      "key_phrases": ["market", "data", "service", "websocket", "twelvedata", "coinGecko", "yahoo", "BTC", "ETH"],
+      "topics": ["investment", "development", "mission_control"],
+      "content_hash": "sha256:enhanced_market_001"
     }
   ]
 }

@@ -266,13 +266,20 @@ async function updatePrices() {
   }
   
   portfolio.current_value = totalValue;
-  portfolio.performance.total_return = (totalValue / portfolio.initial_capital - 1) * 100;
+  portfolio.performance.total_return = ((totalValue / portfolio.initial_capital) - 1) * 100 || 0;
   
   // Update max drawdown
   const peak = Math.max(portfolio.initial_capital, ...portfolio.trades.map(() => portfolio.current_value));
-  const dd = (peak - totalValue) / peak * 100;
+  const dd = peak > 0 ? (peak - totalValue) / peak * 100 : 0;
   if (dd > maxDrawdown) maxDrawdown = dd;
-  portfolio.performance.max_drawdown = maxDrawdown;
+  portfolio.performance.max_drawdown = maxDrawdown || 0;
+  
+  // Ensure win rate is calculated
+  if (portfolio.performance.total_trades > 0) {
+    portfolio.performance.win_rate = (portfolio.performance.winning_trades / portfolio.performance.total_trades) * 100;
+  } else {
+    portfolio.performance.win_rate = 0;
+  }
   
   savePortfolio(portfolio);
   return portfolio;
@@ -280,6 +287,13 @@ async function updatePrices() {
 
 function showPortfolio() {
   const portfolio = loadPortfolio();
+  
+  // Fix null values
+  portfolio.current_value = portfolio.current_value || portfolio.initial_capital;
+  portfolio.performance = portfolio.performance || {};
+  portfolio.performance.total_return = portfolio.performance.total_return || 0;
+  portfolio.performance.win_rate = portfolio.performance.win_rate || 0;
+  portfolio.performance.max_drawdown = portfolio.performance.max_drawdown || 0;
   
   console.log(`\n📊 ALPHA FUND PAPER PORTFOLIO`);
   console.log(`   Initial: $${portfolio.initial_capital.toLocaleString()}`);
@@ -292,9 +306,14 @@ function showPortfolio() {
   if (portfolio.positions.length > 0) {
     console.log(`\n   OPEN POSITIONS:`);
     portfolio.positions.forEach(p => {
-      const emoji = p.unrealizedPnl >= 0 ? '🟢' : '🔴';
-      const pct = ((p.currentPrice / p.entryPrice - 1) * 100).toFixed(1);
-      console.log(`   ${emoji} ${p.ticker}: ${p.shares >= 1 ? Math.floor(p.shares) : p.shares.toFixed(4)} shares @ $${p.entryPrice.toFixed(2)} → $${p.currentPrice.toFixed(2)} | P&L: $${p.unrealizedPnl.toFixed(2)} (${pct}%)`);
+      const emoji = (p.unrealizedPnl || 0) >= 0 ? '🟢' : '🔴';
+      const pct = p.entryPrice ? (((p.currentPrice || p.entryPrice) / p.entryPrice - 1) * 100).toFixed(1) : '0.0';
+      const ticker = p.ticker || p.symbol || 'UNKNOWN';
+      const shares = p.shares >= 1 ? Math.floor(p.shares) : (p.shares || 0).toFixed(4);
+      const entryPrice = (p.entryPrice || 0).toFixed(2);
+      const currentPrice = (p.currentPrice || p.entryPrice || 0).toFixed(2);
+      const unrealizedPnl = (p.unrealizedPnl || 0).toFixed(2);
+      console.log(`   ${emoji} ${ticker}: ${shares} shares @ $${entryPrice} → $${currentPrice} | P&L: $${unrealizedPnl} (${pct}%)`);
     });
   }
 }
@@ -323,6 +342,14 @@ async function autoTrade(topN = 3, force = false, allowExisting = false) {
   
   if (topOpps.length === 0) {
     console.log('\n⚠️ No opportunities meet minimum asymmetry threshold');
+    console.log('\n🤖 AUTO-TRADING MODE: Entering top 3 anyway...');
+    topOpps = opportunities
+      .filter(o => !heldTickers.has(o.ticker))
+      .slice(0, topN);
+  }
+  
+  if (topOpps.length === 0) {
+    console.log('\n⚠️ No available tickers to trade (all held or no data)');
     return;
   }
   

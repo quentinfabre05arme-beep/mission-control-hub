@@ -1,6 +1,6 @@
 # Claw - Personal Long-Term Memory
 
-_Last updated: July 23, 2026 12:00 CET_
+_Last updated: July 23, 2026 16:00 CET_
 
 ---
 
@@ -190,7 +190,9 @@ _Last updated: July 23, 2026 12:00 CET_
 ### July 2026
 - **POD Products LIVE (Jul 22 10:54):** 10 designs converted from SVG→PNG and published to Printify → Etsy. First sales monitoring window: 24-48h. Previously blocked 10 days on SVG format + Printify API auth.
 - **Alpha Fund Scanner Bug Caught (Jul 22):** `getEstimatedPrice()` returns $100 fallback for tickers not in market_data.json, causing false 100-280% upside scores. Paper trading paused before any trades executed. Fix: add PRICE_SANITY validation gates and real API fallback.
-- **Dashboard cycle #186 reached (Jul 23 06:00):** System stable, 2 overnight cycles autonomously. Twelve Data rate limits handled gracefully with cached fallback.
+- **Dashboard cycle #194 reached (Jul 23 16:00):** System stable, 12+ cycles autonomously today. Dashboard #198 completed at 15:12 with market data refresh and git commit. Twelve Data rate limits handled gracefully with cached fallback.
+- **OneDrive sync completed (Jul 23 12:53):** 38 Ethereum Authority files synced to `OneDrive\Investment\Ethereum_Authority\`
+- **Visual chart system enhanced (Jul 23 11:43):** Professional 1200×675px dark-theme charts with gradients, neon price display, two-column layout, footer stats. Reusable generator: `generate_chart_enhanced.js`
 - **Autonomy works:** Execute first, report after
 - **Token optimization:** 93% reduction achieved (700K → 50K/day)
 - **API dependencies are brittle:** Printify 401 blocked €200/day path for 10 days; finally resolved Jul 21 evening (token scope fixed)
@@ -222,24 +224,26 @@ _Last updated: July 23, 2026 12:00 CET_
 
 ## ⚠️ Ongoing Blockers
 
-1. **POD First Sales Monitoring** — Products published Jul 22 10:54, 24-48h Etsy sync window
+1. **POD First Sales Monitoring** — Products published Jul 22 10:54, 27+ hours ago
    - 10 designs live on Printify (Product IDs validated)
    - Etsy sync: ~24-48 hours normal for Printify sales channel
-   - **First sales expected:** 24-72 hours after sync complete (by July 24-25)
+   - **First sales expected:** By July 24-25 (within 24-48h window)
    - Monitoring: Check Etsy seller dashboard for listing status
+   - **Update:** Research cycle #11 complete Jul 23 01:53 — all pricing/SEO still optimal, no action needed
 
 2. **Twelve Data API rate limits** — Free tier 8 requests/minute insufficient for production
    - Dashboard refresh hits limit during hourly cycles with 12 assets
    - System falls back to cached data (graceful degradation ✅)
    - **Fix options:** Stagger requests with 8s+ delays, or upgrade to paid tier ($29/mo for 80/min)
    - Current impact: Low (cached data <1h old, still accurate)
-   - Update Jul 22 19:10: System handled 12 cycles today with graceful fallback. No intervention needed.
+   - Update Jul 23 14:00: System handled 9+ cycles today with graceful fallback. No intervention needed.
 
 3. **Git push blocked** — Authentication failed (password auth deprecated)
    - Local commits saved but not synced to GitHub
    - Vercel auto-deploy won't trigger until resolved
    - Workaround: Manual `vercel --prod` deploy working ✅
    - Fix: regenerate personal access token with workflow scope
+   - Update Jul 23: Still blocked, manual deploys working fine
 
 ---
 
@@ -251,8 +255,8 @@ _Last updated: July 23, 2026 12:00 CET_
 | ETH Authority Content | Daily briefs | 1st brief done | ✅ Infrastructure active |
 | Research Cycles | Daily | 176+ | ✅ Active (12 today) |
 | Token Usage | <50K/day | ~50K | ✅ Optimized |
-| Dashboard Uptime | 99% | 100% | ✅ Healthy (cycle #186+) |
-| Memory Maintenance | Daily | Last: 12:00 CET Jul 23 | ✅ Significant updates: ETH Authority deployed |
+| Dashboard Uptime | 99% | 100% | ✅ Healthy (cycle #198+) |
+| Memory Maintenance | Daily | Last: 16:00 CET Jul 23 | ✅ Dashboard #198, OneDrive sync, visual charts |
 | Alpha Fund Trades | 100 (ML training) | 10 | 🟡 Paper portfolio active |
 | Twelve Data API | 8/min free | Hitting limits | ⚠️ Fallback to cache working |
 

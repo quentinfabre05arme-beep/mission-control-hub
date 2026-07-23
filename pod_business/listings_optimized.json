@@ -107,10 +107,13 @@
         "tech gift",
         "coder shirt",
         "developer humor",
-        "it professional"
+        "it professional",
+        "ai agent",
+        "coder humor",
+        "geek gift"
       ],
-      "price": 27.99,
-      "profit": 15.12,
+      "price": 23.99,
+      "profit": 11.12,
       "personalization_option": true,
       "personalization_price": 4.99,
       "description_template": "developer_life_v1",
@@ -137,10 +140,12 @@
         "bi analyst",
         "data shirt",
         "sql query",
-        "data professional"
+        "data professional",
+        "coder humor",
+        "geek gift"
       ],
-      "price": 27.99,
-      "profit": 15.12,
+      "price": 23.99,
+      "profit": 11.12,
       "personalization_option": true,
       "personalization_price": 4.99,
       "description_template": "data_plural_v1",

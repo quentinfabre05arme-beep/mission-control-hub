@@ -1,0 +1,28 @@
+[
+  {
+    "ticker": "SOL",
+    "currentPrice": 185,
+    "targetPrice": 280,
+    "floorPrice": 160,
+    "upside": 51.35,
+    "downside": 15.63,
+    "asymmetryScore": 2.96,
+    "catalyst": "DeFi + NFT ecosystem",
+    "confidence": 60,
+    "scanDate": "2026-07-23T12:44:33Z",
+    "status": "PENDING_REVIEW"
+  },
+  {
+    "ticker": "NVDA",
+    "currentPrice": 207,
+    "targetPrice": 280,
+    "floorPrice": 170,
+    "upside": 35.27,
+    "downside": 21.76,
+    "asymmetryScore": 2.21,
+    "catalyst": "AI demand cycle",
+    "confidence": 85,
+    "scanDate": "2026-07-23T12:44:33Z",
+    "status": "PENDING_REVIEW"
+  }
+]
