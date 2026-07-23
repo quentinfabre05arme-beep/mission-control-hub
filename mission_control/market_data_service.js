@@ -263,7 +263,8 @@ async function fetchAssetWithFallback(assetKey) {
   // Try Yahoo Finance as last resort
   try {
     console.log(`[${assetKey}] Trying Yahoo Finance...`);
-    await new Promise(r => setTimeout(r, 1000));
+    // Increase delay to respect Yahoo rate limits
+    await new Promise(r => setTimeout(r, 3000));
     const data = await fetchYahoo(asset.yahoo);
     return { ...data, symbol: assetKey };
   } catch (e) {
