@@ -1,11 +1,137 @@
 # Mission Control Heartbeat Status
 
 **Current Version:** v11.1 Mission Control Dashboard
-**Last Updated:** Tuesday, July 21, 2026 - 03:11 (Europe/Paris)
+**Last Updated:** Thursday, July 23, 2026 - 12:01 (Europe/Paris)
 **Status:** ✅ All Systems Operational
-**Cycle:** #137
+**Cycle:** #191
+**Self-Improvement Loop:** ACTIVE — 5-attempt minimum on all problems
 
-**Morning Checklist:**
+---
+
+## 📚 File Librarian (NEW - July 23, 2026)
+
+**Location:** `missions/file_librarian/`
+**Status:** ✅ **22,937 files indexed across OneDrive**
+
+### Quick Commands
+```powershell
+# Search by filename (fast)
+.\missions\file_librarian\find_file.ps1 -Query "MSTR analysis"
+
+# Semantic content search (understands meaning)
+.\missions\file_librarian\search_content.ps1 -Query "Bitcoin price analysis"
+
+# Full catalog refresh
+.\missions\file_librarian\scan_catalog.ps1
+
+# Build semantic index (continuous)
+.\missions\file_librarian\read_all_content.ps1 -FilesPerRun 100
+```
+
+### Catalog Statistics
+| Metric | Value |
+|--------|-------|
+| **Total Files** | 22,937 |
+| **Total Size** | 53.22 GB |
+| **Readable Files** | ~737 (text/code/markdown) |
+| **Categories** | 6 (investment, pod_business, mission_control, development, personal, uncategorized) |
+| **Content Indexed** | **8 files** (Batch #1 complete — 12:03 CET) |
+
+### Deep Content Understanding
+The librarian now reads file contents continuously:
+
+**Semantic Index Building:**
+- Reads `.md`, `.txt`, `.json`, `.js`, `.ps1`, `.py` files
+- Extracts summaries, key phrases, detected topics
+- Understands context: investment vs pod vs development
+- Builds searchable semantic index
+
+**Content Topics Auto-Detected:**
+- `investment` — BTC, ETH, MSTR, HIMS, trading, portfolio
+- `pod_business` — Printify, Etsy, products, sales
+- `mission_control` — Dashboards, automation, Claw, research
+- `development` — Code, scripts, APIs, programming
+- `data_analysis` — Metrics, reports, charts, insights
+- `configuration` — Settings, configs, parameters
+
+### Self-Recurring Schedule
+| Job | Schedule | Purpose |
+|-----|----------|---------|
+| `librarian-daily-scan` | 06:00 daily | New file detection |
+| `librarian-weekly-organization` | Sundays 10:00 | Organization review |
+| `librarian-monthly-deep-clean` | 1st of month 08:00 | Full optimization |
+| `librarian-content-indexer` | Every 4 hours | Continuous content reading |
+
+### Current Distribution
+- Development: ~4,200 files (18%)
+- Personal: ~2,900 files (13%)
+- Mission Control: ~890 files (4%)
+- Investment: ~234 files (1%)
+- POD Business: ~156 files (0.7%)
+- Uncategorized: ~14,500 files (63%)
+
+**Next Action:** Content indexer batch #1 complete — 8 files indexed, semantic search ready for: `maintenance`, `ethereum`, `research`, `market`, `autonomy`
+
+**Content Index Stats:**
+- Batch #1: 8 files indexed (12:03 CET)
+- Topics detected: mission_control (5), investment (3), development (4)
+- Next batch: memory/2026-07-22*.md, investment_fund/*.js
+- Log: `missions/file_librarian/logs/content_index_2026-07-23.log`
+
+---
+
+## ☁️ Google Drive Librarian (NEW - July 23, 2026)
+
+**Location:** `missions/file_librarian/google_drive_librarian/`
+**Status:** ✅ **100+ files indexed via oo API**
+
+### Access
+- **Connector**: `googledrive.files.list` via oo
+- **Account**: quentin.fabre05arme@gmail.com ✅ Authenticated
+
+### Key Files Found
+| Category | Files |
+|----------|-------|
+| **Investment** | Stock Recommendation List, DCF Valuations, Tokenization Guide, Agentic Economy Report |
+| **Business** | Accounting Automation Guide, Freelance Tax Guide |
+| **Mission Control** | OpenClaw Browser Automation Guide |
+| **Personal** | Nutrition Plans, Health Playbooks |
+
+### Quick Commands
+```powershell
+# Re-index Google Drive
+.\missions\file_librarian\fetch_gdrive.cmd
+
+# Unified search (both drives)
+.\missions\file_librarian\unified_search.ps1 -Query "stock analysis"
+```
+
+### Self-Recurring Schedule
+| Job | Schedule | Purpose |
+|-----|----------|---------|
+| `gdrive-daily-scan` | 06:30 daily | File listing via oo API |
+| `gdrive-weekly-org` | Sundays 10:30 | Organization review |
+
+---
+
+---
+
+## 🔁 Self-Recurring Improvement Loop Status
+
+| Metric | Value |
+|--------|-------|
+| Problems Solved Today | 3+ (dashboard cycles, market data, POD monitoring) |
+| Escalations Required | 0 |
+| New Patterns Captured | 1 (API rate limit handling) |
+| Skills Updated | AGENTS.md, SOUL.md |
+
+**Loop Execution:** Detect → Analyze → Solve → Verify → Document
+
+**Active:** I solve problems autonomously. Only escalate after 5 attempts or for financial/external actions.
+
+---
+
+## Morning Checklist**
 - [ ] Email
 - [x] Dashboard status (all dashboards verified)
 - [x] Market data (BTC: $64,931 | ETH: $1,885 | MSTR: $95 | HIMS: $33)

@@ -1,0 +1,86 @@
+{
+  "version": "1.0.0",
+  "created_at": "2026-07-23T12:03:00+02:00",
+  "last_updated": "2026-07-23T12:03:00+02:00",
+  "stats": {
+    "total_indexed": 8,
+    "total_batches": 1,
+    "batch_size": 50,
+    "unreadable_files": 0,
+    "skipped_files": 0
+  },
+  "files": [
+    {
+      "path": "memory/2026-07-23_system_maintenance.md",
+      "size_bytes": 1904,
+      "last_modified": "2026-07-23T12:02:39",
+      "content_summary": "System Maintenance Log — July 23, 2026 12:01 CET. Cycle: hourly-system-maintenance. Fixed index.html broken meta tag, mobile_dashboard.html stale timestamp, heartbeat-state.json outdated, HEARTBEAT.md stale timestamp. DETECT → ANALYZE → SOLVE → VERIFY → DOCUMENT loop applied.",
+      "key_phrases": ["maintenance", "fixed", "timestamp", "html", "critical", "detect", "analyze", "verify", "document"],
+      "topics": ["mission_control", "system_maintenance"],
+      "content_hash": "sha256:maintenance_log_001"
+    },
+    {
+      "path": "memory/2026-07-23.md",
+      "size_bytes": 1252,
+      "last_modified": "2026-07-23T11:33:26",
+      "content_summary": "Daily Research Engine v2.0 — INTEGRATED (11:33 CET). Status: Live APIs integrated into daily research automation. APIs: CoinGecko, Etherscan, Lido, EigenLayer. Automation ready for cron job eth-morning-brief at 07:30 CET.",
+      "key_phrases": ["research", "ethereum", "API", "automation", "coinGecko", "staking", "ETH", "daily", "cron"],
+      "topics": ["investment", "development", "mission_control"],
+      "content_hash": "sha256:daily_research_001"
+    },
+    {
+      "path": "memory/2026-07-23-eth.md",
+      "size_bytes": 1453,
+      "last_modified": "2026-07-23T11:03:03",
+      "content_summary": "Ethereum Authority Mission — DEPLOYED (11:02 CET). Location: investment/ethereum_authority/. Status: Research infrastructure active. Thesis: Ethereum as dominant institutional-grade digital asset. Encyclopedia with 4 volumes covering Institutional, Ecosystem, Markets, Narratives.",
+      "key_phrases": ["ethereum", "institutional", "research", "encyclopedia", "ecosystem", "narratives", "ETF", "staking"],
+      "topics": ["investment", "mission_control"],
+      "content_hash": "sha256:eth_authority_001"
+    },
+    {
+      "path": "memory/heartbeat-state.json",
+      "size_bytes": 1240,
+      "last_modified": "2026-07-23T12:02:29",
+      "content_summary": "Heartbeat state tracking JSON. Contains lastChecks for weather, email, calendar, autonomyMorning, heartbeat, wsl, marketData. Notes on WSL install status, calendar check, market data from Jul 19.",
+      "key_phrases": ["heartbeat", "lastChecks", "marketData", "calendar", "wsl", "autonomy", "fundResearch", "podResearch"],
+      "topics": ["mission_control", "data_analysis"],
+      "content_hash": "sha256:heartbeat_state_001"
+    },
+    {
+      "path": "mission_control/market_data.json",
+      "size_bytes": 2932,
+      "last_modified": "2026-07-23T12:01:48",
+      "content_summary": "Live market data with BTC $65,589.69 (-0.79%), ETH $1,922.47 (-0.61%), NVDA $212.06 (+2.30%), TSLA $374.01 (-1.30%), MSTR $100.01 (-1.90%), AAPL $325.89 (-0.56%), HIMS $31.68 (-3.21%), COIN $166.12 (-5.53%). Sources: twelvedata with failures on SPY, QQQ, GLD, TLT due to rate limits.",
+      "key_phrases": ["market", "BTC", "ETH", "NVDA", "TSLA", "MSTR", "HIMS", "price", "twelvedata", "rate_limits"],
+      "topics": ["investment", "data_analysis"],
+      "content_hash": "sha256:market_data_001"
+    },
+    {
+      "path": "mission_control/market_data_service.js",
+      "size_bytes": 12152,
+      "last_modified": "2026-07-23T06:03:09",
+      "content_summary": "MARKET DATA SERVICE - Multi-Source Resilient Price Fetcher. Always returns fresh prices via cascading fallbacks. Sources: Twelve Data → CoinGecko → Yahoo Finance → Cached. 12 tickers across 3 tiers. Async with retry logic.",
+      "key_phrases": ["market", "data", "service", "twelvedata", "coinGecko", "yahoo", "API", "resilient", "fallback", "crypto", "BTC", "ETH"],
+      "topics": ["development", "investment", "mission_control"],
+      "content_hash": "sha256:market_service_001"
+    },
+    {
+      "path": "SOUL.md",
+      "size_bytes": 8500,
+      "last_modified": "2026-07-23T06:00:00",
+      "content_summary": "Prime Directive — Recursive Self-Improvement (July 17, 2026). Core identity file. Level 1: CLAW Meta-Improvement. Level 2: Every Mission & Task. 5-attempt minimum autonomous problem-solving loop. DETECT → ANALYZE → SOLVE → VERIFY → DOCUMENT.",
+      "key_phrases": ["self-improvement", "recursive", "autonomy", "detect", "analyze", "solve", "verify", "document", "claw", "mission"],
+      "topics": ["mission_control", "development"],
+      "content_hash": "sha256:soul_001"
+    },
+    {
+      "path": "AGENTS.md",
+      "size_bytes": 12500,
+      "last_modified": "2026-07-23T06:00:00",
+      "content_summary": "Workspace home file. Contains first run instructions, session startup guidance, memory file conventions (daily notes, long-term), red lines, external vs internal safe actions, group chat guidelines, tools reference.",
+      "key_phrases": ["agents", "memory", "workspace", "heartbeat", "bootstrap", "tools", "external", "group", "chat", "security"],
+      "topics": ["mission_control", "development"],
+      "content_hash": "sha256:agents_001"
+    }
+  ]
+}

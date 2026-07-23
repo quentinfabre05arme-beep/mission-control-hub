@@ -1,0 +1,88 @@
+﻿{
+    "total_size_bytes":  57145720436,
+    "by_extension":  [
+                         {
+                             "Name":  ".as2",
+                             "Count":  4183
+                         },
+                         {
+                             "Name":  ".jpg",
+                             "Count":  3258
+                         },
+                         {
+                             "Name":  ".pdf",
+                             "Count":  2070
+                         },
+                         {
+                             "Name":  ".doc",
+                             "Count":  1983
+                         },
+                         {
+                             "Name":  ".docx",
+                             "Count":  1549
+                         },
+                         {
+                             "Name":  ".ts",
+                             "Count":  1201
+                         },
+                         {
+                             "Name":  ".gif",
+                             "Count":  1170
+                         },
+                         {
+                             "Name":  ".js",
+                             "Count":  1164
+                         },
+                         {
+                             "Name":  ".png",
+                             "Count":  675
+                         },
+                         {
+                             "Name":  ".ppt",
+                             "Count":  409
+                         }
+                     ],
+    "total_files":  22937,
+    "folders":  [
+                    {
+                        "Name":  "C:\\Users\\quent\\OneDrive\\💻-Development-Tech\\07-Development\\CodeFiles\\Activ Software",
+                        "Count":  2607
+                    },
+                    {
+                        "Name":  "C:\\Users\\quent\\OneDrive\\📄-Personal-Documents\\03-Documents\\WordDocs\\Sport",
+                        "Count":  2351
+                    },
+                    {
+                        "Name":  "C:\\Users\\quent\\OneDrive\\💻-Development-Tech\\CodeFiles\\Activ Software",
+                        "Count":  1594
+                    },
+                    {
+                        "Name":  "C:\\Users\\quent\\OneDrive\\🎵-Media\\02-Photos\\Photos\\Sport",
+                        "Count":  1222
+                    },
+                    {
+                        "Name":  "C:\\Users\\quent\\OneDrive\\📄-Personal-Documents\\03-Documents\\WordDocs\\Culture",
+                        "Count":  533
+                    },
+                    {
+                        "Name":  "C:\\Users\\quent\\OneDrive\\🏠-Home-Life\\Bureau-Autres\\ROGER\\Mes images\\Mariage Bal-Flo avril 2014",
+                        "Count":  528
+                    },
+                    {
+                        "Name":  "C:\\Users\\quent\\OneDrive\\📄-Personal-Documents",
+                        "Count":  523
+                    },
+                    {
+                        "Name":  "C:\\Users\\quent\\OneDrive\\🏠-Home-Life\\Bureau-Autres\\ROGER\\Mes images\\Photo of canada vancouver bc",
+                        "Count":  481
+                    },
+                    {
+                        "Name":  "C:\\Users\\quent\\OneDrive\\📄-Personal-Documents\\05-Personnel\\Voyages\\Chine",
+                        "Count":  413
+                    },
+                    {
+                        "Name":  "C:\\Users\\quent\\OneDrive\\🎵-Media\\06-Downloads\\Sport \u0026 Bien-être\\clinique du sport",
+                        "Count":  295
+                    }
+                ]
+}

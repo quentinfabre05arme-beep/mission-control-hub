@@ -99,6 +99,43 @@ function apiRequest(endpoint, method = 'GET', body = null) {
   });
 }
 
+// SVG to PNG conversion helper (for Printify which requires raster formats)
+async function convertSvgToPng(svgPath, pngPath) {
+  // Try to use sharp if available (best quality)
+  try {
+    const sharp = require('sharp');
+    const svgBuffer = await fs.readFile(svgPath);
+    await sharp(svgBuffer)
+      .resize(3000, 3000, { fit: 'inside', withoutEnlargement: false })
+      .png()
+      .toFile(pngPath);
+    return true;
+  } catch {
+    // Sharp not available, try ImageMagick
+    try {
+      const { execSync } = require('child_process');
+      execSync(`magick "${svgPath}" -resize 3000x3000 "${pngPath}"`, { stdio: 'ignore' });
+      return true;
+    } catch {
+      // Try Inkscape
+      try {
+        const { execSync } = require('child_process');
+        execSync(`inkscape "${svgPath}" --export-filename="${pngPath}" --export-width=3000`, { stdio: 'ignore' });
+        return true;
+      } catch {
+        // Last resort: rsvg-convert
+        try {
+          const { execSync } = require('child_process');
+          execSync(`rsvg-convert -w 3000 "${svgPath}" > "${pngPath}"`, { stdio: 'ignore' });
+          return true;
+        } catch {
+          return false;
+        }
+      }
+    }
+  }
+}
+
 async function log(msg) {
   const ts = new Date().toISOString();
   const logLine = `[${ts}] [POD] ${msg}\n`;
@@ -131,7 +168,7 @@ async function uploadImage(imagePath, fileName) {
     contents: base64Image
   };
   
-  const result = await apiRequest('/uploads.json', 'POST', uploadData);
+  const result = await apiRequest('/uploads/images.json', 'POST', uploadData);
   log(`Image uploaded: ${result.id}`);
   return result;
 }
@@ -140,13 +177,27 @@ async function uploadImage(imagePath, fileName) {
 async function getBlueprints() {
   log('Fetching product blueprints...');
   const response = await apiRequest('/catalog/blueprints.json');
-  return response.data || [];
+  // Printify returns { data: [...] } or just [...]
+  if (Array.isArray(response)) {
+    return response;
+  }
+  if (response.data && Array.isArray(response.data)) {
+    return response.data;
+  }
+  // Some endpoints return data directly
+  return response || [];
 }
 
 // Get print providers for a blueprint
 async function getPrintProviders(blueprintId) {
   const response = await apiRequest(`/catalog/blueprints/${blueprintId}/print_providers.json`);
-  return response.data || [];
+  if (Array.isArray(response)) {
+    return response;
+  }
+  if (response.data && Array.isArray(response.data)) {
+    return response.data;
+  }
+  return response || [];
 }
 
 // Create product
@@ -157,29 +208,73 @@ async function createProduct(shopId, productData) {
   return result;
 }
 
-// Publish product
+// Publish product - Printify publish uses boolean flags
 async function publishProduct(shopId, productId) {
   log(`Publishing product ${productId}...`);
-  await apiRequest(`/shops/${shopId}/products/${productId}/publish.json`, 'POST', {});
+  
+  // Printify publish endpoint takes an object with boolean flags
+  const publishData = {
+    title: true,
+    description: true,
+    tags: true,
+    variants: true,
+    images: true
+  };
+  
+  await apiRequest(`/shops/${shopId}/products/${productId}/publish.json`, 'POST', publishData);
   log(`Product published successfully`);
 }
 
-// Generate product data
-function generateProductData(imageId, design) {
+// Generate product data - uses dynamic variant fetching
+async function generateProductData(imageId, design, blueprintId, printProviderId) {
+  // Fetch available variants for this blueprint/provider
+  log(`Fetching variants for blueprint ${blueprintId}, provider ${printProviderId}...`);
+  
+  let variants = [];
+  try {
+    const variantData = await apiRequest(`/catalog/blueprints/${blueprintId}/print_providers/${printProviderId}/variants.json`);
+    log(`Variant API response keys: ${Object.keys(variantData).join(', ')}`);
+    
+    let availableVariants = [];
+    if (Array.isArray(variantData)) {
+      availableVariants = variantData;
+    } else if (variantData.data && Array.isArray(variantData.data)) {
+      availableVariants = variantData.data;
+    } else if (variantData.variants && Array.isArray(variantData.variants)) {
+      availableVariants = variantData.variants;
+    } else {
+      log(`Unexpected variant response structure: ${JSON.stringify(variantData).slice(0, 500)}`);
+    }
+    
+    log(`Raw variant count: ${availableVariants.length}`);
+    
+    // Filter to enabled variants and set prices
+    variants = availableVariants
+      .filter(v => v.is_available !== false)
+      .slice(0, 5) // Limit to first 5 sizes
+      .map(v => ({
+        id: v.id,
+        price: v.id % 2 === 0 ? 2499 : 2699, // Simple pricing
+        is_enabled: true
+      }));
+    
+    log(`Found ${variants.length} variants`);
+  } catch (err) {
+    log(`Warning: Could not fetch variants: ${err.message}`);
+    // Fallback to basic variant structure
+    variants = [{ id: 1, price: 2499, is_enabled: true }];
+  }
+  
+  const variantIds = variants.map(v => v.id);
+  
   return {
     title: `${design.text} - Premium Design`,
     description: generateDescription(design),
-    blueprint_id: 5, // Unisex Jersey Short Sleeve Tee
-    print_provider_id: 99, // Example: Printify
-    variants: [
-      { id: 60833, price: 2499, is_enabled: true }, // S
-      { id: 60834, price: 2499, is_enabled: true }, // M  
-      { id: 60835, price: 2499, is_enabled: true }, // L
-      { id: 60836, price: 2699, is_enabled: true }, // XL
-      { id: 60837, price: 2899, is_enabled: true }  // 2XL
-    ],
+    blueprint_id: blueprintId,
+    print_provider_id: printProviderId,
+    variants: variants,
     print_areas: [{
-      variant_ids: [60833, 60834, 60835, 60836, 60837],
+      variant_ids: variantIds,
       placeholders: [{
         position: 'front',
         images: [{
@@ -219,14 +314,38 @@ async function runAutomation() {
   const shopId = CONFIG.shopId !== 'auto' ? CONFIG.shopId : shops[0].id;
   log(`Using shop: ${shops[0].title} (ID: ${shopId})`);
   
-  // Step 2: Load designs
+  // Step 2: Get a blueprint and print provider
+  log('Fetching available blueprints...');
+  const blueprints = await getBlueprints();
+  if (blueprints.length === 0) {
+    throw new Error('No blueprints found in catalog');
+  }
+  
+  // Find a unisex t-shirt blueprint
+  const tShirtBlueprint = blueprints.find(b => 
+    b.title.toLowerCase().includes('unisex') && 
+    b.title.toLowerCase().includes('tee')
+  ) || blueprints[0];
+  
+  log(`Using blueprint: ${tShirtBlueprint.title} (ID: ${tShirtBlueprint.id})`);
+  
+  // Get print providers for this blueprint
+  const providers = await getPrintProviders(tShirtBlueprint.id);
+  if (providers.length === 0) {
+    throw new Error('No print providers found for blueprint');
+  }
+  
+  const printProvider = providers[0];
+  log(`Using print provider: ${printProvider.title} (ID: ${printProvider.id})`);
+  
+  // Step 3: Load designs
   const designsDir = path.join(CONFIG.dataDir, 'designs');
   const designFiles = await fs.readdir(designsDir).catch(() => []);
   const svgFiles = designFiles.filter(f => f.endsWith('.svg')).slice(0, CONFIG.dailyQuota);
   
   log(`${svgFiles.length} designs to process`);
   
-  // Step 3: Process each design
+  // Step 4: Process each design
   const results = [];
   
   for (const svgFile of svgFiles) {
@@ -243,17 +362,50 @@ async function runAutomation() {
         category: category
       };
       
-      // Upload image
-      // Note: Printify accepts various formats, but we'll need to convert SVG first
-      // For now, log the intent
-      log(`Would upload: ${svgFile}`);
+      // Convert SVG to PNG first (Printify requires raster formats)
+      const pngPath = designPath.replace('.svg', '.png');
+      log(`Converting ${svgFile} to PNG...`);
       
-      // In production, convert SVG to PNG first, then upload
+      const converted = await convertSvgToPng(designPath, pngPath);
+      if (!converted) {
+        log(`Error: Could not convert ${svgFile} to PNG. Skipping...`);
+        results.push({ design: svgFile, status: 'error', message: 'SVG conversion failed' });
+        continue;
+      }
+      log(`Converted: ${pngPath}`);
+      
+      // Upload the converted image
+      let imageId;
+      try {
+        const uploadResult = await uploadImage(pngPath, `${designName}.png`);
+        imageId = uploadResult.id;
+        log(`Image uploaded: ${imageId}`);
+      } catch (uploadErr) {
+        log(`Upload error: ${uploadErr.message}`);
+        throw uploadErr;
+      }
+      
+      // Create product with uploaded image
+      const productData = await generateProductData(imageId, design, tShirtBlueprint.id, printProvider.id);
+      const product = await createProduct(shopId, productData);
+      
+      // Publish if auto-publish enabled
+      if (CONFIG.autoPublish) {
+        await publishProduct(shopId, product.id);
+      }
+      
       results.push({
         design: svgFile,
-        status: 'ready_for_upload',
+        status: 'published',
+        productId: product.id,
         shopId: shopId
       });
+      
+      // Clean up temporary PNG file
+      try {
+        await fs.unlink(pngPath);
+        log(`Cleaned up temporary file: ${pngPath}`);
+      } catch {}
       
     } catch (err) {
       log(`Error processing ${svgFile}: ${err.message}`);

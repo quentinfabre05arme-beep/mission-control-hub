@@ -1,0 +1,101 @@
+{
+  "timestamp": "2026-07-23T09:24:27.347Z",
+  "sources": {
+    "coingecko": {
+      "ethPrice": {
+        "price": 1929.64,
+        "change24h": 0.26699536402366214,
+        "marketCap": 232874178367.5263,
+        "volume24h": 9294065743.638813,
+        "timestamp": 1784798618544
+      },
+      "lstPrices": {
+        "stETH": {
+          "price": 1928.76,
+          "change24h": 0.21035410171503596
+        },
+        "cbETH": {
+          "price": 2191.48,
+          "change24h": 0.30671915833637925
+        },
+        "rETH": {
+          "price": 2252.28,
+          "change24h": 0.22961188114359096
+        },
+        "timestamp": 1784798618583
+      },
+      "global": {
+        "totalMarketCap": 2325214438472.2246,
+        "totalVolume": 60236111897.78288,
+        "ethDominance": 10.00835202866646,
+        "btcDominance": 56.62713243167161,
+        "timestamp": 1784798618591
+      }
+    },
+    "etherscan": {
+      "supply": {
+        "totalSupply": "120257000000000000000000000",
+        "timestamp": 1784798667348
+      },
+      "gas": {
+        "safeGasPrice": "12",
+        "proposeGasPrice": "15",
+        "fastGasPrice": "18",
+        "suggestBaseFee": "10",
+        "timestamp": 1784798667354
+      },
+      "beacon": {
+        "ethStaked": 33250000,
+        "timestamp": 1784798667354
+      }
+    },
+    "lido": {
+      "apr": {
+        "apr": 0.032,
+        "aprType": "movingAverage",
+        "timestamp": 1784798667355
+      },
+      "supply": {
+        "totalSupply": "9500000000000000000000000",
+        "timestamp": 1784798667356
+      }
+    },
+    "eigenlayer": {
+      "yields": {
+        "baseStakingYield": 3.2,
+        "restakingAdditionalYield": {
+          "conservative": 2,
+          "moderate": 5,
+          "aggressive": 10
+        },
+        "totalYieldEstimate": {
+          "conservative": 5.2,
+          "moderate": 8.2,
+          "aggressive": 13.2
+        },
+        "activeAVS": 25,
+        "timestamp": 1784798667356
+      }
+    }
+  },
+  "price": 1929.64,
+  "change24h": 0.26699536402366214,
+  "marketCap": 232874178367.5263,
+  "ethDominance": 10.00835202866646,
+  "totalSupply": 120257000,
+  "ethStaked": 33250000,
+  "stakingRatio": "27.65",
+  "gasPrice": {
+    "safe": "12",
+    "standard": "15",
+    "fast": "18"
+  },
+  "stakingYield": "3.20",
+  "stethSupply": 9500000,
+  "restakingYield": {
+    "conservative": 5.2,
+    "moderate": 8.2,
+    "aggressive": 13.2
+  },
+  "xInsight": "27.65% of ETH staked — 3.20% yield available"
+}

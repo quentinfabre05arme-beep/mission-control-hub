@@ -1,0 +1,23 @@
+{
+  "data": {
+    "restakingYields": {
+      "data": {
+        "baseStakingYield": 3.2,
+        "restakingAdditionalYield": {
+          "conservative": 2,
+          "moderate": 5,
+          "aggressive": 10
+        },
+        "totalYieldEstimate": {
+          "conservative": 5.2,
+          "moderate": 8.2,
+          "aggressive": 13.2
+        },
+        "activeAVS": 25,
+        "timestamp": 1784798667356
+      },
+      "timestamp": 1784798667356
+    }
+  },
+  "timestamp": 0
+}

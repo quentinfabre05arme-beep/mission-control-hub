@@ -1,0 +1,20 @@
+{
+  "data": {
+    "stethAPR": {
+      "data": {
+        "apr": 0.032,
+        "aprType": "movingAverage",
+        "timestamp": 1784799187027
+      },
+      "timestamp": 1784799187027
+    },
+    "stethSupply": {
+      "data": {
+        "totalSupply": "9500000000000000000000000",
+        "timestamp": 1784799187027
+      },
+      "timestamp": 1784799187027
+    }
+  },
+  "timestamp": 0
+}

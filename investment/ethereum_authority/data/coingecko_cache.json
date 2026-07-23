@@ -1,0 +1,43 @@
+{
+  "data": {
+    "ethPrice": {
+      "data": {
+        "price": 1928.39,
+        "change24h": 0.2816119927216269,
+        "marketCap": 232711027389.96426,
+        "volume24h": 9300025632.109823,
+        "timestamp": 1784799187009
+      },
+      "timestamp": 1784799187009
+    },
+    "lstPrices": {
+      "data": {
+        "stETH": {
+          "price": 1928.07,
+          "change24h": 0.21470752227474887
+        },
+        "cbETH": {
+          "price": 2189.89,
+          "change24h": 0.3109857353430135
+        },
+        "rETH": {
+          "price": 2252.52,
+          "change24h": 0.3084463854613456
+        },
+        "timestamp": 1784799187021
+      },
+      "timestamp": 1784799187021
+    },
+    "globalData": {
+      "data": {
+        "totalMarketCap": 2325395596672.561,
+        "totalVolume": 59967811250.35226,
+        "ethDominance": 10.003696510139644,
+        "btcDominance": 56.65967741798049,
+        "timestamp": 1784799187016
+      },
+      "timestamp": 1784799187016
+    }
+  },
+  "timestamp": 0
+}

@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-22T21:29:51.501Z",
+  "timestamp": "2026-07-23T09:30:18.357Z",
   "catalysts": [
     {
       "ticker": "TSLA",
@@ -21,6 +21,13 @@
       "event": "Q3 Earnings",
       "impact": "high",
       "type": "earnings"
+    },
+    {
+      "ticker": "NVDA",
+      "date": "2026-07-30",
+      "event": "SIGGRAPH Conference",
+      "impact": "medium",
+      "type": "conference"
     }
   ]
 }

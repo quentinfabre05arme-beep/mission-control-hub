@@ -1,13 +1,42 @@
-[
-  {
-    "ticker": "TLT",
-    "price": 83.66,
-    "target": 110.00,
-    "upside": 31.5,
-    "downside": -1.6,
-    "score": 6.1,
-    "catalyst": "Bond rally on rate cuts",
-    "rank": 1,
-    "scan_timestamp": "2026-07-22T09:35:50.253Z"
-  }
-]
+{
+  "queuedAt": "2026-07-23T03:59:48.375Z",
+  "threshold": 2.5,
+  "opportunities": [
+    {
+      "ticker": "AAPL",
+      "currentPrice": 100,
+      "targetPrice": 380,
+      "floorPrice": 280,
+      "upside": 280,
+      "downside": -64.28571428571428,
+      "catalystProb": 0.6,
+      "asymmetryScore": 144.6563388863064,
+      "catalyst": "Apple Intelligence rollout",
+      "confidence": 75
+    },
+    {
+      "ticker": "TSLA",
+      "currentPrice": 100,
+      "targetPrice": 450,
+      "floorPrice": 300,
+      "upside": 350,
+      "downside": -66.66666666666667,
+      "catalystProb": 0.5,
+      "asymmetryScore": 139.40330514899838,
+      "catalyst": "Robotaxi unveil",
+      "confidence": 60
+    },
+    {
+      "ticker": "NVDA",
+      "currentPrice": 100,
+      "targetPrice": 280,
+      "floorPrice": 170,
+      "upside": 179.99999999999997,
+      "downside": -41.17647058823529,
+      "catalystProb": 0.8,
+      "asymmetryScore": 124.72732909996355,
+      "catalyst": "AI demand cycle",
+      "confidence": 85
+    }
+  ]
+}

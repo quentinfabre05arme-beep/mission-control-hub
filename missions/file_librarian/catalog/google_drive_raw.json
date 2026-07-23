@@ -1,0 +1,16 @@
+{
+  "files": [
+    {"id": "12Fs_d8Zr4sKnoCxb5EaEbe2FciXIGPVTFGM9iehZq3M", "name": "Stock Recommendation List", "mimeType": "application/vnd.google-apps.spreadsheet", "category": "investment"},
+    {"id": "1HFJNp56zhX8vijDfV3ulNenIr2QKYDRa25II_wCvEBE", "name": "Discounted Cash Flow Valuations", "mimeType": "application/vnd.google-apps.spreadsheet", "category": "investment"},
+    {"id": "1W62HPsTZbdBsqE57_-6xfmi8yrIKLvHRRiB-Dsfh96s", "name": "The Great Financial Upgrade: Tokenization Explained", "mimeType": "application/vnd.google-apps.document", "category": "investment"},
+    {"id": "1qi8k5ALitWVesidW_1T1ZxZGk03DrqW-SISYmC6W9hM", "name": "The Agentic Economy and Future Financial Infrastructure - 2026 Report", "mimeType": "application/vnd.google-apps.document", "category": "investment"},
+    {"id": "1mEF5w26Q9ebgLVmO2RKlQvlV8sq5OG5IZWBpaIg1eZw", "name": "Copy of MINI-COURSE: When to Sell Slides", "mimeType": "application/vnd.google-apps.presentation", "category": "investment"},
+    {"id": "1Bk6clsJ0s_VVP-lMhDWPYnqgN5YBKIkvzQ6li5govRM", "name": "OpenClaw Browser Automation Guide", "mimeType": "application/vnd.google-apps.document", "category": "mission_control"},
+    {"id": "1da05oMwcoYM8gZsS20DAy0etGwEVcbMTEGAwCiJkee8", "name": "Accounting Automation and VAT Security in Real Estate Operations", "mimeType": "application/vnd.google-apps.document", "category": "business"},
+    {"id": "1TjxgoRdWbIZp1hMPLlPf0_NnCD50sJ6I", "name": "GUIDE_FISCAL_DEV_FREELANCE_2026_FINAL.pdf", "mimeType": "application/pdf", "category": "business"},
+    {"id": "1WCUi6jQ8F328i9EcNwBtaxIY0q7I6YSL2zLKhYc1Kvo", "name": "Plan Alimentaire 5 Jours - Satiété Maximale (1350 kcal)", "mimeType": "application/vnd.google-apps.document", "category": "personal"},
+    {"id": "1UkczrPj44WBIx4so6IWRiWKBexIUYN10", "name": "Hormonal_Satiety_Playbook.pdf", "mimeType": "application/pdf", "category": "personal"}
+  ],
+  "total_files": 100,
+  "nextPageToken": null
+}

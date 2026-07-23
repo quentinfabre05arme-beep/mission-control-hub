@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      margin: 0;
+      background: #0a0a0f;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .chart {
+      width: 800px;
+      height: 400px;
+      background: #0a0a0f;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .title {
+      text-align: center;
+      color: #ffffff;
+      font-size: 20px;
+      font-weight: bold;
+      padding: 20px 0 10px;
+    }
+    .price-box {
+      position: absolute;
+      left: 50px;
+      top: 60px;
+      width: 200px;
+      background: #1a1a2e;
+      border: 1px solid #3a3a5e;
+      border-radius: 8px;
+      padding: 15px;
+      text-align: center;
+    }
+    .price-label {
+      color: #8888aa;
+      font-size: 12px;
+      margin-bottom: 5px;
+    }
+    .price-value {
+      color: #00ff88;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .price-change {
+      color: #00ff88;
+      font-size: 14px;
+    }
+    .levels {
+      position: absolute;
+      left: 300px;
+      top: 60px;
+      width: 450px;
+    }
+    .section-title {
+      font-weight: bold;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+    .resistance { color: #ff4444; }
+    .support { color: #44ff44; }
+    .level-row {
+      display: flex;
+      align-items: center;
+      margin: 8px 0;
+      padding: 10px 15px;
+      border-radius: 4px;
+    }
+    .resistance-row {
+      background: #2a1a1a;
+      border: 1px solid #ff4444;
+    }
+    .support-row {
+      background: #1a2a1a;
+      border: 1px solid #44ff44;
+    }
+    .level-price {
+      width: 100px;
+      font-weight: bold;
+    }
+    .level-desc {
+      color: #888888;
+      font-size: 12px;
+    }
+    .footer {
+      position: absolute;
+      bottom: 15px;
+      width: 100%;
+      text-align: center;
+      color: #666666;
+      font-size: 11px;
+    }
+  </style>
+</head>
+<body>
+  <div class="chart">
+    <div class="title">ETH Technical Levels — July 23, 2026</div>
+    
+    <div class="price-box">
+      <div class="price-label">Current Price</div>
+      <div class="price-value">$1,928.39</div>
+      <div class="price-change">+0.28%</div>
+    </div>
+    
+    <div class="levels">
+      <div class="section-title resistance">RESISTANCE</div>
+      <div class="level-row resistance-row">
+        <div class="level-price resistance">R3: $2,200</div>
+        <div class="level-desc">Breakout target</div>
+      </div>
+      <div class="level-row resistance-row">
+        <div class="level-price resistance">R2: $2,100</div>
+        <div class="level-desc">June highs</div>
+      </div>
+      <div class="level-row resistance-row">
+        <div class="level-price resistance">R1: $2,000</div>
+        <div class="level-desc">Psychological + rejection</div>
+      </div>
+      
+      <div class="section-title support" style="margin-top: 25px;">SUPPORT</div>
+      <div class="level-row support-row">
+        <div class="level-price support">S1: $1,850</div>
+        <div class="level-desc">Recent swing low</div>
+      </div>
+      <div class="level-row support-row">
+        <div class="level-price support">S2: $1,800</div>
+        <div class="level-desc">200 EMA — must hold</div>
+      </div>
+      <div class="level-row support-row">
+        <div class="level-price support">S3: $1,750</div>
+        <div class="level-desc">Major structural</div>
+      </div>
+    </div>
+    
+    <div class="footer">
+      Data: CoinGecko | Gas: 15 Gwei | Staked: 27.65%
+    </div>
+  </div>
+</body>
+</html>

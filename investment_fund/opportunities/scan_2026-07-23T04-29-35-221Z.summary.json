@@ -1,0 +1,18 @@
+{
+  "scanTime": "2026-07-23T04:29:35.215Z",
+  "scanner": "asymmetry_scanner.js",
+  "threshold": 5.0,
+  "opportunitiesAboveThreshold": 0,
+  "opportunities": [
+    {
+      "ticker": "SOL",
+      "price": 185.0,
+      "target": 280.0,
+      "upside": 51.4,
+      "downside": 15.6,
+      "score": 3.0,
+      "catalyst": "DeFi + NFT ecosystem"
+    }
+  ],
+  "notes": "No opportunities scored >5.0. SOL scored 3.0 (highest). No queue action."
+}

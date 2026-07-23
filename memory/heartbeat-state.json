@@ -18,14 +18,15 @@
         "marketDataJul19": "BTC: $64,692 (-0.22%) | ETH: $1,868 (+0.26%) | MSTR: $94.85 (+0.87%) | HIMS: $32.84 (-2.49%) | Fear & Greed: 28 (FEAR) — Slight bullish contrarian signal (as of Jul 19, 06:03 CET)"
     },
     "lastChecks": {
-        "heartbeat": 1753164360,
-        "fundResearch": 1753164360
+        "heartbeat": 1753246860,
+        "fundResearch": 1753246860,
+        "systemMaintenance": 1753246860
     },
     "fundResearch": {
         "lastCycle": "2026-07-22",
         "status": "complete",
         "alerts": 0,
-        "nextCycle": "2026-07-22"
+        "nextCycle": "2026-07-23"
     },
     "podResearch": {
         "lastCycle": "2026-07-22",

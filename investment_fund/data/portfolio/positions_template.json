@@ -1,0 +1,73 @@
+{
+  "last_updated": "2026-07-23T10:10:00Z",
+  "portfolios": {
+    "alpha_fund": {
+      "cash_usd": 0,
+      "positions": [
+        {
+          "symbol": "BTC",
+          "type": "crypto",
+          "quantity": 0,
+          "avg_entry": 0,
+          "current_price": 65674.01,
+          "unrealized_pnl": 0,
+          "allocation_pct": 0,
+          "stop_loss": 64000,
+          "take_profit": 70000,
+          "tier": 3,
+          "conviction": "HIGH",
+          "notes": "Digital gold thesis. RSI oversold bounce setup."
+        },
+        {
+          "symbol": "ETH",
+          "type": "crypto", 
+          "quantity": 0,
+          "avg_entry": 0,
+          "current_price": 1924.65,
+          "unrealized_pnl": 0,
+          "allocation_pct": 0,
+          "stop_loss": 1850,
+          "take_profit": 2200,
+          "tier": 2,
+          "conviction": "MEDIUM-HIGH",
+          "notes": "Ecosystem play. Bullish sentiment developing."
+        },
+        {
+          "symbol": "MSTR",
+          "type": "stock",
+          "quantity": 0,
+          "avg_entry": 0,
+          "current_price": 100.01,
+          "unrealized_pnl": 0,
+          "allocation_pct": 0,
+          "stop_loss": 90,
+          "take_profit": 125,
+          "tier": 2,
+          "conviction": "MEDIUM",
+          "notes": "Institutional accumulation narrative."
+        },
+        {
+          "symbol": "HIMS",
+          "type": "stock",
+          "quantity": 0,
+          "avg_entry": 0,
+          "current_price": 31.68,
+          "unrealized_pnl": 0,
+          "allocation_pct": 0,
+          "stop_loss": 30,
+          "take_profit": 45,
+          "tier": 3,
+          "conviction": "MEDIUM",
+          "notes": "Telehealth/GLP-1 exposure. UNDER PRESSURE."
+        }
+      ],
+      "risk_metrics": {
+        "total_value": 0,
+        "max_position_size_pct": 10,
+        "daily_loss_limit_pct": 3,
+        "max_correlation": 0.4,
+        "current_drawdown_pct": 0
+      }
+    }
+  }
+}
