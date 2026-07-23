@@ -79,9 +79,11 @@ class SelfHealingOrchestrator {
       const files = fs.readdirSync(memoryDir);
       count = files.length;
       
-      // Check for 0-byte files
+      // Check for 0-byte files (skip directories)
       for (const file of files) {
-        const stats = fs.statSync(path.join(memoryDir, file));
+        const filePath = path.join(memoryDir, file);
+        const stats = fs.statSync(filePath);
+        if (stats.isDirectory()) continue;
         if (stats.size === 0) {
           errors.push({ type: 'empty_file', file, severity: 'medium' });
         }

@@ -1,38 +1,51 @@
 {
-  "timestamp": "2026-07-23T16:02:38.257Z",
+  "timestamp": "2026-07-23T22:10:27.461Z",
   "assets": {
     "BTC": {
       "price": 64904,
       "change_24h": -1.65705975,
-      "source": "coingecko",
-      "signal": "NEUTRAL"
+      "source": "cached",
+      "signal": "NEUTRAL",
+      "fetch_time_ms": 3329,
+      "stale": true
     },
     "ETH": {
-      "price": 1892.44,
-      "change_24h": -2.50728172,
-      "source": "coingecko",
-      "signal": "NEUTRAL"
+      "price": 1878.07,
+      "change_24h": -2.8663250953286608,
+      "source": "cached",
+      "signal": "MODERATE_BEARISH",
+      "fetch_time_ms": 3199,
+      "stale": true
     },
     "MSTR": {
       "price": 100.010002,
       "change_24h": -1.90289,
       "source": "cached",
-      "signal": "NEUTRAL"
+      "signal": "NEUTRAL",
+      "fetch_time_ms": 3251,
+      "stale": true
     },
     "HIMS": {
       "price": 31.68,
       "change_24h": -3.20806,
       "source": "cached",
-      "signal": "BEARISH"
+      "signal": "MODERATE_BEARISH",
+      "fetch_time_ms": 3270,
+      "stale": true
     }
   },
   "_meta": {
     "fromCache": false,
+    "fetch_time_ms": 3333,
     "sources": [
-      "coingecko",
-      "coingecko",
+      "cached",
+      "cached",
       "cached",
       "cached"
-    ]
+    ],
+    "assets_count": 4,
+    "stale_count": 4,
+    "saved_at": "2026-07-23T22:10:27.461Z",
+    "version": "2.0"
   }
 }

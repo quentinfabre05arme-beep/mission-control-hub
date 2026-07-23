@@ -1,0 +1,134 @@
+{
+  "cycle_id": "FUND-RC-2026-07-23-003",
+  "timestamp": "2026-07-23T18:10:00Z",
+  "local_time": "2026-07-23T20:10:00+02:00",
+  "status": "COMPLETED_WITH_ALERTS",
+  "portfolio_snapshot": {
+    "assets": {
+      "BTC": {
+        "price": 64904,
+        "change_24h": -1.66,
+        "tier": "TIER_3",
+        "signal": "HOLD",
+        "composite_score": 0
+      },
+      "ETH": {
+        "price": 1892.44,
+        "change_24h": -2.51,
+        "tier": "TIER_2",
+        "signal": "HOLD",
+        "composite_score": 0
+      },
+      "MSTR": {
+        "price": 100.01,
+        "change_24h": -1.90,
+        "tier": "TIER_2",
+        "signal": "WEAK_BUY",
+        "composite_score": 1
+      },
+      "HIMS": {
+        "price": 31.68,
+        "change_24h": -3.21,
+        "tier": "TIER_3",
+        "signal": "RISK_REVIEW",
+        "composite_score": 0
+      }
+    },
+    "fear_greed": {
+      "value": 31,
+      "classification": "FEAR",
+      "trend": "DECLINING"
+    },
+    "market_regime": "RISK_OFF"
+  },
+  "opportunities": {
+    "tier_1": [],
+    "tier_2": [
+      {
+        "asset": "MSTR",
+        "setup": "Dip_Buy",
+        "entry_zone": [95, 100],
+        "target": [120, 130],
+        "stop": 90,
+        "catalyst": "Institutional_validation_170pct_target",
+        "risk": "Saylor_sales_uncertainty"
+      }
+    ],
+    "tier_3": [
+      {
+        "asset": "BTC",
+        "thesis": "Digital_gold_fiat_hedge",
+        "status": "HOLD",
+        "add_trigger": "FEAR_GREED_LT_20"
+      },
+      {
+        "asset": "ETH",
+        "thesis": "Smart_contract_dominance",
+        "status": "HOLD",
+        "add_trigger": "PRICE_LT_1850"
+      }
+    ]
+  },
+  "risk_flags": [
+    {
+      "level": "CRITICAL",
+      "asset": "HIMS",
+      "issue": "Position_stop_verification_required",
+      "suggested_stop": 29.50,
+      "action": "Verify_sizing_and_stop_before_2300_CET"
+    },
+    {
+      "level": "WARNING",
+      "asset": "PORTFOLIO",
+      "issue": "Elevated_correlation_all_assets_declining",
+      "action": "Reduce_equity_exposure_if_correlation_persists"
+    },
+    {
+      "level": "WATCH",
+      "asset": "MSTR",
+      "issue": "Saylor_headline_risk",
+      "action": "Monitor_news_clarity"
+    }
+  ],
+  "alerts_triggered": [
+    {
+      "type": "STOP_CHECK",
+      "asset": "HIMS",
+      "priority": "URGENT",
+      "message": "Verify HIMS position size <10% and stop active at $29.50-$30.00"
+    },
+    {
+      "type": "RISK_OFF",
+      "asset": "MARKET",
+      "priority": "MEDIUM",
+      "message": "All assets declining 24h - defensive posture recommended"
+    }
+  ],
+  "actions_required": [
+    {
+      "priority": 1,
+      "action": "Verify_HIMS_position_size",
+      "deadline": "2026-07-23T21:00:00Z",
+      "status": "PENDING"
+    },
+    {
+      "priority": 2,
+      "action": "Confirm_HIMS_stop_order",
+      "deadline": "2026-07-23T21:00:00Z",
+      "status": "PENDING"
+    },
+    {
+      "priority": 3,
+      "action": "Set_BTC_alert_63000",
+      "deadline": "2026-07-24T08:00:00Z",
+      "status": "PENDING"
+    },
+    {
+      "priority": 4,
+      "action": "Set_MSTR_alert_95",
+      "deadline": "2026-07-24T08:00:00Z",
+      "status": "PENDING"
+    }
+  ],
+  "next_cycle": "2026-07-24T06:00:00Z"
+}

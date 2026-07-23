@@ -2,7 +2,7 @@
   "portfolio_id": "alpha-paper-001",
   "created_at": "2026-07-21T00:00:00Z",
   "initial_capital": 10000,
-  "current_value": 9019.421674803534,
+  "current_value": 9019.588949683535,
   "cash": 1400.052496643536,
   "positions": [
     {
@@ -20,12 +20,12 @@
       "ticker": "SOL",
       "shares": 16,
       "entryPrice": 77.71,
-      "currentPrice": 76.07,
+      "currentPrice": 76.08,
       "stopLoss": 58.28,
       "takeProfit": 117.29,
       "entryDate": "2026-07-20T23:36:03.345Z",
-      "unrealizedPnl": -26.24000000000001,
-      "unrealizedPnlPct": -2.110410500579074
+      "unrealizedPnl": -26.079999999999927,
+      "unrealizedPnlPct": -2.097542143868225
     },
     {
       "ticker": "CRWD",
@@ -86,23 +86,23 @@
       "ticker": "ETH",
       "shares": 0.274536,
       "entryPrice": 1930.39,
-      "currentPrice": 1888.06,
+      "currentPrice": 1879.39,
       "stopLoss": 1592.57,
       "takeProfit": 2516.99,
       "entryDate": "2026-07-21T11:36:41.510Z",
-      "unrealizedPnl": -11.621108880000042,
-      "unrealizedPnlPct": -2.192821139769696
+      "unrealizedPnl": -14.001336,
+      "unrealizedPnlPct": -2.6419531804454
     },
     {
       "ticker": "BTC",
       "shares": 0.006802,
       "entryPrice": 66214,
-      "currentPrice": 64769,
+      "currentPrice": 65120,
       "stopLoss": 56281.9,
       "takeProfit": 83462.56,
       "entryDate": "2026-07-21T11:36:41.521Z",
-      "unrealizedPnl": -9.82889,
-      "unrealizedPnlPct": -2.182317938804479
+      "unrealizedPnl": -7.441388,
+      "unrealizedPnlPct": -1.652218564049901
     },
     {
       "ticker": "SNOW",
@@ -250,14 +250,14 @@
     }
   ],
   "performance": {
-    "total_return": -9.805783251964662,
-    "total_trades": 10,
+    "total_return": -9.804110503164642,
+    "total_trades": 8,
     "winning_trades": 0,
     "losing_trades": 0,
     "win_rate": 0,
     "avg_winner": 0,
     "avg_loser": 0,
-    "max_drawdown": 9.805783251964659
+    "max_drawdown": 9.886527146364642
   },
   "daily_snapshots": [
     {
@@ -301,6 +301,27 @@
       "value": 9912.368753912957,
       "cash": 2279.751673752959,
       "unrealized_pnl": -34.44212087999985,
+      "positions_count": 10
+    },
+    {
+      "date": "2026-07-23",
+      "value": 9012.377457363535,
+      "cash": 1400.052496643536,
+      "unrealized_pnl": -54.73421631999995,
+      "positions_count": 10
+    },
+    {
+      "date": "2026-07-23",
+      "value": 9021.797388963536,
+      "cash": 1400.052496643536,
+      "unrealized_pnl": -45.314284720000046,
+      "positions_count": 10
+    },
+    {
+      "date": "2026-07-23",
+      "value": 9018.271923603534,
+      "cash": 1400.052496643536,
+      "unrealized_pnl": -48.839750079999895,
       "positions_count": 10
     }
   ]

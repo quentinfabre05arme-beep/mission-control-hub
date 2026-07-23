@@ -137,7 +137,6 @@ function getFundamentals(ticker) {
     'AAPL': { targetPrice: 380, floorPrice: 280, catalyst: 'Apple Intelligence rollout', catalystProbability: 0.6, confidence: 75 },
     'HIMS': { targetPrice: 45, floorPrice: 25, catalyst: 'GLP-1 expansion', catalystProbability: 0.55, confidence: 65 },
     'COIN': { targetPrice: 220, floorPrice: 120, catalyst: 'Institutional crypto adoption', catalystProbability: 0.6, confidence: 70 },
-    'PLTR': { targetPrice: 35, floorPrice: 18, catalyst: 'Government AI contracts', catalystProbability: 0.7, confidence: 80 },
     'CRWD': { targetPrice: 380, floorPrice: 240, catalyst: 'Cybersecurity demand', catalystProbability: 0.75, confidence: 85 },
     'SPY': { targetPrice: 620, floorPrice: 480, catalyst: 'Fed rate cuts', catalystProbability: 0.6, confidence: 70 },
     'QQQ': { targetPrice: 520, floorPrice: 400, catalyst: 'AI productivity gains', catalystProbability: 0.65, confidence: 75 },
@@ -201,6 +200,12 @@ async function runScan() {
     }
     
     const fundamentals = getFundamentals(ticker);
+    
+    // Skip if no valid fundamentals
+    if (!fundamentals || fundamentals.targetPrice === 0) {
+      console.log(`   ⚠️ ${ticker}: No target price — skipped`);
+      continue;
+    }
     
     if (fundamentals.targetPrice === 0) continue;
     
