@@ -1,71 +1,38 @@
 {
-  "timestamp": "2026-07-23T10:10:24.252Z",
+  "timestamp": "2026-07-23T16:02:38.257Z",
   "assets": {
     "BTC": {
-      "price": 65674.01,
-      "change_24h": -0.66623822,
-      "change_amount": -440.48,
-      "open": 66114.5,
-      "high": 66313.14,
-      "low": 65351.02,
-      "volume": null,
-      "source": "twelvedata",
-      "signal": "NEUTRAL",
-      "fetch_time_ms": 379,
-      "stale": false
+      "price": 64904,
+      "change_24h": -1.65705975,
+      "source": "coingecko",
+      "signal": "NEUTRAL"
     },
     "ETH": {
-      "price": 1924.65,
-      "change_24h": -0.4963164,
-      "change_amount": -9.6,
-      "open": 1934.26,
-      "high": 1941.5,
-      "low": 1912.6,
-      "volume": null,
-      "source": "twelvedata",
-      "signal": "NEUTRAL",
-      "fetch_time_ms": 326,
-      "stale": false
+      "price": 1892.44,
+      "change_24h": -2.50728172,
+      "source": "coingecko",
+      "signal": "NEUTRAL"
     },
     "MSTR": {
       "price": 100.010002,
       "change_24h": -1.90289,
-      "change_amount": -1.93999,
-      "open": 100.21,
-      "high": 101.93,
-      "low": 98.13,
-      "volume": 12994125,
-      "source": "twelvedata",
-      "signal": "NEUTRAL",
-      "fetch_time_ms": 316,
-      "stale": false
+      "source": "cached",
+      "signal": "NEUTRAL"
     },
     "HIMS": {
       "price": 31.68,
       "change_24h": -3.20806,
-      "change_amount": -1.049999,
-      "open": 33.45,
-      "high": 34,
-      "low": 31.4499,
-      "volume": 7465543,
-      "source": "twelvedata",
-      "signal": "MODERATE_BEARISH",
-      "fetch_time_ms": 315,
-      "stale": false
+      "source": "cached",
+      "signal": "BEARISH"
     }
   },
   "_meta": {
     "fromCache": false,
-    "fetch_time_ms": 380,
     "sources": [
-      "twelvedata",
-      "twelvedata",
-      "twelvedata",
-      "twelvedata"
-    ],
-    "assets_count": 4,
-    "stale_count": 0,
-    "saved_at": "2026-07-23T10:10:24.252Z",
-    "version": "2.0"
+      "coingecko",
+      "coingecko",
+      "cached",
+      "cached"
+    ]
   }
 }
