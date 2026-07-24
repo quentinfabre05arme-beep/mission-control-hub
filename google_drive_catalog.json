@@ -1,0 +1,1203 @@
+{
+  "metadata": {
+    "scanDate": "2026-07-24T04:32:56.172Z",
+    "fileCount": 47,
+    "nextPageToken": null,
+    "recentFiles": [
+      {
+        "id": "1HFJNp56zhX8vijDfV3ulNenIr2QKYDRa25II_wCvEBE",
+        "name": "Discounted Cash Flow Valuations",
+        "modified": "24 juil. 2026, 02:01"
+      },
+      {
+        "id": "12Fs_d8Zr4sKnoCxb5EaEbe2FciXIGPVTFGM9iehZq3M",
+        "name": "Stock Recommendation List",
+        "modified": "23 juil. 2026, 23:25"
+      },
+      {
+        "id": "15cfyDzfW8jBUM4ObC6NXcwGyuHK5XL3se1LmksYENbo",
+        "name": "Youtube Portfolio Tracker - Updated : July 21, 4:20pm EST.",
+        "modified": "21 juil. 2026, 22:15"
+      },
+      {
+        "id": "1-yXl1In1RG0yJRmsdN3S9gvG7ebgZnNSnTj8wV10BAs",
+        "name": "Invité mariage",
+        "modified": "21 juil. 2026, 16:45"
+      }
+    ]
+  },
+  "files": [
+    {
+      "id": "1HFJNp56zhX8vijDfV3ulNenIr2QKYDRa25II_wCvEBE",
+      "name": "Discounted Cash Flow Valuations",
+      "mimeType": "application/vnd.google-apps.spreadsheet",
+      "size": 455455,
+      "sizeFormatted": "444.78 KB",
+      "created": "2024-10-07T16:24:00.660Z",
+      "modified": "2026-07-24T00:01:08.623Z",
+      "modifiedFormatted": "24 juil. 2026, 02:01",
+      "webViewLink": "https://docs.google.com/spreadsheets/d/1HFJNp56zhX8vijDfV3ulNenIr2QKYDRa25II_wCvEBE/edit?usp=drivesdk",
+      "isShared": true,
+      "isStarred": false,
+      "categories": [
+        "investment"
+      ],
+      "owner": "coachparkev@gmail.com",
+      "ownerName": "coachparkev",
+      "parents": []
+    },
+    {
+      "id": "12Fs_d8Zr4sKnoCxb5EaEbe2FciXIGPVTFGM9iehZq3M",
+      "name": "Stock Recommendation List",
+      "mimeType": "application/vnd.google-apps.spreadsheet",
+      "size": 6060,
+      "sizeFormatted": "5.92 KB",
+      "created": "2024-04-01T02:20:55.567Z",
+      "modified": "2026-07-23T21:25:47.502Z",
+      "modifiedFormatted": "23 juil. 2026, 23:25",
+      "webViewLink": "https://docs.google.com/spreadsheets/d/12Fs_d8Zr4sKnoCxb5EaEbe2FciXIGPVTFGM9iehZq3M/edit?usp=drivesdk",
+      "isShared": true,
+      "isStarred": false,
+      "categories": [
+        "investment"
+      ],
+      "owner": "parkevcfa@gmail.com",
+      "ownerName": "parkevcfa",
+      "parents": []
+    },
+    {
+      "id": "15cfyDzfW8jBUM4ObC6NXcwGyuHK5XL3se1LmksYENbo",
+      "name": "Youtube Portfolio Tracker - Updated : July 21, 4:20pm EST.",
+      "mimeType": "application/vnd.google-apps.spreadsheet",
+      "size": 5206,
+      "sizeFormatted": "5.08 KB",
+      "created": "2024-11-27T04:34:13.181Z",
+      "modified": "2026-07-21T20:15:34.139Z",
+      "modifiedFormatted": "21 juil. 2026, 22:15",
+      "webViewLink": "https://docs.google.com/spreadsheets/d/15cfyDzfW8jBUM4ObC6NXcwGyuHK5XL3se1LmksYENbo/edit?usp=drivesdk",
+      "isShared": true,
+      "isStarred": false,
+      "categories": [
+        "investment"
+      ],
+      "owner": "w.c.thms@gmail.com",
+      "ownerName": "w.c.thms",
+      "parents": []
+    },
+    {
+      "id": "1-yXl1In1RG0yJRmsdN3S9gvG7ebgZnNSnTj8wV10BAs",
+      "name": "Invité mariage",
+      "mimeType": "application/vnd.google-apps.spreadsheet",
+      "size": 1024,
+      "sizeFormatted": "1.00 KB",
+      "created": "2026-05-30T16:59:26.435Z",
+      "modified": "2026-07-21T14:45:42.725Z",
+      "modifiedFormatted": "21 juil. 2026, 16:45",
+      "webViewLink": "https://docs.google.com/spreadsheets/d/1-yXl1In1RG0yJRmsdN3S9gvG7ebgZnNSnTj8wV10BAs/edit?usp=drivesdk",
+      "isShared": true,
+      "isStarred": false,
+      "categories": [
+        "personal"
+      ],
+      "owner": "narguess.shahmohammadi@iae-aix.com",
+      "ownerName": "narguess.shahmohammadi",
+      "parents": []
+    },
+    {
+      "id": "1sxAZIn953iC14iXcCOurvyvNmZVOPk-X",
+      "name": "OpenClaw Browser Automation Guide.docx",
+      "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "size": 10451,
+      "sizeFormatted": "10.21 KB",
+      "created": "2026-07-12T10:43:08.788Z",
+      "modified": "2026-07-12T10:43:08.788Z",
+      "modifiedFormatted": "12 juil. 2026, 12:43",
+      "webViewLink": "https://docs.google.com/document/d/1sxAZIn953iC14iXcCOurvyvNmZVOPk-X/edit?usp=drivesdk&ouid=104972859015878917171&rtpof=true&sd=true",
+      "isShared": false,
+      "isStarred": false,
+      "categories": [
+        "technical"
+      ],
+      "owner": "quentin.fabre05arme@gmail.com",
+      "ownerName": "Quentin Fabre",
+      "parents": [
+        "0ALZ2zarwJ3GbUk9PVA"
+      ]
+    },
+    {
+      "id": "1Bk6clsJ0s_VVP-lMhDWPYnqgN5YBKIkvzQ6li5govRM",
+      "name": "OpenClaw Browser Automation Guide",
+      "mimeType": "application/vnd.google-apps.document",
+      "size": 4601,
+      "sizeFormatted": "4.49 KB",
+      "created": "2026-07-12T10:41:08.573Z",
+      "modified": "2026-07-12T10:41:10.062Z",
+      "modifiedFormatted": "12 juil. 2026, 12:41",
+      "webViewLink": "https://docs.google.com/document/d/1Bk6clsJ0s_VVP-lMhDWPYnqgN5YBKIkvzQ6li5govRM/edit?usp=drivesdk",
+      "isShared": false,
+      "isStarred": false,
+      "categories": [
+        "technical"
+      ],
+      "owner": "quentin.fabre05arme@gmail.com",
+      "ownerName": "Quentin Fabre",
+      "parents": [
+        "0ALZ2zarwJ3GbUk9PVA"
+      ]
+    },
+    {
+      "id": "1IJuGFWl43szsxnfPQgPMCJtZmKQQrMhEt_PR68yPt-0",
+      "name": "Import_Pennylane_BanquePostale_Jan_Mai_2026_V2",
+      "mimeType": "application/vnd.google-apps.spreadsheet",
+      "size": 2388,
+      "sizeFormatted": "2.33 KB",
+      "created": "2026-06-30T14:41:39.071Z",
+      "modified": "2026-06-30T14:43:23.159Z",
+      "modifiedFormatted": "30 juin 2026, 16:43",
+      "webViewLink": "https://docs.google.com/spreadsheets/d/1IJuGFWl43szsxnfPQgPMCJtZmKQQrMhEt_PR68yPt-0/edit?usp=drivesdk",
+      "isShared": false,
+      "isStarred": false,
+      "categories": [
+        "business"
+      ],
+      "owner": "quentin.fabre05arme@gmail.com",
+      "ownerName": "Quentin Fabre",
+      "parents": [
+        "0ALZ2zarwJ3GbUk9PVA"
+      ]
+    },
+    {
+      "id": "1ebw1wTpHg2zzEOLZXZ1wTFKOvw2Zh8Yg0d0A4k9VsaU",
+      "name": "Import_Pennylane_BanquePostale_Jan_Mai_2026",
+      "mimeType": "application/vnd.google-apps.spreadsheet",
+      "size": 2384,
+      "sizeFormatted": "2.33 KB",
+      "created": "2026-06-30T14:30:21.412Z",
+      "modified": "2026-06-30T14:34:40.600Z",
+      "modifiedFormatted": "30 juin 2026, 16:34",
+      "webViewLink": "https://docs.google.com/spreadsheets/d/1ebw1wTpHg2zzEOLZXZ1wTFKOvw2Zh8Yg0d0A4k9VsaU/edit?usp=drivesdk",
+      "isShared": false,
+      "isStarred": false,
+      "categories": [
+        "business"
+      ],
+      "owner": "quentin.fabre05arme@gmail.com",
+      "ownerName": "Quentin Fabre",
+      "parents": [
+        "0ALZ2zarwJ3GbUk9PVA"
+      ]
+    },
+    {
+      "id": "1Qh4tR4iPXq0siKaXDaf3qN7ghcthczn8c_odhqfNvfs",
+      "name": "Déclaration 1327-CET-SD - LMNP CHABRAND 2025",
+      "mimeType": "application/vnd.google-apps.document",
+      "size": 3578,
+      "sizeFormatted": "3.49 KB",
+      "created": "2026-06-24T13:53:49.702Z",
+      "modified": "2026-06-24T13:53:50.648Z",
+      "modifiedFormatted": "24 juin 2026, 15:53",
+      "webViewLink": "https://docs.google.com/document/d/1Qh4tR4iPXq0siKaXDaf3qN7ghcthczn8c_odhqfNvfs/edit?usp=drivesdk",
+      "isShared": false,
+      "isStarred": false,
+      "categories": [
+        "business"
+      ],
+      "owner": "quentin.fabre05arme@gmail.com",
+      "ownerName": "Quentin Fabre",
+      "parents": [
+        "0ALZ2zarwJ3GbUk9PVA"
+      ]
+    },
+    {
+      "id": "1QsCY1sbnIYk1DktUmNZPuB8sy_s0zNWuMzEOxREJXE4",
+      "name": "Déclaration 1327-CET-SD - ROLAND TRUCHET 2025",
+      "mimeType": "application/vnd.google-apps.document",
+      "size": 4166,
+      "sizeFormatted": "4.07 KB",
+      "created": "2026-06-24T13:39:00.599Z",
+      "modified": "2026-06-24T13:39:02.176Z",
+      "modifiedFormatted": "24 juin 2026, 15:39",
+      "webViewLink": "https://docs.google.com/document/d/1QsCY1sbnIYk1DktUmNZPuB8sy_s0zNWuMzEOxREJXE4/edit?usp=drivesdk",
+      "isShared": false,
+      "isStarred": false,
+      "categories": [
+        "business"
+      ],
+      "owner": "quentin.fabre05arme@gmail.com",
+      "ownerName": "Quentin Fabre",
+      "parents": [
+        "0ALZ2zarwJ3GbUk9PVA"
+      ]
+    },
+    {
+      "id": "1UkczrPj44WBIx4so6IWRiWKBexIUYN10",
+      "name": "Hormonal_Satiety_Playbook.pdf",
+      "mimeType": "application/pdf",
+      "size": 18312410,
+      "sizeFormatted": "17.46 MB",
+      "created": "2026-06-19T11:23:25.156Z",
+      "modified": "2026-06-19T11:23:25.156Z",
+      "modifiedFormatted": "19 juin 2026, 13:23",
+      "webViewLink": "https://drive.google.com/file/d/1UkczrPj44WBIx4so6IWRiWKBexIUYN10/view?usp=drivesdk",
+      "isShared": false,
+      "isStarred": false,
+      "categories": [
+        "personal",
+        "ebook"
+      ],
+      "owner": "quentin.fabre05arme@gmail.com",
+      "ownerName": "Quentin Fabre",
+      "parents": [
+        "1aJT_--TBy74-Jr3wCR7nA4C_y32I7b6Z"
+      ]
+    },
+    {
+      "id": "1aJT_--TBy74-Jr3wCR7nA4C_y32I7b6Z",
+      "name": "Enregistré depuis Chrome",
+      "mimeType": "application/vnd.google-apps.folder",
+      "size": null,
+      "sizeFormatted": "N/A",
+      "created": "2026-06-19T11:23:17.970Z",
+      "modified": "2026-06-19T11:23:17.970Z",
+      "modifiedFormatted": "19 juin 2026, 13:23",
+      "webViewLink": "https://drive.google.com/drive/folders/1aJT_--TBy74-Jr3wCR7nA4C_y32I7b6Z",
+      "isShared": false,
+      "isStarred": false,
+      "categories": [
+        "uncategorized"
+      ],
+      "owner": "quentin.fabre05arme@gmail.com",
+      "ownerName": "Quentin Fabre",
+      "parents": [
+        "0ALZ2zarwJ3GbUk9PVA"
+      ]
+    },
+    {
+      "id": "1WCUi6jQ8F328i9EcNwBtaxIY0q7I6YSL2zLKhYc1Kvo",
+      "name": "Plan Alimentaire 5 Jours - Satiété Maximale (1350 kcal)",
+      "mimeType": "application/vnd.google-apps.document",
+      "size": 5522,
+      "sizeFormatted": "5.39 KB",
+      "created": "2026-06-19T09:48:16.303Z",
+      "modified": "2026-06-19T09:48:17.622Z",
+      "modifiedFormatted": "19 juin 2026, 11:48",
+      "webViewLink": "https://docs.google.com/document/d/1WCUi6jQ8F328i9EcNwBtaxIY0q7I6YSL2zLKhYc1Kvo/edit?usp=drivesdk",
+      "isShared": false,
+      "isStarred": false,
+      "categories": [
+        "uncategorized"
+      ],
+      "owner": "quentin.fabre05arme@gmail.com",
+      "ownerName": "Quentin Fabre",
+      "parents": [
+        "0ALZ2zarwJ3GbUk9PVA"
+      ]
+    },
+    {
+      "id": "1da05oMwcoYM8gZsS20DAy0etGwEVcbMTEGAwCiJkee8",
+      "name": "Accounting Automation and VAT Security in Real Estate Operations",
+      "mimeType": "application/vnd.google-apps.document",
+      "size": 6629,
+      "sizeFormatted": "6.47 KB",
+      "created": "2026-06-11T08:15:21.977Z",
+      "modified": "2026-06-11T08:50:46.347Z",
+      "modifiedFormatted": "11 juin 2026, 10:50",
+      "webViewLink": "https://docs.google.com/document/d/1da05oMwcoYM8gZsS20DAy0etGwEVcbMTEGAwCiJkee8/edit?usp=drivesdk",
+      "isShared": false,
+      "isStarred": false,
+      "categories": [
+        "investment",
+        "business",
+        "technical"
+      ],
+      "owner": "quentin.fabre05arme@gmail.com",
+      "ownerName": "Quentin Fabre",
+      "parents": [
+        "0ALZ2zarwJ3GbUk9PVA"
+      ]
+    },
+    {
+      "id": "1qi8k5ALitWVesidW_1T1ZxZGk03DrqW-SISYmC6W9hM",
+      "name": "The Agentic Economy and Future Financial Infrastructure - 2026 Report",
+      "mimeType": "application/vnd.google-apps.document",
+      "size": 8181,
+      "sizeFormatted": "7.99 KB",
+      "created": "2026-06-08T21:21:40.442Z",
+      "modified": "2026-06-08T21:21:41.327Z",
+      "modifiedFormatted": "8 juin 2026, 23:21",
+      "webViewLink": "https://docs.google.com/document/d/1qi8k5ALitWVesidW_1T1ZxZGk03DrqW-SISYmC6W9hM/edit?usp=drivesdk",
+      "isShared": false,
+      "isStarred": false,
+      "categories": [
+        "ebook"
+      ],
+      "owner": "quentin.fabre05arme@gmail.com",
+      "ownerName": "Quentin Fabre",
+      "parents": [
+        "0ALZ2zarwJ3GbUk9PVA"
+      ]
+    },
+    {
+      "id": "1gjwUsjJxAKGOxa38lrIQUMx2yJt4Wh8wJ06GaznHS6U",
+      "name": "Questionnaire SCI FOUGEIROL - Rempli",
+      "mimeType": "application/vnd.google-apps.document",
+      "size": 2951,
+      "sizeFormatted": "2.88 KB",
+      "created": "2026-06-04T13:06:41.636Z",
+      "modified": "2026-06-04T13:06:42.978Z",
+      "modifiedFormatted": "4 juin 2026, 15:06",
+      "webViewLink": "https://docs.google.com/document/d/1gjwUsjJxAKGOxa38lrIQUMx2yJt4Wh8wJ06GaznHS6U/edit?usp=drivesdk",
+      "isShared": false,
+      "isStarred": false,
+      "categories": [
+        "business"
+      ],
+      "owner": "quentin.fabre05arme@gmail.com",
+      "ownerName": "Quentin Fabre",
+      "parents": [
+        "0ALZ2zarwJ3GbUk9PVA"
+      ]
+    },
+    {
+      "id": "1RneqbMO_XSVlLGJwXNXcMC65VbHSp1O2udPRFxYUO_U",
+      "name": "Lettre de Résiliation OPH05 V2",
+      "mimeType": "application/vnd.google-apps.document",
+      "size": 2000,
+      "sizeFormatted": "1.95 KB",
+      "created": "2026-06-04T09:31:09.651Z",
+      "modified": "2026-06-04T09:31:10.864Z",
+      "modifiedFormatted": "4 juin 2026, 11:31",
+      "webViewLink": "https://docs.google.com/document/d/1RneqbMO_XSVlLGJwXNXcMC65VbHSp1O2udPRFxYUO_U/edit?usp=drivesdk",
+      "isShared": false,
+      "isStarred": false,
+      "categories": [
+        "uncategorized"
+      ],
+      "owner": "quentin.fabre05arme@gmail.com",
+      "ownerName": "Quentin Fabre",
+      "parents": [
+        "0ALZ2zarwJ3GbUk9PVA"
+      ]
+    },
+    {
+      "id": "19dZMTejictSiB7Et8PKAb-GEKlhw3UWVcWCwn2BimmY",
+      "name": "Lettre de Résiliation OPH05",
+      "mimeType": "application/vnd.google-apps.document",
+      "size": 1962,
+      "sizeFormatted": "1.92 KB",
+      "created": "2026-06-04T09:27:19.704Z",
+      "modified": "2026-06-04T09:27:21.169Z",
+      "modifiedFormatted": "4 juin 2026, 11:27",
+      "webViewLink": "https://docs.google.com/document/d/19dZMTejictSiB7Et8PKAb-GEKlhw3UWVcWCwn2BimmY/edit?usp=drivesdk",
+      "isShared": false,
+      "isStarred": false,
+      "categories": [
+        "uncategorized"
+      ],
+      "owner": "quentin.fabre05arme@gmail.com",
+      "ownerName": "Quentin Fabre",
+      "parents": [
+        "0ALZ2zarwJ3GbUk9PVA"
+      ]
+    },
+    {
+      "id": "1OdtCuPmgGdt07T7k6DsfXO1eTtn05vidJrX0Y07PBdc",
+      "name": "Recettes Gites",
+      "mimeType": "application/vnd.google-apps.spreadsheet",
+      "size": 1189,
+      "sizeFormatted": "1.16 KB",
+      "created": "2026-05-27T08:20:52.926Z",
+      "modified": "2026-05-27T08:21:48.008Z",
+      "modifiedFormatted": "27 mai 2026, 10:21",
+      "webViewLink": "https://docs.google.com/spreadsheets/d/1OdtCuPmgGdt07T7k6DsfXO1eTtn05vidJrX0Y07PBdc/edit?usp=drivesdk",
+      "isShared": false,
+      "isStarred": false,
+      "categories": [
+        "personal"
+      ],
+      "owner": "quentin.fabre05arme@gmail.com",
+      "ownerName": "Quentin Fabre",
+      "parents": [
+        "0ALZ2zarwJ3GbUk9PVA"
+      ]
+    },
+    {
+      "id": "1t9d0PSUz2XYKPFdGLIHS7515FqZVjD0Y8o7vZSjz77s",
+      "name": "Recettes Gites Truchet CA",
+      "mimeType": "application/vnd.google-apps.spreadsheet",
+      "size": 1024,
+      "sizeFormatted": "1.00 KB",
+      "created": "2026-05-27T08:18:40.991Z",
+      "modified": "2026-05-27T08:18:42.297Z",
+      "modifiedFormatted": "27 mai 2026, 10:18",
+      "webViewLink": "https://docs.google.com/spreadsheets/d/1t9d0PSUz2XYKPFdGLIHS7515FqZVjD0Y8o7vZSjz77s/edit?usp=drivesdk",
+      "isShared": false,
+      "isStarred": false,
+      "categories": [
+        "personal"
+      ],
+      "owner": "quentin.fabre05arme@gmail.com",
+      "ownerName": "Quentin Fabre",
+      "parents": [
+        "0ALZ2zarwJ3GbUk9PVA"
+      ]
+    },
+    {
+      "id": "1DH1xcysww4HmwVBwRZHqb_iIVIJJpyrf",
+      "name": "eze",
+      "mimeType": "application/vnd.google-apps.earth",
+      "size": null,
+      "sizeFormatted": "N/A",
+      "created": "2026-05-15T09:44:46.102Z",
+      "modified": "2026-05-15T09:44:52.666Z",
+      "modifiedFormatted": "15 mai 2026, 11:44",
+      "webViewLink": "https://earth.google.com/earth/d/1DH1xcysww4HmwVBwRZHqb_iIVIJJpyrf",
+      "isShared": false,
+      "isStarred": false,
+      "categories": [
+        "uncategorized"
+      ],
+      "owner": "quentin.fabre05arme@gmail.com",
+      "ownerName": "Quentin Fabre",
+      "parents": [
+        "1Q6zHksPOV0CJCo0AhNwaekeV84lMPACH"
+      ]
+    },
+    {
+      "id": "13mJIdhSe1Bb-cNR5gVW2y7FhLSiSkMiB",
+      "name": "Untitled map",
+      "mimeType": "application/vnd.google-apps.earth",
+      "size": null,
+      "sizeFormatted": "N/A",
+      "created": "2026-05-15T09:39:14.068Z",
+      "modified": "2026-05-15T09:39:15.220Z",
+      "modifiedFormatted": "15 mai 2026, 11:39",
+      "webViewLink": "https://earth.google.com/earth/d/13mJIdhSe1Bb-cNR5gVW2y7FhLSiSkMiB",
+      "isShared": false,
+      "isStarred": false,
+      "categories": [
+        "uncategorized"
+      ],
+      "owner": "quentin.fabre05arme@gmail.com",
+      "ownerName": "Quentin Fabre",
+      "parents": [
+        "1Q6zHksPOV0CJCo0AhNwaekeV84lMPACH"
+      ]
+    },
+    {
+      "id": "1Q6zHksPOV0CJCo0AhNwaekeV84lMPACH",
+      "name": "Google Earth",
+      "mimeType": "application/vnd.google-apps.folder",
+      "size": null,
+      "sizeFormatted": "N/A",
+      "created": "2026-05-15T09:39:13.850Z",
+      "modified": "2026-05-15T09:39:13.850Z",
+      "modifiedFormatted": "15 mai 2026, 11:39",
+      "webViewLink": "https://drive.google.com/drive/folders/1Q6zHksPOV0CJCo0AhNwaekeV84lMPACH",
+      "isShared": false,
+      "isStarred": false,
+      "categories": [
+        "uncategorized"
+      ],
+      "owner": "quentin.fabre05arme@gmail.com",
+      "ownerName": "Quentin Fabre",
+      "parents": [
+        "0ALZ2zarwJ3GbUk9PVA"
+      ]
+    },
+    {
+      "id": "1KBBT2s6JfSea999Qc7_JScvF_pjBWMvPC83Y2BuehKM",
+      "name": "Import_Pennylane_DBPB_2025",
+      "mimeType": "application/vnd.google-apps.spreadsheet",
+      "size": 1387,
+      "sizeFormatted": "1.35 KB",
+      "created": "2026-05-11T06:46:49.771Z",
+      "modified": "2026-05-11T06:46:50.469Z",
+      "modifiedFormatted": "11 mai 2026, 08:46",
+      "webViewLink": "https://docs.google.com/spreadsheets/d/1KBBT2s6JfSea999Qc7_JScvF_pjBWMvPC83Y2BuehKM/edit?usp=drivesdk",
+      "isShared": false,
+      "isStarred": false,
+      "categories": [
+        "technical"
+      ],
+      "owner": "quentin.fabre05arme@gmail.com",
+      "ownerName": "Quentin Fabre",
+      "parents": [
+        "0ALZ2zarwJ3GbUk9PVA"
+      ]
+    },
+    {
+      "id": "1UZ941TioEQ-92xbDMkaOoqF1P4s-x327YHptDZ8gWOA",
+      "name": "Covered Call ETF List Finished",
+      "mimeType": "application/vnd.google-apps.spreadsheet",
+      "size": 6866,
+      "sizeFormatted": "6.71 KB",
+      "created": "2025-02-05T20:58:51.196Z",
+      "modified": "2026-05-08T17:21:28.643Z",
+      "modifiedFormatted": "8 mai 2026, 19:21",
+      "webViewLink": "https://docs.google.com/spreadsheets/d/1UZ941TioEQ-92xbDMkaOoqF1P4s-x327YHptDZ8gWOA/edit?usp=drivesdk",
+      "isShared": true,
+      "isStarred": false,
+      "categories": [
+        "investment"
+      ],
+      "owner": "eli@tickerdata.com",
+      "ownerName": "eli",
+      "parents": []
+    },
+    {
+      "id": "1sy8Z2jXx_hJpR27syzEvTmYuVV0Nmsc6_WMmRhRk6w0",
+      "name": "fais un tableau excel des revenus reçus sur 2025",
+      "mimeType": "application/vnd.google-apps.spreadsheet",
+      "size": 1376,
+      "sizeFormatted": "1.34 KB",
+      "created": "2026-05-06T06:59:33.093Z",
+      "modified": "2026-05-06T06:59:46.201Z",
+      "modifiedFormatted": "6 mai 2026, 08:59",
+      "webViewLink": "https://docs.google.com/spreadsheets/d/1sy8Z2jXx_hJpR27syzEvTmYuVV0Nmsc6_WMmRhRk6w0/edit?usp=drivesdk",
+      "isShared": false,
+      "isStarred": false,
+      "categories": [
+        "investment"
+      ],
+      "owner": "quentin.fabre05arme@gmail.com",
+      "ownerName": "Quentin Fabre",
+      "parents": [
+        "0ALZ2zarwJ3GbUk9PVA"
+      ]
+    },
+    {
+      "id": "1hVobZQaK5MAecjwXIRhlReOYrCV05BBs62_kyyHnfLg",
+      "name": "Analyse et contrôle du CA 2025",
+      "mimeType": "application/vnd.google-apps.spreadsheet",
+      "size": 1024,
+      "sizeFormatted": "1.00 KB",
+      "created": "2026-04-27T07:45:27.357Z",
+      "modified": "2026-04-27T09:34:35.583Z",
+      "modifiedFormatted": "27 avr. 2026, 11:34",
+      "webViewLink": "https://docs.google.com/spreadsheets/d/1hVobZQaK5MAecjwXIRhlReOYrCV05BBs62_kyyHnfLg/edit?usp=drivesdk",
+      "isShared": false,
+      "isStarred": false,
+      "categories": [
+        "investment"
+      ],
+      "owner": "quentin.fabre05arme@gmail.com",
+      "ownerName": "Quentin Fabre",
+      "parents": [
+        "0ALZ2zarwJ3GbUk9PVA"
+      ]
+    },
+    {
+      "id": "1W62HPsTZbdBsqE57_-6xfmi8yrIKLvHRRiB-Dsfh96s",
+      "name": "The Great Financial Upgrade: Tokenization Explained",
+      "mimeType": "application/vnd.google-apps.document",
+      "size": 5938,
+      "sizeFormatted": "5.80 KB",
+      "created": "2026-04-26T18:23:49.008Z",
+      "modified": "2026-04-26T18:23:49.849Z",
+      "modifiedFormatted": "26 avr. 2026, 20:23",
+      "webViewLink": "https://docs.google.com/document/d/1W62HPsTZbdBsqE57_-6xfmi8yrIKLvHRRiB-Dsfh96s/edit?usp=drivesdk",
+      "isShared": false,
+      "isStarred": false,
+      "categories": [
+        "uncategorized"
+      ],
+      "owner": "quentin.fabre05arme@gmail.com",
+      "ownerName": "Quentin Fabre",
+      "parents": [
+        "0ALZ2zarwJ3GbUk9PVA"
+      ]
+    },
+    {
+      "id": "1TjxgoRdWbIZp1hMPLlPf0_NnCD50sJ6I",
+      "name": "GUIDE_FISCAL_DEV_FREELANCE_2026_FINAL.pdf",
+      "mimeType": "application/pdf",
+      "size": 1988744,
+      "sizeFormatted": "1.90 MB",
+      "created": "2026-04-26T16:59:03.614Z",
+      "modified": "2026-04-26T17:02:54.189Z",
+      "modifiedFormatted": "26 avr. 2026, 19:02",
+      "webViewLink": "https://drive.google.com/file/d/1TjxgoRdWbIZp1hMPLlPf0_NnCD50sJ6I/view?usp=drivesdk",
+      "isShared": false,
+      "isStarred": false,
+      "categories": [
+        "investment",
+        "business",
+        "technical",
+        "ebook"
+      ],
+      "owner": "quentin.fabre05arme@gmail.com",
+      "ownerName": "Quentin Fabre",
+      "parents": [
+        "1DNYQ5SboPY1AWJ8yMv4OPAgDseA6bS03"
+      ]
+    },
+    {
+      "id": "1DNYQ5SboPY1AWJ8yMv4OPAgDseA6bS03",
+      "name": "ebook compta",
+      "mimeType": "application/vnd.google-apps.folder",
+      "size": null,
+      "sizeFormatted": "N/A",
+      "created": "2026-04-26T17:02:48.565Z",
+      "modified": "2026-04-26T17:02:48.565Z",
+      "modifiedFormatted": "26 avr. 2026, 19:02",
+      "webViewLink": "https://drive.google.com/drive/folders/1DNYQ5SboPY1AWJ8yMv4OPAgDseA6bS03",
+      "isShared": false,
+      "isStarred": false,
+      "categories": [
+        "investment",
+        "ebook"
+      ],
+      "owner": "quentin.fabre05arme@gmail.com",
+      "ownerName": "Quentin Fabre",
+      "parents": [
+        "1JwRZ1DHwcQfHD84chCKf-dEgA1VSLrWL"
+      ]
+    },
+    {
+      "id": "1jp2FTJuG1xhnsWMHmxR39-0weanRLpvU",
+      "name": "00-EBOOK-MASTER-PLAN-v4-FINAL.md",
+      "mimeType": "text/markdown",
+      "size": 666,
+      "sizeFormatted": "666.00 B",
+      "created": "2026-04-25T05:34:26.845Z",
+      "modified": "2026-04-25T05:34:26.845Z",
+      "modifiedFormatted": "25 avr. 2026, 07:34",
+      "webViewLink": "https://drive.google.com/file/d/1jp2FTJuG1xhnsWMHmxR39-0weanRLpvU/view?usp=drivesdk",
+      "isShared": false,
+      "isStarred": false,
+      "categories": [
+        "ebook"
+      ],
+      "owner": "quentin.fabre05arme@gmail.com",
+      "ownerName": "Quentin Fabre",
+      "parents": [
+        "1W0HxrZKGxnGVBVKb3JwALDbMDtuRWUyr"
+      ]
+    },
+    {
+      "id": "1W0HxrZKGxnGVBVKb3JwALDbMDtuRWUyr",
+      "name": "EBOOK - The Infrastructure Investor",
+      "mimeType": "application/vnd.google-apps.folder",
+      "size": null,
+      "sizeFormatted": "N/A",
+      "created": "2026-04-25T05:33:38.745Z",
+      "modified": "2026-04-25T05:33:38.745Z",
+      "modifiedFormatted": "25 avr. 2026, 07:33",
+      "webViewLink": "https://drive.google.com/drive/folders/1W0HxrZKGxnGVBVKb3JwALDbMDtuRWUyr",
+      "isShared": false,
+      "isStarred": false,
+      "categories": [
+        "investment",
+        "ebook"
+      ],
+      "owner": "quentin.fabre05arme@gmail.com",
+      "ownerName": "Quentin Fabre",
+      "parents": [
+        "0ALZ2zarwJ3GbUk9PVA"
+      ]
+    },
+    {
+      "id": "1jpiSO7ZN5mfgwoILYFRoxvVDSqkLJM0TtlbiFsusEJg",
+      "name": "post-bmnr-wartime",
+      "mimeType": "application/vnd.google-apps.document",
+      "size": 1024,
+      "sizeFormatted": "1.00 KB",
+      "created": "2026-04-14T05:51:47.803Z",
+      "modified": "2026-04-14T05:51:49.261Z",
+      "modifiedFormatted": "14 avr. 2026, 07:51",
+      "webViewLink": "https://docs.google.com/document/d/1jpiSO7ZN5mfgwoILYFRoxvVDSqkLJM0TtlbiFsusEJg/edit?usp=drivesdk",
+      "isShared": false,
+      "isStarred": false,
+      "categories": [
+        "uncategorized"
+      ],
+      "owner": "quentin.fabre05arme@gmail.com",
+      "ownerName": "Quentin Fabre",
+      "parents": [
+        "0ALZ2zarwJ3GbUk9PVA"
+      ]
+    },
+    {
+      "id": "1jzkwMQP8hthbPrPIhXr31E51az_v7gQeNV3dazo5OtE",
+      "name": "post-bmnr-wartime",
+      "mimeType": "application/vnd.google-apps.document",
+      "size": 1024,
+      "sizeFormatted": "1.00 KB",
+      "created": "2026-04-14T05:51:25.094Z",
+      "modified": "2026-04-14T05:51:27.047Z",
+      "modifiedFormatted": "14 avr. 2026, 07:51",
+      "webViewLink": "https://docs.google.com/document/d/1jzkwMQP8hthbPrPIhXr31E51az_v7gQeNV3dazo5OtE/edit?usp=drivesdk",
+      "isShared": false,
+      "isStarred": false,
+      "categories": [
+        "uncategorized"
+      ],
+      "owner": "quentin.fabre05arme@gmail.com",
+      "ownerName": "Quentin Fabre",
+      "parents": [
+        "0ALZ2zarwJ3GbUk9PVA"
+      ]
+    },
+    {
+      "id": "1MsxOuNU3bwNDCik4OE5tJnSiDxwnfodx",
+      "name": "Facture_FreeMobile_2564235002.pdf",
+      "mimeType": "application/pdf",
+      "size": 100877,
+      "sizeFormatted": "98.51 KB",
+      "created": "2026-04-08T21:22:55.580Z",
+      "modified": "2026-04-08T21:22:55.627Z",
+      "modifiedFormatted": "8 avr. 2026, 23:22",
+      "webViewLink": "https://drive.google.com/file/d/1MsxOuNU3bwNDCik4OE5tJnSiDxwnfodx/view?usp=drivesdk",
+      "isShared": false,
+      "isStarred": false,
+      "categories": [
+        "business"
+      ],
+      "owner": "quentin.fabre05arme@gmail.com",
+      "ownerName": "Quentin Fabre",
+      "parents": [
+        "0ALZ2zarwJ3GbUk9PVA"
+      ]
+    },
+    {
+      "id": "12xPqt-UsSfCjhukK95VZ5UXfJ9zKNNpf",
+      "name": "edf.pdf",
+      "mimeType": "application/pdf",
+      "size": 427917,
+      "sizeFormatted": "417.89 KB",
+      "created": "2026-04-08T21:18:59.515Z",
+      "modified": "2026-04-08T21:18:59.695Z",
+      "modifiedFormatted": "8 avr. 2026, 23:18",
+      "webViewLink": "https://drive.google.com/file/d/12xPqt-UsSfCjhukK95VZ5UXfJ9zKNNpf/view?usp=drivesdk",
+      "isShared": false,
+      "isStarred": false,
+      "categories": [
+        "uncategorized"
+      ],
+      "owner": "quentin.fabre05arme@gmail.com",
+      "ownerName": "Quentin Fabre",
+      "parents": [
+        "0ALZ2zarwJ3GbUk9PVA"
+      ]
+    },
+    {
+      "id": "1inflJPBUwo-C_JxbbukAZqQKKpDsBlX_",
+      "name": "Rib .pdf",
+      "mimeType": "application/pdf",
+      "size": 31385,
+      "sizeFormatted": "30.65 KB",
+      "created": "2026-04-08T21:15:29.230Z",
+      "modified": "2026-04-08T21:15:29.230Z",
+      "modifiedFormatted": "8 avr. 2026, 23:15",
+      "webViewLink": "https://drive.google.com/file/d/1inflJPBUwo-C_JxbbukAZqQKKpDsBlX_/view?usp=drivesdk",
+      "isShared": false,
+      "isStarred": false,
+      "categories": [
+        "business"
+      ],
+      "owner": "quentin.fabre05arme@gmail.com",
+      "ownerName": "Quentin Fabre",
+      "parents": [
+        "0ALZ2zarwJ3GbUk9PVA"
+      ]
+    },
+    {
+      "id": "1hAG0rKbYRKil2pLzNVRWlMotB4tR3kWPPYe4gKqAcHI",
+      "name": "Rib ",
+      "mimeType": "application/vnd.google-apps.document",
+      "size": 1024,
+      "sizeFormatted": "1.00 KB",
+      "created": "2026-04-08T21:15:02.360Z",
+      "modified": "2026-04-08T21:15:02.430Z",
+      "modifiedFormatted": "8 avr. 2026, 23:15",
+      "webViewLink": "https://docs.google.com/document/d/1hAG0rKbYRKil2pLzNVRWlMotB4tR3kWPPYe4gKqAcHI/edit?usp=drivesdk",
+      "isShared": false,
+      "isStarred": false,
+      "categories": [
+        "business"
+      ],
+      "owner": "quentin.fabre05arme@gmail.com",
+      "ownerName": "Quentin Fabre",
+      "parents": [
+        "0ALZ2zarwJ3GbUk9PVA"
+      ]
+    },
+    {
+      "id": "17JBb554PaohKBrvznxT9bDrdoyETPVkI",
+      "name": "Rib ",
+      "mimeType": "text/plain",
+      "size": 427,
+      "sizeFormatted": "427.00 B",
+      "created": "2026-04-08T21:10:23.740Z",
+      "modified": "2026-04-08T21:11:26.534Z",
+      "modifiedFormatted": "8 avr. 2026, 23:11",
+      "webViewLink": "https://drive.google.com/file/d/17JBb554PaohKBrvznxT9bDrdoyETPVkI/view?usp=drivesdk",
+      "isShared": false,
+      "isStarred": false,
+      "categories": [
+        "business"
+      ],
+      "owner": "quentin.fabre05arme@gmail.com",
+      "ownerName": "Quentin Fabre",
+      "parents": [
+        "0ALZ2zarwJ3GbUk9PVA"
+      ]
+    },
+    {
+      "id": "1mEF5w26Q9ebgLVmO2RKlQvlV8sq5OG5IZWBpaIg1eZw",
+      "name": "Copy of MINI-COURSE: When to Sell Slides",
+      "mimeType": "application/vnd.google-apps.presentation",
+      "size": 10556296,
+      "sizeFormatted": "10.07 MB",
+      "created": "2026-04-07T22:35:35.620Z",
+      "modified": "2026-04-07T22:35:35.620Z",
+      "modifiedFormatted": "8 avr. 2026, 00:35",
+      "webViewLink": "https://docs.google.com/presentation/d/1mEF5w26Q9ebgLVmO2RKlQvlV8sq5OG5IZWBpaIg1eZw/edit?usp=drivesdk",
+      "isShared": false,
+      "isStarred": false,
+      "categories": [
+        "ebook"
+      ],
+      "owner": "quentin.fabre05arme@gmail.com",
+      "ownerName": "Quentin Fabre",
+      "parents": [
+        "0ALZ2zarwJ3GbUk9PVA"
+      ]
+    },
+    {
+      "id": "1d5fGmbumpxsR2b190rliNHhWNVsMAedu",
+      "name": "Google AI Studio",
+      "mimeType": "application/vnd.google-apps.folder",
+      "size": null,
+      "sizeFormatted": "N/A",
+      "created": "2026-03-09T21:28:06.988Z",
+      "modified": "2026-04-06T10:20:39.908Z",
+      "modifiedFormatted": "6 avr. 2026, 12:20",
+      "webViewLink": "https://drive.google.com/drive/folders/1d5fGmbumpxsR2b190rliNHhWNVsMAedu",
+      "isShared": false,
+      "isStarred": false,
+      "categories": [
+        "uncategorized"
+      ],
+      "owner": "quentin.fabre05arme@gmail.com",
+      "ownerName": "Quentin Fabre",
+      "parents": [
+        "1YQFqnHRE5ULTRjUBULqe4lGTwgqfinYp"
+      ]
+    },
+    {
+      "id": "1xDbWMw4a9h2p3wA7TiEQFy2ON_0QT3K73wiOfGQuKKw",
+      "name": "requirements",
+      "mimeType": "application/vnd.google-apps.document",
+      "size": 1024,
+      "sizeFormatted": "1.00 KB",
+      "created": "2026-03-03T00:26:42.089Z",
+      "modified": "2026-04-06T10:20:36.814Z",
+      "modifiedFormatted": "6 avr. 2026, 12:20",
+      "webViewLink": "https://docs.google.com/document/d/1xDbWMw4a9h2p3wA7TiEQFy2ON_0QT3K73wiOfGQuKKw/edit?usp=drivesdk",
+      "isShared": false,
+      "isStarred": false,
+      "categories": [
+        "uncategorized"
+      ],
+      "owner": "quentin.fabre05arme@gmail.com",
+      "ownerName": "Quentin Fabre",
+      "parents": [
+        "1w2rz8GVnxd8SsXYU5zuCFXcotZc8497x"
+      ]
+    },
+    {
+      "id": "1KLYBjno5sTug4NylbGHgGxxyUy236xTbIaS4AWQZJ9g",
+      "name": "Procfile",
+      "mimeType": "application/vnd.google-apps.document",
+      "size": 1024,
+      "sizeFormatted": "1.00 KB",
+      "created": "2026-03-03T00:28:01.504Z",
+      "modified": "2026-04-06T10:20:34.605Z",
+      "modifiedFormatted": "6 avr. 2026, 12:20",
+      "webViewLink": "https://docs.google.com/document/d/1KLYBjno5sTug4NylbGHgGxxyUy236xTbIaS4AWQZJ9g/edit?usp=drivesdk",
+      "isShared": false,
+      "isStarred": false,
+      "categories": [
+        "uncategorized"
+      ],
+      "owner": "quentin.fabre05arme@gmail.com",
+      "ownerName": "Quentin Fabre",
+      "parents": [
+        "1w2rz8GVnxd8SsXYU5zuCFXcotZc8497x"
+      ]
+    },
+    {
+      "id": "1ZtvaqQZr1uR0WzWGfCcmTGQwIiRBg7NH",
+      "name": "appsheet",
+      "mimeType": "application/vnd.google-apps.folder",
+      "size": null,
+      "sizeFormatted": "N/A",
+      "created": "2026-03-25T21:58:43.246Z",
+      "modified": "2026-04-06T10:20:32.107Z",
+      "modifiedFormatted": "6 avr. 2026, 12:20",
+      "webViewLink": "https://drive.google.com/drive/folders/1ZtvaqQZr1uR0WzWGfCcmTGQwIiRBg7NH",
+      "isShared": false,
+      "isStarred": false,
+      "categories": [
+        "technical"
+      ],
+      "owner": "quentin.fabre05arme@gmail.com",
+      "ownerName": "Quentin Fabre",
+      "parents": [
+        "1Ji91UhqzB1RaBa__EAW73FXUH_um2wCq"
+      ]
+    },
+    {
+      "id": "16YhKDGU6mjR0npRUW3ure7qAtYpdEL-Bjzn6-u0mYUA",
+      "name": "MigraineFreedomLanding.jsx",
+      "mimeType": "application/vnd.google-apps.document",
+      "size": 9740,
+      "sizeFormatted": "9.51 KB",
+      "created": "2026-03-23T01:17:43.493Z",
+      "modified": "2026-04-06T10:20:29.304Z",
+      "modifiedFormatted": "6 avr. 2026, 12:20",
+      "webViewLink": "https://docs.google.com/document/d/16YhKDGU6mjR0npRUW3ure7qAtYpdEL-Bjzn6-u0mYUA/edit?usp=drivesdk",
+      "isShared": false,
+      "isStarred": false,
+      "categories": [
+        "personal"
+      ],
+      "owner": "quentin.fabre05arme@gmail.com",
+      "ownerName": "Quentin Fabre",
+      "parents": [
+        "1UJCZfyEsSSdS_DecTtLWE0kho1thz4dA"
+      ]
+    },
+    {
+      "id": "1f6hFSLCF2Y2NJr66eGpFkoIHMkXFKwWZ3h7xOeXi0bU",
+      "name": "Recipe",
+      "mimeType": "application/vnd.google-apps.document",
+      "size": 162733,
+      "sizeFormatted": "158.92 KB",
+      "created": "2026-03-16T20:50:55.941Z",
+      "modified": "2026-04-06T10:20:26.824Z",
+      "modifiedFormatted": "6 avr. 2026, 12:20",
+      "webViewLink": "https://docs.google.com/document/d/1f6hFSLCF2Y2NJr66eGpFkoIHMkXFKwWZ3h7xOeXi0bU/edit?usp=drivesdk",
+      "isShared": false,
+      "isStarred": false,
+      "categories": [
+        "personal"
+      ],
+      "owner": "quentin.fabre05arme@gmail.com",
+      "ownerName": "Quentin Fabre",
+      "parents": [
+        "1LnAYpr8Vtxh1XxDj9tOCAVh5YqZ_Fi4U"
+      ]
+    },
+    {
+      "id": "15pCLnlTy-B4KT7nesgn0p2NbWk6BDKva6hN-6uySb9M",
+      "name": "Untitled document",
+      "mimeType": "application/vnd.google-apps.document",
+      "size": 2909,
+      "sizeFormatted": "2.84 KB",
+      "created": "2026-03-16T20:52:06.082Z",
+      "modified": "2026-04-06T10:20:24.409Z",
+      "modifiedFormatted": "6 avr. 2026, 12:20",
+      "webViewLink": "https://docs.google.com/document/d/15pCLnlTy-B4KT7nesgn0p2NbWk6BDKva6hN-6uySb9M/edit?usp=drivesdk",
+      "isShared": false,
+      "isStarred": false,
+      "categories": [
+        "uncategorized"
+      ],
+      "owner": "quentin.fabre05arme@gmail.com",
+      "ownerName": "Quentin Fabre",
+      "parents": [
+        "1LnAYpr8Vtxh1XxDj9tOCAVh5YqZ_Fi4U"
+      ]
+    }
+  ],
+  "categories": {
+    "investment": {
+      "count": 10,
+      "percentage": "21.3",
+      "fileIds": [
+        "1HFJNp56zhX8vijDfV3ulNenIr2QKYDRa25II_wCvEBE",
+        "12Fs_d8Zr4sKnoCxb5EaEbe2FciXIGPVTFGM9iehZq3M",
+        "15cfyDzfW8jBUM4ObC6NXcwGyuHK5XL3se1LmksYENbo",
+        "1da05oMwcoYM8gZsS20DAy0etGwEVcbMTEGAwCiJkee8",
+        "1UZ941TioEQ-92xbDMkaOoqF1P4s-x327YHptDZ8gWOA",
+        "1sy8Z2jXx_hJpR27syzEvTmYuVV0Nmsc6_WMmRhRk6w0",
+        "1hVobZQaK5MAecjwXIRhlReOYrCV05BBs62_kyyHnfLg",
+        "1TjxgoRdWbIZp1hMPLlPf0_NnCD50sJ6I",
+        "1DNYQ5SboPY1AWJ8yMv4OPAgDseA6bS03",
+        "1W0HxrZKGxnGVBVKb3JwALDbMDtuRWUyr"
+      ]
+    },
+    "business": {
+      "count": 11,
+      "percentage": "23.4",
+      "fileIds": [
+        "1IJuGFWl43szsxnfPQgPMCJtZmKQQrMhEt_PR68yPt-0",
+        "1ebw1wTpHg2zzEOLZXZ1wTFKOvw2Zh8Yg0d0A4k9VsaU",
+        "1Qh4tR4iPXq0siKaXDaf3qN7ghcthczn8c_odhqfNvfs",
+        "1QsCY1sbnIYk1DktUmNZPuB8sy_s0zNWuMzEOxREJXE4",
+        "1da05oMwcoYM8gZsS20DAy0etGwEVcbMTEGAwCiJkee8",
+        "1gjwUsjJxAKGOxa38lrIQUMx2yJt4Wh8wJ06GaznHS6U",
+        "1TjxgoRdWbIZp1hMPLlPf0_NnCD50sJ6I",
+        "1MsxOuNU3bwNDCik4OE5tJnSiDxwnfodx",
+        "1inflJPBUwo-C_JxbbukAZqQKKpDsBlX_",
+        "1hAG0rKbYRKil2pLzNVRWlMotB4tR3kWPPYe4gKqAcHI",
+        "17JBb554PaohKBrvznxT9bDrdoyETPVkI"
+      ]
+    },
+    "personal": {
+      "count": 6,
+      "percentage": "12.8",
+      "fileIds": [
+        "1-yXl1In1RG0yJRmsdN3S9gvG7ebgZnNSnTj8wV10BAs",
+        "1UkczrPj44WBIx4so6IWRiWKBexIUYN10",
+        "1OdtCuPmgGdt07T7k6DsfXO1eTtn05vidJrX0Y07PBdc",
+        "1t9d0PSUz2XYKPFdGLIHS7515FqZVjD0Y8o7vZSjz77s",
+        "16YhKDGU6mjR0npRUW3ure7qAtYpdEL-Bjzn6-u0mYUA",
+        "1f6hFSLCF2Y2NJr66eGpFkoIHMkXFKwWZ3h7xOeXi0bU"
+      ]
+    },
+    "technical": {
+      "count": 6,
+      "percentage": "12.8",
+      "fileIds": [
+        "1sxAZIn953iC14iXcCOurvyvNmZVOPk-X",
+        "1Bk6clsJ0s_VVP-lMhDWPYnqgN5YBKIkvzQ6li5govRM",
+        "1da05oMwcoYM8gZsS20DAy0etGwEVcbMTEGAwCiJkee8",
+        "1KBBT2s6JfSea999Qc7_JScvF_pjBWMvPC83Y2BuehKM",
+        "1TjxgoRdWbIZp1hMPLlPf0_NnCD50sJ6I",
+        "1ZtvaqQZr1uR0WzWGfCcmTGQwIiRBg7NH"
+      ]
+    },
+    "ebook": {
+      "count": 7,
+      "percentage": "14.9",
+      "fileIds": [
+        "1UkczrPj44WBIx4so6IWRiWKBexIUYN10",
+        "1qi8k5ALitWVesidW_1T1ZxZGk03DrqW-SISYmC6W9hM",
+        "1TjxgoRdWbIZp1hMPLlPf0_NnCD50sJ6I",
+        "1DNYQ5SboPY1AWJ8yMv4OPAgDseA6bS03",
+        "1jp2FTJuG1xhnsWMHmxR39-0weanRLpvU",
+        "1W0HxrZKGxnGVBVKb3JwALDbMDtuRWUyr",
+        "1mEF5w26Q9ebgLVmO2RKlQvlV8sq5OG5IZWBpaIg1eZw"
+      ]
+    },
+    "uncategorized": {
+      "count": 15,
+      "percentage": "31.9",
+      "fileIds": [
+        "1aJT_--TBy74-Jr3wCR7nA4C_y32I7b6Z",
+        "1WCUi6jQ8F328i9EcNwBtaxIY0q7I6YSL2zLKhYc1Kvo",
+        "1RneqbMO_XSVlLGJwXNXcMC65VbHSp1O2udPRFxYUO_U",
+        "19dZMTejictSiB7Et8PKAb-GEKlhw3UWVcWCwn2BimmY",
+        "1DH1xcysww4HmwVBwRZHqb_iIVIJJpyrf",
+        "13mJIdhSe1Bb-cNR5gVW2y7FhLSiSkMiB",
+        "1Q6zHksPOV0CJCo0AhNwaekeV84lMPACH",
+        "1W62HPsTZbdBsqE57_-6xfmi8yrIKLvHRRiB-Dsfh96s",
+        "1jpiSO7ZN5mfgwoILYFRoxvVDSqkLJM0TtlbiFsusEJg",
+        "1jzkwMQP8hthbPrPIhXr31E51az_v7gQeNV3dazo5OtE",
+        "12xPqt-UsSfCjhukK95VZ5UXfJ9zKNNpf",
+        "1d5fGmbumpxsR2b190rliNHhWNVsMAedu",
+        "1xDbWMw4a9h2p3wA7TiEQFy2ON_0QT3K73wiOfGQuKKw",
+        "1KLYBjno5sTug4NylbGHgGxxyUy236xTbIaS4AWQZJ9g",
+        "15pCLnlTy-B4KT7nesgn0p2NbWk6BDKva6hN-6uySb9M"
+      ]
+    }
+  },
+  "owners": {
+    "coachparkev@gmail.com": {
+      "name": "coachparkev",
+      "count": 1,
+      "files": [
+        "1HFJNp56zhX8vijDfV3ulNenIr2QKYDRa25II_wCvEBE"
+      ]
+    },
+    "parkevcfa@gmail.com": {
+      "name": "parkevcfa",
+      "count": 1,
+      "files": [
+        "12Fs_d8Zr4sKnoCxb5EaEbe2FciXIGPVTFGM9iehZq3M"
+      ]
+    },
+    "w.c.thms@gmail.com": {
+      "name": "w.c.thms",
+      "count": 1,
+      "files": [
+        "15cfyDzfW8jBUM4ObC6NXcwGyuHK5XL3se1LmksYENbo"
+      ]
+    },
+    "narguess.shahmohammadi@iae-aix.com": {
+      "name": "narguess.shahmohammadi",
+      "count": 1,
+      "files": [
+        "1-yXl1In1RG0yJRmsdN3S9gvG7ebgZnNSnTj8wV10BAs"
+      ]
+    },
+    "quentin.fabre05arme@gmail.com": {
+      "name": "Quentin Fabre",
+      "count": 42,
+      "files": [
+        "1sxAZIn953iC14iXcCOurvyvNmZVOPk-X",
+        "1Bk6clsJ0s_VVP-lMhDWPYnqgN5YBKIkvzQ6li5govRM",
+        "1IJuGFWl43szsxnfPQgPMCJtZmKQQrMhEt_PR68yPt-0",
+        "1ebw1wTpHg2zzEOLZXZ1wTFKOvw2Zh8Yg0d0A4k9VsaU",
+        "1Qh4tR4iPXq0siKaXDaf3qN7ghcthczn8c_odhqfNvfs",
+        "1QsCY1sbnIYk1DktUmNZPuB8sy_s0zNWuMzEOxREJXE4",
+        "1UkczrPj44WBIx4so6IWRiWKBexIUYN10",
+        "1aJT_--TBy74-Jr3wCR7nA4C_y32I7b6Z",
+        "1WCUi6jQ8F328i9EcNwBtaxIY0q7I6YSL2zLKhYc1Kvo",
+        "1da05oMwcoYM8gZsS20DAy0etGwEVcbMTEGAwCiJkee8",
+        "1qi8k5ALitWVesidW_1T1ZxZGk03DrqW-SISYmC6W9hM",
+        "1gjwUsjJxAKGOxa38lrIQUMx2yJt4Wh8wJ06GaznHS6U",
+        "1RneqbMO_XSVlLGJwXNXcMC65VbHSp1O2udPRFxYUO_U",
+        "19dZMTejictSiB7Et8PKAb-GEKlhw3UWVcWCwn2BimmY",
+        "1OdtCuPmgGdt07T7k6DsfXO1eTtn05vidJrX0Y07PBdc",
+        "1t9d0PSUz2XYKPFdGLIHS7515FqZVjD0Y8o7vZSjz77s",
+        "1DH1xcysww4HmwVBwRZHqb_iIVIJJpyrf",
+        "13mJIdhSe1Bb-cNR5gVW2y7FhLSiSkMiB",
+        "1Q6zHksPOV0CJCo0AhNwaekeV84lMPACH",
+        "1KBBT2s6JfSea999Qc7_JScvF_pjBWMvPC83Y2BuehKM",
+        "1sy8Z2jXx_hJpR27syzEvTmYuVV0Nmsc6_WMmRhRk6w0",
+        "1hVobZQaK5MAecjwXIRhlReOYrCV05BBs62_kyyHnfLg",
+        "1W62HPsTZbdBsqE57_-6xfmi8yrIKLvHRRiB-Dsfh96s",
+        "1TjxgoRdWbIZp1hMPLlPf0_NnCD50sJ6I",
+        "1DNYQ5SboPY1AWJ8yMv4OPAgDseA6bS03",
+        "1jp2FTJuG1xhnsWMHmxR39-0weanRLpvU",
+        "1W0HxrZKGxnGVBVKb3JwALDbMDtuRWUyr",
+        "1jpiSO7ZN5mfgwoILYFRoxvVDSqkLJM0TtlbiFsusEJg",
+        "1jzkwMQP8hthbPrPIhXr31E51az_v7gQeNV3dazo5OtE",
+        "1MsxOuNU3bwNDCik4OE5tJnSiDxwnfodx",
+        "12xPqt-UsSfCjhukK95VZ5UXfJ9zKNNpf",
+        "1inflJPBUwo-C_JxbbukAZqQKKpDsBlX_",
+        "1hAG0rKbYRKil2pLzNVRWlMotB4tR3kWPPYe4gKqAcHI",
+        "17JBb554PaohKBrvznxT9bDrdoyETPVkI",
+        "1mEF5w26Q9ebgLVmO2RKlQvlV8sq5OG5IZWBpaIg1eZw",
+        "1d5fGmbumpxsR2b190rliNHhWNVsMAedu",
+        "1xDbWMw4a9h2p3wA7TiEQFy2ON_0QT3K73wiOfGQuKKw",
+        "1KLYBjno5sTug4NylbGHgGxxyUy236xTbIaS4AWQZJ9g",
+        "1ZtvaqQZr1uR0WzWGfCcmTGQwIiRBg7NH",
+        "16YhKDGU6mjR0npRUW3ure7qAtYpdEL-Bjzn6-u0mYUA",
+        "1f6hFSLCF2Y2NJr66eGpFkoIHMkXFKwWZ3h7xOeXi0bU",
+        "15pCLnlTy-B4KT7nesgn0p2NbWk6BDKva6hN-6uySb9M"
+      ]
+    },
+    "eli@tickerdata.com": {
+      "name": "eli",
+      "count": 1,
+      "files": [
+        "1UZ941TioEQ-92xbDMkaOoqF1P4s-x327YHptDZ8gWOA"
+      ]
+    }
+  },
+  "stats": {
+    "totalSize": 32140586,
+    "folders": 6,
+    "documents": 18,
+    "spreadsheets": 12,
+    "presentations": 1,
+    "pdfs": 5,
+    "others": 5
+  }
+}
