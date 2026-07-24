@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-07-24T13:03:59.566Z",
+  "timestamp": "2026-07-24T13:16:17.591Z",
   "assets": {
     "BTC": {
       "price": 65467.53,
       "change_24h": 0.56615335,
       "source": "cached",
       "signal": "NEUTRAL",
-      "fetch_time_ms": 3221,
+      "fetch_time_ms": 3283,
       "stale": true
     },
     "ETH": {
@@ -14,7 +14,7 @@
       "change_24h": 0.89332297,
       "source": "cached",
       "signal": "NEUTRAL",
-      "fetch_time_ms": 3232,
+      "fetch_time_ms": 3259,
       "stale": true
     },
     "MSTR": {
@@ -22,7 +22,7 @@
       "change_24h": -6.37937,
       "source": "cached",
       "signal": "BEARISH",
-      "fetch_time_ms": 3234,
+      "fetch_time_ms": 3256,
       "stale": true
     },
     "HIMS": {
@@ -30,13 +30,13 @@
       "change_24h": 3.34596,
       "source": "cached",
       "signal": "MODERATE_BULLISH",
-      "fetch_time_ms": 3210,
+      "fetch_time_ms": 3268,
       "stale": true
     }
   },
   "_meta": {
     "fromCache": false,
-    "fetch_time_ms": 3259,
+    "fetch_time_ms": 3291,
     "sources": [
       "cached",
       "cached",
@@ -45,7 +45,7 @@
     ],
     "assets_count": 4,
     "stale_count": 4,
-    "saved_at": "2026-07-24T13:03:59.567Z",
+    "saved_at": "2026-07-24T13:16:17.591Z",
     "version": "2.0"
   }
 }
