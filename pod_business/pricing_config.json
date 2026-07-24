@@ -1,6 +1,6 @@
 {
-  "version": "2026-07-19",
-  "last_optimized": "2026-07-19T04:53:00+02:00",
+  "version": "2026-07-24",
+  "last_optimized": "2026-07-24T13:53:00+02:00",
   "currency": "EUR",
   "min_margin_percent": 40,
   "niche_pricing": {
@@ -73,6 +73,17 @@
       "niche": "professions",
       "margin_estimated": 13.99,
       "margin_percent": 54
+    },
+    "design_fitness_beast_mode": {
+      "name": "BEAST MODE",
+      "price": 24.99,
+      "old_price": 22.99,
+      "increase_percent": 8.7,
+      "increase_date": "2026-07-24",
+      "justification": "Below market avg (€23), aligned with Gym Rat pricing for consistency. Within 20% autonomous limit.",
+      "niche": "fitness",
+      "margin_estimated": 12.50,
+      "margin_percent": 50
     }
   },
   "optimization_summary": {
@@ -80,5 +91,13 @@
     "min_margin_maintained": true,
     "all_within_20_percent_limit": true,
     "projected_revenue_impact_daily": "+€9 at 10 sales/day"
+  },
+  "daily_research_cycle_2026_07_24": {
+    "cycle_id": "pod-research-2026-07-24-1353",
+    "pricing_changes": 1,
+    "seo_changes": 0,
+    "new_concepts": 0,
+    "blocker_status": "Etsy shop 404 persists",
+    "revenue_status": "€0/day blocked"
   }
 }

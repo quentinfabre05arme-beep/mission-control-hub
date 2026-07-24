@@ -31,7 +31,7 @@
     {"date": "2026-07-21", "sales": 0, "revenue": 0, "costs": 0, "profit": 0, "note": "API 401 - Day 9 blocked, research cycle #10 complete, pricing optimized (crypto +7.1%, prof +7.7%), SEO ready"}
     {"date": "2026-07-22", "sales": 0, "revenue": 0, "costs": 0, "profit": 0, "note": "BLOCKER RESOLVED - 10 products created on Printify 10:54 CET, syncing to Etsy, monitoring first sales"},
     {"date": "2026-07-23", "sales": 0, "revenue": 0, "costs": 0, "profit": 0, "note": "Products live 44+ hours, awaiting first sale (within 24-72h window), research cycles #11-12 complete"},
-    {"date": "2026-07-24", "sales": 0, "revenue": 0, "costs": 0, "profit": 0, "note": "Products live 60+ hours, API 401 error identified, Etsy sync status unknown — requires verification"}
+    {"date": "2026-07-24", "sales": 0, "revenue": 0, "costs": 0, "profit": 0, "note": "Etsy shop 404 confirmed — products never went live (published: false). Research cycles #13-14 complete, Beast Mode pricing optimized +8.7%, SEO confirmed. 3 days blocked, ~€108 opportunity cost."}
   ],
   "product_performance": [],
   "cost_breakdown": {
@@ -41,20 +41,29 @@
     "total_fixed_costs": 0
   },
   "opportunity_cost": {
-    "days_blocked": 9,
+    "days_blocked": 12,
     "designs_not_published": 35,
-    "estimated_lost_revenue_min": 200.00,
-    "estimated_lost_revenue_max": 600.00,
-    "cumulative_weeks_blocked": 1
+    "estimated_lost_revenue_min": 300.00,
+    "estimated_lost_revenue_max": 900.00,
+    "cumulative_weeks_blocked": 1.7
   },
   "blockers": [
+    {
+      "type": "ETSY_SHOP_NOT_FOUND",
+      "severity": "CRITICAL",
+      "description": "Etsy shop returns 404, products showing published: false on Printify",
+      "days_active": 3,
+      "impact": "Zero products visible to customers, zero revenue potential",
+      "discovered": "2026-07-24",
+      "resolution_required": "User verifies Etsy shop status at etsy.com/shop/Quentinvestdesign"
+    },
     {
       "type": "API_AUTHENTICATION",
       "severity": "CRITICAL",
       "description": "Printify API returning 401 Unauthorized despite valid token",
-      "days_active": 9,
+      "days_active": 12,
       "impact": "Zero products live, zero revenue potential",
-      "resolution_required": "Generate fresh Printify API token"
+      "resolution_required": "Generate fresh Printify API token or use dashboard workaround"
     }
   ],
   "recommendations": [
