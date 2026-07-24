@@ -1,8 +1,8 @@
 {
   "version": "1.0.1",
   "startedAt": "2026-07-23T21:01:29.955Z",
-  "totalCycles": 47,
-  "lastCycle": "2026-07-24T02:01:02.256Z",
+  "totalCycles": 56,
+  "lastCycle": "2026-07-24T03:01:02.292Z",
   "errors": [
     {
       "time": "2026-07-23T21:01:29.990Z",
@@ -42,26 +42,74 @@
       "description": "Added log rotation for engine.log",
       "timestamp": "2026-07-23T22:01:11.450Z",
       "details": "Auto-rotate engine.log when it exceeds 5MB"
+    },
+    {
+      "type": "LOW_RESEARCH_FREQUENCY",
+      "observation": "Average 0.0 cycles/day over 14 days",
+      "recommendation": "Increase to 3-4 cycles/day for better coverage"
+    },
+    {
+      "type": "INCOMPLETE_MARKET_DATA",
+      "observation": "Missing data for: BTC, ETH, MSTR, HIMS",
+      "recommendation": "Check data source API keys and connectivity"
+    },
+    {
+      "type": "RESEARCH_AUTOMATION",
+      "target": "daily_research_cycle",
+      "reason": "No research triggered today",
+      "status": "ready_to_implement"
+    },
+    {
+      "type": "LOW_RESEARCH_FREQUENCY",
+      "observation": "Average 0.0 cycles/day over 14 days",
+      "recommendation": "Increase to 3-4 cycles/day for better coverage"
+    },
+    {
+      "type": "INCOMPLETE_MARKET_DATA",
+      "observation": "Missing data for: BTC, ETH, MSTR, HIMS",
+      "recommendation": "Check data source API keys and connectivity"
+    },
+    {
+      "type": "RESEARCH_AUTOMATION",
+      "target": "daily_research_cycle",
+      "reason": "No research triggered today",
+      "status": "ready_to_implement"
+    },
+    {
+      "type": "LOW_RESEARCH_FREQUENCY",
+      "observation": "Average 0.0 cycles/day over 14 days",
+      "recommendation": "Increase to 3-4 cycles/day for better coverage"
+    },
+    {
+      "type": "INCOMPLETE_MARKET_DATA",
+      "observation": "Missing data for: BTC, ETH, MSTR, HIMS",
+      "recommendation": "Check data source API keys and connectivity"
+    },
+    {
+      "type": "RESEARCH_AUTOMATION",
+      "target": "daily_research_cycle",
+      "reason": "No research triggered today",
+      "status": "ready_to_implement"
     }
   ],
   "metrics": {
     "efficiency": {
-      "cycles": 47,
-      "actions": 48,
+      "cycles": 56,
+      "actions": 54,
       "wasteEliminated": 0
     },
     "intelligence": {
-      "patternsLearned": 36,
+      "patternsLearned": 45,
       "decisionsMade": 0,
       "accuracy": 1
     },
     "persistence": {
       "recoveries": 0,
-      "uptimeMinutes": 299
+      "uptimeMinutes": 359
     },
     "selfImprovement": {
       "skillsCreated": 0,
-      "optimizations": 5,
+      "optimizations": 14,
       "learnings": [
         "Engine key resolution requires explicit mapping for hyphenated/camelCase names",
         "Absolute paths (WORKSPACE_ROOT) more reliable than relative traversals",
@@ -78,6 +126,14 @@
       "severity": "info",
       "message": "Git working tree has 78 uncommitted changes",
       "timestamp": "2026-07-23T22:01:11.450Z"
+    },
+    {
+      "type": "LOW_DISK_SPACE",
+      "drive": "C:",
+      "pctFree": 5,
+      "severity": "warning",
+      "message": "C: drive is 95% full",
+      "timestamp": "2026-07-24T02:47:00.302Z"
     }
   ]
 }

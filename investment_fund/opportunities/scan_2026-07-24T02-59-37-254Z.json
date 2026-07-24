@@ -1,0 +1,58 @@
+{
+  "timestamp": "2026-07-24T02:59:37.254Z",
+  "opportunities": [
+    {
+      "ticker": "TSLA",
+      "currentPrice": 319.69,
+      "targetPrice": 450,
+      "floorPrice": 300,
+      "upside": 40.76136256998968,
+      "downside": 6.563333333333343,
+      "catalystProb": 0.5,
+      "asymmetryScore": 5.980081735330009,
+      "catalyst": "Robotaxi unveil",
+      "confidence": 60
+    },
+    {
+      "ticker": "SOL",
+      "currentPrice": 185,
+      "targetPrice": 280,
+      "floorPrice": 160,
+      "upside": 51.35135135135136,
+      "downside": 15.625,
+      "catalystProb": 0.55,
+      "asymmetryScore": 2.959426208016,
+      "catalyst": "DeFi + NFT ecosystem",
+      "confidence": 60
+    },
+    {
+      "ticker": "NVDA",
+      "currentPrice": 208.75999,
+      "targetPrice": 280,
+      "floorPrice": 170,
+      "upside": 34.1253177871871,
+      "downside": 22.79999411764706,
+      "catalystProb": 0.8,
+      "asymmetryScore": 1.9973442872246001,
+      "catalyst": "AI demand cycle",
+      "confidence": 85
+    },
+    {
+      "ticker": "ETH",
+      "currentPrice": 1876.22,
+      "targetPrice": 2500,
+      "floorPrice": 1600,
+      "upside": 33.246634190020366,
+      "downside": 17.26375,
+      "catalystProb": 0.6,
+      "asymmetryScore": 1.759625247656018,
+      "catalyst": "ETF approval",
+      "confidence": 70
+    }
+  ],
+  "metadata": {
+    "totalScanned": 30,
+    "highConviction": 1,
+    "mediumConviction": 3
+  }
+}

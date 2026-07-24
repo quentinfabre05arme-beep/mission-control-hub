@@ -1,39 +1,37 @@
 {
-  "timestamp": "2026-07-23T03:04:42.898Z",
+  "timestamp": "2026-07-24T03:00:51.072Z",
   "shopId": "28241288",
   "designsProcessed": 5,
   "results": [
     {
       "design": "design_code_coffee.svg",
       "status": "published",
-      "productId": "6a6184b3d3d3a8af5c0f278d",
+      "productId": "6a62d5518c11e19bb005c36f",
       "shopId": "28241288"
     },
     {
       "design": "design_crypto_1784049410601.svg",
       "status": "published",
-      "productId": "6a6184b8fef7cc16800bd16b",
+      "productId": "6a62d555e0949e29ba0e7014",
       "shopId": "28241288"
     },
     {
       "design": "design_crypto_1784049410607.svg",
       "status": "published",
-      "productId": "6a6184bdd3d3a8af5c0f2792",
+      "productId": "6a62d5592bed4b56fb01f829",
       "shopId": "28241288"
     },
     {
       "design": "design_crypto_millionaire.svg",
       "status": "published",
-      "productId": "6a6184c3ac7716a4fc0fbbc9",
+      "productId": "6a62d55de0949e29ba0e7032",
       "shopId": "28241288"
     },
     {
       "design": "design_fitness_1784049410604.svg",
       "status": "published",
-      "productId": "6a6184c7e51a320be6074a5f",
+      "productId": "6a62d5618682ff6481004cc6",
       "shopId": "28241288"
     }
-  ],
-  "blueprint": "Unisex Cotton Crew Tee (ID: 5)",
-  "printProvider": "SwiftPOD (ID: 39)"
+  ]
 }

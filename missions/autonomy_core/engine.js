@@ -215,6 +215,33 @@ class EfficiencyEngine {
             });
         } catch (e) {}
 
+        // Check disk space
+        try {
+            const wmic = execSync('wmic logicaldisk get size,freespace,caption', { encoding: 'utf8', timeout: 5000 });
+            const lines = wmic.split('\n').filter(l => l.trim());
+            lines.forEach(line => {
+                if (line.includes(':')) {
+                    const parts = line.trim().split(/\s+/);
+                    if (parts.length >= 3) {
+                        const drive = parts[0];
+                        const free = parseInt(parts[1]);
+                        const total = parseInt(parts[2]);
+                        if (!isNaN(free) && !isNaN(total) && total > 0) {
+                            const pctFree = (free / total) * 100;
+                            if (pctFree < 10) {
+                                actions.push({
+                                    type: 'LOW_DISK_SPACE',
+                                    drive,
+                                    pctFree: Math.round(pctFree),
+                                    action: 'alert_user'
+                                });
+                            }
+                        }
+                    }
+                }
+            });
+        } catch (e) {}
+
         return actions;
     }
 
@@ -248,6 +275,35 @@ class EfficiencyEngine {
                         type: 'UNCOMMITTED_CHANGES',
                         count: lines.length,
                         action: 'prompt_commit'
+                    });
+                }
+            }
+        } catch (e) {}
+
+        // Check Node.js memory usage
+        try {
+            const memUsage = process.memoryUsage();
+            const heapUsedMB = Math.round(memUsage.heapUsed / 1024 / 1024);
+            if (heapUsedMB > 512) {
+                actions.push({
+                    type: 'HIGH_MEMORY_USAGE',
+                    heapUsedMB,
+                    action: 'monitor'
+                });
+            }
+        } catch (e) {}
+
+        // Check if research system is stale (>6 hours)
+        try {
+            const marketData = path.join(workspace, 'mission_control', 'market_data.json');
+            if (fs.existsSync(marketData)) {
+                const stat = fs.statSync(marketData);
+                const ageHours = (Date.now() - stat.mtime.getTime()) / (1000 * 60 * 60);
+                if (ageHours > 6) {
+                    actions.push({
+                        type: 'STALE_MARKET_DATA',
+                        ageHours: Math.round(ageHours),
+                        action: 'trigger_research_cycle'
                     });
                 }
             }
@@ -329,6 +385,10 @@ class IntelligenceEngine {
         const successPatterns = this.analyzeSuccesses();
         patterns.push(...successPatterns);
 
+        // Analyze market patterns
+        const marketPatterns = this.analyzeMarketPatterns();
+        patterns.push(...marketPatterns);
+
         // Make decisions based on patterns
         const decisions = this.makeDecisions(patterns);
 
@@ -385,6 +445,70 @@ class IntelligenceEngine {
             });
         }
 
+        // Check research cycle success
+        try {
+            const workspace = CONFIG.WORKSPACE_ROOT;
+            const researchLog = path.join(workspace, 'memory');
+            if (fs.existsSync(researchLog)) {
+                const files = fs.readdirSync(researchLog).filter(f => f.startsWith('2026-') && f.endsWith('.md'));
+                const today = new Date().toISOString().split('T')[0];
+                const todayFile = files.find(f => f.startsWith(today));
+                if (todayFile) {
+                    const content = fs.readFileSync(path.join(researchLog, todayFile), 'utf8');
+                    const researchCount = (content.match(/RESEARCH CYCLE/g) || []).length;
+                    if (researchCount > 0) {
+                        patterns.push({
+                            type: 'RESEARCH_ACTIVITY',
+                            cyclesToday: researchCount,
+                            trend: researchCount >= 3 ? 'high' : 'normal'
+                        });
+                    }
+                }
+            }
+        } catch (e) {}
+
+        return patterns;
+    }
+
+    analyzeMarketPatterns() {
+        const patterns = [];
+        
+        try {
+            const workspace = CONFIG.WORKSPACE_ROOT;
+            const marketData = path.join(workspace, 'mission_control', 'market_data.json');
+            if (fs.existsSync(marketData)) {
+                const data = JSON.parse(fs.readFileSync(marketData, 'utf8'));
+                
+                // Check for significant price movements
+                Object.entries(data).forEach(([symbol, info]) => {
+                    if (info.change_24h && Math.abs(info.change_24h) > 5) {
+                        patterns.push({
+                            type: 'MARKET_VOLATILITY',
+                            symbol,
+                            change: info.change_24h,
+                            direction: info.change_24h > 0 ? 'up' : 'down',
+                            severity: Math.abs(info.change_24h) > 10 ? 'high' : 'medium'
+                        });
+                    }
+                });
+
+                // Check for extreme fear/greed
+                if (data.fear_greed && data.fear_greed.value < 20) {
+                    patterns.push({
+                        type: 'EXTREME_FEAR',
+                        index: data.fear_greed.value,
+                        signal: 'potential_buy_opportunity'
+                    });
+                } else if (data.fear_greed && data.fear_greed.value > 80) {
+                    patterns.push({
+                        type: 'EXTREME_GREED',
+                        index: data.fear_greed.value,
+                        signal: 'potential_sell_opportunity'
+                    });
+                }
+            }
+        } catch (e) {}
+
         return patterns;
     }
 
@@ -398,6 +522,33 @@ class IntelligenceEngine {
                     reason: `Recurring ${p.errorType} errors`,
                     priority: p.frequency > 5 ? 'high' : 'medium',
                     action: `Propose skill to handle ${p.errorType}`
+                });
+            }
+            
+            if (p.type === 'STALE_MARKET_DATA') {
+                decisions.push({
+                    type: 'TRIGGER_RESEARCH',
+                    reason: `Market data is ${p.ageHours} hours old`,
+                    priority: 'high',
+                    action: 'Run enhanced_research.js for all assets'
+                });
+            }
+
+            if (p.type === 'EXTREME_FEAR' && p.index < 15) {
+                decisions.push({
+                    type: 'ALERT_OPPORTUNITY',
+                    reason: `Extreme fear index: ${p.index}`,
+                    priority: 'high',
+                    action: 'Flag BTC accumulation opportunity'
+                });
+            }
+
+            if (p.type === 'MARKET_VOLATILITY' && p.severity === 'high') {
+                decisions.push({
+                    type: 'ALERT_VOLATILITY',
+                    reason: `${p.symbol} moved ${p.change}% in 24h`,
+                    priority: 'medium',
+                    action: 'Review portfolio exposure'
                 });
             }
         });
@@ -424,6 +575,10 @@ class PersistenceEngine {
         const recoveries = await this.recoverFailures();
         checks.push(...recoveries);
 
+        // Monitor external dependencies
+        const deps = await this.checkDependencies();
+        checks.push(...deps);
+
         // Update uptime
         const startedAt = new Date(this.state.state.startedAt);
         const uptimeMinutes = Math.floor((Date.now() - startedAt) / 60000);
@@ -433,7 +588,7 @@ class PersistenceEngine {
             principle: 'PERSISTENCE',
             checks: checks,
             uptime: `${uptimeMinutes} minutes`,
-            summary: `Uptime: ${uptimeMinutes}m, ${recoveries.length} recoveries attempted`
+            summary: `Uptime: ${uptimeMinutes}m, ${recoveries.length} recoveries, ${deps.length} dependency checks`
         };
     }
 
@@ -507,7 +662,69 @@ class PersistenceEngine {
             }
         });
 
+        // Check for research system issues
+        try {
+            const workspace = CONFIG.WORKSPACE_ROOT;
+            const researchModules = [
+                path.join(workspace, 'mission_control', 'enhanced_research.js'),
+                path.join(workspace, 'mission_control', 'enhanced_market_service.js'),
+                path.join(workspace, 'mission_control', 'enhanced_ta_analysis.js')
+            ];
+            
+            researchModules.forEach(mod => {
+                if (!fs.existsSync(mod)) {
+                    recoveries.push({
+                        type: 'MISSING_MODULE',
+                        path: mod,
+                        action: 'flag_for_rebuild'
+                    });
+                }
+            });
+        } catch (e) {}
+
         return recoveries;
+    }
+
+    async checkDependencies() {
+        const checks = [];
+        const workspace = CONFIG.WORKSPACE_ROOT;
+
+        // Check API key files exist
+        const apiKeys = [
+            path.join(workspace, '.env'),
+            path.join(workspace, 'config', 'api_keys.json')
+        ];
+        
+        apiKeys.forEach(keyFile => {
+            if (fs.existsSync(keyFile)) {
+                checks.push({
+                    type: 'API_KEY_PRESENT',
+                    path: keyFile,
+                    status: 'healthy'
+                });
+            }
+        });
+
+        // Check research output directories
+        const dirs = [
+            path.join(workspace, 'memory'),
+            path.join(workspace, 'investment_fund', 'data'),
+            path.join(workspace, 'mission_control')
+        ];
+
+        dirs.forEach(dir => {
+            if (fs.existsSync(dir)) {
+                const stat = fs.statSync(dir);
+                checks.push({
+                    type: 'DIRECTORY_HEALTH',
+                    path: dir,
+                    status: 'healthy',
+                    writable: stat.mode & 0o200 ? true : false
+                });
+            }
+        });
+
+        return checks;
     }
 }
 
@@ -524,6 +741,10 @@ class SelfImprovementEngine {
         // Evaluate current metrics
         const metricAnalysis = this.analyzeMetrics();
         improvements.push(...metricAnalysis);
+
+        // Analyze research quality
+        const researchAnalysis = this.analyzeResearchQuality();
+        improvements.push(...researchAnalysis);
 
         // Propose improvements
         const proposals = this.proposeImprovements();
@@ -568,6 +789,71 @@ class SelfImprovementEngine {
         return analysis;
     }
 
+    analyzeResearchQuality() {
+        const analysis = [];
+        
+        try {
+            const workspace = CONFIG.WORKSPACE_ROOT;
+            const memoryPath = path.join(workspace, 'memory');
+            
+            // Check if research is being logged consistently
+            const today = new Date().toISOString().split('T')[0];
+            const todayFile = path.join(memoryPath, `${today}.md`);
+            
+            if (!fs.existsSync(todayFile)) {
+                analysis.push({
+                    type: 'MISSING_DAILY_LOG',
+                    observation: 'No daily memory file found for today',
+                    recommendation: 'Create daily log to track research cycles'
+                });
+            }
+
+            // Check research cycle frequency
+            const files = fs.readdirSync(memoryPath).filter(f => f.endsWith('.md') && f.match(/^\d{4}-\d{2}-\d{2}/));
+            if (files.length > 7) {
+                // Calculate average cycles per day
+                const totalCycles = files.reduce((acc, f) => {
+                    const content = fs.readFileSync(path.join(memoryPath, f), 'utf8');
+                    const cycles = (content.match(/RESEARCH CYCLE/g) || []).length;
+                    return acc + cycles;
+                }, 0);
+                const avgCycles = totalCycles / files.length;
+                
+                if (avgCycles < 3) {
+                    analysis.push({
+                        type: 'LOW_RESEARCH_FREQUENCY',
+                        observation: `Average ${avgCycles.toFixed(1)} cycles/day over ${files.length} days`,
+                        recommendation: 'Increase to 3-4 cycles/day for better coverage'
+                    });
+                } else if (avgCycles > 6) {
+                    analysis.push({
+                        type: 'HIGH_RESEARCH_FREQUENCY',
+                        observation: `Average ${avgCycles.toFixed(1)} cycles/day`,
+                        recommendation: 'Frequency is good, consider consolidating insights'
+                    });
+                }
+            }
+
+            // Check market data quality
+            const marketData = path.join(workspace, 'mission_control', 'market_data.json');
+            if (fs.existsSync(marketData)) {
+                const data = JSON.parse(fs.readFileSync(marketData, 'utf8'));
+                const assets = ['BTC', 'ETH', 'MSTR', 'HIMS'];
+                const missingAssets = assets.filter(a => !data[a] || !data[a].price);
+                
+                if (missingAssets.length > 0) {
+                    analysis.push({
+                        type: 'INCOMPLETE_MARKET_DATA',
+                        observation: `Missing data for: ${missingAssets.join(', ')}`,
+                        recommendation: 'Check data source API keys and connectivity'
+                    });
+                }
+            }
+        } catch (e) {}
+
+        return analysis;
+    }
+
     proposeImprovements() {
         const proposals = [];
 
@@ -589,6 +875,36 @@ class SelfImprovementEngine {
                 });
             }
         });
+
+        // Propose research automation
+        const today = new Date().toISOString().split('T')[0];
+        const researchToday = this.state.state.improvements.filter(i => 
+            i.timestamp && i.timestamp.startsWith(today) && i.type === 'RESEARCH_TRIGGERED'
+        ).length;
+        
+        if (researchToday === 0) {
+            proposals.push({
+                type: 'RESEARCH_AUTOMATION',
+                target: 'daily_research_cycle',
+                reason: 'No research triggered today',
+                status: 'ready_to_implement'
+            });
+        }
+
+        // Propose memory consolidation if many daily files
+        try {
+            const workspace = CONFIG.WORKSPACE_ROOT;
+            const memoryPath = path.join(workspace, 'memory');
+            const files = fs.readdirSync(memoryPath).filter(f => f.match(/^\d{4}-\d{2}-\d{2}\.md$/));
+            if (files.length > 30) {
+                proposals.push({
+                    type: 'MEMORY_CONSOLIDATION',
+                    target: 'archive_old_logs',
+                    reason: `${files.length} daily files accumulated`,
+                    status: 'ready_to_implement'
+                });
+            }
+        } catch (e) {}
 
         return proposals;
     }
@@ -615,7 +931,7 @@ class AutonomyCoreEngine {
         this.state.log('INFO', `Time: ${new Date().toISOString()}`);
 
         const results = {};
-
+        
         // Run all 4 principles
         const engineMap = {
             'EFFICIENCY': 'efficiency',
@@ -625,9 +941,9 @@ class AutonomyCoreEngine {
         };
         
         for (const principle of CONFIG.PRINCIPLES) {
+            const engineKey = engineMap[principle];
             try {
                 const start = Date.now();
-                const engineKey = engineMap[principle];
                 const engine = this.engines[engineKey];
                 if (!engine) {
                     throw new Error(`Engine '${engineKey}' not found for principle '${principle}'`);
@@ -637,7 +953,7 @@ class AutonomyCoreEngine {
                 this.state.log('INFO', `[${principle}] Completed in ${duration}ms`);
             } catch (error) {
                 this.state.log('ERROR', `[${principle}] FAILED: ${error.message}`);
-                results[engineKey || principle.toLowerCase()] = { error: error.message };
+                results[engineKey] = { error: error.message };
             }
         }
 
