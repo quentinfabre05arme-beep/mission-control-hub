@@ -1,42 +1,13 @@
 const fs = require('fs');
-const path = require('path');
 
-const opportunitiesDir = path.resolve('investment_fund/opportunities');
-if (!fs.existsSync(opportunitiesDir)) fs.mkdirSync(opportunitiesDir, { recursive: true });
+const today = new Date().toISOString().split('T')[0];
+const scanFile = 'C:\\Users\\quent\\.openclaw\\workspace\\investment_fund\\opportunities\\scan_2026-07-24T08-14-40-117Z.json';
+const outFile = `C:\\Users\\quent\\.openclaw\\workspace\\investment_fund\\opportunities\\queue_${today}.json`;
 
-const scanFile = fs.readdirSync(opportunitiesDir)
-  .filter(f => f.startsWith('scan_'))
-  .sort()
-  .pop();
+const data = JSON.parse(fs.readFileSync(scanFile, 'utf8'));
+const top3 = data.opportunities.filter(x => x.asymmetryScore > 5)
+                 .sort((a,b) => b.asymmetryScore - a.asymmetryScore)
+                 .slice(0, 3);
 
-if (!scanFile) {
-  console.log('No scan file found');
-  process.exit(1);
-}
-
-const raw = JSON.parse(fs.readFileSync(path.join(opportunitiesDir, scanFile), 'utf8'));
-const data = raw.opportunities || raw;
-const top3 = data.filter(o => (o.asymmetryScore || o.score) > 2.5).sort((a, b) => (b.asymmetryScore || b.score) - (a.asymmetryScore || a.score)).slice(0, 3);
-
-console.log('TOP 3 QUEUED FOR REVIEW:');
-top3.forEach((o, i) => {
-  const score = o.asymmetryScore || o.score;
-  const upside = typeof o.upside === 'number' ? o.upside.toFixed(1) : o.upside;
-  console.log(`${i + 1}. ${o.ticker} | Score: ${score.toFixed(2)} | Upside: ${upside}% | Catalyst: ${o.catalyst}`);
-});
-
-const reviewQueue = path.join(opportunitiesDir, 'review_queue.json');
-let queueRaw = fs.existsSync(reviewQueue) ? JSON.parse(fs.readFileSync(reviewQueue, 'utf8')) : null;
-let queue = Array.isArray(queueRaw) ? queueRaw : (queueRaw?.opportunities || []);
-
-let added = 0;
-top3.forEach(o => {
-  if (!queue.find(q => q.ticker === o.ticker)) {
-    queue.push({ ...o, queuedAt: new Date().toISOString() });
-    added++;
-  }
-});
-
-fs.writeFileSync(reviewQueue, JSON.stringify(queue, null, 2));
-console.log(`\nQueue updated: ${added} new entries. Total in queue: ${queue.length}`);
-console.log(`File: ${reviewQueue}`);
+fs.writeFileSync(outFile, JSON.stringify({date: today, opportunities: top3}, null, 2));
+console.log('Queued ' + top3.length + ' opportunity (score >5) to ' + outFile);

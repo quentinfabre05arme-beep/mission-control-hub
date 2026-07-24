@@ -1,0 +1,17 @@
+{
+  "queued": [
+    {
+      "ticker": "TSLA",
+      "currentPrice": 319.69,
+      "targetPrice": 450,
+      "floorPrice": 300,
+      "upside": 40.76136256998968,
+      "downside": 6.563333333333343,
+      "catalystProb": 0.5,
+      "asymmetryScore": 5.980081735330009,
+      "catalyst": "Robotaxi unveil",
+      "confidence": 60
+    }
+  ],
+  "date": "2026-07-24T08:30:11.265Z"
+}

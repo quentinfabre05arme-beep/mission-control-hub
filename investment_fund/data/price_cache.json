@@ -1,0 +1,61 @@
+{
+  "timestamp": 1784882387128,
+  "prices": {
+    "BTC": {
+      "price": 65380,
+      "change24h": -0.31124833741569974
+    },
+    "ETH": {
+      "price": 1889.99,
+      "change24h": -1.6969067107281712
+    },
+    "SOL": {
+      "price": 75.85,
+      "change24h": -1.963865345044225
+    },
+    "MSTR": {
+      "price": 93.63,
+      "change24h": -4.3
+    },
+    "HIMS": {
+      "price": 32.74,
+      "change24h": 0.1
+    },
+    "NVDA": {
+      "price": 138.25,
+      "change24h": -0.8
+    },
+    "TSLA": {
+      "price": 319.69,
+      "change24h": -14.5
+    },
+    "PLTR": {
+      "price": 123.37,
+      "change24h": -1
+    },
+    "CRWD": {
+      "price": 183.42,
+      "change24h": -2.7
+    },
+    "SNOW": {
+      "price": 265.13,
+      "change24h": -1
+    },
+    "COIN": {
+      "price": 161.16,
+      "change24h": -3
+    },
+    "LLY": {
+      "price": 723.45,
+      "change24h": 0.5
+    },
+    "META": {
+      "price": 502.13,
+      "change24h": 1.2
+    },
+    "AMD": {
+      "price": 162.34,
+      "change24h": -1.5
+    }
+  }
+}

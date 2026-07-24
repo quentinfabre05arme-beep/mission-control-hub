@@ -5,7 +5,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const { fetchAllPrices } = require('../scripts/price_fetcher');
+const { fetchWithCache } = require('../scripts/cached_price_fetcher');
 
 const CONFIG = {
   PORTFOLIO_FILE: path.join(__dirname, 'PAPER_PORTFOLIO.json'),
@@ -144,7 +144,7 @@ function isPriceSane(ticker, price) {
 }
 
 async function getOpportunities() {
-  const prices = await fetchAllPrices();
+  const prices = await fetchWithCache();
   const opportunities = [];
   
   for (const [ticker, data] of Object.entries(prices)) {
@@ -250,7 +250,7 @@ function executePaperTrade(opportunity) {
 
 async function updatePrices() {
   const portfolio = loadPortfolio();
-  const prices = await fetchAllPrices();
+  const prices = await fetchWithCache();
   
   let totalValue = portfolio.cash;
   let maxDrawdown = portfolio.performance.max_drawdown || 0;

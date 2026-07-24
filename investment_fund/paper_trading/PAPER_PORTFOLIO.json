@@ -2,20 +2,9 @@
   "portfolio_id": "alpha-paper-001",
   "created_at": "2026-07-21T00:00:00Z",
   "initial_capital": 10000,
-  "current_value": 8819.066700503536,
-  "cash": 444.9625366435357,
+  "current_value": 8797.915067004495,
+  "cash": 1604.2948073744958,
   "positions": [
-    {
-      "ticker": "MSTR",
-      "shares": 7,
-      "entryPrice": 97.82,
-      "stopLoss": 75.81,
-      "takeProfit": 136.41,
-      "entryDate": "2026-07-21T00:33:14.663Z",
-      "unrealizedPnl": -29.329999999999984,
-      "unrealizedPnlPct": -4.28337763238601,
-      "currentPrice": 93.63
-    },
     {
       "ticker": "SOL",
       "shares": 29,
@@ -23,31 +12,9 @@
       "stopLoss": 58.28,
       "takeProfit": 117.29,
       "entryDate": "2026-07-20T23:36:03.345Z",
-      "unrealizedPnl": -21.82999999999936,
-      "unrealizedPnlPct": -0.9793541556378793,
-      "currentPrice": 76.11
-    },
-    {
-      "ticker": "ETH",
-      "shares": 0.805691,
-      "entryPrice": 1898.9435850592847,
-      "stopLoss": 1592.57,
-      "takeProfit": 2516.99,
-      "entryDate": "2026-07-21T11:36:41.510Z",
-      "unrealizedPnl": -2.0010021300001317,
-      "unrealizedPnlPct": -0.13078772212220535,
-      "currentPrice": 1896.46
-    },
-    {
-      "ticker": "SNOW",
-      "shares": 1,
-      "entryPrice": 271.73001,
-      "stopLoss": 217.38,
-      "takeProfit": 381.46,
-      "entryDate": "2026-07-22T00:37:21.247Z",
-      "unrealizedPnl": -6.6000099999999975,
-      "unrealizedPnlPct": -2.4288852011597806,
-      "currentPrice": 265.13
+      "unrealizedPnl": -29.369999999999507,
+      "unrealizedPnlPct": -1.3176194022485044,
+      "currentPrice": 75.85
     },
     {
       "ticker": "BTC",
@@ -56,9 +23,9 @@
       "stopLoss": 56281.9,
       "takeProfit": 83462.56,
       "entryDate": "2026-07-21T11:36:41.521Z",
-      "unrealizedPnl": -0.9097019999999676,
-      "unrealizedPnlPct": -0.0627214969943779,
-      "currentPrice": 65590
+      "unrealizedPnl": -5.550491999999967,
+      "unrealizedPnlPct": -0.38269143883964407,
+      "currentPrice": 65380
     },
     {
       "ticker": "HIMS",
@@ -81,6 +48,50 @@
       "unrealizedPnl": 6.5700899999999365,
       "unrealizedPnlPct": 0.455033376240932,
       "currentPrice": 161.16
+    },
+    {
+      "ticker": "ETH",
+      "shares": 0.229037,
+      "entryPrice": 1889.93,
+      "currentPrice": 1889.99,
+      "stopLoss": 1559.19,
+      "takeProfit": 2562.49,
+      "entryDate": "2026-07-24T08:37:20.019Z",
+      "unrealizedPnl": 0.0137422199999875,
+      "unrealizedPnlPct": 0.0031747207568599833
+    },
+    {
+      "ticker": "TSLA",
+      "shares": 1,
+      "entryPrice": 319.69,
+      "currentPrice": 319.69,
+      "stopLoss": 239.77,
+      "takeProfit": 575.92,
+      "entryDate": "2026-07-24T08:39:38.347Z",
+      "unrealizedPnl": 0,
+      "unrealizedPnlPct": 0
+    },
+    {
+      "ticker": "MSTR",
+      "shares": 3,
+      "entryPrice": 93.63,
+      "currentPrice": 93.63,
+      "stopLoss": 72.56,
+      "takeProfit": 155.15,
+      "entryDate": "2026-07-24T08:39:38.354Z",
+      "unrealizedPnl": 0,
+      "unrealizedPnlPct": 0
+    },
+    {
+      "ticker": "PLTR",
+      "shares": 2,
+      "entryPrice": 123.37,
+      "currentPrice": 123.37,
+      "stopLoss": 89.44,
+      "takeProfit": 191.9,
+      "entryDate": "2026-07-24T08:39:38.361Z",
+      "unrealizedPnl": 0,
+      "unrealizedPnlPct": 0
     }
   ],
   "trades": [
@@ -247,13 +258,104 @@
       "total": 1000,
       "commission": 1,
       "reason": "Adding to BTC position — high asymmetry"
+    },
+    {
+      "id": "SELL1784882226613",
+      "timestamp": "2026-07-24T08:37:06.613Z",
+      "ticker": "MSTR",
+      "action": "SELL",
+      "shares": 7,
+      "price": 93.63,
+      "total": 654.75459,
+      "commission": 0.6554099999999999,
+      "pnl": -29.329999999999984,
+      "pnlPct": -4.28337763238601,
+      "reason": "Manual sell — -4.3% P&L, freeing cash for better opportunities"
+    },
+    {
+      "id": "SELL1784882229259",
+      "timestamp": "2026-07-24T08:37:09.259Z",
+      "ticker": "SNOW",
+      "action": "SELL",
+      "shares": 1,
+      "price": 265.13,
+      "total": 264.86487,
+      "commission": 0.26513,
+      "pnl": -6.6000099999999975,
+      "pnlPct": -2.4288852011597806,
+      "reason": "Manual sell — -2.4% P&L, freeing cash for better opportunities"
+    },
+    {
+      "id": "SELL1784882232452",
+      "timestamp": "2026-07-24T08:37:12.452Z",
+      "ticker": "ETH",
+      "action": "SELL",
+      "shares": 0.805691,
+      "price": 1889.93,
+      "total": 1521.1768920383702,
+      "commission": 1.5226995916300003,
+      "pnl": -7.26216436000011,
+      "pnlPct": -0.4746631300794113,
+      "reason": "Manual sell — -0.5% P&L, freeing cash for better opportunities"
+    },
+    {
+      "id": "T1784882240015",
+      "timestamp": "2026-07-24T08:37:20.015Z",
+      "ticker": "ETH",
+      "action": "BUY",
+      "shares": 0.229037,
+      "price": 1889.93,
+      "total": 432.86389741,
+      "commission": 0.43286389741,
+      "reason": "ETH - oversold setup (1.7% move)",
+      "stopLoss": 1559.19,
+      "takeProfit": 2562.49
+    },
+    {
+      "id": "T1784882378343",
+      "timestamp": "2026-07-24T08:39:38.343Z",
+      "ticker": "TSLA",
+      "action": "BUY",
+      "shares": 1,
+      "price": 319.69,
+      "total": 319.69,
+      "commission": 0.31969000000000003,
+      "reason": "TSLA - oversold setup (14.5% move)",
+      "stopLoss": 239.77,
+      "takeProfit": 575.92
+    },
+    {
+      "id": "T1784882378354",
+      "timestamp": "2026-07-24T08:39:38.354Z",
+      "ticker": "MSTR",
+      "action": "BUY",
+      "shares": 3,
+      "price": 93.63,
+      "total": 280.89,
+      "commission": 0.28089,
+      "reason": "MSTR - oversold setup (4.3% move)",
+      "stopLoss": 72.56,
+      "takeProfit": 155.15
+    },
+    {
+      "id": "T1784882378361",
+      "timestamp": "2026-07-24T08:39:38.361Z",
+      "ticker": "PLTR",
+      "action": "BUY",
+      "shares": 2,
+      "price": 123.37,
+      "total": 246.74,
+      "commission": 0.24674000000000001,
+      "reason": "PLTR - oversold setup (1.0% move)",
+      "stopLoss": 89.44,
+      "takeProfit": 191.9
     }
   ],
   "performance": {
-    "total_return": -11.809332994964638,
-    "total_trades": 11,
+    "total_return": -12.020849329955052,
+    "total_trades": 18,
     "winning_trades": 0,
-    "losing_trades": 3,
+    "losing_trades": 6,
     "win_rate": 0,
     "avg_winner": 0,
     "avg_loser": 0,

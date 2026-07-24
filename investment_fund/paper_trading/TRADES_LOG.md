@@ -241,3 +241,79 @@
 - **P&L:** $-76.27 (-7.59%)
 - **Reason:** Force rotation — worst performer (-7.6%) after 3.3 days
 ---
+## EXIT — 2026-07-24T08:37:06.615Z
+- **Ticker:** MSTR
+- **Action:** SELL
+- **Shares:** 7
+- **Price:** $93.63
+- **P&L:** $-29.33 (-4.28%)
+- **Reason:** Manual sell — -4.3% P&L, freeing cash for better opportunities
+---
+## EXIT — 2026-07-24T08:37:09.260Z
+- **Ticker:** SNOW
+- **Action:** SELL
+- **Shares:** 1
+- **Price:** $265.13
+- **P&L:** $-6.60 (-2.43%)
+- **Reason:** Manual sell — -2.4% P&L, freeing cash for better opportunities
+---
+## EXIT — 2026-07-24T08:37:12.453Z
+- **Ticker:** ETH
+- **Action:** SELL
+- **Shares:** 0.805691
+- **Price:** $1889.93
+- **P&L:** $-7.26 (-0.47%)
+- **Reason:** Manual sell — -0.5% P&L, freeing cash for better opportunities
+---
+## Trade T1784882240015 — 2026-07-24T08:37:20.015Z
+
+- **Ticker:** ETH
+- **Action:** BUY
+- **Shares:** 0.229037
+- **Price:** $1889.93
+- **Total:** $432.86
+- **Commission:** $0.43
+- **Reason:** ETH - oversold setup (1.7% move)
+- **Stop Loss:** $1559.19
+- **Take Profit:** $2562.49
+
+---
+## Trade T1784882378343 — 2026-07-24T08:39:38.343Z
+
+- **Ticker:** TSLA
+- **Action:** BUY
+- **Shares:** 1
+- **Price:** $319.69
+- **Total:** $319.69
+- **Commission:** $0.32
+- **Reason:** TSLA - oversold setup (14.5% move)
+- **Stop Loss:** $239.77
+- **Take Profit:** $575.92
+
+---
+## Trade T1784882378354 — 2026-07-24T08:39:38.354Z
+
+- **Ticker:** MSTR
+- **Action:** BUY
+- **Shares:** 3
+- **Price:** $93.63
+- **Total:** $280.89
+- **Commission:** $0.28
+- **Reason:** MSTR - oversold setup (4.3% move)
+- **Stop Loss:** $72.56
+- **Take Profit:** $155.15
+
+---
+## Trade T1784882378361 — 2026-07-24T08:39:38.361Z
+
+- **Ticker:** PLTR
+- **Action:** BUY
+- **Shares:** 2
+- **Price:** $123.37
+- **Total:** $246.74
+- **Commission:** $0.25
+- **Reason:** PLTR - oversold setup (1.0% move)
+- **Stop Loss:** $89.44
+- **Take Profit:** $191.90
+
+---

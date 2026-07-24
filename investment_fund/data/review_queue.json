@@ -1,0 +1,32 @@
+[
+  {
+    "ticker": "AAPL",
+    "price": 100,
+    "target": 380,
+    "upside": 280,
+    "downside": -64.28571428571428,
+    "score": 144.6563388863064,
+    "catalyst": "Apple Intelligence rollout",
+    "timestamp": "2026-07-24T09:00:09.024Z"
+  },
+  {
+    "ticker": "TSLA",
+    "price": 100,
+    "target": 450,
+    "upside": 350,
+    "downside": -66.66666666666667,
+    "score": 139.40330514899838,
+    "catalyst": "Robotaxi unveil",
+    "timestamp": "2026-07-24T09:00:09.024Z"
+  },
+  {
+    "ticker": "NVDA",
+    "price": 100,
+    "target": 280,
+    "upside": 179.99999999999997,
+    "downside": -41.17647058823529,
+    "score": 124.72732909996355,
+    "catalyst": "AI demand cycle",
+    "timestamp": "2026-07-24T09:00:09.024Z"
+  }
+]
