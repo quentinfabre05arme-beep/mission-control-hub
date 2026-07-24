@@ -217,3 +217,27 @@
 
 **No new trades today** � portfolio at max capacity (10/10 positions).
 **Top 3 opportunities scanned:** COIN (0.89), PLTR (0.82), HIMS (0.79) � already held.
+## EXIT — 2026-07-24T06:35:05.929Z
+- **Ticker:** TSLA
+- **Action:** SELL
+- **Shares:** 2
+- **Price:** $319.69
+- **P&L:** $-100.40 (-13.50%)
+- **Reason:** Force rotation — worst performer (-13.5%) after 3.3 days
+---
+## EXIT — 2026-07-24T06:35:05.934Z
+- **Ticker:** PLTR
+- **Action:** SELL
+- **Shares:** 4
+- **Price:** $123.37
+- **P&L:** $-46.41 (-8.51%)
+- **Reason:** Force rotation — worst performer (-8.5%) after 2.8 days
+---
+## EXIT — 2026-07-24T06:35:05.936Z
+- **Ticker:** CRWD
+- **Action:** SELL
+- **Shares:** 5
+- **Price:** $183.42
+- **P&L:** $-76.27 (-7.59%)
+- **Reason:** Force rotation — worst performer (-7.6%) after 3.3 days
+---

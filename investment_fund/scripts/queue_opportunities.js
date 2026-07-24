@@ -26,7 +26,8 @@ top3.forEach((o, i) => {
 });
 
 const reviewQueue = path.join(opportunitiesDir, 'review_queue.json');
-let queue = fs.existsSync(reviewQueue) ? JSON.parse(fs.readFileSync(reviewQueue, 'utf8')) : [];
+let queueRaw = fs.existsSync(reviewQueue) ? JSON.parse(fs.readFileSync(reviewQueue, 'utf8')) : null;
+let queue = Array.isArray(queueRaw) ? queueRaw : (queueRaw?.opportunities || []);
 
 let added = 0;
 top3.forEach(o => {

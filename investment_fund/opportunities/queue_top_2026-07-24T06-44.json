@@ -1,0 +1,26 @@
+[
+  {
+    "ticker": "TSLA",
+    "price": 319.69,
+    "target": 450,
+    "upside_pct": 40.8,
+    "downside_pct": 6.6,
+    "score": 6,
+    "catalyst": "Robotaxi unveil",
+    "timestamp": "2026-07-24T06:44:39.606Z",
+    "queued": true,
+    "priority": 1
+  },
+  {
+    "ticker": "SOL",
+    "price": 185,
+    "target": 280,
+    "upside_pct": 51.4,
+    "downside_pct": 15.6,
+    "score": 3,
+    "catalyst": "DeFi + NFT ecosystem",
+    "timestamp": "2026-07-24T06:44:39.606Z",
+    "queued": false,
+    "priority": null
+  }
+]
