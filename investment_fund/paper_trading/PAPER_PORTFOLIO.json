@@ -2,7 +2,7 @@
   "portfolio_id": "alpha-paper-001",
   "created_at": "2026-07-21T00:00:00Z",
   "initial_capital": 10000,
-  "current_value": 8811.245177363535,
+  "current_value": 8811.466444323536,
   "cash": 1400.052496643536,
   "positions": [
     {
@@ -20,12 +20,12 @@
       "ticker": "SOL",
       "shares": 16,
       "entryPrice": 77.71,
-      "currentPrice": 75.72,
+      "currentPrice": 75.76,
       "stopLoss": 58.28,
       "takeProfit": 117.29,
       "entryDate": "2026-07-20T23:36:03.345Z",
-      "unrealizedPnl": -31.839999999999918,
-      "unrealizedPnlPct": -2.5608029854587544
+      "unrealizedPnl": -31.199999999999818,
+      "unrealizedPnlPct": -2.5093295586153475
     },
     {
       "ticker": "CRWD",
@@ -86,23 +86,23 @@
       "ticker": "ETH",
       "shares": 0.274536,
       "entryPrice": 1930.39,
-      "currentPrice": 1878.77,
+      "currentPrice": 1878.88,
       "stopLoss": 1592.57,
       "takeProfit": 2516.99,
       "entryDate": "2026-07-21T11:36:41.510Z",
-      "unrealizedPnl": -14.171548320000033,
-      "unrealizedPnlPct": -2.674071042639059
+      "unrealizedPnl": -14.141349359999998,
+      "unrealizedPnlPct": -2.6683727122498557
     },
     {
       "ticker": "BTC",
       "shares": 0.006802,
       "entryPrice": 66214,
-      "currentPrice": 65340,
+      "currentPrice": 65274,
       "stopLoss": 56281.9,
       "takeProfit": 83462.56,
       "entryDate": "2026-07-21T11:36:41.521Z",
-      "unrealizedPnl": -5.944948,
-      "unrealizedPnlPct": -1.3199625456852049
+      "unrealizedPnl": -6.39388,
+      "unrealizedPnlPct": -1.4196393511946126
     },
     {
       "ticker": "SNOW",
@@ -250,7 +250,7 @@
     }
   ],
   "performance": {
-    "total_return": -11.887548226364652,
+    "total_return": -11.885335556764643,
     "total_trades": 8,
     "winning_trades": 0,
     "losing_trades": 0,

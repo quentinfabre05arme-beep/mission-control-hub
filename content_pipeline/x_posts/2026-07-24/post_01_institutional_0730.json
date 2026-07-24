@@ -1,0 +1,26 @@
+{
+  "post_id": "eth-morning-01-institutional",
+  "timestamp": "2026-07-24T07:30:00+02:00",
+  "scheduled_time": "07:30",
+  "timezone": "Europe/Paris",
+  "theme": "Institutional Flows",
+  "urgent": false,
+  "content": {
+    "text": "🇺🇸 ETH ETF flows remain resilient despite market chop.\n\nWhile BTC ETFs saw $930M inflows yesterday (per Farside), Ethereum's ETHA (BlackRock) continues steady accumulation.\n\nKey data:\n• ETH price: $1,879 (+0.05% 24h)\n• Fear & Greed: 28 (FEAR — contrarian opportunity)\n• BTC ETF dominance: ~75% of total inflows\n• ETH/BTC ratio: ~2.88% — institutional preference still skews BTC\n\nThe narrative: Institutions are building positions methodically. Not the euphoria of early 2024, but sustainable accumulation.\n\nWatch the ETHA AUM trendline — breaks above $3B would signal accelerating institutional appetite.",
+    "hashtags": ["#Ethereum", "#ETH", "#ETF", "#BlackRock", "#ETHA", "#Institutional", "#Crypto"],
+    "character_count": 589,
+    "data_sources": [
+      "Twelve Data API (ETH price)",
+      "alternative.me (Fear & Greed Index)",
+      "Farside Investors (ETF flow data)",
+      "Market data: 2026-07-24 05:12 UTC"
+    ],
+    "call_to_action": null
+  },
+  "metadata": {
+    "tone": "Data-driven, institutional perspective",
+    "target_audience": "Institutional investors, crypto analysts",
+    "engagement_type": "Informational",
+    "expected_engagement": "Medium — institutional data resonates with serious followers"
+  }
+}

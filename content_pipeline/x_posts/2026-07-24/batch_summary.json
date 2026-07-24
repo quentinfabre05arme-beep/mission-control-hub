@@ -1,0 +1,43 @@
+{
+  "batch_id": "eth-morning-2026-07-24",
+  "batch_name": "Ethereum Authority — Morning X Content Batch",
+  "date": "2026-07-24",
+  "total_posts": 4,
+  "created_at": "2026-07-24T07:30:00+02:00",
+  "created_by": "cron:eth-morning-posts",
+  "schedule": {
+    "post_01": "07:30 CET — Institutional Flows",
+    "post_02": "10:00 CET — DeFi/Ecosystem",
+    "post_03": "14:00 CET — Market Structure",
+    "post_04": "18:00 CET — Narrative/Opinion"
+  },
+  "market_context": {
+    "eth_price": 1879.32,
+    "eth_change_24h": 0.05,
+    "fear_greed": 28,
+    "fear_greed_trend": "DECLINING",
+    "sentiment": "FEAR — contrarian opportunity",
+    "btc_price": 65354,
+    "btc_change_24h": 0.39
+  },
+  "urgent_posts": 0,
+  "breaking_news": false,
+  "data_sources_used": [
+    "Twelve Data API",
+    "alternative.me Fear & Greed Index",
+    "mempool.space",
+    "Cached ecosystem data (Etherscan, Lido, EigenLayer)"
+  ],
+  "output_files": [
+    "post_01_institutional_0730.json",
+    "post_02_defi_ecosystem_1000.json",
+    "post_03_market_structure_1400.json",
+    "post_04_narrative_1800.json"
+  ],
+  "notes": [
+    "Search APIs rate limited — used cached market data",
+    "Market sentiment: FEAR (28) — contrarian opportunity highlighted in posts",
+    "ETH showing relative strength vs MSTR/COIN",
+    "No breaking news requiring urgent attention"
+  ]
+}

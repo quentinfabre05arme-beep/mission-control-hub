@@ -4,16 +4,16 @@
       "data": {
         "apr": 0.032,
         "aprType": "movingAverage",
-        "timestamp": 1784799187027
+        "timestamp": 1784871018593
       },
-      "timestamp": 1784799187027
+      "timestamp": 1784871018593
     },
     "stethSupply": {
       "data": {
         "totalSupply": "9500000000000000000000000",
-        "timestamp": 1784799187027
+        "timestamp": 1784871018594
       },
-      "timestamp": 1784799187027
+      "timestamp": 1784871018594
     }
   },
   "timestamp": 0

@@ -1,0 +1,61 @@
+{
+  "report_date": "2026-07-24",
+  "publish_time": "08:00:00",
+  "timezone": "Europe/Paris",
+  "issue_number": 1,
+  "status": "PUBLISHED",
+  "content_summary": {
+    "market_assets_covered": 8,
+    "key_moves_highlighted": 3,
+    "alpha_signals": 4,
+    "action_items": 3
+  },
+  "market_data": {
+    "fear_greed": 28,
+    "fear_greed_trend": "DECLINING",
+    "btc_price": 65354,
+    "btc_change_24h": 0.39,
+    "eth_price": 1879.32,
+    "eth_change_24h": 0.05,
+    "mstr_price": 93.63,
+    "mstr_change_24h": -6.38,
+    "hims_price": 32.74,
+    "hims_change_24h": 3.35
+  },
+  "signals_generated": {
+    "BTC": "SLIGHTLY_BULLISH",
+    "ETH": "SLIGHTLY_BULLISH",
+    "HIMS": "SLIGHTLY_BULLISH",
+    "MSTR": "NEUTRAL"
+  },
+  "anomalies_detected": [
+    {
+      "asset": "TSLA",
+      "type": "VOLUME_ANOMALY",
+      "severity": "HIGH",
+      "change_24h": -14.52
+    },
+    {
+      "asset": "MSTR",
+      "type": "VOLUME_ANOMALY", 
+      "severity": "HIGH",
+      "change_24h": -6.38
+    },
+    {
+      "asset": "HIMS",
+      "type": "VOLUME_ANOMALY",
+      "severity": "MEDIUM",
+      "change_24h": 3.35
+    }
+  ],
+  "upcoming_catalysts": [
+    {"date": "2026-07-28", "ticker": "MSTR", "event": "BTC Treasury Update"},
+    {"date": "2026-07-29", "ticker": "AAPL", "event": "Q3 Earnings"},
+    {"date": "2026-07-30", "ticker": "NVDA", "event": "SIGGRAPH Conference"}
+  ],
+  "files_created": [
+    "newsletter/daily_brief_2026-07-24.md",
+    "revenue/reports/newsletter_2026-07-24.json"
+  ],
+  "next_issue": "2026-07-25 08:00:00 CET"
+}

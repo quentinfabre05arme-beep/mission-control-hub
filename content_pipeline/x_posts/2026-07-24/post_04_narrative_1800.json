@@ -1,0 +1,26 @@
+{
+  "post_id": "eth-morning-04-narrative",
+  "timestamp": "2026-07-24T18:00:00+02:00",
+  "scheduled_time": "18:00",
+  "timezone": "Europe/Paris",
+  "theme": "Narrative/Opinion",
+  "urgent": false,
+  "content": {
+    "text": "🎯 The Ethereum thesis is evolving — and most are missing it.\n\nThe narrative isn't \"ETH to $10K\" or \"flippening.\" It's deeper:\n\nEthereum is becoming the settlement layer for tokenized assets.\n\nBlackRock's BUIDL fund ($500M+) isn't a sideshow — it's a prototype. Tokenized treasuries settling on Ethereum rails. 24/7. Programmable. Global.\n\nWhat others miss:\n1️⃣ L2s aren't competitors — they're scaling Ethereum's economic bandwidth\n2️⃣ Restaking isn't speculation — it's capital efficiency optimization\n3️⃣ The ETH ETF delay isn't rejection — it's regulatory sequencing\n\nThe contrarian take: Ethereum's moat isn't speed or cost. It's credible neutrality + Lindy effect + $50B+ in staked economic security.\n\nLong ETH = long the infrastructure of tokenized finance.",
+    "hashtags": ["#Ethereum", "#ETH", "#CryptoThesis", "#Tokenization", "#BlackRock", "#BUIDL", "#DeFi", "#Restaking"],
+    "character_count": 744,
+    "data_sources": [
+      "BlackRock BUIDL fund data",
+      "Ethereum staking statistics",
+      "L2 ecosystem metrics",
+      "Author analysis"
+    ],
+    "call_to_action": "What do you think Ethereum's biggest moat is? Reply below 👇"
+  },
+  "metadata": {
+    "tone": "Thought leadership, conviction",
+    "target_audience": "Long-term investors, Ethereum believers, macro thinkers",
+    "engagement_type": "Opinion/Discussion starter",
+    "expected_engagement": "High — contrarian takes drive replies and debate"
+  }
+}

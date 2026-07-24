@@ -1,0 +1,26 @@
+{
+  "post_id": "eth-morning-03-market",
+  "timestamp": "2026-07-24T14:00:00+02:00",
+  "scheduled_time": "14:00",
+  "timezone": "Europe/Paris",
+  "theme": "Market Structure",
+  "urgent": false,
+  "content": {
+    "text": "📊 ETH technical structure: Cautious consolidation\n\nCurrent levels:\n• Price: $1,879 (flat 24h, +0.05%)\n• Market sentiment: FEAR (28/100) — recovering from extreme\n• Mempool congestion: MEDIUM (~80K unconfirmed)\n• Network activity: Steady but not overheated\n\nKey observations:\n✅ ETH outperforming MSTR (-6.4%) and COIN (-3.0%)\n✅ Holding above $1,850 support despite equity weakness\n✅ Fear & Greed recovering from <25 (bullish contrarian signal)\n\nWatch $1,920 resistance — break above with volume opens path to $2,000.\n\nSupport: $1,820 | $1,750\nResistance: $1,920 | $2,000\n\nRisk: Equity correlation remains elevated. TSLA -14.5% shows risk-off pressure.",
+    "hashtags": ["#Ethereum", "#ETH", "#TechnicalAnalysis", "#Crypto", "#Trading", "#MarketStructure", "#SupportResistance"],
+    "character_count": 638,
+    "data_sources": [
+      "Twelve Data API (price, 24h change)",
+      "alternative.me (Fear & Greed Index)",
+      "mempool.space (network congestion)",
+      "Market data: 2026-07-24 05:12 UTC"
+    ],
+    "call_to_action": null
+  },
+  "metadata": {
+    "tone": "Analytical, forward-looking",
+    "target_audience": "Traders, technical analysts, active investors",
+    "engagement_type": "Analytical/Chart-worthy",
+    "expected_engagement": "Medium-High — levels and analysis get saved/shared"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "post_id": "eth-morning-02-defi",
+  "timestamp": "2026-07-24T10:00:00+02:00",
+  "scheduled_time": "10:00",
+  "timezone": "Europe/Paris",
+  "theme": "DeFi/Ecosystem",
+  "urgent": false,
+  "content": {
+    "text": "💧 Ethereum's liquid staking dominance is underrated.\n\nCurrent staking landscape:\n• ~28% of all ETH staked (~34M ETH)\n• Lido dominance: ~28% of staked ETH\n• Restaking via EigenLayer: $15B+ TVL\n• Liquid staking yields: 3.2% base APY\n• Restaking premiums: 5.2-13.2% total yield\n\nThe LST (liquid staking token) ecosystem has become Ethereum's shadow banking system. stETH, rETH, cbETH — all creating composable yield instruments.\n\nWhat's next? EigenLayer AVS launches accelerating. Yield from AVS fees will stack on consensus yield.\n\nRestaking isn't a fad — it's Ethereum's yield layer maturing.",
+    "hashtags": ["#Ethereum", "#DeFi", "#LiquidStaking", "#EigenLayer", "#Restaking", "#Yield", "#Lido", "#Staking"],
+    "character_count": 615,
+    "data_sources": [
+      "Etherscan API (staking data)",
+      "Lido Finance (APY data)",
+      "EigenLayer (restaking metrics)",
+      "Dune Analytics (LST market share)"
+    ],
+    "call_to_action": "Follow for weekly restaking yield updates"
+  },
+  "metadata": {
+    "tone": "Educational, opportunity-focused",
+    "target_audience": "DeFi users, yield seekers, Ethereum builders",
+    "engagement_type": "Educational/Thread-worthy",
+    "expected_engagement": "High — DeFi yields drive engagement"
+  }
+}

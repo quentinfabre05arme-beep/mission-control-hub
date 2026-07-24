@@ -1,0 +1,71 @@
+{
+  "date": "2026-07-24",
+  "timestamp": "2026-07-24T05:30:18.305Z",
+  "market_data": {
+    "eth_price": 1879.03,
+    "eth_change_24h": -2.321698808046834,
+    "eth_volume": 12500000000,
+    "btc_eth_ratio": 0.0293,
+    "funding_rate": 0.0001,
+    "open_interest": 8500000000,
+    "market_cap": 226766396576.76657,
+    "eth_dominance": 9.834426800828084
+  },
+  "etf_data": {
+    "total_aum": 2500000000,
+    "daily_flow": 45000000,
+    "flow_direction": "inflow",
+    "ethe_outflow": -12000000,
+    "etha_aum": 1200000000
+  },
+  "onchain_data": {
+    "eth_staked": 33250000,
+    "staking_rate": "27.65",
+    "staking_yield": "3.20",
+    "restaking_yield": {
+      "conservative": 5.2,
+      "moderate": 8.2,
+      "aggressive": 13.2
+    },
+    "gas_price": "15",
+    "exchange_balance": 18000000,
+    "active_addresses": 450000
+  },
+  "x_insight": {
+    "text": "27.65% of ETH staked. Base yield 3.2% + restaking up to 11.4% total",
+    "hashtags": "#Ethereum #ETH #Staking #Crypto",
+    "timestamp": "07:30 AM",
+    "price": 1879.03,
+    "change_24h": -2.321698808046834
+  },
+  "key_levels": {
+    "support": [
+      1850,
+      1800,
+      1750
+    ],
+    "resistance": [
+      2000,
+      2100,
+      2200
+    ]
+  },
+  "catalysts_upcoming": [
+    {
+      "event": "Weekly ETF flows",
+      "date": "Friday",
+      "impact": "Medium"
+    },
+    {
+      "event": "Staking rewards compound",
+      "date": "Daily",
+      "impact": "Low"
+    }
+  ],
+  "data_sources": {
+    "price": "CoinGecko",
+    "staking": "Lido/Etherscan",
+    "restaking": "EigenLayer",
+    "gas": "Etherscan"
+  }
+}

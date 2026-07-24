@@ -3,9 +3,9 @@
     "ethSupply": {
       "data": {
         "totalSupply": "120257000000000000000000000",
-        "timestamp": 1784799187023
+        "timestamp": 1784871018589
       },
-      "timestamp": 1784799187023
+      "timestamp": 1784871018589
     },
     "gasOracle": {
       "data": {
@@ -13,16 +13,16 @@
         "proposeGasPrice": "15",
         "fastGasPrice": "18",
         "suggestBaseFee": "10",
-        "timestamp": 1784799187025
+        "timestamp": 1784871018591
       },
-      "timestamp": 1784799187025
+      "timestamp": 1784871018591
     },
     "beaconDeposits": {
       "data": {
         "ethStaked": 33250000,
-        "timestamp": 1784799187025
+        "timestamp": 1784871018592
       },
-      "timestamp": 1784799187025
+      "timestamp": 1784871018592
     }
   },
   "timestamp": 0
