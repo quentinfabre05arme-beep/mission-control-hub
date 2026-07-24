@@ -2,8 +2,8 @@
   "portfolio_id": "alpha-paper-001",
   "created_at": "2026-07-21T00:00:00Z",
   "initial_capital": 10000,
-  "current_value": 8797.915067004495,
-  "cash": 1604.2948073744958,
+  "current_value": 8775.017035674497,
+  "cash": 1258.1890473744959,
   "positions": [
     {
       "ticker": "SOL",
@@ -12,9 +12,9 @@
       "stopLoss": 58.28,
       "takeProfit": 117.29,
       "entryDate": "2026-07-20T23:36:03.345Z",
-      "unrealizedPnl": -29.369999999999507,
-      "unrealizedPnlPct": -1.3176194022485044,
-      "currentPrice": 75.85
+      "unrealizedPnl": -40.389999999999375,
+      "unrealizedPnlPct": -1.8120070703717017,
+      "currentPrice": 75.47
     },
     {
       "ticker": "BTC",
@@ -23,9 +23,9 @@
       "stopLoss": 56281.9,
       "takeProfit": 83462.56,
       "entryDate": "2026-07-21T11:36:41.521Z",
-      "unrealizedPnl": -5.550491999999967,
-      "unrealizedPnlPct": -0.38269143883964407,
-      "currentPrice": 65380
+      "unrealizedPnl": -15.229853999999968,
+      "unrealizedPnlPct": -1.050057317545483,
+      "currentPrice": 64942
     },
     {
       "ticker": "HIMS",
@@ -53,12 +53,12 @@
       "ticker": "ETH",
       "shares": 0.229037,
       "entryPrice": 1889.93,
-      "currentPrice": 1889.99,
+      "currentPrice": 1881.9,
       "stopLoss": 1559.19,
       "takeProfit": 2562.49,
       "entryDate": "2026-07-24T08:37:20.019Z",
-      "unrealizedPnl": 0.0137422199999875,
-      "unrealizedPnlPct": 0.0031747207568599833
+      "unrealizedPnl": -1.8391671099999938,
+      "unrealizedPnlPct": -0.42488346129221366
     },
     {
       "ticker": "TSLA",
@@ -90,6 +90,28 @@
       "stopLoss": 89.44,
       "takeProfit": 191.9,
       "entryDate": "2026-07-24T08:39:38.361Z",
+      "unrealizedPnl": 0,
+      "unrealizedPnlPct": 0
+    },
+    {
+      "ticker": "CRWD",
+      "shares": 1,
+      "entryPrice": 183.42,
+      "currentPrice": 183.42,
+      "stopLoss": 151.32,
+      "takeProfit": 275.72,
+      "entryDate": "2026-07-24T09:36:19.348Z",
+      "unrealizedPnl": 0,
+      "unrealizedPnlPct": 0
+    },
+    {
+      "ticker": "AMD",
+      "shares": 1,
+      "entryPrice": 162.34,
+      "currentPrice": 162.34,
+      "stopLoss": 133.93,
+      "takeProfit": 220.01,
+      "entryDate": "2026-07-24T09:36:19.357Z",
       "unrealizedPnl": 0,
       "unrealizedPnlPct": 0
     }
@@ -349,11 +371,37 @@
       "reason": "PLTR - oversold setup (1.0% move)",
       "stopLoss": 89.44,
       "takeProfit": 191.9
+    },
+    {
+      "id": "T1784885779344",
+      "timestamp": "2026-07-24T09:36:19.344Z",
+      "ticker": "CRWD",
+      "action": "BUY",
+      "shares": 1,
+      "price": 183.42,
+      "total": 183.42,
+      "commission": 0.18342,
+      "reason": "CRWD - oversold setup (2.7% move)",
+      "stopLoss": 151.32,
+      "takeProfit": 275.72
+    },
+    {
+      "id": "T1784885779357",
+      "timestamp": "2026-07-24T09:36:19.357Z",
+      "ticker": "AMD",
+      "action": "BUY",
+      "shares": 1,
+      "price": 162.34,
+      "total": 162.34,
+      "commission": 0.16234,
+      "reason": "AMD - oversold setup (1.5% move)",
+      "stopLoss": 133.93,
+      "takeProfit": 220.01
     }
   ],
   "performance": {
-    "total_return": -12.020849329955052,
-    "total_trades": 18,
+    "total_return": -12.249829643255039,
+    "total_trades": 20,
     "winning_trades": 0,
     "losing_trades": 6,
     "win_rate": 0,

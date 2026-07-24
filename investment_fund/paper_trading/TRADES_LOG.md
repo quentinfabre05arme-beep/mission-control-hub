@@ -317,3 +317,29 @@
 - **Take Profit:** $191.90
 
 ---
+## Trade T1784885779344 — 2026-07-24T09:36:19.344Z
+
+- **Ticker:** CRWD
+- **Action:** BUY
+- **Shares:** 1
+- **Price:** $183.42
+- **Total:** $183.42
+- **Commission:** $0.18
+- **Reason:** CRWD - oversold setup (2.7% move)
+- **Stop Loss:** $151.32
+- **Take Profit:** $275.72
+
+---
+## Trade T1784885779357 — 2026-07-24T09:36:19.357Z
+
+- **Ticker:** AMD
+- **Action:** BUY
+- **Shares:** 1
+- **Price:** $162.34
+- **Total:** $162.34
+- **Commission:** $0.16
+- **Reason:** AMD - oversold setup (1.5% move)
+- **Stop Loss:** $133.93
+- **Take Profit:** $220.01
+
+---

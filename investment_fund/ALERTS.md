@@ -1,54 +1,71 @@
 # Alpha Fund Active Alerts
 
-## 🔴 ACTIVE ALERT — July 23, 2026 20:10 CET [UPDATED]
+## 🔴 ACTIVE ALERT — July 24, 2026 12:10 CET
 
-### HIMS Stop-Loss Verification Required
-- **Asset:** HIMS
-- **Price:** $31.68 (-3.21% today, -3.2% since morning)
+### TSLA MAJOR BREAKDOWN — REVIEW REQUIRED
+- **Asset:** TSLA
+- **Current:** $319.69 (-14.52% 24h, -$54.31)
 - **Risk Level:** HIGH
-- **Trigger:** Multi-day decline + coordinated market weakness
+- **Trigger:** Earnings miss (-20% slide) + Robotaxi narrative damage
+
+**Impact:**
+- Asymmetry score degraded 5.98 → ~3.5
+- Floor $300 (6.6% below) at risk of breach
+- Requires recovery above $340 before $450 target viable
 
 **Required Actions:**
-1. [ ] Verify HIMS position size <10% of portfolio
-2. [ ] Confirm stop-loss order active at $29.50-$30.00 (tightened)
-3. [ ] Check daily portfolio P&L vs 3% loss limit
-4. [ ] Consider reducing before Asian session (23:00 CET)
-
-**Updated Context:**
-- All assets now negative on 24h (correlation risk)
-- Market entering risk-off mode
-- HIMS remains weakest performer
-- Stop tightened from $30.00 → $29.50 due to accelerating weakness
+1. [ ] If holding TSLA: Tighten stop to $295 (-7.5%)
+2. [ ] Do NOT add to position
+3. [ ] Review earnings transcript for forward guidance
+4. [ ] Monitor for capitulation volume
 
 ---
 
-## 🟡 WATCH LIST
+## 🟡 ACTIVE ALERT — July 24, 2026 12:10 CET
 
-### BTC Mean Reversion Setup
-- **Entry Zone:** $63,000-$64,000 (revised lower)
-- **Current:** $64,904
-- **Trigger:** Fear & Greed <20 + stabilization
-- **Status:** NOT ACTIVE — monitoring
+### BTC Mean Reversion — SETUP ACTIVE
+- **Asset:** BTC
+- **Current:** $65,031 (+0.94% 24h)
+- **Signal:** Fear & Greed 28 (EXTREME FEAR = contrarian buy)
+- **Entry Zone:** $63,000-$64,500 (or current if FOMO)
 
-### ETH DCA Zone
-- **Entry Zone:** <$1,850 (revised lower)
-- **Current:** $1,892
-- **Action:** Accumulate on pullback
-- **Status:** WATCHING
+**Rationale:**
+- Fear & Greed contrarian signal at extreme fear
+- BTC showing relative strength in risk-off tape
+- Holding $64K support
+- Target: $70K (+7.6%) → $75K (+15%)
 
-### MSTR Dip Buy
-- **Entry Zone:** <$95
-- **Current:** $100.01
-- **Catalyst:** Saylor news clarity needed
-- **Status:** MONITORING — bullish target $170% upside vs Saylor sales risk
+**Action:** Ready to deploy 5% Tier 2 allocation
 
 ---
 
 ## ✅ CLEARED ALERTS
 
-- None
+- HIMS stop-loss: CLEARED — Price recovered to $32.74 (+3.35%), above $30 stop
 
 ---
 
-*Last Updated: 2026-07-23 20:10 CET*  
-*Next Review: On position change or Asian open (23:00 CET)*
+## 🟡 WATCH LIST
+
+### ETH DCA Zone
+- **Entry Zone:** <$1,850 (ideal $1,800-$1,820)
+- **Current:** $1,886
+- **Action:** WATCH for pullback entry
+- **Status:** OUTPERFORMING (+2% vs BTC +0.94%)
+
+### HIMS Momentum Confirmation
+- **Entry Zone:** Current $32.74 on breakout confirmation
+- **Current:** $32.74 (+3.35% in risk-off tape)
+- **Catalyst:** Strong relative strength
+- **Status:** MONITOR — Confirm volume before entry
+
+### MSTR Dip Buy (REVISED)
+- **Entry Zone:** <$90 (was <$95)
+- **Current:** $93.63 (-6.38%)
+- **Catalyst:** Saylor news clarity needed
+- **Status:** WAIT — Let selling exhaust
+
+---
+
+*Last Updated: 2026-07-24 12:10 CET*  
+*Next Review: 16:10 CET or on significant market move*
