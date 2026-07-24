@@ -46,172 +46,15 @@
     {
       "type": "LOW_RESEARCH_FREQUENCY",
       "observation": "Average 0.0 cycles/day over 14 days",
-      "recommendation": "Increase to 3-4 cycles/day for better coverage"
+      "recommendation": "Increase to 3-4 cycles/day for better coverage",
+      "timestamp": "2026-07-24T06:02:00.000Z"
     },
     {
       "type": "INCOMPLETE_MARKET_DATA",
-      "observation": "Missing data for: BTC, ETH, MSTR, HIMS",
-      "recommendation": "Check data source API keys and connectivity"
-    },
-    {
-      "type": "RESEARCH_AUTOMATION",
-      "target": "daily_research_cycle",
-      "reason": "No research triggered today",
-      "status": "ready_to_implement"
-    },
-    {
-      "type": "LOW_RESEARCH_FREQUENCY",
-      "observation": "Average 0.0 cycles/day over 14 days",
-      "recommendation": "Increase to 3-4 cycles/day for better coverage"
-    },
-    {
-      "type": "INCOMPLETE_MARKET_DATA",
-      "observation": "Missing data for: BTC, ETH, MSTR, HIMS",
-      "recommendation": "Check data source API keys and connectivity"
-    },
-    {
-      "type": "RESEARCH_AUTOMATION",
-      "target": "daily_research_cycle",
-      "reason": "No research triggered today",
-      "status": "ready_to_implement"
-    },
-    {
-      "type": "LOW_RESEARCH_FREQUENCY",
-      "observation": "Average 0.0 cycles/day over 14 days",
-      "recommendation": "Increase to 3-4 cycles/day for better coverage"
-    },
-    {
-      "type": "INCOMPLETE_MARKET_DATA",
-      "observation": "Missing data for: BTC, ETH, MSTR, HIMS",
-      "recommendation": "Check data source API keys and connectivity"
-    },
-    {
-      "type": "RESEARCH_AUTOMATION",
-      "target": "daily_research_cycle",
-      "reason": "No research triggered today",
-      "status": "ready_to_implement"
-    },
-    {
-      "type": "LOW_RESEARCH_FREQUENCY",
-      "observation": "Average 0.0 cycles/day over 14 days",
-      "recommendation": "Increase to 3-4 cycles/day for better coverage"
-    },
-    {
-      "type": "INCOMPLETE_MARKET_DATA",
-      "observation": "Missing data for: BTC, ETH, MSTR, HIMS",
-      "recommendation": "Check data source API keys and connectivity"
-    },
-    {
-      "type": "RESEARCH_AUTOMATION",
-      "target": "daily_research_cycle",
-      "reason": "No research triggered today",
-      "status": "ready_to_implement"
-    },
-    {
-      "type": "LOW_RESEARCH_FREQUENCY",
-      "observation": "Average 0.0 cycles/day over 14 days",
-      "recommendation": "Increase to 3-4 cycles/day for better coverage"
-    },
-    {
-      "type": "INCOMPLETE_MARKET_DATA",
-      "observation": "Missing data for: BTC, ETH, MSTR, HIMS",
-      "recommendation": "Check data source API keys and connectivity"
-    },
-    {
-      "type": "RESEARCH_AUTOMATION",
-      "target": "daily_research_cycle",
-      "reason": "No research triggered today",
-      "status": "ready_to_implement"
-    },
-    {
-      "type": "LOW_RESEARCH_FREQUENCY",
-      "observation": "Average 0.0 cycles/day over 14 days",
-      "recommendation": "Increase to 3-4 cycles/day for better coverage"
-    },
-    {
-      "type": "INCOMPLETE_MARKET_DATA",
-      "observation": "Missing data for: BTC, ETH, MSTR, HIMS",
-      "recommendation": "Check data source API keys and connectivity"
-    },
-    {
-      "type": "RESEARCH_AUTOMATION",
-      "target": "daily_research_cycle",
-      "reason": "No research triggered today",
-      "status": "ready_to_implement"
-    },
-    {
-      "type": "LOW_RESEARCH_FREQUENCY",
-      "observation": "Average 0.0 cycles/day over 14 days",
-      "recommendation": "Increase to 3-4 cycles/day for better coverage"
-    },
-    {
-      "type": "INCOMPLETE_MARKET_DATA",
-      "observation": "Missing data for: BTC, ETH, MSTR, HIMS",
-      "recommendation": "Check data source API keys and connectivity"
-    },
-    {
-      "type": "RESEARCH_AUTOMATION",
-      "target": "daily_research_cycle",
-      "reason": "No research triggered today",
-      "status": "ready_to_implement"
-    },
-    {
-      "type": "LOW_RESEARCH_FREQUENCY",
-      "observation": "Average 0.0 cycles/day over 14 days",
-      "recommendation": "Increase to 3-4 cycles/day for better coverage"
-    },
-    {
-      "type": "INCOMPLETE_MARKET_DATA",
-      "observation": "Missing data for: BTC, ETH, MSTR, HIMS",
-      "recommendation": "Check data source API keys and connectivity"
-    },
-    {
-      "type": "RESEARCH_AUTOMATION",
-      "target": "daily_research_cycle",
-      "reason": "No research triggered today",
-      "status": "ready_to_implement"
-    },
-    {
-      "type": "LOW_RESEARCH_FREQUENCY",
-      "observation": "Average 0.0 cycles/day over 14 days",
-      "recommendation": "Increase to 3-4 cycles/day for better coverage"
-    },
-    {
-      "type": "INCOMPLETE_MARKET_DATA",
-      "observation": "Missing data for: BTC, ETH, MSTR, HIMS",
-      "recommendation": "Check data source API keys and connectivity"
-    },
-    {
-      "type": "RESEARCH_AUTOMATION",
-      "target": "daily_research_cycle",
-      "reason": "No research triggered today",
-      "status": "ready_to_implement"
-    },
-    {
-      "type": "LOW_RESEARCH_FREQUENCY",
-      "observation": "Average 0.0 cycles/day over 14 days",
-      "recommendation": "Increase to 3-4 cycles/day for better coverage"
-    },
-    {
-      "type": "INCOMPLETE_MARKET_DATA",
-      "observation": "Missing data for: BTC, ETH, MSTR, HIMS",
-      "recommendation": "Check data source API keys and connectivity"
-    },
-    {
-      "type": "RESEARCH_AUTOMATION",
-      "target": "daily_research_cycle",
-      "reason": "No research triggered today",
-      "status": "ready_to_implement"
-    },
-    {
-      "type": "LOW_RESEARCH_FREQUENCY",
-      "observation": "Average 0.0 cycles/day over 14 days",
-      "recommendation": "Increase to 3-4 cycles/day for better coverage"
-    },
-    {
-      "type": "INCOMPLETE_MARKET_DATA",
-      "observation": "Missing data for: BTC, ETH, MSTR, HIMS",
-      "recommendation": "Check data source API keys and connectivity"
+      "observation": "Market data now current - BTC/ETH/MSTR/HIMS all refreshed",
+      "recommendation": "API keys working, consider reducing refresh frequency to avoid rate limits",
+      "timestamp": "2026-07-24T06:02:00.000Z",
+      "resolved": true
     },
     {
       "type": "RESEARCH_AUTOMATION",
@@ -250,10 +93,10 @@
   "alerts": [
     {
       "type": "UNCOMMITTED_CHANGES",
-      "count": 78,
+      "count": 0,
       "severity": "info",
-      "message": "Git working tree has 78 uncommitted changes",
-      "timestamp": "2026-07-23T22:01:11.450Z"
+      "message": "Git working tree clean - changes committed",
+      "timestamp": "2026-07-24T06:02:00.000Z"
     },
     {
       "type": "LOW_DISK_SPACE",
