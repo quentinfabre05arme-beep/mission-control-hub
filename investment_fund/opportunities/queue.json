@@ -39,5 +39,22 @@
     "scanFile": "scan_2026-07-24T09-29-44-755Z.json",
     "threshold": 5,
     "reason": "Queued top 1 for review"
+  },
+  {
+    "timestamp": "2026-07-24T10:29Z",
+    "queued": [
+      {
+        "ticker": "TSLA",
+        "score": 5.980081735330009,
+        "upside": 40.76136256998968,
+        "downside": 6.563333333333343,
+        "catalyst": "Robotaxi unveil",
+        "price": 319.69,
+        "target": 450
+      }
+    ],
+    "scanFile": "scan_2026-07-24T10-29-40-455Z.json",
+    "threshold": 5,
+    "reason": "Queued top 1 for review"
   }
 ]

@@ -1,25 +1,15 @@
-{
-  "timestamp": "2026-07-24T07:14:38.034Z",
-  "scanId": "scan_2026-07-24T07-14-38-034Z",
-  "queuedForReview": [
-    {
-      "rank": 1,
-      "ticker": "TSLA",
-      "currentPrice": 319.69,
-      "targetPrice": 450,
-      "floorPrice": 300,
-      "upside": "40.8%",
-      "downside": "6.6%",
-      "asymmetryScore": 5.98,
-      "catalyst": "Robotaxi unveil",
-      "confidence": 60,
-      "status": "queued_for_review"
-    }
-  ],
-  "summary": {
-    "totalOpportunities": 3,
-    "highScoreCount": 1,
-    "threshold": 5.0,
-    "nextAction": "Review TSLA opportunity — score 5.98 exceeds threshold"
+[
+  {
+    "ticker": "TSLA",
+    "currentPrice": 319.69,
+    "targetPrice": 450,
+    "floorPrice": 300,
+    "upside": 40.76,
+    "downside": 6.56,
+    "catalystProb": 0.5,
+    "asymmetryScore": 5.98,
+    "catalyst": "Robotaxi unveil",
+    "confidence": 60,
+    "scannedAt": "2026-07-24T10:59:40.931Z"
   }
-}
+]
