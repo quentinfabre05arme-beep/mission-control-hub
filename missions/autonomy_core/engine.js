@@ -1,13 +1,13 @@
 /**
  * AUTONOMY CORE ENGINE v1.0
  * Master intelligence controller for persistent autonomous operations
- * 
+ *
  * 4 Principles:
- * 1. EFFICIENCY — Optimize waste, maximize output
- * 2. INTELLIGENCE — Learn patterns, make smart decisions  
- * 3. PERSISTENCE — Never stop, always recover
- * 4. SELF-IMPROVEMENT — Constant learning and optimization
- * 
+ * 1. EFFICIENCY - Optimize waste, maximize output
+ * 2. INTELLIGENCE - Learn patterns, make smart decisions
+ * 3. PERSISTENCE - Never stop, always recover
+ * 4. SELF-IMPROVEMENT - Constant learning and optimization
+ *
  * Mode: SILENT (no user notifications unless critical)
  * Frequency: Every 15 minutes
  * Author: Claw (self-built)
@@ -75,10 +75,10 @@ class StateManager {
     log(level, message) {
         const timestamp = new Date().toISOString();
         const line = `[${timestamp}] [${level}] ${message}\n`;
-        
+
         // Console output
         console.log(line.trim());
-        
+
         // File logging
         try {
             fs.appendFileSync(CONFIG.LOG_FILE, line);
@@ -125,7 +125,7 @@ class EfficiencyEngine {
 
         this.state.state.metrics.efficiency.cycles++;
         this.state.state.metrics.efficiency.actions += actions.length;
-        
+
         return {
             principle: 'EFFICIENCY',
             actions: actions,
@@ -136,7 +136,7 @@ class EfficiencyEngine {
     async checkWaste() {
         const actions = [];
         const workspace = CONFIG.WORKSPACE_ROOT;
-        
+
         // Check for stale cron jobs
         try {
             const cronFile = path.join(workspace, 'cron_jobs.json');
@@ -146,7 +146,7 @@ class EfficiencyEngine {
                     const lastRun = new Date(j.lastRun || 0);
                     return (Date.now() - lastRun) > 24 * 60 * 60 * 1000; // 24h
                 });
-                
+
                 if (staleJobs.length > 0) {
                     actions.push({
                         type: 'STALE_CRON_DETECTED',
@@ -198,7 +198,7 @@ class EfficiencyEngine {
                 path.join(workspace, 'temp'),
                 path.join(workspace, 'tmp')
             ];
-            
+
             tempPaths.forEach(tempPath => {
                 if (fs.existsSync(tempPath)) {
                     const stats = fs.statSync(tempPath);
@@ -315,7 +315,7 @@ class EfficiencyEngine {
     async cleanupOldData() {
         const actions = [];
         const workspace = CONFIG.WORKSPACE_ROOT;
-        
+
         // Clean old memory files
         try {
             const memoryPath = path.join(workspace, 'memory');
@@ -323,7 +323,7 @@ class EfficiencyEngine {
                 const files = fs.readdirSync(memoryPath);
                 const cutoff = new Date();
                 cutoff.setDate(cutoff.getDate() - CONFIG.LOG_RETENTION_DAYS);
-                
+
                 files.forEach(f => {
                     const filePath = path.join(memoryPath, f);
                     const stat = fs.statSync(filePath);
@@ -406,7 +406,7 @@ class IntelligenceEngine {
     analyzeErrors() {
         const patterns = [];
         const errors = this.state.state.errors;
-        
+
         if (errors.length === 0) return patterns;
 
         // Group errors by type
@@ -433,7 +433,7 @@ class IntelligenceEngine {
 
     analyzeSuccesses() {
         const patterns = [];
-        
+
         // Check for successful operations in state
         const improvements = this.state.state.improvements || [];
         if (improvements.length > 0) {
@@ -472,13 +472,13 @@ class IntelligenceEngine {
 
     analyzeMarketPatterns() {
         const patterns = [];
-        
+
         try {
             const workspace = CONFIG.WORKSPACE_ROOT;
             const marketData = path.join(workspace, 'mission_control', 'market_data.json');
             if (fs.existsSync(marketData)) {
                 const data = JSON.parse(fs.readFileSync(marketData, 'utf8'));
-                
+
                 // Check for significant price movements
                 Object.entries(data).forEach(([symbol, info]) => {
                     if (info.change_24h && Math.abs(info.change_24h) > 5) {
@@ -524,7 +524,7 @@ class IntelligenceEngine {
                     action: `Propose skill to handle ${p.errorType}`
                 });
             }
-            
+
             if (p.type === 'STALE_MARKET_DATA') {
                 decisions.push({
                     type: 'TRIGGER_RESEARCH',
@@ -670,7 +670,7 @@ class PersistenceEngine {
                 path.join(workspace, 'mission_control', 'enhanced_market_service.js'),
                 path.join(workspace, 'mission_control', 'enhanced_ta_analysis.js')
             ];
-            
+
             researchModules.forEach(mod => {
                 if (!fs.existsSync(mod)) {
                     recoveries.push({
@@ -694,7 +694,7 @@ class PersistenceEngine {
             path.join(workspace, '.env'),
             path.join(workspace, 'config', 'api_keys.json')
         ];
-        
+
         apiKeys.forEach(keyFile => {
             if (fs.existsSync(keyFile)) {
                 checks.push({
@@ -738,32 +738,44 @@ class SelfImprovementEngine {
         this.state.log('INFO', '🚀 [SELF-IMPROVEMENT] Evaluating improvements...');
         const improvements = [];
 
-        // Evaluate current metrics
+        // Evaluate current metrics (throttled to avoid duplication)
         const metricAnalysis = this.analyzeMetrics();
         improvements.push(...metricAnalysis);
 
-        // Analyze research quality
+        // Analyze research quality (throttled)
         const researchAnalysis = this.analyzeResearchQuality();
         improvements.push(...researchAnalysis);
 
-        // Propose improvements
+        // Propose improvements (throttled)
         const proposals = this.proposeImprovements();
         improvements.push(...proposals);
 
-        // Update state with learnings
-        if (improvements.length > 0) {
-            this.state.state.improvements.push(...improvements);
-            this.state.state.metrics.selfImprovement.optimizations += improvements.length;
+        // Update state with learnings - deduplicate before pushing
+        const deduped = improvements.filter(imp => {
+            const key = `${imp.type}-${imp.observation || imp.reason || imp.target || ''}`;
+            return !this.state.state.improvements.some(existing => {
+                const existingKey = `${existing.type}-${existing.observation || existing.reason || existing.target || ''}`;
+                return existingKey === key;
+            });
+        });
+        if (deduped.length > 0) {
+            this.state.state.improvements.push(...deduped);
+            this.state.state.metrics.selfImprovement.optimizations += deduped.length;
         }
 
         return {
             principle: 'SELF-IMPROVEMENT',
-            improvements: improvements,
-            summary: `${improvements.length} improvements identified`
+            improvements: deduped,
+            summary: `${deduped.length} improvements identified`
         };
     }
 
     analyzeMetrics() {
+        // Only run metric analysis every 6 hours
+        const last = this.state.state._lastMetricAnalysis || 0;
+        if (Date.now() - last < 6 * 60 * 60 * 1000) return [];
+        this.state.state._lastMetricAnalysis = Date.now();
+
         const analysis = [];
         const m = this.state.state.metrics;
 
@@ -790,16 +802,21 @@ class SelfImprovementEngine {
     }
 
     analyzeResearchQuality() {
+        // Only run research quality analysis every 2 hours
+        const last = this.state.state._lastResearchAnalysis || 0;
+        if (Date.now() - last < 2 * 60 * 60 * 1000) return [];
+        this.state.state._lastResearchAnalysis = Date.now();
+
         const analysis = [];
-        
+
         try {
             const workspace = CONFIG.WORKSPACE_ROOT;
             const memoryPath = path.join(workspace, 'memory');
-            
+
             // Check if research is being logged consistently
             const today = new Date().toISOString().split('T')[0];
             const todayFile = path.join(memoryPath, `${today}.md`);
-            
+
             if (!fs.existsSync(todayFile)) {
                 analysis.push({
                     type: 'MISSING_DAILY_LOG',
@@ -811,20 +828,30 @@ class SelfImprovementEngine {
             // Check research cycle frequency
             const files = fs.readdirSync(memoryPath).filter(f => f.endsWith('.md') && f.match(/^\d{4}-\d{2}-\d{2}/));
             if (files.length > 7) {
-                // Calculate average cycles per day
-                const totalCycles = files.reduce((acc, f) => {
-                    const content = fs.readFileSync(path.join(memoryPath, f), 'utf8');
-                    const cycles = (content.match(/RESEARCH CYCLE/g) || []).length;
-                    return acc + cycles;
+                // Calculate average cycles per day (last 14 days only)
+                const recentFiles = files.slice(-14);
+                const totalCycles = recentFiles.reduce((acc, f) => {
+                    try {
+                        const content = fs.readFileSync(path.join(memoryPath, f), 'utf8');
+                        const cycles = (content.match(/RESEARCH CYCLE/g) || []).length;
+                        return acc + cycles;
+                    } catch(e) { return acc; }
                 }, 0);
-                const avgCycles = totalCycles / files.length;
-                
+                const avgCycles = totalCycles / recentFiles.length;
+
                 if (avgCycles < 3) {
-                    analysis.push({
-                        type: 'LOW_RESEARCH_FREQUENCY',
-                        observation: `Average ${avgCycles.toFixed(1)} cycles/day over ${files.length} days`,
-                        recommendation: 'Increase to 3-4 cycles/day for better coverage'
-                    });
+                    // Only add if not already present in last 24h
+                    const alreadyExists = this.state.state.improvements.some(i =>
+                        i.type === 'LOW_RESEARCH_FREQUENCY' &&
+                        Date.now() - new Date(i.timestamp || 0).getTime() < 24 * 60 * 60 * 1000
+                    );
+                    if (!alreadyExists) {
+                        analysis.push({
+                            type: 'LOW_RESEARCH_FREQUENCY',
+                            observation: `Average ${avgCycles.toFixed(1)} cycles/day over ${recentFiles.length} days`,
+                            recommendation: 'Increase to 3-4 cycles/day for better coverage'
+                        });
+                    }
                 } else if (avgCycles > 6) {
                     analysis.push({
                         type: 'HIGH_RESEARCH_FREQUENCY',
@@ -837,14 +864,28 @@ class SelfImprovementEngine {
             // Check market data quality
             const marketData = path.join(workspace, 'mission_control', 'market_data.json');
             if (fs.existsSync(marketData)) {
-                const data = JSON.parse(fs.readFileSync(marketData, 'utf8'));
-                const assets = ['BTC', 'ETH', 'MSTR', 'HIMS'];
-                const missingAssets = assets.filter(a => !data[a] || !data[a].price);
-                
-                if (missingAssets.length > 0) {
+                try {
+                    const data = JSON.parse(fs.readFileSync(marketData, 'utf8'));
+                    const assets = ['BTC', 'ETH', 'MSTR', 'HIMS'];
+                    const missingAssets = assets.filter(a => !data[a] || !data[a].price);
+
+                    if (missingAssets.length > 0) {
+                        const alreadyExists = this.state.state.improvements.some(i =>
+                            i.type === 'INCOMPLETE_MARKET_DATA' &&
+                            Date.now() - new Date(i.timestamp || 0).getTime() < 6 * 60 * 60 * 1000
+                        );
+                        if (!alreadyExists) {
+                            analysis.push({
+                                type: 'INCOMPLETE_MARKET_DATA',
+                                observation: `Missing data for: ${missingAssets.join(', ')}`,
+                                recommendation: 'Check data source API keys and connectivity'
+                            });
+                        }
+                    }
+                } catch (e) {
                     analysis.push({
                         type: 'INCOMPLETE_MARKET_DATA',
-                        observation: `Missing data for: ${missingAssets.join(', ')}`,
+                        observation: 'Market data file is corrupted or unreadable',
                         recommendation: 'Check data source API keys and connectivity'
                     });
                 }
@@ -855,6 +896,11 @@ class SelfImprovementEngine {
     }
 
     proposeImprovements() {
+        // Only propose new improvements every 4 hours
+        const last = this.state.state._lastProposal || 0;
+        if (Date.now() - last < 4 * 60 * 60 * 1000) return [];
+        this.state.state._lastProposal = Date.now();
+
         const proposals = [];
 
         // Propose new skill if recurring patterns found
@@ -867,42 +913,62 @@ class SelfImprovementEngine {
 
         Object.entries(recurringErrors).forEach(([type, count]) => {
             if (count >= 3) {
-                proposals.push({
-                    type: 'SKILL_PROPOSAL',
-                    target: `${type}_handler`,
-                    reason: `${count} occurrences of ${type}`,
-                    status: 'pending_approval'
-                });
+                const alreadyExists = this.state.state.improvements.some(i =>
+                    i.type === 'SKILL_PROPOSAL' && i.target === `${type}_handler`
+                );
+                if (!alreadyExists) {
+                    proposals.push({
+                        type: 'SKILL_PROPOSAL',
+                        target: `${type}_handler`,
+                        reason: `${count} occurrences of ${type}`,
+                        status: 'pending_approval'
+                    });
+                }
             }
         });
 
         // Propose research automation
         const today = new Date().toISOString().split('T')[0];
-        const researchToday = this.state.state.improvements.filter(i => 
-            i.timestamp && i.timestamp.startsWith(today) && i.type === 'RESEARCH_TRIGGERED'
-        ).length;
-        
-        if (researchToday === 0) {
-            proposals.push({
-                type: 'RESEARCH_AUTOMATION',
-                target: 'daily_research_cycle',
-                reason: 'No research triggered today',
-                status: 'ready_to_implement'
-            });
+        // Check if we already proposed this today
+        const alreadyProposedToday = this.state.state.improvements.some(i =>
+            i.type === 'RESEARCH_AUTOMATION' &&
+            i.timestamp && i.timestamp.startsWith(today)
+        );
+
+        if (!alreadyProposedToday) {
+            const researchToday = this.state.state.improvements.filter(i =>
+                i.timestamp && i.timestamp.startsWith(today) && i.type === 'RESEARCH_TRIGGERED'
+            ).length;
+
+            if (researchToday === 0) {
+                proposals.push({
+                    type: 'RESEARCH_AUTOMATION',
+                    target: 'daily_research_cycle',
+                    reason: 'No research triggered today',
+                    status: 'ready_to_implement'
+                });
+            }
         }
 
         // Propose memory consolidation if many daily files
         try {
             const workspace = CONFIG.WORKSPACE_ROOT;
             const memoryPath = path.join(workspace, 'memory');
-            const files = fs.readdirSync(memoryPath).filter(f => f.match(/^\d{4}-\d{2}-\d{2}\.md$/));
-            if (files.length > 30) {
-                proposals.push({
-                    type: 'MEMORY_CONSOLIDATION',
-                    target: 'archive_old_logs',
-                    reason: `${files.length} daily files accumulated`,
-                    status: 'ready_to_implement'
-                });
+            if (fs.existsSync(memoryPath)) {
+                const files = fs.readdirSync(memoryPath).filter(f => f.match(/^\d{4}-\d{2}-\d{2}\.md$/));
+                if (files.length > 30) {
+                    const alreadyExists = this.state.state.improvements.some(i =>
+                        i.type === 'MEMORY_CONSOLIDATION'
+                    );
+                    if (!alreadyExists) {
+                        proposals.push({
+                            type: 'MEMORY_CONSOLIDATION',
+                            target: 'archive_old_logs',
+                            reason: `${files.length} daily files accumulated`,
+                            status: 'ready_to_implement'
+                        });
+                    }
+                }
             }
         } catch (e) {}
 
@@ -931,7 +997,7 @@ class AutonomyCoreEngine {
         this.state.log('INFO', `Time: ${new Date().toISOString()}`);
 
         const results = {};
-        
+
         // Run all 4 principles
         const engineMap = {
             'EFFICIENCY': 'efficiency',
@@ -939,7 +1005,7 @@ class AutonomyCoreEngine {
             'PERSISTENCE': 'persistence',
             'SELF-IMPROVEMENT': 'selfImprovement'
         };
-        
+
         for (const principle of CONFIG.PRINCIPLES) {
             const engineKey = engineMap[principle];
             try {
@@ -991,19 +1057,19 @@ class AutonomyCoreEngine {
 // ─── ENTRY POINT ──────────────────────────────────────────────────
 async function main() {
     const engine = new AutonomyCoreEngine();
-    
+
     // Check if running in continuous mode or single cycle
     const isContinuous = process.argv.includes('--continuous');
-    
+
     if (isContinuous) {
         await engine.runContinuous();
     } else {
         const results = await engine.runOnce();
-        
+
         // Output results as JSON for parsing
         console.log('\n--- RESULTS ---');
         console.log(JSON.stringify(results, null, 2));
-        
+
         process.exit(0);
     }
 }
