@@ -1,0 +1,144 @@
+{
+  "decisions": [
+    {
+      "id": "dec_1784898367955",
+      "timestamp": "2026-07-24T13:06:07.955Z",
+      "type": "online_business",
+      "score": 0.52,
+      "decision": "CONDITIONAL_APPROVE",
+      "requires_approval": false,
+      "normalized_scores": {
+        "roi": 0.5,
+        "risk": 0.8,
+        "urgency": 0.2,
+        "effort": 0.5,
+        "alignment": 0.7,
+        "confidence": 0.5
+      },
+      "raw_inputs": {
+        "roi": 50,
+        "risk": 2,
+        "urgency": 2,
+        "effort": 5,
+        "confidence": 0.5
+      },
+      "metadata": {
+        "type": "online_business",
+        "subtype": "saas_micro_product",
+        "signal": "research",
+        "confidence": 0.5,
+        "rationale": "Potential saas micro product opportunity",
+        "urgency": "low",
+        "effort_required": "medium",
+        "potential_roi": 50,
+        "timeframe": "3-6 months",
+        "scores": {
+          "roi": 0.5,
+          "risk": 0.5,
+          "effort": 0.5,
+          "timing": 0.3,
+          "alignment": 0.7
+        },
+        "composite_score": 0.49,
+        "grade": "C"
+      },
+      "executed": false,
+      "execution_time": null
+    },
+    {
+      "id": "dec_1784898367957",
+      "timestamp": "2026-07-24T13:06:07.957Z",
+      "type": "online_business",
+      "score": 0.52,
+      "decision": "CONDITIONAL_APPROVE",
+      "requires_approval": false,
+      "normalized_scores": {
+        "roi": 0.5,
+        "risk": 0.8,
+        "urgency": 0.2,
+        "effort": 0.5,
+        "alignment": 0.7,
+        "confidence": 0.5
+      },
+      "raw_inputs": {
+        "roi": 50,
+        "risk": 2,
+        "urgency": 2,
+        "effort": 5,
+        "confidence": 0.5
+      },
+      "metadata": {
+        "type": "online_business",
+        "subtype": "content_monetization",
+        "signal": "research",
+        "confidence": 0.5,
+        "rationale": "Potential content monetization opportunity",
+        "urgency": "low",
+        "effort_required": "medium",
+        "potential_roi": 50,
+        "timeframe": "3-6 months",
+        "scores": {
+          "roi": 0.5,
+          "risk": 0.5,
+          "effort": 0.5,
+          "timing": 0.3,
+          "alignment": 0.7
+        },
+        "composite_score": 0.49,
+        "grade": "C"
+      },
+      "executed": false,
+      "execution_time": null
+    },
+    {
+      "id": "dec_1784898367958",
+      "timestamp": "2026-07-24T13:06:07.958Z",
+      "type": "online_business",
+      "score": 0.52,
+      "decision": "CONDITIONAL_APPROVE",
+      "requires_approval": false,
+      "normalized_scores": {
+        "roi": 0.5,
+        "risk": 0.8,
+        "urgency": 0.2,
+        "effort": 0.5,
+        "alignment": 0.7,
+        "confidence": 0.5
+      },
+      "raw_inputs": {
+        "roi": 50,
+        "risk": 2,
+        "urgency": 2,
+        "effort": 5,
+        "confidence": 0.5
+      },
+      "metadata": {
+        "type": "online_business",
+        "subtype": "affiliate_partnerships",
+        "signal": "research",
+        "confidence": 0.5,
+        "rationale": "Potential affiliate partnerships opportunity",
+        "urgency": "low",
+        "effort_required": "medium",
+        "potential_roi": 50,
+        "timeframe": "3-6 months",
+        "scores": {
+          "roi": 0.5,
+          "risk": 0.5,
+          "effort": 0.5,
+          "timing": 0.3,
+          "alignment": 0.7
+        },
+        "composite_score": 0.49,
+        "grade": "C"
+      },
+      "executed": false,
+      "execution_time": null
+    }
+  ],
+  "stats": {
+    "total": 3,
+    "approved": 0,
+    "rejected": 0
+  }
+}

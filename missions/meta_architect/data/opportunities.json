@@ -1,0 +1,37 @@
+[
+  {
+    "name": "POD Scale 100+",
+    "type": "product",
+    "potentialRevenue": 1500,
+    "confidence": 0.8,
+    "effort": "medium"
+  },
+  {
+    "name": "X Premium Content",
+    "type": "content",
+    "potentialRevenue": 500,
+    "confidence": 0.6,
+    "effort": "low"
+  },
+  {
+    "name": "Dashboard SaaS",
+    "type": "saas",
+    "potentialRevenue": 2000,
+    "confidence": 0.7,
+    "effort": "high"
+  },
+  {
+    "name": "Research API",
+    "type": "api",
+    "potentialRevenue": 1000,
+    "confidence": 0.8,
+    "effort": "medium"
+  },
+  {
+    "name": "Auto Trading Bot",
+    "type": "bot",
+    "potentialRevenue": 5000,
+    "confidence": 0.6,
+    "effort": "high"
+  }
+]

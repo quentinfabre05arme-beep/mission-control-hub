@@ -1,0 +1,51 @@
+[
+  {
+    "timestamp": "2026-07-24T13:04:07.078Z",
+    "signals": [
+      {
+        "symbol": "BTC",
+        "signal": "HOLD",
+        "score": 0,
+        "confidence": "LOW",
+        "price": 65467.53,
+        "change24h": 0.56615335
+      },
+      {
+        "symbol": "ETH",
+        "signal": "HOLD",
+        "score": 0,
+        "confidence": "LOW",
+        "price": 1895.16,
+        "change24h": 0.89332297
+      },
+      {
+        "symbol": "MSTR",
+        "signal": "HOLD",
+        "score": 0,
+        "confidence": "LOW",
+        "price": 93.63,
+        "change24h": -6.37937
+      },
+      {
+        "symbol": "HIMS",
+        "signal": "WEAK BUY",
+        "score": 1,
+        "confidence": "LOW",
+        "price": 32.74,
+        "change24h": 3.34596
+      },
+      {
+        "symbol": "COIN",
+        "signal": "HOLD",
+        "score": 0,
+        "confidence": "LOW"
+      },
+      {
+        "symbol": "TSLA",
+        "signal": "HOLD",
+        "score": 0,
+        "confidence": "LOW"
+      }
+    ]
+  }
+]

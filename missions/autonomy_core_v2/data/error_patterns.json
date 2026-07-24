@@ -1,0 +1,175 @@
+{
+  "network": {
+    "patterns": [
+      "ECONNREFUSED",
+      "ENOTFOUND",
+      "ETIMEDOUT",
+      "timeout"
+    ],
+    "strategies": [
+      {
+        "name": "retry",
+        "delay": 1000,
+        "description": "Simple retry with 1s delay"
+      },
+      {
+        "name": "retry_with_backoff",
+        "delay": 3000,
+        "description": "Retry with exponential backoff"
+      },
+      {
+        "name": "alternative_dns",
+        "delay": 5000,
+        "description": "Try alternative DNS"
+      },
+      {
+        "name": "circuit_breaker",
+        "delay": 10000,
+        "description": "Wait 10s then retry"
+      },
+      {
+        "name": "fallback_endpoint",
+        "delay": 15000,
+        "description": "Use fallback endpoint"
+      }
+    ]
+  },
+  "rate_limit": {
+    "patterns": [
+      "429",
+      "rate limit",
+      "too many requests",
+      "throttled"
+    ],
+    "strategies": [
+      {
+        "name": "backoff",
+        "delay": 2000,
+        "description": "Wait 2s before retry"
+      },
+      {
+        "name": "extended_backoff",
+        "delay": 10000,
+        "description": "Wait 10s"
+      },
+      {
+        "name": "reduce_frequency",
+        "delay": 30000,
+        "description": "Reduce request frequency"
+      },
+      {
+        "name": "api_key_rotation",
+        "delay": 5000,
+        "description": "Try alternative API key"
+      },
+      {
+        "name": "cache_fallback",
+        "delay": 1000,
+        "description": "Use cached data"
+      }
+    ]
+  },
+  "auth": {
+    "patterns": [
+      "401",
+      "403",
+      "unauthorized",
+      "forbidden",
+      "invalid token"
+    ],
+    "strategies": [
+      {
+        "name": "token_refresh",
+        "delay": 1000,
+        "description": "Refresh authentication token"
+      },
+      {
+        "name": "reauth",
+        "delay": 3000,
+        "description": "Re-authenticate"
+      },
+      {
+        "name": "alternative_key",
+        "delay": 2000,
+        "description": "Try alternative API key"
+      },
+      {
+        "name": "manual_intervention",
+        "delay": 0,
+        "description": "Requires human intervention"
+      },
+      {
+        "name": "skip_operation",
+        "delay": 0,
+        "description": "Skip operation and continue"
+      }
+    ]
+  },
+  "data": {
+    "patterns": [
+      "parse error",
+      "invalid json",
+      "malformed",
+      "unexpected token"
+    ],
+    "strategies": [
+      {
+        "name": "retry_fetch",
+        "delay": 2000,
+        "description": "Retry data fetch"
+      },
+      {
+        "name": "backup_source",
+        "delay": 5000,
+        "description": "Try backup data source"
+      },
+      {
+        "name": "manual_parse",
+        "delay": 3000,
+        "description": "Manual parsing with cleanup"
+      },
+      {
+        "name": "default_values",
+        "delay": 0,
+        "description": "Use default/safe values"
+      },
+      {
+        "name": "skip_and_log",
+        "delay": 0,
+        "description": "Skip and log error"
+      }
+    ]
+  },
+  "unknown": {
+    "patterns": [
+      ""
+    ],
+    "strategies": [
+      {
+        "name": "retry",
+        "delay": 1000,
+        "description": "Simple retry"
+      },
+      {
+        "name": "extended_retry",
+        "delay": 5000,
+        "description": "Retry after 5s"
+      },
+      {
+        "name": "alternative_approach",
+        "delay": 10000,
+        "description": "Try alternative approach"
+      },
+      {
+        "name": "simplify_request",
+        "delay": 3000,
+        "description": "Simplify request"
+      },
+      {
+        "name": "human_review",
+        "delay": 0,
+        "description": "Escalate to human review"
+      }
+    ]
+  }
+}

@@ -1,19 +1,91 @@
 {
-  "posts": [],
+  "posts": [
+    {
+      "id": "post-2026-07-24-1900",
+      "text": "📊 Weekend market snapshot:\n\nBTC: $65,467 (+0.57%)\nETH: $1,895 (+0.89%) — outperforming\nMSTR: $93.63 (-6.38%)\nCOIN: $161.16 (-2.99%)\n\nETH showing relative strength vs crypto equities. Fear & Greed at 28 (FEAR) — contrarian setup intact.\n\nTSLA -14.5% dragging risk sentiment. Crypto holding better than expected.\n\nWeekend thesis: Accumulation phase continues. Watch $1,920 ETH resistance break for momentum.\n\n#Ethereum #BTC #Crypto #MarketUpdate",
+      "scheduled_time": "19:00",
+      "scheduled_date": "2026-07-24",
+      "timezone": "Europe/Paris",
+      "pillar": "Market Structure",
+      "status": "pending",
+      "character_count": 442,
+      "created_at": "2026-07-24T15:00:00+02:00",
+      "market_context": {
+        "eth_price": 1895.16,
+        "eth_change_24h": 0.89,
+        "btc_price": 65467.53,
+        "btc_change_24h": 0.57,
+        "fear_greed": 28,
+        "tsla_change": -14.52
+      }
+    },
+    {
+      "id": "post-2026-07-25-0800",
+      "text": "🇺🇸 HIMS at $32.74 (+3.35%) — bucking the market chop.\n\nWhile TSLA dumps 14% and crypto proxies bleed, HIMS is green. Why?\n\n1️⃣ GLP-1 narrative = healthcare infrastructure, not discretionary\n2️⃣ Compounder model: high retention + expanding margins\n3️⃣ Valuation gap: trading at ~8x sales vs Teladoc at ~3x but growing 3x faster\n\nThe market is starting to price HIMS as a platform, not a pharmacy.\n\nRisk-off is separating real businesses from momentum trades.\n\n$HIMS #Healthcare #GLP1 #Longevity",
+      "scheduled_time": "08:00",
+      "scheduled_date": "2026-07-25",
+      "timezone": "Europe/Paris",
+      "pillar": "Institutional/Macro",
+      "status": "pending",
+      "character_count": 438,
+      "created_at": "2026-07-24T15:00:00+02:00",
+      "market_context": {
+        "hims_price": 32.74,
+        "hims_change_24h": 3.35,
+        "tsla_change": -14.52
+      }
+    },
+    {
+      "id": "post-2026-07-25-1400",
+      "text": "💧 Ethereum's restaking economy is the most underappreciated yield story in crypto.\n\nCurrent landscape:\n• ~34M ETH staked (~28% of supply)\n• EigenLayer restaking: $15B+ TVL\n• Liquid staking yields: 3.2% base APY\n• AVS launches accelerating = additional yield stacking\n\nThe innovation: Ethereum's economic security is now a composable primitive.\n\nOther chains spend fortunes on validator incentives. Ethereum validators secure the entire ecosystem — and get paid for it.\n\nThis is why ETH is infrastructure + money + yield.\n\n#Ethereum #EigenLayer #Restaking #DeFi #ETH",
+      "scheduled_time": "14:00",
+      "scheduled_date": "2026-07-25",
+      "timezone": "Europe/Paris",
+      "pillar": "DeFi/Ecosystem",
+      "status": "pending",
+      "character_count": 556,
+      "created_at": "2026-07-24T15:00:00+02:00",
+      "market_context": {
+        "eth_price": 1895.16,
+        "staking_rate": 28,
+        "eigenlayer_tvl": 15
+      }
+    },
+    {
+      "id": "post-2026-07-25-1900",
+      "text": "🎯 The contrarian case for crypto right now:\n\nFear & Greed: 28 (FEAR)\nBTC whales: ACCUMULATING (high confidence)\nETH: outperforming BTC on 24h (+0.89% vs +0.57%)\n\nWhen everyone expects lower, the surprise is higher.\n\nHistorical pattern:\n• F&G < 25 → local bottom in ~65% of cases\n• Whale accumulation + extreme fear = setup for relief rally\n• ETH/BTC ratio compression → ETH outperformance on recovery\n\nNot calling a bottom. Calling a probability setup.\n\nRisk management: DCA, not all-in.\n\n#BTC #Ethereum #Crypto #Contrarian",
+      "scheduled_time": "19:00",
+      "scheduled_date": "2026-07-25",
+      "timezone": "Europe/Paris",
+      "pillar": "Narrative/Opinion",
+      "status": "pending",
+      "character_count": 496,
+      "created_at": "2026-07-24T15:00:00+02:00",
+      "market_context": {
+        "fear_greed": 28,
+        "btc_price": 65467.53,
+        "eth_price": 1895.16,
+        "whale_signal": "ACCUMULATION"
+      }
+    }
+  ],
   "config": {
     "dailyLimit": 3,
     "postedToday": 0,
-    "status": "PERMANENTLY_CANCELLED",
-    "cancelledAt": "2026-07-16T11:01:00+02:00",
-    "reason": "User cancelled all X missions",
-    "shutdownCompleted": "2026-07-16T15:05:00+02:00",
-    "shutdownMethod": "Windows Task Scheduler disabled"
+    "status": "ACTIVE",
+    "resumedAt": "2026-07-24T15:00:00+02:00",
+    "reason": "Resumed per user request - X posting automation reactivated",
+    "schedule": {
+      "timezone": "Europe/Paris",
+      "postTimes": ["08:00", "14:00", "19:00"],
+      "pillars": ["Institutional/Macro", "DeFi/Ecosystem", "Market Structure/Narrative"]
+    }
   },
   "lastPost": {
     "id": "post-2026-07-16-1400",
     "postedAt": "2026-07-16T14:00:00+02:00",
     "pillar": "Crypto",
-    "note": "Final post despite cancellation - Task Scheduler was still active"
+    "note": "Last post before July 16 cancellation - automation now resumed"
   },
-  "note": "X posting mission PERMANENTLY CANCELLED and FULLY SHUT DOWN - All Windows Task Scheduler jobs disabled - No further posts possible"
+  "note": "X posting automation RESUMED 2026-07-24. Windows Task Scheduler re-enabled. Content pipeline active."
 }

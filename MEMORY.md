@@ -281,3 +281,631 @@ _Last updated: July 24, 2026 01:55 CET_
 ---
 
 *This is my curated memory. Raw daily logs live in `memory/YYYY-MM-DD.md`.*
+
+## Autonomy Core v2.0 - Initialization
+**Time:** 2026-07-24T13:05:24.160Z
+**Data:** {
+  "timestamp": "2026-07-24T13:05:24.160Z",
+  "subsystems": [
+    "Self-Improvement Loop",
+    "Revenue Tracker",
+    "Opportunity Scanner",
+    "Decision Matrix",
+    "Error Recovery"
+  ],
+  "version": "2.0"
+}
+
+---
+
+## Self-Healing Error Recovery
+**Recovery ID:** rec_1784898324163
+**Status:** ✅ SUCCESS
+**Error Type:** unknown
+**Attempts:** 1
+**Duration:** 2ms
+
+**Strategy Attempts:**
+- 1. retry: ✅ 
+
+
+
+---
+
+## Autonomy Core v2.0 - Cycle Complete
+**Time:** 2026-07-24T13:05:24.167Z
+**Data:** {
+  "cycleId": "cycle_1784898324161",
+  "timestamp": "2026-07-24T13:05:24.161Z",
+  "phases": {
+    "selfImprovement": {
+      "status": "checked",
+      "previousErrors": {
+        "total": 0,
+        "successful": 0,
+        "failed": 0
+      },
+      "recommendations": [
+        "System healthy"
+      ]
+    }
+  },
+  "status": "error",
+  "error": "Cannot read properties of undefined (reading 'forEach')",
+  "recovery": {
+    "recoveryId": "rec_1784898324163",
+    "success": true,
+    "attempts": 1,
+    "total_duration": 2,
+    "classification": "unknown",
+    "strategies_attempted": [
+      {
+        "attempt": 1,
+        "strategy": "retry",
+        "success": true,
+        "duration": 2
+      }
+    ],
+    "final_error": null
+  }
+}
+
+---
+
+## Autonomy Core v2.0 - Initialization
+**Time:** 2026-07-24T13:06:07.950Z
+**Data:** {
+  "timestamp": "2026-07-24T13:06:07.950Z",
+  "subsystems": [
+    "Self-Improvement Loop",
+    "Revenue Tracker",
+    "Opportunity Scanner",
+    "Decision Matrix",
+    "Error Recovery"
+  ],
+  "version": "2.0"
+}
+
+---
+
+## Opportunity Scanner - Full Scan
+**Date:** 2026-07-24T13:06:07.954Z
+**Total Opportunities:** 9
+**Grade Distribution:** {"A":0,"B":0,"C":9,"D":0}
+
+**Top Opportunity:**
+- Type: online_business (saas_micro_product)
+- Signal: research
+- Confidence: 50%
+- Composite Score: 0.49 (C)
+- Rationale: Potential saas micro product opportunity
+
+---
+
+## Auto-Pilot Decision
+**ID:** dec_1784898367955
+**Time:** 2026-07-24T13:06:07.955Z
+**Type:** online_business
+**Score:** 0.52
+**Decision:** CONDITIONAL_APPROVE
+**Requires Approval:** false
+**Scores:** ROI=50% | Risk=8.0/10 | Urgency=2.0/10
+
+---
+
+## Auto-Pilot Decision
+**ID:** dec_1784898367957
+**Time:** 2026-07-24T13:06:07.957Z
+**Type:** online_business
+**Score:** 0.52
+**Decision:** CONDITIONAL_APPROVE
+**Requires Approval:** false
+**Scores:** ROI=50% | Risk=8.0/10 | Urgency=2.0/10
+
+---
+
+## Auto-Pilot Decision
+**ID:** dec_1784898367958
+**Time:** 2026-07-24T13:06:07.958Z
+**Type:** online_business
+**Score:** 0.52
+**Decision:** CONDITIONAL_APPROVE
+**Requires Approval:** false
+**Scores:** ROI=50% | Risk=8.0/10 | Urgency=2.0/10
+
+---
+
+## Autonomy Core v2.0 - Cycle Complete
+**Time:** 2026-07-24T13:06:07.960Z
+**Data:** {
+  "cycleId": "cycle_1784898367951",
+  "timestamp": "2026-07-24T13:06:07.952Z",
+  "phases": {
+    "selfImprovement": {
+      "status": "checked",
+      "previousErrors": {
+        "total": 5,
+        "successful": 1,
+        "failed": 0,
+        "success_rate": "20.0"
+      },
+      "recommendations": [
+        "System healthy"
+      ]
+    },
+    "revenue": {
+      "daily": {
+        "date": "2026-07-24",
+        "revenue": 0,
+        "costs": 0,
+        "profit": 0,
+        "margin": 0
+      },
+      "monthly": {
+        "month": "2026-07",
+        "revenue": {
+          "investments": 0,
+          "business": 0,
+          "passive": 0
+        },
+        "costs": {
+          "infrastructure": 0,
+          "operations": 0,
+          "marketing": 0
+        },
+        "totals": {
+          "revenue": 0,
+          "costs": 0,
+          "profit": 0,
+          "margin": 0
+        }
+      },
+      "streams": [
+        {
+          "category": "investments",
+          "subcategory": "crypto_trading",
+          "total": 0,
+          "today": 0,
+          "transactions": 0,
+          "status": "idle"
+        },
+        {
+          "category": "investments",
+          "subcategory": "stock_trading",
+          "total": 0,
+          "today": 0,
+          "transactions": 0,
+          "status": "idle"
+        },
+        {
+          "category": "investments",
+          "subcategory": "dividends",
+          "total": 0,
+          "today": 0,
+          "transactions": 0,
+          "status": "idle"
+        },
+        {
+          "category": "business",
+          "subcategory": "consulting",
+          "total": 0,
+          "today": 0,
+          "transactions": 0,
+          "status": "idle"
+        },
+        {
+          "category": "business",
+          "subcategory": "products",
+          "total": 0,
+          "today": 0,
+          "transactions": 0,
+          "status": "idle"
+        },
+        {
+          "category": "business",
+          "subcategory": "services",
+          "total": 0,
+          "today": 0,
+          "transactions": 0,
+          "status": "idle"
+        },
+        {
+          "category": "passive",
+          "subcategory": "ads",
+          "total": 0,
+          "today": 0,
+          "transactions": 0,
+          "status": "idle"
+        },
+        {
+          "category": "passive",
+          "subcategory": "affiliates",
+          "total": 0,
+          "today": 0,
+          "transactions": 0,
+          "status": "idle"
+        },
+        {
+          "category": "passive",
+          "subcategory": "subscriptions",
+          "total": 0,
+          "today": 0,
+          "transactions": 0,
+          "status": "idle"
+        }
+      ],
+      "healthy": false
+    },
+    "opportunities": {
+      "timestamp": "2026-07-24T13:06:07.954Z",
+      "summary": {
+        "total": 9,
+        "by_grade": {
+          "A": 0,
+          "B": 0,
+          "C": 9,
+          "D": 0
+        },
+        "top_opportunity": {
+          "type": "online_business",
+          "subtype": "saas_micro_product",
+          "signal": "research",
+          "confidence": 0.5,
+          "rationale": "Potential saas micro product opportunity",
+          "urgency": "low",
+          "effort_required": "medium",
+          "potential_roi": 50,
+          "timeframe": "3-6 months",
+          "scores": {
+            "roi": 0.5,
+            "risk": 0.5,
+            "effort": 0.5,
+            "timing": 0.3,
+            "alignment": 0.7
+          },
+          "composite_score": 0.49,
+          "grade": "C"
+        }
+      },
+      "opportunities": [
+        {
+          "type": "online_business",
+          "subtype": "saas_micro_product",
+          "signal": "research",
+          "confidence": 0.5,
+          "rationale": "Potential saas micro product opportunity",
+          "urgency": "low",
+          "effort_required": "medium",
+          "potential_roi": 50,
+          "timeframe": "3-6 months",
+          "scores": {
+            "roi": 0.5,
+            "risk": 0.5,
+            "effort": 0.5,
+            "timing": 0.3,
+            "alignment": 0.7
+          },
+          "composite_score": 0.49,
+          "grade": "C"
+        },
+        {
+          "type": "online_business",
+          "subtype": "content_monetization",
+          "signal": "research",
+          "confidence": 0.5,
+          "rationale": "Potential content monetization opportunity",
+          "urgency": "low",
+          "effort_required": "medium",
+          "potential_roi": 50,
+          "timeframe": "3-6 months",
+          "scores": {
+            "roi": 0.5,
+            "risk": 0.5,
+            "effort": 0.5,
+            "timing": 0.3,
+            "alignment": 0.7
+          },
+          "composite_score": 0.49,
+          "grade": "C"
+        },
+        {
+          "type": "online_business",
+          "subtype": "affiliate_partnerships",
+          "signal": "research",
+          "confidence": 0.5,
+          "rationale": "Potential affiliate partnerships opportunity",
+          "urgency": "low",
+          "effort_required": "medium",
+          "potential_roi": 50,
+          "timeframe": "3-6 months",
+          "scores": {
+            "roi": 0.5,
+            "risk": 0.5,
+            "effort": 0.5,
+            "timing": 0.3,
+            "alignment": 0.7
+          },
+          "composite_score": 0.49,
+          "grade": "C"
+        },
+        {
+          "type": "online_business",
+          "subtype": "api_services",
+          "signal": "research",
+          "confidence": 0.5,
+          "rationale": "Potential api services opportunity",
+          "urgency": "low",
+          "effort_required": "medium",
+          "potential_roi": 50,
+          "timeframe": "3-6 months",
+          "scores": {
+            "roi": 0.5,
+            "risk": 0.5,
+            "effort": 0.5,
+            "timing": 0.3,
+            "alignment": 0.7
+          },
+          "composite_score": 0.49,
+          "grade": "C"
+        },
+        {
+          "type": "crypto_dip",
+          "asset": "BTC",
+          "change": -12,
+          "signal": "buy",
+          "confidence": 0.6,
+          "rationale": "Significant dip of -12% in BTC",
+          "urgency": "medium",
+          "potential_roi": 6,
+          "scores": {
+            "roi": 0.06,
+            "risk": 0.7,
+            "effort": 0.3,
+            "timing": 0.6,
+            "alignment": 0.7
+          },
+          "composite_score": 0.413,
+          "grade": "C"
+        },
+        {
+          "type": "crypto_volume_spike",
+          "asset": "BTC",
+          "volume_change": 250,
+          "signal": "investigate",
+          "confidence": 0.6,
+          "rationale": "Unusual volume activity: 250% increase",
+          "urgency": "medium",
+          "potential_roi": 10,
+          "scores": {
+            "roi": 0.1,
+            "risk": 0.5,
+            "effort": 0.3,
+            "timing": 0.6,
+            "alignment": 0.7
+          },
+          "composite_score": 0.375,
+          "grade": "C"
+        },
+        {
+          "type": "arbitrage",
+          "subtype": "crypto_exchange",
+          "signal": "monitor",
+          "confidence": 0.4,
+          "rationale": "crypto exchange arbitrage potential",
+          "urgency": "low",
+          "effort_required": "high",
+          "potential_roi": 5,
+          "timeframe": "ongoing",
+          "scores": {
+            "roi": 0.05,
+            "risk": 0.5,
+            "effort": 0.3,
+            "timing": 0.3,
+            "alignment": 0.7
+          },
+          "composite_score": 0.315,
+          "grade": "C"
+        },
+        {
+          "type": "arbitrage",
+          "subtype": "retail",
+          "signal": "monitor",
+          "confidence": 0.4,
+          "rationale": "retail arbitrage potential",
+          "urgency": "low",
+          "effort_required": "high",
+          "potential_roi": 5,
+          "timeframe": "ongoing",
+          "scores": {
+            "roi": 0.05,
+            "risk": 0.5,
+            "effort": 0.3,
+            "timing": 0.3,
+            "alignment": 0.7
+          },
+          "composite_score": 0.315,
+          "grade": "C"
+        },
+        {
+          "type": "arbitrage",
+          "subtype": "regional",
+          "signal": "monitor",
+          "confidence": 0.4,
+          "rationale": "regional arbitrage potential",
+          "urgency": "low",
+          "effort_required": "high",
+          "potential_roi": 5,
+          "timeframe": "ongoing",
+          "scores": {
+            "roi": 0.05,
+            "risk": 0.5,
+            "effort": 0.3,
+            "timing": 0.3,
+            "alignment": 0.7
+          },
+          "composite_score": 0.315,
+          "grade": "C"
+        }
+      ]
+    },
+    "decisions": {
+      "evaluated": 3,
+      "decisions": [
+        {
+          "id": "dec_1784898367955",
+          "timestamp": "2026-07-24T13:06:07.955Z",
+          "type": "online_business",
+          "score": 0.52,
+          "decision": "CONDITIONAL_APPROVE",
+          "requires_approval": false,
+          "normalized_scores": {
+            "roi": 0.5,
+            "risk": 0.8,
+            "urgency": 0.2,
+            "effort": 0.5,
+            "alignment": 0.7,
+            "confidence": 0.5
+          },
+          "raw_inputs": {
+            "roi": 50,
+            "risk": 2,
+            "urgency": 2,
+            "effort": 5,
+            "confidence": 0.5
+          },
+          "metadata": {
+            "type": "online_business",
+            "subtype": "saas_micro_product",
+            "signal": "research",
+            "confidence": 0.5,
+            "rationale": "Potential saas micro product opportunity",
+            "urgency": "low",
+            "effort_required": "medium",
+            "potential_roi": 50,
+            "timeframe": "3-6 months",
+            "scores": {
+              "roi": 0.5,
+              "risk": 0.5,
+              "effort": 0.5,
+              "timing": 0.3,
+              "alignment": 0.7
+            },
+            "composite_score": 0.49,
+            "grade": "C"
+          },
+          "executed": false,
+          "execution_time": null
+        },
+        {
+          "id": "dec_1784898367957",
+          "timestamp": "2026-07-24T13:06:07.957Z",
+          "type": "online_business",
+          "score": 0.52,
+          "decision": "CONDITIONAL_APPROVE",
+          "requires_approval": false,
+          "normalized_scores": {
+            "roi": 0.5,
+            "risk": 0.8,
+            "urgency": 0.2,
+            "effort": 0.5,
+            "alignment": 0.7,
+            "confidence": 0.5
+          },
+          "raw_inputs": {
+            "roi": 50,
+            "risk": 2,
+            "urgency": 2,
+            "effort": 5,
+            "confidence": 0.5
+          },
+          "metadata": {
+            "type": "online_business",
+            "subtype": "content_monetization",
+            "signal": "research",
+            "confidence": 0.5,
+            "rationale": "Potential content monetization opportunity",
+            "urgency": "low",
+            "effort_required": "medium",
+            "potential_roi": 50,
+            "timeframe": "3-6 months",
+            "scores": {
+              "roi": 0.5,
+              "risk": 0.5,
+              "effort": 0.5,
+              "timing": 0.3,
+              "alignment": 0.7
+            },
+            "composite_score": 0.49,
+            "grade": "C"
+          },
+          "executed": false,
+          "execution_time": null
+        },
+        {
+          "id": "dec_1784898367958",
+          "timestamp": "2026-07-24T13:06:07.958Z",
+          "type": "online_business",
+          "score": 0.52,
+          "decision": "CONDITIONAL_APPROVE",
+          "requires_approval": false,
+          "normalized_scores": {
+            "roi": 0.5,
+            "risk": 0.8,
+            "urgency": 0.2,
+            "effort": 0.5,
+            "alignment": 0.7,
+            "confidence": 0.5
+          },
+          "raw_inputs": {
+            "roi": 50,
+            "risk": 2,
+            "urgency": 2,
+            "effort": 5,
+            "confidence": 0.5
+          },
+          "metadata": {
+            "type": "online_business",
+            "subtype": "affiliate_partnerships",
+            "signal": "research",
+            "confidence": 0.5,
+            "rationale": "Potential affiliate partnerships opportunity",
+            "urgency": "low",
+            "effort_required": "medium",
+            "potential_roi": 50,
+            "timeframe": "3-6 months",
+            "scores": {
+              "roi": 0.5,
+              "risk": 0.5,
+              "effort": 0.5,
+              "timing": 0.3,
+              "alignment": 0.7
+            },
+            "composite_score": 0.49,
+            "grade": "C"
+          },
+          "executed": false,
+          "execution_time": null
+        }
+      ],
+      "auto_approved": 0,
+      "requires_review": 0
+    },
+    "recovery": {
+      "stats": {
+        "total": 5,
+        "successful": 1,
+        "failed": 0,
+        "success_rate": "20.0"
+      },
+      "healthy": false,
+      "recommendations": [
+        "Review error patterns",
+        "Update recovery strategies"
+      ]
+    }
+  },
+  "duration": 9,
+  "status": "completed"
+}
+
+---

@@ -1,0 +1,21 @@
+{
+  "subscribers": [
+    {
+      "email": "test@example.com",
+      "subscribed_at": "2026-07-24T13:03:59.827Z",
+      "active": true,
+      "metadata": {
+        "source": "cli"
+      }
+    }
+  ],
+  "count": 1,
+  "last_updated": "2026-07-24T13:03:59.828Z",
+  "settings": {
+    "weekly_send_day": "Sunday",
+    "weekly_send_time": "08:00",
+    "timezone": "Europe/Paris",
+    "auto_generate": true,
+    "archive_enabled": true
+  }
+}

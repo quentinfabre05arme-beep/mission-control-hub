@@ -1,0 +1,72 @@
+{
+  "revenue_streams": {
+    "investments": {
+      "crypto_trading": {
+        "daily": [],
+        "monthly": [],
+        "total": 0
+      },
+      "stock_trading": {
+        "daily": [],
+        "monthly": [],
+        "total": 0
+      },
+      "dividends": {
+        "daily": [],
+        "monthly": [],
+        "total": 0
+      }
+    },
+    "business": {
+      "consulting": {
+        "daily": [],
+        "monthly": [],
+        "total": 0
+      },
+      "products": {
+        "daily": [],
+        "monthly": [],
+        "total": 0
+      },
+      "services": {
+        "daily": [],
+        "monthly": [],
+        "total": 0
+      }
+    },
+    "passive": {
+      "ads": {
+        "daily": [],
+        "monthly": [],
+        "total": 0
+      },
+      "affiliates": {
+        "daily": [],
+        "monthly": [],
+        "total": 0
+      },
+      "subscriptions": {
+        "daily": [],
+        "monthly": [],
+        "total": 0
+      }
+    }
+  },
+  "costs": {
+    "infrastructure": {
+      "servers": 0,
+      "apis": 0,
+      "tools": 0
+    },
+    "operations": {
+      "software": 0,
+      "services": 0
+    },
+    "marketing": {
+      "ads": 0,
+      "content": 0
+    }
+  },
+  "daily_summary": [],
+  "last_updated": "2026-07-24T13:05:24.153Z"
+}
