@@ -1,0 +1,18 @@
+{
+  "timestamp": "2026-07-24T03:44:38.246Z",
+  "queuedForReview": [
+    {
+      "rank": 1,
+      "ticker": "TSLA",
+      "currentPrice": 319.69,
+      "targetPrice": 450,
+      "upside": "40.8%",
+      "downside": "6.6%",
+      "asymmetryScore": 6.0,
+      "catalyst": "Robotaxi unveil",
+      "confidence": 60,
+      "queuedAt": "2026-07-24T03:44:38Z"
+    }
+  ],
+  "note": "Only 1 opportunity exceeded threshold (score >5.0). Threshold: 5.0 | Total scanned: 30"
+}
