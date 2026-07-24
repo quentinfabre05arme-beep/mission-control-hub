@@ -1,15 +1,18 @@
-[
-  {
-    "ticker": "TSLA",
-    "currentPrice": 319.69,
-    "targetPrice": 450,
-    "floorPrice": 300,
-    "upside": 40.76,
-    "downside": 6.56,
-    "catalystProb": 0.5,
-    "asymmetryScore": 5.98,
-    "catalyst": "Robotaxi unveil",
-    "confidence": 60,
-    "scannedAt": "2026-07-24T10:59:40.931Z"
-  }
-]
+{
+  "scanDate": "2026-07-24T12:59:45.482Z",
+  "queued": [
+    {
+      "ticker": "TSLA",
+      "currentPrice": 319.69,
+      "targetPrice": 450,
+      "floorPrice": 300,
+      "upside": 40.76136256998968,
+      "downside": 6.563333333333343,
+      "catalystProb": 0.5,
+      "asymmetryScore": 5.980081735330009,
+      "catalyst": "Robotaxi unveil",
+      "confidence": 60
+    }
+  ],
+  "generatedAt": "2026-07-24T13:00:06.035Z"
+}

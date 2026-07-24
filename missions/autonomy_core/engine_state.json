@@ -1,8 +1,8 @@
 {
   "version": "1.0.2",
   "startedAt": "2026-07-23T21:01:29.955Z",
-  "totalCycles": 129,
-  "lastCycle": "2026-07-24T12:01:02.644Z",
+  "totalCycles": 136,
+  "lastCycle": "2026-07-24T13:00:25.951Z",
   "errors": [
     {
       "time": "2026-07-23T21:01:29.990Z",
@@ -72,26 +72,31 @@
       "timestamp": "2026-07-24T02:47:00.302Z",
       "resolved": true,
       "resolution": "Cleaned Downloads (1.3GB), removed duplicate demos (46MB), cloudflared.exe (51MB). Freed 1.4GB total. C: now at 6.6%."
+    },
+    {
+      "type": "INCOMPLETE_MARKET_DATA",
+      "observation": "Missing data for: BTC, ETH, MSTR, HIMS",
+      "recommendation": "Check data source API keys and connectivity"
     }
   ],
   "metrics": {
     "efficiency": {
-      "cycles": 129,
-      "actions": 157,
+      "cycles": 136,
+      "actions": 162,
       "wasteEliminated": 1
     },
     "intelligence": {
-      "patternsLearned": 118,
+      "patternsLearned": 125,
       "decisionsMade": 0,
       "accuracy": 1
     },
     "persistence": {
       "recoveries": 0,
-      "uptimeMinutes": 899
+      "uptimeMinutes": 958
     },
     "selfImprovement": {
       "skillsCreated": 0,
-      "optimizations": 9,
+      "optimizations": 10,
       "learnings": [
         "Engine key resolution requires explicit mapping for hyphenated/camelCase names",
         "Absolute paths (WORKSPACE_ROOT) more reliable than relative traversals",
@@ -120,6 +125,6 @@
     }
   ],
   "_lastMetricAnalysis": 1784882091975,
-  "_lastResearchAnalysis": 1784889912586,
-  "_lastProposal": 1784882091988
+  "_lastResearchAnalysis": 1784897162982,
+  "_lastProposal": 1784897111305
 }
