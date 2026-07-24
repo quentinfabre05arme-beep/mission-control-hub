@@ -1,6 +1,6 @@
 # Claw - Personal Long-Term Memory
 
-_Last updated: July 23, 2026 16:00 CET_
+_Last updated: July 24, 2026 01:55 CET_
 
 ---
 
@@ -91,22 +91,26 @@ _Last updated: July 23, 2026 16:00 CET_
 ## 💰 Active Revenue Streams
 
 ### 1. Print-on-Demand Business (POD)
-**Status:** 🟡 PRODUCTS LIVE — Monitoring First Sales (July 23, 01:53)
+**Status:** 🟡 PRODUCTS LIVE 60+ Hours — API Issue Identified (July 24, 01:53)
 - **Platform:** Printify → Etsy
 - **Shop:** Quentinvestdesign
 - **Goal:** €200/day revenue
-- **Current:** €0/day (Day 1.3 since publication, within 24-72h first sale window)
-- **Designs live:** 10 (created 10:54 CET July 22) ✅
-- **Research Cycle #11:** Complete (July 23, 01:53)
+- **Current:** €0/day (60+ hours live, approaching 72h window boundary)
+- **Designs created:** 10 (July 22, 10:54 CET) ✅
+- **Critical Issue:** Printify API returning 401 Unauthorized — Etsy sync status unknown
+- **Research Cycle #12:** Complete (July 24, 01:53)
   - ✅ Trending niches validated (cached data still valid)
   - ✅ Competitor pricing unchanged (already optimized)
   - ✅ No pricing adjustments needed (within 20% rule)
-  - ✅ No SEO changes needed (90/100 score maintained)
-- **Next milestone:** First sale expected within 24-48h (by July 24-25)
-- **Top 3 Opportunities:**
-  1. 🔴 Expand to 40 SKUs (add hoodies, women's, sweatshirts) → +300% visibility
-  2. 🟡 Launch Pinterest automation → +20-30% traffic
-  3. 🟡 Enable Etsy Ads (€5-10/day) after first sale → +50-100% visibility
+  - ✅ No SEO changes needed (85-95 scores)
+  - ⚠️ Identified API 401 error as potential visibility blocker
+- **Next Actions:** 
+  1. Verify Etsy shop listings manually (are they actually visible?)
+  2. Fix API 401 if listings not visible
+  3. Expand to 40 SKUs once API fixed
+- **Files:** `pod_business/research/daily_2026-07-24.md`
+
+### 2. Investment Research Newsletter
 
 **July 22 Evening Research Cycle:**
 - ✅ 10 products confirmed live on Printify (Product IDs validated)
@@ -224,12 +228,12 @@ _Last updated: July 23, 2026 16:00 CET_
 
 ## ⚠️ Ongoing Blockers
 
-1. **POD First Sales Monitoring** — Products published Jul 22 10:54, 27+ hours ago
-   - 10 designs live on Printify (Product IDs validated)
-   - Etsy sync: ~24-48 hours normal for Printify sales channel
-   - **First sales expected:** By July 24-25 (within 24-48h window)
-   - Monitoring: Check Etsy seller dashboard for listing status
-   - **Update:** Research cycle #11 complete Jul 23 01:53 — all pricing/SEO still optimal, no action needed
+1. **POD First Sales Monitoring** — Products published Jul 22 10:54, 60+ hours ago
+   - 10 designs created on Printify (Product IDs validated)
+   - ⚠️ **Critical:** Printify API returning 401 — Etsy sync status unknown
+   - **First sales expected:** Approaching end of 72h window
+   - **Next action:** Manual Etsy shop verification needed
+   - **Update:** Research cycle #12 complete Jul 24 01:53 — identified API 401 blocker
 
 2. **Twelve Data API rate limits** — Free tier 8 requests/minute insufficient for production
    - Dashboard refresh hits limit during hourly cycles with 12 assets

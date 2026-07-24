@@ -2,118 +2,118 @@
   "portfolio_id": "alpha-paper-001",
   "created_at": "2026-07-21T00:00:00Z",
   "initial_capital": 10000,
-  "current_value": 9019.588949683535,
+  "current_value": 8805.396801283536,
   "cash": 1400.052496643536,
   "positions": [
     {
       "ticker": "COIN",
       "shares": 9,
       "entryPrice": 160.42999,
-      "currentPrice": 166.12,
+      "currentPrice": 161.16,
       "stopLoss": 112.3,
       "takeProfit": 243.97,
       "entryDate": "2026-07-20T23:36:03.333Z",
-      "unrealizedPnl": 51.21,
-      "unrealizedPnlPct": 3.55
+      "unrealizedPnl": 6.5700899999999365,
+      "unrealizedPnlPct": 0.455033376240932
     },
     {
       "ticker": "SOL",
       "shares": 16,
       "entryPrice": 77.71,
-      "currentPrice": 76.08,
+      "currentPrice": 75.71,
       "stopLoss": 58.28,
       "takeProfit": 117.29,
       "entryDate": "2026-07-20T23:36:03.345Z",
-      "unrealizedPnl": -26.079999999999927,
-      "unrealizedPnlPct": -2.097542143868225
+      "unrealizedPnl": -32,
+      "unrealizedPnlPct": -2.5736713421696034
     },
     {
       "ticker": "CRWD",
       "shares": 5,
       "entryPrice": 198.49001,
-      "currentPrice": 188.42,
+      "currentPrice": 183.42,
       "stopLoss": 163.75,
       "takeProfit": 297.95,
       "entryDate": "2026-07-20T23:36:03.351Z",
-      "unrealizedPnl": -50.35,
-      "unrealizedPnlPct": -5.07
+      "unrealizedPnl": -75.35005000000012,
+      "unrealizedPnlPct": -7.592326686869544
     },
     {
       "ticker": "TSLA",
       "shares": 2,
       "entryPrice": 369.57001,
-      "currentPrice": 374.01,
+      "currentPrice": 319.69,
       "stopLoss": 277.18,
       "takeProfit": 635.92,
       "entryDate": "2026-07-21T00:31:54.791Z",
-      "unrealizedPnl": 8.88,
-      "unrealizedPnlPct": 1.2
+      "unrealizedPnl": -99.76002000000005,
+      "unrealizedPnlPct": -13.496768853078756
     },
     {
       "ticker": "HIMS",
       "shares": 25,
       "entryPrice": 32.7,
-      "currentPrice": 31.68,
+      "currentPrice": 32.74,
       "stopLoss": 23.71,
       "takeProfit": 50.76,
       "entryDate": "2026-07-21T00:33:14.652Z",
-      "unrealizedPnl": -25.5,
-      "unrealizedPnlPct": -3.12
+      "unrealizedPnl": 0.9999999999999787,
+      "unrealizedPnlPct": 0.12232415902140303
     },
     {
       "ticker": "MSTR",
       "shares": 7,
       "entryPrice": 97.82,
-      "currentPrice": 100.01,
+      "currentPrice": 93.63,
       "stopLoss": 75.81,
       "takeProfit": 136.41,
       "entryDate": "2026-07-21T00:33:14.663Z",
-      "unrealizedPnl": 15.33,
-      "unrealizedPnlPct": 2.24
+      "unrealizedPnl": -29.329999999999984,
+      "unrealizedPnlPct": -4.28337763238601
     },
     {
       "ticker": "PLTR",
       "shares": 4,
       "entryPrice": 134.85001,
-      "currentPrice": 124.57,
+      "currentPrice": 123.37,
       "stopLoss": 97.77,
       "takeProfit": 210.4,
       "entryDate": "2026-07-21T10:36:28.877Z",
-      "unrealizedPnl": -41.12,
-      "unrealizedPnlPct": -7.62
+      "unrealizedPnl": -45.92003999999997,
+      "unrealizedPnlPct": -8.513169557792388
     },
     {
       "ticker": "ETH",
       "shares": 0.274536,
       "entryPrice": 1930.39,
-      "currentPrice": 1879.39,
+      "currentPrice": 1870.24,
       "stopLoss": 1592.57,
       "takeProfit": 2516.99,
       "entryDate": "2026-07-21T11:36:41.510Z",
-      "unrealizedPnl": -14.001336,
-      "unrealizedPnlPct": -2.6419531804454
+      "unrealizedPnl": -16.513340400000025,
+      "unrealizedPnlPct": -3.1159506628194333
     },
     {
       "ticker": "BTC",
       "shares": 0.006802,
       "entryPrice": 66214,
-      "currentPrice": 65120,
+      "currentPrice": 64848,
       "stopLoss": 56281.9,
       "takeProfit": 83462.56,
       "entryDate": "2026-07-21T11:36:41.521Z",
-      "unrealizedPnl": -7.441388,
-      "unrealizedPnlPct": -1.652218564049901
+      "unrealizedPnl": -9.291532,
+      "unrealizedPnlPct": -2.0630078231189786
     },
     {
       "ticker": "SNOW",
       "shares": 1,
       "entryPrice": 271.73001,
-      "currentPrice": 267.8,
+      "currentPrice": 265.13,
       "stopLoss": 217.38,
       "takeProfit": 381.46,
       "entryDate": "2026-07-22T00:37:21.247Z",
-      "unrealizedPnl": -3.93,
-      "unrealizedPnlPct": -1.45
+      "unrealizedPnl": -6.6000099999999975,
+      "unrealizedPnlPct": -2.4288852011597806
     }
   ],
   "trades": [
@@ -250,14 +250,14 @@
     }
   ],
   "performance": {
-    "total_return": -9.804110503164642,
+    "total_return": -11.946031987164641,
     "total_trades": 8,
     "winning_trades": 0,
     "losing_trades": 0,
     "win_rate": 0,
     "avg_winner": 0,
     "avg_loser": 0,
-    "max_drawdown": 9.886527146364642
+    "max_drawdown": 11.946031987164643
   },
   "daily_snapshots": [
     {
