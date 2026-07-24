@@ -2,7 +2,7 @@
   "portfolio_id": "alpha-paper-001",
   "created_at": "2026-07-21T00:00:00Z",
   "initial_capital": 10000,
-  "current_value": 8794.744753433535,
+  "current_value": 8819.066700503536,
   "cash": 444.9625366435357,
   "positions": [
     {
@@ -23,9 +23,9 @@
       "stopLoss": 58.28,
       "takeProfit": 117.29,
       "entryDate": "2026-07-20T23:36:03.345Z",
-      "unrealizedPnl": -30.7199999999998,
-      "unrealizedPnlPct": -2.4707244884828006,
-      "currentPrice": 75.82
+      "unrealizedPnl": -21.82999999999936,
+      "unrealizedPnlPct": -0.9793541556378793,
+      "currentPrice": 76.11
     },
     {
       "ticker": "ETH",
@@ -34,9 +34,9 @@
       "stopLoss": 1592.57,
       "takeProfit": 2516.99,
       "entryDate": "2026-07-21T11:36:41.510Z",
-      "unrealizedPnl": -13.015751760000022,
-      "unrealizedPnlPct": -2.4559803977434624,
-      "currentPrice": 1882.69
+      "unrealizedPnl": -2.0010021300001317,
+      "unrealizedPnlPct": -0.13078772212220535,
+      "currentPrice": 1896.46
     },
     {
       "ticker": "SNOW",
@@ -56,9 +56,9 @@
       "stopLoss": 56281.9,
       "takeProfit": 83462.56,
       "entryDate": "2026-07-21T11:36:41.521Z",
-      "unrealizedPnl": -5.672868,
-      "unrealizedPnlPct": -1.2595523605279824,
-      "currentPrice": 65372
+      "unrealizedPnl": -0.9097019999999676,
+      "unrealizedPnlPct": -0.0627214969943779,
+      "currentPrice": 65590
     },
     {
       "ticker": "HIMS",
@@ -250,7 +250,7 @@
     }
   ],
   "performance": {
-    "total_return": -12.052552465664645,
+    "total_return": -11.809332994964638,
     "total_trades": 11,
     "winning_trades": 0,
     "losing_trades": 3,
