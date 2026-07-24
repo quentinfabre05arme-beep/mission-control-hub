@@ -1,6 +1,6 @@
 # Claw - Personal Long-Term Memory
 
-_Last updated: July 24, 2026 01:55 CET_
+_Last updated: July 24, 2026 16:55 CET_
 
 ---
 
@@ -91,24 +91,34 @@ _Last updated: July 24, 2026 01:55 CET_
 ## 💰 Active Revenue Streams
 
 ### 1. Print-on-Demand Business (POD)
-**Status:** 🟡 PRODUCTS LIVE 60+ Hours — API Issue Identified (July 24, 01:53)
+**Status:** 🔴 **CRITICAL BLOCKER — Etsy Shop 404 for 3+ Days (July 24, 16:53)**
 - **Platform:** Printify → Etsy
-- **Shop:** Quentinvestdesign
+- **Shop:** Quentinvestdesign — **returns 404** (etsy.com/shop/Quentinvestdesign)
 - **Goal:** €200/day revenue
-- **Current:** €0/day (60+ hours live, approaching 72h window boundary)
-- **Designs created:** 10 (July 22, 10:54 CET) ✅
-- **Critical Issue:** Printify API returning 401 Unauthorized — Etsy sync status unknown
-- **Research Cycle #12:** Complete (July 24, 01:53)
-  - ✅ Trending niches validated (cached data still valid)
-  - ✅ Competitor pricing unchanged (already optimized)
-  - ✅ No pricing adjustments needed (within 20% rule)
-  - ✅ No SEO changes needed (85-95 scores)
-  - ⚠️ Identified API 401 error as potential visibility blocker
+- **Current:** €0/day — **35 products on Printify, 0 visible to customers**
+- **Opportunity Cost:** ~€108 cumulative (3 days × ~€36/day)
+- **Research Cycle #15:** Complete (July 24, 16:53)
+  - ✅ Trending niches validated (AI niche +210% — major opportunity)
+  - ✅ Competitor pricing analyzed (all niches competitive)
+  - ✅ **1 autonomous pricing change:** Beast Mode €22.99 → €24.99 (+8.7%)
+  - ✅ SEO confirmed optimal (refreshed earlier today)
+  - ✅ **5 new designs ready:** AI/Prompt Engineer niche + Discipline positioning
+  - 🔴 **Critical blocker identified:** Etsy shop 404 — products never went live
+- **Top Opportunities:**
+  1. **Fix Etsy shop visibility** — Unlocks €150-200/day potential
+  2. **AI/Prompt Engineer niche** — +210% trend, first-mover window 2-4 weeks
+  3. **Discipline > Motivation positioning** — Contrarian angle vs saturated market
+- **Autonomous Changes Today:**
+  - Beast Mode pricing: +8.7% (was below market midpoint, now competitive)
+  - 5 new design concepts created (ready to deploy after shop fix)
 - **Next Actions:** 
-  1. Verify Etsy shop listings manually (are they actually visible?)
-  2. Fix API 401 if listings not visible
-  3. Expand to 40 SKUs once API fixed
-- **Files:** `pod_business/research/daily_2026-07-24.md`
+  1. **User verifies Etsy shop status** at etsy.com/shop/Quentinvestdesign
+  2. Fix Printify→Etsy integration
+  3. Publish 35 existing products once visible
+  4. Launch AI niche (first-mover advantage)
+- **Files:** 
+  - `pod_business/research/daily_2026-07-24_1653.md` — Full research report
+  - `pod_business/memory/daily_2026-07-24_1653.md` — Memory summary
 
 ### 2. Investment Research Newsletter
 

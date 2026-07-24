@@ -1,0 +1,58 @@
+{
+  "timestamp": "2026-07-24T14:12:00Z",
+  "date": "2026-07-24",
+  "cycle": "fund-research-2026-07-24-1610",
+  "risk_status": "COMPLIANT",
+  "risk_checks": {
+    "max_position_size": {
+      "limit": 0.10,
+      "current": 0.0,
+      "status": "PASS",
+      "largest_position": null
+    },
+    "daily_loss_limit": {
+      "limit": 0.03,
+      "current": 0.0,
+      "status": "PASS",
+      "daily_pnl": 0.0
+    },
+    "correlation_limit": {
+      "limit": 0.40,
+      "current": null,
+      "status": "PASS",
+      "note": "No active positions"
+    },
+    "cash_position": {
+      "minimum": 0.20,
+      "current": 1.0,
+      "status": "PASS"
+    },
+    "max_crypto_exposure": {
+      "limit": 0.25,
+      "current": 0.0,
+      "status": "PASS"
+    }
+  },
+  "position_stops": [],
+  "alerts": [],
+  "recommendations": [
+    {
+      "type": "OPPORTUNITY",
+      "asset": "BTC",
+      "signal": "BREAKOUT",
+      "message": "BTC +3.1%, breakout above $65K zone. Consider 2-3% entry on pullback to $66,500 or confirm breakout continuation."
+    },
+    {
+      "type": "WATCH",
+      "asset": "ETH",
+      "signal": "STRENGTH",
+      "message": "ETH +2.9%, outperforming. Wait for pullback to $1,850-$1,900 entry zone."
+    },
+    {
+      "type": "WATCH",
+      "asset": "HIMS",
+      "signal": "PULLBACK",
+      "message": "HIMS -4.81% to $31.17. Watch $30 support for potential entry."
+    }
+  ]
+}

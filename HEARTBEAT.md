@@ -8,10 +8,10 @@
 
 ---
 
-## 📚 File Librarian (NEW - July 23, 2026)
+## 📚 File Librarian (Continuous Content Indexing)
 
 **Location:** `missions/file_librarian/`
-**Status:** ✅ **22,937 files indexed across OneDrive**
+**Status:** ✅ **60 files content-indexed across OneDrive + Workspace**
 
 ### Quick Commands
 ```powershell
@@ -25,7 +25,7 @@
 .\missions\file_librarian\scan_catalog.ps1
 
 # Build semantic index (continuous)
-.\missions\file_librarian\read_all_content.ps1 -FilesPerRun 100
+node missions/file_librarian/scripts/run_content_indexer.js --batch=50
 ```
 
 ### Catalog Statistics
@@ -35,24 +35,10 @@
 | **Total Size** | 53.22 GB |
 | **Readable Files** | ~737 (text/code/markdown) |
 | **Categories** | 6 (investment, pod_business, mission_control, development, personal, uncategorized) |
-| **Content Indexed** | **165 files** (Batch #8 complete — 12:03 CET) |
+| **Content Indexed** | **60 files** (Batch #9 complete — 24/07/2026 à 16:10:59) |
 
-### Deep Content Understanding
-The librarian now reads file contents continuously:
-
-**Semantic Index Building:**
-- Reads `.md`, `.txt`, `.json`, `.js`, `.ps1`, `.py` files
-- Extracts summaries, key phrases, detected topics
-- Understands context: investment vs pod vs development
-- Builds searchable semantic index
-
-**Content Topics Auto-Detected:**
-- `investment` — BTC, ETH, MSTR, HIMS, trading, portfolio
-- `pod_business` — Printify, Etsy, products, sales
-- `mission_control` — Dashboards, automation, Claw, research
-- `development` — Code, scripts, APIs, programming
-- `data_analysis` — Metrics, reports, charts, insights
-- `configuration` — Settings, configs, parameters
+### Content Topics Auto-Detected
+mission_control: 37, development: 40, automation: 10, investment: 48, data_analysis: 56, system_maintenance: 19, social_media: 5, configuration: 23, security: 24, pod_business: 13
 
 ### Self-Recurring Schedule
 | Job | Schedule | Purpose |
@@ -62,31 +48,7 @@ The librarian now reads file contents continuously:
 | `librarian-monthly-deep-clean` | 1st of month 08:00 | Full optimization |
 | `librarian-content-indexer` | Every 4 hours | Continuous content reading |
 
-### Current Distribution
-- Development: ~4,200 files (18%)
-- Personal: ~2,900 files (13%)
-- Mission Control: ~890 files (4%)
-- Investment: ~234 files (1%)
-- POD Business: ~156 files (0.7%)
-- Uncategorized: ~14,500 files (63%)
-
-**Next Action:** Content indexer batch #1 complete — 8 files indexed, semantic search ready for: `maintenance`, `ethereum`, `research`, `market`, `autonomy`
-
-**Content Index Stats:**
-- Batch #1: 8 files indexed (12:03 CET)
-- Batch #2: 25 files indexed (16:03 CET)
-- Batch #3: 50 files indexed (20:03 CET)
-- Batch #4: 50 files indexed (00:05 CET Jul 24) — Cumulative: 133 files ⭐
-- Batch #5: 15 files indexed (08:03 CET Jul 24) — Cumulative: 148 files ⭐
-- **Batch #8: 8 files indexed (12:03 CET Jul 24) — Cumulative: 165 files** ⭐
-- Topics detected: mission_control (48), social_media (22), automation (20), development (27), investment (16), data_analysis (14), configuration (8), security (5), system_maintenance (6), personal (3)
-- Total content size: ~4.5 MB
-- New files indexed: MISSION_CONTROL.md, content_quality_scorer.py, engagement_analytics.py, enhanced_workflow_automation.py, autonomous_content_pipeline.py, grok_automation.py, HEARTBEAT.md (refreshed)
-- Next batch: Continue with remaining source files (~5,373 remaining)
-- Log: `missions/file_librarian/logs/content_index_2026-07-24.log`
-- Status: **Continuous indexing ACTIVE** — 5-attempt loop operational
-- Failed reads: 0 (all encoding fallbacks successful)
-- **Last Update:** Batch #8 complete at 12:03 CET — 100% success rate
+**Next Action:** Continue indexing remaining readable files — 50 files processed this run
 
 ---
 

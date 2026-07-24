@@ -1,0 +1,21 @@
+{
+  "started_at": "2026-07-24T13:20:44.041Z",
+  "days_trading": 0,
+  "total_signals": 0,
+  "executed_trades": 0,
+  "signal_accuracy": {
+    "correct": 0,
+    "total": 0
+  },
+  "trades_by_rating": {},
+  "daily_returns": [],
+  "current_streak": {
+    "wins": 0,
+    "losses": 0
+  },
+  "longest_win_streak": 0,
+  "longest_loss_streak": 0,
+  "profitable_days": 0,
+  "unprofitable_days": 0,
+  "ready_for_real_money": false
+}

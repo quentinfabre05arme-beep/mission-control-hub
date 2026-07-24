@@ -2,27 +2,27 @@
   "metadata": {
     "version": "1.0",
     "created": "2026-07-23T20:03:00+02:00",
-    "last_updated": "2026-07-24T12:03:00+02:00",
-    "total_files_indexed": 165,
-    "total_content_entries": 148,
-    "batch_number": 8,
-    "last_batch_size": 8,
+    "last_updated": "2026-07-24T14:10:59.941Z",
+    "total_files_indexed": 60,
+    "total_content_entries": 60,
+    "batch_number": 9,
+    "last_batch_size": 50,
     "indexing_stats": {
-      "batches_completed": 8,
-      "files_read_this_session": 8,
-      "cumulative_files_indexed": 148,
+      "batches_completed": 9,
+      "files_read_this_session": 50,
+      "cumulative_files_indexed": 60,
       "failed_reads": 0,
       "topics_detected": {
-        "mission_control": 48,
-        "social_media": 22,
-        "automation": 20,
-        "development": 27,
-        "investment": 16,
-        "data_analysis": 14,
-        "configuration": 8,
-        "security": 5,
-        "system_maintenance": 6,
-        "personal": 3
+        "mission_control": 37,
+        "development": 40,
+        "automation": 10,
+        "investment": 48,
+        "data_analysis": 56,
+        "system_maintenance": 19,
+        "social_media": 5,
+        "configuration": 23,
+        "security": 24,
+        "pod_business": 13
       }
     }
   },
@@ -240,6 +240,1331 @@
       ],
       "hash": "f2a3b4c5d6e78901",
       "indexed": "2026-07-24T12:03:00+02:00",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Development-Tech/Code-Projects/2026-07-23_brief.json",
+      "size": 1587,
+      "mtime": "2026-07-23T11:33:20",
+      "summary": "{ \"date\": \"2026-07-23\", \"timestamp\": \"2026-07-23T09:33:20.522Z\", \"market_data\": { \"eth_price\": 1928.39, \"eth_change_24h\": 0.2816119927216269, \"eth_volume\": 12500000000, \"btc_eth_ratio\": 0.0293, \"fundi...",
+      "key_phrases": [
+        "staking",
+        "timestamp",
+        "2816119927216269",
+        "restaking",
+        "price",
+        "event",
+        "impact",
+        "etherscan"
+      ],
+      "topics": [
+        "investment",
+        "data_analysis"
+      ],
+      "hash": "7cfd6629e61e12d9d31847bc3feff001",
+      "indexed": "2026-07-24T14:10:59.896Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Development-Tech/Code-Projects/2026-07-23_brief_1.json",
+      "size": 1587,
+      "mtime": "2026-07-23T11:33:20",
+      "summary": "{ \"date\": \"2026-07-23\", \"timestamp\": \"2026-07-23T09:33:20.522Z\", \"market_data\": { \"eth_price\": 1928.39, \"eth_change_24h\": 0.2816119927216269, \"eth_volume\": 12500000000, \"btc_eth_ratio\": 0.0293, \"fundi...",
+      "key_phrases": [
+        "staking",
+        "timestamp",
+        "2816119927216269",
+        "restaking",
+        "price",
+        "event",
+        "impact",
+        "etherscan"
+      ],
+      "topics": [
+        "investment",
+        "data_analysis"
+      ],
+      "hash": "7cfd6629e61e12d9d31847bc3feff001",
+      "indexed": "2026-07-24T14:10:59.897Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Development-Tech/Code-Projects/2026-07-23_snapshot.json",
+      "size": 2476,
+      "mtime": "2026-07-23T11:24:27",
+      "summary": "{ \"timestamp\": \"2026-07-23T09:24:27.347Z\", \"sources\": { \"coingecko\": { \"ethPrice\": { \"price\": 1929.64, \"change24h\": 0.26699536402366214, \"marketCap\": 232874178367.5263, \"volume24h\": 9294065743.638813,...",
+      "key_phrases": [
+        "timestamp",
+        "price",
+        "change24h",
+        "totalsupply",
+        "conservative",
+        "moderate",
+        "aggressive",
+        "33250000",
+        "26699536402366214",
+        "marketcap"
+      ],
+      "topics": [
+        "investment",
+        "data_analysis"
+      ],
+      "hash": "341a8651b626fadf23eb33ddcd7a8d97",
+      "indexed": "2026-07-24T14:10:59.898Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Development-Tech/Code-Projects/2026-07-23_snapshot_1.json",
+      "size": 2476,
+      "mtime": "2026-07-23T11:24:27",
+      "summary": "{ \"timestamp\": \"2026-07-23T09:24:27.347Z\", \"sources\": { \"coingecko\": { \"ethPrice\": { \"price\": 1929.64, \"change24h\": 0.26699536402366214, \"marketCap\": 232874178367.5263, \"volume24h\": 9294065743.638813,...",
+      "key_phrases": [
+        "timestamp",
+        "price",
+        "change24h",
+        "totalsupply",
+        "conservative",
+        "moderate",
+        "aggressive",
+        "33250000",
+        "26699536402366214",
+        "marketcap"
+      ],
+      "topics": [
+        "investment",
+        "data_analysis"
+      ],
+      "hash": "341a8651b626fadf23eb33ddcd7a8d97",
+      "indexed": "2026-07-24T14:10:59.898Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Development-Tech/Code-Projects/chart_14pm.html",
+      "size": 3659,
+      "mtime": "2026-07-23T11:40:22",
+      "summary": "<!DOCTYPE html> <html> <head> <meta charset=\"UTF-8\"> <style> body { margin: 0; background: #0a0a0f; display: flex; justify-content: center; align-items: center; min-height: 100vh; } .chart { width: 80...",
+      "key_phrases": [
+        "class",
+        "level",
+        "price",
+        "resistance",
+        "support",
+        "color",
+        "center",
+        "border",
+        "margin",
+        "background"
+      ],
+      "topics": [
+        "investment",
+        "mission_control",
+        "development",
+        "data_analysis"
+      ],
+      "hash": "d08509b2d89c4d5576059ced7c1f4c9d",
+      "indexed": "2026-07-24T14:10:59.899Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Development-Tech/Code-Projects/chart_14pm_1.html",
+      "size": 3659,
+      "mtime": "2026-07-23T11:40:22",
+      "summary": "<!DOCTYPE html> <html> <head> <meta charset=\"UTF-8\"> <style> body { margin: 0; background: #0a0a0f; display: flex; justify-content: center; align-items: center; min-height: 100vh; } .chart { width: 80...",
+      "key_phrases": [
+        "class",
+        "level",
+        "price",
+        "resistance",
+        "support",
+        "color",
+        "center",
+        "border",
+        "margin",
+        "background"
+      ],
+      "topics": [
+        "investment",
+        "mission_control",
+        "development",
+        "data_analysis"
+      ],
+      "hash": "d08509b2d89c4d5576059ced7c1f4c9d",
+      "indexed": "2026-07-24T14:10:59.899Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Development-Tech/Code-Projects/coingecko_cache.json",
+      "size": 1015,
+      "mtime": "2026-07-23T11:33:07",
+      "summary": "{ \"data\": { \"ethPrice\": { \"data\": { \"price\": 1928.39, \"change24h\": 0.2816119927216269, \"marketCap\": 232711027389.96426, \"volume24h\": 9300025632.109823, \"timestamp\": 1784799187009 }, \"timestamp\": 17847...",
+      "key_phrases": [
+        "timestamp",
+        "price",
+        "change24h",
+        "1784799187009",
+        "1784799187021",
+        "1784799187016"
+      ],
+      "topics": [
+        "investment",
+        "data_analysis"
+      ],
+      "hash": "3ccb455d86dd843001736039d0375e8d",
+      "indexed": "2026-07-24T14:10:59.900Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Development-Tech/Code-Projects/coingecko_cache_1.json",
+      "size": 1015,
+      "mtime": "2026-07-23T11:33:07",
+      "summary": "{ \"data\": { \"ethPrice\": { \"data\": { \"price\": 1928.39, \"change24h\": 0.2816119927216269, \"marketCap\": 232711027389.96426, \"volume24h\": 9300025632.109823, \"timestamp\": 1784799187009 }, \"timestamp\": 17847...",
+      "key_phrases": [
+        "timestamp",
+        "price",
+        "change24h",
+        "1784799187009",
+        "1784799187021",
+        "1784799187016"
+      ],
+      "topics": [
+        "investment",
+        "data_analysis"
+      ],
+      "hash": "3ccb455d86dd843001736039d0375e8d",
+      "indexed": "2026-07-24T14:10:59.900Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Development-Tech/Code-Projects/coingecko_pro.js",
+      "size": 6491,
+      "mtime": "2026-07-23T11:23:34",
+      "summary": "const https = require('https'); const fs = require('fs'); const path = require('path'); const COINGECKO_API_KEY = process.env.COINGECKO_API_KEY || ''; // Optional for free tier const CACHE_FILE = path...",
+      "key_phrases": [
+        "const",
+        "console",
+        "cachekey",
+        "price",
+        "cache",
+        "return",
+        "error",
+        "result",
+        "timestamp",
+        "change24h"
+      ],
+      "topics": [
+        "investment",
+        "mission_control",
+        "development",
+        "data_analysis",
+        "configuration",
+        "security"
+      ],
+      "hash": "f16a8c3d52a589af2b2a568349a7ddfe",
+      "indexed": "2026-07-24T14:10:59.901Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Development-Tech/Code-Projects/coingecko_pro_1.js",
+      "size": 6491,
+      "mtime": "2026-07-23T11:23:34",
+      "summary": "const https = require('https'); const fs = require('fs'); const path = require('path'); const COINGECKO_API_KEY = process.env.COINGECKO_API_KEY || ''; // Optional for free tier const CACHE_FILE = path...",
+      "key_phrases": [
+        "const",
+        "console",
+        "cachekey",
+        "price",
+        "cache",
+        "return",
+        "error",
+        "result",
+        "timestamp",
+        "change24h"
+      ],
+      "topics": [
+        "investment",
+        "mission_control",
+        "development",
+        "data_analysis",
+        "configuration",
+        "security"
+      ],
+      "hash": "f16a8c3d52a589af2b2a568349a7ddfe",
+      "indexed": "2026-07-24T14:10:59.902Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Development-Tech/Code-Projects/daily_research.js",
+      "size": 8548,
+      "mtime": "2026-07-23T11:33:17",
+      "summary": "#!/usr/bin/env node /** * Ethereum Authority — Daily Research Engine v2.0 * Fetches live data from free APIs: CoinGecko, Etherscan, Lido, EigenLayer * Outputs: Daily brief + X insight with real data *...",
+      "key_phrases": [
+        "onchain",
+        "console",
+        "const",
+        "price",
+        "market",
+        "staking_rate",
+        "snapshot",
+        "staking_yield",
+        "restaking_yield",
+        "brief"
+      ],
+      "topics": [
+        "investment",
+        "mission_control",
+        "development",
+        "data_analysis",
+        "configuration",
+        "security"
+      ],
+      "hash": "0b51f3b397f74371421d2a6723c6e044",
+      "indexed": "2026-07-24T14:10:59.903Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Development-Tech/Code-Projects/daily_research_1.js",
+      "size": 8548,
+      "mtime": "2026-07-23T11:33:17",
+      "summary": "#!/usr/bin/env node /** * Ethereum Authority — Daily Research Engine v2.0 * Fetches live data from free APIs: CoinGecko, Etherscan, Lido, EigenLayer * Outputs: Daily brief + X insight with real data *...",
+      "key_phrases": [
+        "onchain",
+        "console",
+        "const",
+        "price",
+        "market",
+        "staking_rate",
+        "snapshot",
+        "staking_yield",
+        "restaking_yield",
+        "brief"
+      ],
+      "topics": [
+        "investment",
+        "mission_control",
+        "development",
+        "data_analysis",
+        "configuration",
+        "security"
+      ],
+      "hash": "0b51f3b397f74371421d2a6723c6e044",
+      "indexed": "2026-07-24T14:10:59.904Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Development-Tech/Code-Projects/eigenlayer_cache.json",
+      "size": 479,
+      "mtime": "2026-07-23T11:24:27",
+      "summary": "{ \"data\": { \"restakingYields\": { \"data\": { \"baseStakingYield\": 3.2, \"restakingAdditionalYield\": { \"conservative\": 2, \"moderate\": 5, \"aggressive\": 10 }, \"totalYieldEstimate\": { \"conservative\": 5.2, \"mo...",
+      "key_phrases": [
+        "timestamp",
+        "conservative",
+        "moderate",
+        "aggressive",
+        "1784798667356"
+      ],
+      "topics": [
+        "data_analysis"
+      ],
+      "hash": "d2e8175c3390ffa3ab33904834eb123c",
+      "indexed": "2026-07-24T14:10:59.905Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Development-Tech/Code-Projects/eigenlayer_cache_1.json",
+      "size": 479,
+      "mtime": "2026-07-23T11:24:27",
+      "summary": "{ \"data\": { \"restakingYields\": { \"data\": { \"baseStakingYield\": 3.2, \"restakingAdditionalYield\": { \"conservative\": 2, \"moderate\": 5, \"aggressive\": 10 }, \"totalYieldEstimate\": { \"conservative\": 5.2, \"mo...",
+      "key_phrases": [
+        "timestamp",
+        "conservative",
+        "moderate",
+        "aggressive",
+        "1784798667356"
+      ],
+      "topics": [
+        "data_analysis"
+      ],
+      "hash": "d2e8175c3390ffa3ab33904834eb123c",
+      "indexed": "2026-07-24T14:10:59.905Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Development-Tech/Code-Projects/eigenlayer_service.js",
+      "size": 4371,
+      "mtime": "2026-07-23T11:24:24",
+      "summary": "const fs = require('fs'); const path = require('path'); const CACHE_FILE = path.join(__dirname, '../../data/eigenlayer_cache.json'); const CACHE_TTL_MS = 10 * 60 * 1000; // 10 minutes class EigenLayer...",
+      "key_phrases": [
+        "console",
+        "const",
+        "cachekey",
+        "cache",
+        "return",
+        "result",
+        "error",
+        "timestamp",
+        "yields",
+        "estimated"
+      ],
+      "topics": [
+        "investment",
+        "development",
+        "data_analysis"
+      ],
+      "hash": "3612bfdd1440fb659c35ca66d29dcd61",
+      "indexed": "2026-07-24T14:10:59.906Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Development-Tech/Code-Projects/eigenlayer_service_1.js",
+      "size": 4371,
+      "mtime": "2026-07-23T11:24:24",
+      "summary": "const fs = require('fs'); const path = require('path'); const CACHE_FILE = path.join(__dirname, '../../data/eigenlayer_cache.json'); const CACHE_TTL_MS = 10 * 60 * 1000; // 10 minutes class EigenLayer...",
+      "key_phrases": [
+        "console",
+        "const",
+        "cachekey",
+        "cache",
+        "return",
+        "result",
+        "error",
+        "timestamp",
+        "yields",
+        "estimated"
+      ],
+      "topics": [
+        "investment",
+        "development",
+        "data_analysis"
+      ],
+      "hash": "3612bfdd1440fb659c35ca66d29dcd61",
+      "indexed": "2026-07-24T14:10:59.907Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Development-Tech/Code-Projects/etherscan_cache.json",
+      "size": 608,
+      "mtime": "2026-07-23T11:33:07",
+      "summary": "{ \"data\": { \"ethSupply\": { \"data\": { \"totalSupply\": \"120257000000000000000000000\", \"timestamp\": 1784799187023 }, \"timestamp\": 1784799187023 }, \"gasOracle\": { \"data\": { \"safeGasPrice\": \"12\", \"proposeGa...",
+      "key_phrases": [
+        "timestamp",
+        "1784799187025",
+        "1784799187023"
+      ],
+      "topics": [
+        "investment",
+        "data_analysis"
+      ],
+      "hash": "898f4e3b72fc45d9d1d1623763a24590",
+      "indexed": "2026-07-24T14:10:59.907Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Development-Tech/Code-Projects/etherscan_cache_1.json",
+      "size": 608,
+      "mtime": "2026-07-23T11:33:07",
+      "summary": "{ \"data\": { \"ethSupply\": { \"data\": { \"totalSupply\": \"120257000000000000000000000\", \"timestamp\": 1784799187023 }, \"timestamp\": 1784799187023 }, \"gasOracle\": { \"data\": { \"safeGasPrice\": \"12\", \"proposeGa...",
+      "key_phrases": [
+        "timestamp",
+        "1784799187025",
+        "1784799187023"
+      ],
+      "topics": [
+        "investment",
+        "data_analysis"
+      ],
+      "hash": "898f4e3b72fc45d9d1d1623763a24590",
+      "indexed": "2026-07-24T14:10:59.908Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Development-Tech/Code-Projects/etherscan_service.js",
+      "size": 4890,
+      "mtime": "2026-07-23T11:24:24",
+      "summary": "const https = require('https'); const fs = require('fs'); const path = require('path'); const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY || ''; const CACHE_FILE = path.join(__dirname, '../../da...",
+      "key_phrases": [
+        "const",
+        "console",
+        "cachekey",
+        "cache",
+        "return",
+        "timestamp",
+        "result",
+        "error",
+        "totalsupply",
+        "supply"
+      ],
+      "topics": [
+        "investment",
+        "development",
+        "data_analysis",
+        "configuration",
+        "security"
+      ],
+      "hash": "49fae041da36b80a70db449533d0f86b",
+      "indexed": "2026-07-24T14:10:59.908Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Development-Tech/Code-Projects/etherscan_service_1.js",
+      "size": 4890,
+      "mtime": "2026-07-23T11:24:24",
+      "summary": "const https = require('https'); const fs = require('fs'); const path = require('path'); const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY || ''; const CACHE_FILE = path.join(__dirname, '../../da...",
+      "key_phrases": [
+        "const",
+        "console",
+        "cachekey",
+        "cache",
+        "return",
+        "timestamp",
+        "result",
+        "error",
+        "totalsupply",
+        "supply"
+      ],
+      "topics": [
+        "investment",
+        "development",
+        "data_analysis",
+        "configuration",
+        "security"
+      ],
+      "hash": "49fae041da36b80a70db449533d0f86b",
+      "indexed": "2026-07-24T14:10:59.909Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Development-Tech/Code-Projects/generate_chart.js",
+      "size": 825,
+      "mtime": "2026-07-23T11:45:05",
+      "summary": "const puppeteer = require('puppeteer'); const fs = require('fs'); const path = require('path'); async function generateChart() { const browser = await puppeteer.launch(); const page = await browser.ne...",
+      "key_phrases": [
+        "await",
+        "const",
+        "puppeteer",
+        "require",
+        "browser",
+        "chart_14pm",
+        "generatechart",
+        "width",
+        "height",
+        "htmlpath"
+      ],
+      "topics": [
+        "development",
+        "data_analysis"
+      ],
+      "hash": "c022d9c8cdc1fc0ed5f9a3d1902dd5fd",
+      "indexed": "2026-07-24T14:10:59.910Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Development-Tech/Code-Projects/generate_chart_1.js",
+      "size": 825,
+      "mtime": "2026-07-23T11:45:05",
+      "summary": "const puppeteer = require('puppeteer'); const fs = require('fs'); const path = require('path'); async function generateChart() { const browser = await puppeteer.launch(); const page = await browser.ne...",
+      "key_phrases": [
+        "await",
+        "const",
+        "puppeteer",
+        "require",
+        "browser",
+        "chart_14pm",
+        "generatechart",
+        "width",
+        "height",
+        "htmlpath"
+      ],
+      "topics": [
+        "development",
+        "data_analysis"
+      ],
+      "hash": "c022d9c8cdc1fc0ed5f9a3d1902dd5fd",
+      "indexed": "2026-07-24T14:10:59.911Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Development-Tech/Code-Projects/generate_chart_enhanced.js",
+      "size": 8110,
+      "mtime": "2026-07-23T12:30:53",
+      "summary": "const puppeteer = require('puppeteer'); const fs = require('fs'); const path = require('path'); async function generateEnhancedChart() { const browser = await puppeteer.launch(); const page = await br...",
+      "key_phrases": [
+        "class",
+        "level",
+        "color",
+        "price",
+        "border",
+        "label",
+        "display",
+        "section",
+        "align",
+        "const"
+      ],
+      "topics": [
+        "investment",
+        "mission_control",
+        "development",
+        "data_analysis",
+        "security"
+      ],
+      "hash": "35021f566a947e31e1d2f7ee73e166ec",
+      "indexed": "2026-07-24T14:10:59.912Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Development-Tech/Code-Projects/lido_cache.json",
+      "size": 385,
+      "mtime": "2026-07-23T11:33:07",
+      "summary": "{ \"data\": { \"stethAPR\": { \"data\": { \"apr\": 0.032, \"aprType\": \"movingAverage\", \"timestamp\": 1784799187027 }, \"timestamp\": 1784799187027 }, \"stethSupply\": { \"data\": { \"totalSupply\": \"9500000000000000000...",
+      "key_phrases": [
+        "timestamp",
+        "1784799187027"
+      ],
+      "topics": [
+        "investment",
+        "data_analysis"
+      ],
+      "hash": "0ef6c88bc1d49dfec8ea40eeea8cf521",
+      "indexed": "2026-07-24T14:10:59.912Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Development-Tech/Code-Projects/lido_cache_1.json",
+      "size": 385,
+      "mtime": "2026-07-23T11:33:07",
+      "summary": "{ \"data\": { \"stethAPR\": { \"data\": { \"apr\": 0.032, \"aprType\": \"movingAverage\", \"timestamp\": 1784799187027 }, \"timestamp\": 1784799187027 }, \"stethSupply\": { \"data\": { \"totalSupply\": \"9500000000000000000...",
+      "key_phrases": [
+        "timestamp",
+        "1784799187027"
+      ],
+      "topics": [
+        "investment",
+        "data_analysis"
+      ],
+      "hash": "0ef6c88bc1d49dfec8ea40eeea8cf521",
+      "indexed": "2026-07-24T14:10:59.913Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Development-Tech/Code-Projects/lido_service.js",
+      "size": 5284,
+      "mtime": "2026-07-23T11:23:54",
+      "summary": "const https = require('https'); const fs = require('fs'); const path = require('path'); const CACHE_FILE = path.join(__dirname, '../../data/lido_cache.json'); const CACHE_TTL_MS = 5 * 60 * 1000; class...",
+      "key_phrases": [
+        "const",
+        "error",
+        "return",
+        "cachekey",
+        "cache",
+        "console",
+        "steth",
+        "result",
+        "timestamp",
+        "reject"
+      ],
+      "topics": [
+        "investment",
+        "mission_control",
+        "development",
+        "data_analysis",
+        "configuration",
+        "security"
+      ],
+      "hash": "99939cde2664c8be57db995c35983a2f",
+      "indexed": "2026-07-24T14:10:59.913Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Development-Tech/Code-Projects/lido_service_1.js",
+      "size": 5284,
+      "mtime": "2026-07-23T11:23:54",
+      "summary": "const https = require('https'); const fs = require('fs'); const path = require('path'); const CACHE_FILE = path.join(__dirname, '../../data/lido_cache.json'); const CACHE_TTL_MS = 5 * 60 * 1000; class...",
+      "key_phrases": [
+        "const",
+        "error",
+        "return",
+        "cachekey",
+        "cache",
+        "console",
+        "steth",
+        "result",
+        "timestamp",
+        "reject"
+      ],
+      "topics": [
+        "investment",
+        "mission_control",
+        "development",
+        "data_analysis",
+        "configuration",
+        "security"
+      ],
+      "hash": "99939cde2664c8be57db995c35983a2f",
+      "indexed": "2026-07-24T14:10:59.914Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Development-Tech/Code-Projects/mission_control_index_updated.html",
+      "size": 195377,
+      "mtime": "2026-07-15T09:52:24",
+      "summary": "<!DOCTYPE html> <html lang=\"en\"> <head> <meta charset=\"UTF-8\"> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"> <title>@quentinvest1 | Mission Control v7.6</title> <script src=\"h...",
+      "key_phrases": [
+        "class",
+        "metric",
+        "style",
+        "color",
+        "activity",
+        "label",
+        "value",
+        "accent",
+        "content",
+        "strong"
+      ],
+      "topics": [
+        "investment",
+        "pod_business",
+        "mission_control",
+        "development",
+        "data_analysis",
+        "configuration",
+        "security",
+        "system_maintenance"
+      ],
+      "hash": "4e3a64cfd40d414ee0dc810de07cd929",
+      "indexed": "2026-07-24T14:10:59.923Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Development-Tech/Code-Projects/unified_data_service.js",
+      "size": 6886,
+      "mtime": "2026-07-23T11:23:34",
+      "summary": "const EtherscanService = require('./etherscan_service'); const LidoService = require('./lido_service'); const EigenLayerService = require('./eigenlayer_service'); const CoinGeckoProService = require('...",
+      "key_phrases": [
+        "snapshot",
+        "console",
+        "const",
+        "error",
+        "sources",
+        "message",
+        "etherscan",
+        "coingecko",
+        "restakingyield",
+        "insights"
+      ],
+      "topics": [
+        "investment",
+        "mission_control",
+        "development",
+        "data_analysis"
+      ],
+      "hash": "08de3935818a787487efcf9e0e29795c",
+      "indexed": "2026-07-24T14:10:59.924Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Development-Tech/Code-Projects/unified_data_service_1.js",
+      "size": 6886,
+      "mtime": "2026-07-23T11:23:34",
+      "summary": "const EtherscanService = require('./etherscan_service'); const LidoService = require('./lido_service'); const EigenLayerService = require('./eigenlayer_service'); const CoinGeckoProService = require('...",
+      "key_phrases": [
+        "snapshot",
+        "console",
+        "const",
+        "error",
+        "sources",
+        "message",
+        "etherscan",
+        "coingecko",
+        "restakingyield",
+        "insights"
+      ],
+      "topics": [
+        "investment",
+        "mission_control",
+        "development",
+        "data_analysis"
+      ],
+      "hash": "08de3935818a787487efcf9e0e29795c",
+      "indexed": "2026-07-24T14:10:59.925Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Home-Life/Misc/01_etf_ecosystem.md",
+      "size": 1854,
+      "mtime": "2026-07-23T11:01:59",
+      "summary": "# Ethereum ETF Ecosystem ## Overview Ethereum ETFs represent the primary institutional on-ramp for ETH exposure. Understanding flow dynamics, creation/redemption mechanics, and market impact is critic...",
+      "key_phrases": [
+        "ethereum",
+        "creation",
+        "issuer",
+        "premium",
+        "discount",
+        "outflows",
+        "farside",
+        "institutional",
+        "dynamics",
+        "redemption"
+      ],
+      "topics": [
+        "investment",
+        "mission_control",
+        "development",
+        "data_analysis",
+        "configuration",
+        "security",
+        "system_maintenance"
+      ],
+      "hash": "f447c760a4c597019a58e4f98192e349",
+      "indexed": "2026-07-24T14:10:59.926Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Home-Life/Misc/01_etf_ecosystem_1.md",
+      "size": 1854,
+      "mtime": "2026-07-23T11:01:59",
+      "summary": "# Ethereum ETF Ecosystem ## Overview Ethereum ETFs represent the primary institutional on-ramp for ETH exposure. Understanding flow dynamics, creation/redemption mechanics, and market impact is critic...",
+      "key_phrases": [
+        "ethereum",
+        "creation",
+        "issuer",
+        "premium",
+        "discount",
+        "outflows",
+        "farside",
+        "institutional",
+        "dynamics",
+        "redemption"
+      ],
+      "topics": [
+        "investment",
+        "mission_control",
+        "development",
+        "data_analysis",
+        "configuration",
+        "security",
+        "system_maintenance"
+      ],
+      "hash": "f447c760a4c597019a58e4f98192e349",
+      "indexed": "2026-07-24T14:10:59.927Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Home-Life/Misc/01_what_ethereum_solves.md",
+      "size": 6044,
+      "mtime": "2026-07-23T11:06:03",
+      "summary": "# What Ethereum Solves: The Problem-Solution Matrix ## The Core Thesis Ethereum isn't just a blockchain — it's programmable economic infrastructure that solves fundamental problems in finance, coordin...",
+      "key_phrases": [
+        "ethereum",
+        "problem",
+        "solution",
+        "financial",
+        "finance",
+        "traditional",
+        "hours",
+        "access",
+        "permissionless",
+        "custody"
+      ],
+      "topics": [
+        "investment",
+        "pod_business",
+        "mission_control",
+        "development",
+        "data_analysis",
+        "configuration",
+        "security",
+        "system_maintenance"
+      ],
+      "hash": "87d17d38515ee1cd40339588c4c6b7b4",
+      "indexed": "2026-07-24T14:10:59.927Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Home-Life/Misc/01_what_ethereum_solves_1.md",
+      "size": 6044,
+      "mtime": "2026-07-23T11:06:03",
+      "summary": "# What Ethereum Solves: The Problem-Solution Matrix ## The Core Thesis Ethereum isn't just a blockchain — it's programmable economic infrastructure that solves fundamental problems in finance, coordin...",
+      "key_phrases": [
+        "ethereum",
+        "problem",
+        "solution",
+        "financial",
+        "finance",
+        "traditional",
+        "hours",
+        "access",
+        "permissionless",
+        "custody"
+      ],
+      "topics": [
+        "investment",
+        "pod_business",
+        "mission_control",
+        "development",
+        "data_analysis",
+        "configuration",
+        "security",
+        "system_maintenance"
+      ],
+      "hash": "87d17d38515ee1cd40339588c4c6b7b4",
+      "indexed": "2026-07-24T14:10:59.928Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Home-Life/Misc/02_treasury_adoption.md",
+      "size": 2607,
+      "mtime": "2026-07-23T11:01:59",
+      "summary": "# Corporate Treasury Ethereum Holdings ## Overview Corporate treasury adoption of ETH is nascent compared to BTC, but precedent exists. Understanding accounting treatment, risk appetite, and strategic...",
+      "key_phrases": [
+        "treasury",
+        "adoption",
+        "corporate",
+        "companies",
+        "holdings",
+        "staking",
+        "ethereum",
+        "accounting",
+        "rationale",
+        "company"
+      ],
+      "topics": [
+        "investment",
+        "pod_business",
+        "mission_control",
+        "development",
+        "data_analysis",
+        "configuration",
+        "system_maintenance"
+      ],
+      "hash": "29ee8079bf00abe969da13a1f4f17367",
+      "indexed": "2026-07-24T14:10:59.929Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Home-Life/Misc/02_treasury_adoption_1.md",
+      "size": 2607,
+      "mtime": "2026-07-23T11:01:59",
+      "summary": "# Corporate Treasury Ethereum Holdings ## Overview Corporate treasury adoption of ETH is nascent compared to BTC, but precedent exists. Understanding accounting treatment, risk appetite, and strategic...",
+      "key_phrases": [
+        "treasury",
+        "adoption",
+        "corporate",
+        "companies",
+        "holdings",
+        "staking",
+        "ethereum",
+        "accounting",
+        "rationale",
+        "company"
+      ],
+      "topics": [
+        "investment",
+        "pod_business",
+        "mission_control",
+        "development",
+        "data_analysis",
+        "configuration",
+        "system_maintenance"
+      ],
+      "hash": "29ee8079bf00abe969da13a1f4f17367",
+      "indexed": "2026-07-24T14:10:59.929Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Home-Life/Misc/06_tokenized_treasuries.md",
+      "size": 4627,
+      "mtime": "2026-07-23T11:06:04",
+      "summary": "# Tokenized Treasuries on Ethereum ## Overview Tokenized government bonds represent the bridge between traditional finance (TradFi) and decentralized finance (DeFi). BlackRock's BUIDL fund ($500M+) is...",
+      "key_phrases": [
+        "buidl",
+        "tokenized",
+        "yield",
+        "treasuries",
+        "blackrock",
+        "collateral",
+        "chain",
+        "traditional",
+        "institutional",
+        "market"
+      ],
+      "topics": [
+        "investment",
+        "pod_business",
+        "mission_control",
+        "development",
+        "data_analysis",
+        "configuration",
+        "security",
+        "system_maintenance"
+      ],
+      "hash": "9f96d501e1d74d9fe12641c67e99b45a",
+      "indexed": "2026-07-24T14:10:59.930Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Home-Life/Misc/06_tokenized_treasuries_1.md",
+      "size": 4627,
+      "mtime": "2026-07-23T11:06:04",
+      "summary": "# Tokenized Treasuries on Ethereum ## Overview Tokenized government bonds represent the bridge between traditional finance (TradFi) and decentralized finance (DeFi). BlackRock's BUIDL fund ($500M+) is...",
+      "key_phrases": [
+        "buidl",
+        "tokenized",
+        "yield",
+        "treasuries",
+        "blackrock",
+        "collateral",
+        "chain",
+        "traditional",
+        "institutional",
+        "market"
+      ],
+      "topics": [
+        "investment",
+        "pod_business",
+        "mission_control",
+        "development",
+        "data_analysis",
+        "configuration",
+        "security",
+        "system_maintenance"
+      ],
+      "hash": "9f96d501e1d74d9fe12641c67e99b45a",
+      "indexed": "2026-07-24T14:10:59.931Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Home-Life/Misc/07_blackrock_ethereum_products.md",
+      "size": 4670,
+      "mtime": "2026-07-23T11:06:32",
+      "summary": "# BlackRock Ethereum Ecosystem ## Overview BlackRock is the single most important institutional player in Ethereum. Their products, research, and capital flows shape the market. ## Products Overview #...",
+      "key_phrases": [
+        "blackrock",
+        "ethereum",
+        "buidl",
+        "institutional",
+        "flows",
+        "integration",
+        "research",
+        "trust",
+        "creation",
+        "products"
+      ],
+      "topics": [
+        "investment",
+        "pod_business",
+        "mission_control",
+        "development",
+        "data_analysis",
+        "configuration",
+        "security",
+        "system_maintenance"
+      ],
+      "hash": "0908a57c61c018c40270b7e6bfcbd60c",
+      "indexed": "2026-07-24T14:10:59.932Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Home-Life/Misc/07_blackrock_ethereum_products_1.md",
+      "size": 4670,
+      "mtime": "2026-07-23T11:06:32",
+      "summary": "# BlackRock Ethereum Ecosystem ## Overview BlackRock is the single most important institutional player in Ethereum. Their products, research, and capital flows shape the market. ## Products Overview #...",
+      "key_phrases": [
+        "blackrock",
+        "ethereum",
+        "buidl",
+        "institutional",
+        "flows",
+        "integration",
+        "research",
+        "trust",
+        "creation",
+        "products"
+      ],
+      "topics": [
+        "investment",
+        "pod_business",
+        "mission_control",
+        "development",
+        "data_analysis",
+        "configuration",
+        "security",
+        "system_maintenance"
+      ],
+      "hash": "0908a57c61c018c40270b7e6bfcbd60c",
+      "indexed": "2026-07-24T14:10:59.932Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Home-Life/Misc/11_liquid_staking.md",
+      "size": 5249,
+      "mtime": "2026-07-23T11:06:32",
+      "summary": "# Liquid Staking: Ethereum's Yield Revolution ## Overview Liquid staking allows ETH holders to earn staking rewards while maintaining liquidity. This creates a capital-efficient yield layer that under...",
+      "key_phrases": [
+        "staking",
+        "yield",
+        "restaking",
+        "liquid",
+        "liquidity",
+        "staked",
+        "protocol",
+        "eigenlayer",
+        "total",
+        "custody"
+      ],
+      "topics": [
+        "investment",
+        "pod_business",
+        "mission_control",
+        "development",
+        "data_analysis",
+        "configuration",
+        "security",
+        "system_maintenance"
+      ],
+      "hash": "1e29451ed8bd3d49986a5c9a4f00031e",
+      "indexed": "2026-07-24T14:10:59.934Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Home-Life/Misc/11_liquid_staking_1.md",
+      "size": 5249,
+      "mtime": "2026-07-23T11:06:32",
+      "summary": "# Liquid Staking: Ethereum's Yield Revolution ## Overview Liquid staking allows ETH holders to earn staking rewards while maintaining liquidity. This creates a capital-efficient yield layer that under...",
+      "key_phrases": [
+        "staking",
+        "yield",
+        "restaking",
+        "liquid",
+        "liquidity",
+        "staked",
+        "protocol",
+        "eigenlayer",
+        "total",
+        "custody"
+      ],
+      "topics": [
+        "investment",
+        "pod_business",
+        "mission_control",
+        "development",
+        "data_analysis",
+        "configuration",
+        "security",
+        "system_maintenance"
+      ],
+      "hash": "1e29451ed8bd3d49986a5c9a4f00031e",
+      "indexed": "2026-07-24T14:10:59.934Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Home-Life/Misc/CONTENT_LIBRARY.md",
+      "size": 4541,
+      "mtime": "2026-07-23T11:11:13",
+      "summary": "# X Post Content Library ## Post Types by Category ### 🔷 TYPE A: Data Drop **Structure:** 1. Lead number (surprising stat) 2. Context (what it means) 3. Implication (why it matters) 4. Forward look (...",
+      "key_phrases": [
+        "contrarian",
+        "flows",
+        "structure",
+        "example",
+        "price",
+        "infrastructure",
+        "thesis",
+        "posts",
+        "topic",
+        "implication"
+      ],
+      "topics": [
+        "investment",
+        "mission_control",
+        "data_analysis",
+        "configuration",
+        "security",
+        "system_maintenance"
+      ],
+      "hash": "96f139b825239b6dfff6ec48fc48b0d4",
+      "indexed": "2026-07-24T14:10:59.935Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Home-Life/Misc/CONTENT_LIBRARY_1.md",
+      "size": 4541,
+      "mtime": "2026-07-23T11:11:13",
+      "summary": "# X Post Content Library ## Post Types by Category ### 🔷 TYPE A: Data Drop **Structure:** 1. Lead number (surprising stat) 2. Context (what it means) 3. Implication (why it matters) 4. Forward look (...",
+      "key_phrases": [
+        "contrarian",
+        "flows",
+        "structure",
+        "example",
+        "price",
+        "infrastructure",
+        "thesis",
+        "posts",
+        "topic",
+        "implication"
+      ],
+      "topics": [
+        "investment",
+        "mission_control",
+        "data_analysis",
+        "configuration",
+        "security",
+        "system_maintenance"
+      ],
+      "hash": "96f139b825239b6dfff6ec48fc48b0d4",
+      "indexed": "2026-07-24T14:10:59.936Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Home-Life/Misc/DATA_SOURCES.md",
+      "size": 6073,
+      "mtime": "2026-07-23T11:14:48",
+      "summary": "# Ethereum Authority — Data Sources & Verification ## Primary Data Sources ### Market Data | Source | Use | Frequency | Limitations | |--------|-----|-----------|-------------| | **Twelve Data** | Pri...",
+      "key_phrases": [
+        "source",
+        "chain",
+        "sources",
+        "flows",
+        "protocol",
+        "frequency",
+        "metrics",
+        "institutional",
+        "daily",
+        "direct"
+      ],
+      "topics": [
+        "investment",
+        "pod_business",
+        "mission_control",
+        "development",
+        "data_analysis",
+        "security",
+        "system_maintenance"
+      ],
+      "hash": "ba472e2a53b405a651b0e02cff595bd4",
+      "indexed": "2026-07-24T14:10:59.937Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Home-Life/Misc/DATA_SOURCES_1.md",
+      "size": 6073,
+      "mtime": "2026-07-23T11:14:48",
+      "summary": "# Ethereum Authority — Data Sources & Verification ## Primary Data Sources ### Market Data | Source | Use | Frequency | Limitations | |--------|-----|-----------|-------------| | **Twelve Data** | Pri...",
+      "key_phrases": [
+        "source",
+        "chain",
+        "sources",
+        "flows",
+        "protocol",
+        "frequency",
+        "metrics",
+        "institutional",
+        "daily",
+        "direct"
+      ],
+      "topics": [
+        "investment",
+        "pod_business",
+        "mission_control",
+        "development",
+        "data_analysis",
+        "security",
+        "system_maintenance"
+      ],
+      "hash": "ba472e2a53b405a651b0e02cff595bd4",
+      "indexed": "2026-07-24T14:10:59.937Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Home-Life/Misc/post_10am.md",
+      "size": 1016,
+      "mtime": "2026-07-23T11:10:48",
+      "summary": "--- # X POST 2 — 10:00 CET # TOPIC: Liquid Staking / DeFi / Yield --- **HOOK:** Educational + opportunity angle **TEXT:** Liquid staking is Ethereum's hidden yield revolution. Current landscape: • Tot...",
+      "key_phrases": [
+        "staking",
+        "yield",
+        "collateral",
+        "liquid",
+        "ethereum",
+        "staked",
+        "steth"
+      ],
+      "topics": [
+        "investment",
+        "mission_control",
+        "data_analysis"
+      ],
+      "hash": "3da1949e360323e5378a090b33e82361",
+      "indexed": "2026-07-24T14:10:59.938Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Home-Life/Misc/post_10am_1.md",
+      "size": 1016,
+      "mtime": "2026-07-23T11:10:48",
+      "summary": "--- # X POST 2 — 10:00 CET # TOPIC: Liquid Staking / DeFi / Yield --- **HOOK:** Educational + opportunity angle **TEXT:** Liquid staking is Ethereum's hidden yield revolution. Current landscape: • Tot...",
+      "key_phrases": [
+        "staking",
+        "yield",
+        "collateral",
+        "liquid",
+        "ethereum",
+        "staked",
+        "steth"
+      ],
+      "topics": [
+        "investment",
+        "mission_control",
+        "data_analysis"
+      ],
+      "hash": "3da1949e360323e5378a090b33e82361",
+      "indexed": "2026-07-24T14:10:59.938Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Home-Life/Misc/post_14pm_visual.md",
+      "size": 941,
+      "mtime": "2026-07-23T11:39:39",
+      "summary": "--- # X POST — 14:00 CET (Visual) # TOPIC: Technical Levels # DATA: Live APIs + Chart --- **TEXT:** ETH technical levels — $1,928 Resistance: • $2,000 — Psychological + rejection zone • $2,100 — June...",
+      "key_phrases": [
+        "technical",
+        "levels",
+        "chart",
+        "chain",
+        "exchange",
+        "funding",
+        "neutral",
+        "overheated"
+      ],
+      "topics": [
+        "investment",
+        "development",
+        "data_analysis"
+      ],
+      "hash": "e12394d654dd0e480e97ea8165b1aacd",
+      "indexed": "2026-07-24T14:10:59.939Z",
+      "encoding": "utf8"
+    },
+    {
+      "path": "C:/Users/quent/OneDrive/Home-Life/Misc/post_14pm_visual_1.md",
+      "size": 941,
+      "mtime": "2026-07-23T11:39:39",
+      "summary": "--- # X POST — 14:00 CET (Visual) # TOPIC: Technical Levels # DATA: Live APIs + Chart --- **TEXT:** ETH technical levels — $1,928 Resistance: • $2,000 — Psychological + rejection zone • $2,100 — June...",
+      "key_phrases": [
+        "technical",
+        "levels",
+        "chart",
+        "chain",
+        "exchange",
+        "funding",
+        "neutral",
+        "overheated"
+      ],
+      "topics": [
+        "investment",
+        "development",
+        "data_analysis"
+      ],
+      "hash": "e12394d654dd0e480e97ea8165b1aacd",
+      "indexed": "2026-07-24T14:10:59.940Z",
       "encoding": "utf8"
     }
   ],

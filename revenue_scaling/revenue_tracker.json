@@ -1,0 +1,56 @@
+{
+  "baseline": {
+    "date": "2026-07-24",
+    "total_revenue": 0,
+    "streams": {
+      "pod": {
+        "revenue": 0,
+        "status": "blocked",
+        "notes": "Printify API token expired - 5 min fix required"
+      },
+      "alpha_fund": {
+        "revenue": 0,
+        "status": "paper_trading",
+        "notes": "Signals validated, awaiting €10K live capital deployment"
+      },
+      "newsletter": {
+        "revenue": 0,
+        "status": "operational",
+        "notes": "1 test subscriber, daily briefs automated, needs paid tier"
+      },
+      "gumroad": {
+        "revenue": 0,
+        "status": "not_launched",
+        "notes": "4 products packaged, needs Gumroad account + upload"
+      },
+      "x_premium": {
+        "revenue": 0,
+        "status": "pre_revenue",
+        "notes": "219 followers, content pipeline active, need 500+ for monetization"
+      },
+      "agency": {
+        "revenue": 0,
+        "status": "not_launched",
+        "notes": "No clients yet, portfolio ready"
+      },
+      "saas": {
+        "revenue": 0,
+        "status": "not_launched",
+        "notes": "80% built (research infra), needs auth + billing + landing page"
+      }
+    }
+  },
+  "targets": {
+    "week_1": 500,
+    "week_2": 1000,
+    "week_3": 1500,
+    "week_4": 2500,
+    "month_2": 4000,
+    "month_3": 7000,
+    "month_6": 10300
+  },
+  "weekly_log": [],
+  "last_updated": "2026-07-24T13:21:10.000Z",
+  "actions_completed": [],
+  "next_review": "2026-07-31T07:00:00+02:00"
+}

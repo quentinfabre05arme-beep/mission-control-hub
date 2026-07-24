@@ -2,7 +2,7 @@
   "portfolio_id": "alpha-paper-001",
   "created_at": "2026-07-21T00:00:00Z",
   "initial_capital": 10000,
-  "current_value": 8766.374564144497,
+  "current_value": 8696.174432184496,
   "cash": 1258.1890473744959,
   "positions": [
     {
@@ -12,9 +12,9 @@
       "stopLoss": 58.28,
       "takeProfit": 117.29,
       "entryDate": "2026-07-20T23:36:03.345Z",
-      "unrealizedPnl": -49.66999999999918,
-      "unrealizedPnlPct": -2.228333527738613,
-      "currentPrice": 75.15
+      "unrealizedPnl": -87.36999999999951,
+      "unrealizedPnlPct": -3.919659760791716,
+      "currentPrice": 73.85
     },
     {
       "ticker": "BTC",
@@ -23,9 +23,9 @@
       "stopLoss": 56281.9,
       "takeProfit": 83462.56,
       "entryDate": "2026-07-21T11:36:41.521Z",
-      "unrealizedPnl": -14.434289999999969,
-      "unrealizedPnlPct": -0.9952053275148698,
-      "currentPrice": 64978
+      "unrealizedPnl": -40.73209999999997,
+      "unrealizedPnlPct": -2.8083683313047225,
+      "currentPrice": 63788
     },
     {
       "ticker": "HIMS",
@@ -53,12 +53,12 @@
       "ticker": "ETH",
       "shares": 0.229037,
       "entryPrice": 1889.93,
-      "currentPrice": 1881.21,
+      "currentPrice": 1854.13,
       "stopLoss": 1559.19,
       "takeProfit": 2562.49,
       "entryDate": "2026-07-24T08:37:20.019Z",
-      "unrealizedPnl": -1.9972026400000062,
-      "unrealizedPnlPct": -0.46139274999603686
+      "unrealizedPnl": -8.19952459999999,
+      "unrealizedPnlPct": -1.894250051589208
     },
     {
       "ticker": "TSLA",
@@ -400,14 +400,14 @@
     }
   ],
   "performance": {
-    "total_return": -12.336254358555031,
+    "total_return": -13.038255678155043,
     "total_trades": 20,
     "winning_trades": 0,
-    "losing_trades": 6,
+    "losing_trades": 3,
     "win_rate": 0,
     "avg_winner": 0,
     "avg_loser": 0,
-    "max_drawdown": 13.109549244420862
+    "max_drawdown": 13.55691725783209
   },
   "daily_snapshots": [
     {
@@ -476,10 +476,11 @@
     },
     {
       "date": "2026-07-24",
-      "value": 8814.125050083538,
-      "cash": 1400.052496643536,
+      "value": 8766.374564144497,
+      "cash": 1258.1890473744959,
       "positions_count": 10,
-      "timestamp": "2026-07-24T06:34:46.769Z"
+      "timestamp": "2026-07-24T13:20:59.546Z",
+      "unrealized_pnl": -58.53140263999923
     },
     {
       "date": "2026-07-24",
